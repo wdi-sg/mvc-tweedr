@@ -1,20 +1,12 @@
-module.exports = (app, allModels) => {
+module.exports = function (app, allModels) {
+    const userController = require('./controllers/user')(allModels);
+    const tweetController = require('./controllers/tweet')(allModels);
 
+    app.get('/', tweetController.homeRequestHandler);
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+    app.get('/login', userController.loginRequestHandler);
+    app.post('/login', userController.authenticateRequestHandler);
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
-
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+    app.get('/register', userController.registerRequestHandler);
+    app.post('/register', userController.createAccountRequestHandler);
 };

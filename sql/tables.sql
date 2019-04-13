@@ -1,15 +1,13 @@
 CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
+    username TEXT PRIMARY KEY,
     password TEXT,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS tweets (
     id SERIAL PRIMARY KEY,
+    users_username TEXT,
     content TEXT,
-    user_id INTEGER,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );

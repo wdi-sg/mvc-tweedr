@@ -1,13 +1,19 @@
+const helper = require('../helper');
+
 module.exports = function(db) {
 
     let homeRequestHandler = async function(request, response) {
         try {
-            let allTweets = await db.tweets.getAllTweets();
-            let data = { 'tweets': allTweets}
+            if (helper.checkForLogin(request.cookies) === true) {
+                let allTweets = await db.tweets.getAllTweets();
+                let data = { 'tweets': allTweets}
 
-            response.render('home', data);
-
+                response.render('home', data);
+            } else {
+                response.render('user/login');
+            }
         } catch(e) {
+
             console.log('tweet controller ' + e);
         }
     };

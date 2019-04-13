@@ -1,8 +1,9 @@
 const SALT = '9UYS*u7y^@hgs';
 const sha256 = require('js-sha256');
-const helperFunction = require('../helper');
+const helper = require('../helper');
 
 module.exports = function(dbPoolInstance) {
+
     let authenticate = async function(username, password) {
         try {
             const passwordHash = sha256(password + SALT);
@@ -24,7 +25,7 @@ module.exports = function(dbPoolInstance) {
         try {
             const passwordHash = sha256(password + SALT);
 
-            const values = [username, passwordHash, helperFunction.getCurrentDateAndTime()];
+            const values = [username, passwordHash, helper.getCurrentDateAndTime()];
             const sqlQuery = `INSERT INTO users (username, password, created_at)
                               VALUES ($1, $2, $3) RETURNING *`;
 

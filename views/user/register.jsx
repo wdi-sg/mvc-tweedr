@@ -5,11 +5,11 @@ class Register extends React.Component {
   render() {
     return (
         <DefaultLayout title="Register Account">
-            <form action="/register" method="POST">
+            <form className="register" action="/register" method="POST">
                 <h1>Register New Account</h1>
-                Username: <input className="form-control" name="username"/><br/>
-                Password: <input type="password" className="form-control" name="password"/><br/>
-                <input className="btn btn-primary" type="submit" value="Register"/>
+                <input type="text" className="form-control username" name="username" placeholder="Username"/>
+                <input type="password" className="form-control password" name="password" placeholder="Password"/>
+                <input className="btn btn-success" type="submit" value="Register New Account"/>
             </form>
         </DefaultLayout>
     );

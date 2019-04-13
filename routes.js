@@ -12,9 +12,18 @@ module.exports = (app, allModels) => {
    *  =========================================
    */
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+    // required controllers for login page, home page
+    const loginControllerCallbacks = require('./controllers/login')(allModels);
+    const homeControllerCallbacks = require('./controllers/home')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
+    // require the controller for users
+    // const tweedsControllerCallbacks = require('./controllers/tweeds')(allModels);
+
+    app.get('/login', loginControllerCallbacks.login); //--okay
+    app.post('/login', loginControllerCallbacks.successL); //-- once logged in user would be directed to home page
+
+    app.post('/register', loginControllerCallbacks.successR);
+
+    app.get('/home', homeControllerCallbacks.home);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

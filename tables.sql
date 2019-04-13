@@ -4,9 +4,9 @@ username TEXT,
 password TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweeds (
 id SERIAL PRIMARY KEY,
-rants TEXT,
+tweeds TEXT,
 user_id INTEGER
 );
 

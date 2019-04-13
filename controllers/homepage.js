@@ -11,13 +11,13 @@ module.exports = (db) => {
         // console.log(result[0]);
         let thing = {ccb : result}
         // console.log(thing);
-        response.render('pokemon/index', thing);
+        response.render('homepage', thing);
       });
   };
 
 
   /**
-   * ====================s=======================
+   * ===========================================
    * Export controller functions as a module
    * ===========================================
    */

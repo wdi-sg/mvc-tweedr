@@ -10,12 +10,24 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.3",
-    "express": "^4.16.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
     "express-react-views": "^0.10.5",
     "method-override": "^2.3.10",
-    "pg": "^7.4.3",
+    "pg": "^7.9.0",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
-  }
+    "react-dom": "^16.3.2",
+    "url": "^0.11.0"
+  },
+  "description": "Let's make a cool new app called TWEEDR!! Not Twitter, geez...",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tartufu/mvc-tweedr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/tartufu/mvc-tweedr/issues"
+  },
+  "homepage": "https://github.com/tartufu/mvc-tweedr#readme"
 }

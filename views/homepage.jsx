@@ -3,16 +3,18 @@ var React = require("react");
 class Home extends React.Component {
   render() {
 
-
     let tweets = this.props.ccb.map(tweet => {
-                              return <p>{tweet.tweets}</p>
+                              return <div>
+                              <h3>User Id {tweet.user_id}</h3>
+                              <p>{tweet.tweets}</p>
+                              </div>
                             });
-    // console.log(tweets);
+
     return (
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>CAN ANYBODY HEAR MEEEE</h3>
           <p> {this.props.ccb[0].tweets}</p>
           {tweets}
         </body>

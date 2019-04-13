@@ -30,7 +30,7 @@ class Home extends React.Component {
       <DefaultLayout>
         <h2>View tweets by:</h2>
         <form>
-            <select name="filter-tweets">
+            <select name="filter">
                 <option value="all">All</option>
                 <option value="followers">Your followers</option>
                 <option value="following">People you follow</option>

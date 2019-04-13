@@ -24,7 +24,24 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let newUser = (data, doneWithQuery) => {
+
+    let query = 'INSERT INTO users (name, password, pic) VALUES ($1, $2, $3)';
+    let hash = sha256(request.body.password + SAUNA);
+    let values = [request.body.name, hash, request.body.pic];
+
+    dbPoolInstance.query(query, values, (error, result) => {
+      if ( error ) {
+        console.log(error, null);
+      } else {
+        const newUser = result.rows[0];
+        doneWithQuery(newUser);
+      }
+    });
+  };
+
   return {
     view: getAllTweets,
+    registerComplete: newUser,
   };
 };

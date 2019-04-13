@@ -51,9 +51,7 @@ module.exports = {
     queryInterface: function (text, params, callback) {
         return pool.query(text, params, callback);
     },
-
     pool: pool,
-
     tweets: tweetModelsObject,
     users: userModelsObject
 };

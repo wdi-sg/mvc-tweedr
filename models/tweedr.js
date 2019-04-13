@@ -7,9 +7,9 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let getAllTweets = (callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = 'SELECT * FROM tweets';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -33,6 +33,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    getAll,
+    getAllTweets,
   };
 };

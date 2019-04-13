@@ -1,4 +1,4 @@
-module.exports = (db) => {
+module.exports = (allModels) => {
 
   /**
    * ===========================================
@@ -7,9 +7,23 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.tweedr.getAllTweets((error, allTweets) => {
-        response.render('tweedr/index', { allTweets });
-      });
+    console.log(request.body)
+
+    const data = {
+        pic: request.body.pic,
+        name: request.body.name,
+        message: request.body.message,
+        attachment: request.body.photo_attached,
+        timestamp: request.body.created_at
+    }
+
+    const doneWithQuery = (data) => {
+        // console.log(data)
+        // response.send(data)
+        response.render('tweedr', {tweets:data});
+    };
+
+    allModels.tweedr.view(data, doneWithQuery);
   };
 
 

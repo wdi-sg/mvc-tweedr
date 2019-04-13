@@ -1,17 +1,4 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-
+//  CONFIGURATION
 const pg = require('pg');
 const url = require('url');
 
@@ -33,9 +20,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'herda',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'assignments',
     port: 5432
   };
 }
@@ -49,51 +36,24 @@ pool.on('error', function (err) {
 
 
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
+//  REQUIRE MODEL FILES
+const allTweedrModels = require('./models/tweedr');
+
+ //  EXPORT AN OBJECT WITH EVERY SINGLE MODEL IN IT
+const tweedrModelsObject = allTweedrModels(pool);
+
+// //  GIVE THE MODEL THE DB HANDLER POOL
+// const tweedrForExport = allTweedrModels(pool);
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
+//  SEND THIS BACK OUT
 module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
+    // //  ADD APP MODELS HERE
+    // allTweedrModels: tweedrForExport,
 
-  // get a reference to end the connection pool at server end
-  pool:pool,
+    //  GET A REFERENCE TO END THE CONNECTION POOL AT SERVER END
+    pool:pool,
 
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+    //  ADD APP MODELS HERE
+    tweedr: tweedrModelsObject
 };

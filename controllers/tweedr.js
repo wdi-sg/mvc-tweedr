@@ -46,7 +46,7 @@ module.exports = (allModels) => {
         response.send('You will be billed $4000 monthly, thank you for registering with us lol loserr' + logIn);
 
     };
-    allModels.tweedr.view(data, doneWithQuery);
+    allModels.tweedr.registerComplete(data, doneWithQuery);
   };
 
 

@@ -27,8 +27,8 @@ module.exports = (dbPoolInstance) => {
   let newUser = (data, doneWithQuery) => {
 
     let query = 'INSERT INTO users (name, password, pic) VALUES ($1, $2, $3)';
-    let hash = sha256(request.body.password + SAUNA);
-    let values = [request.body.name, hash, request.body.pic];
+    let hash = sha256(data.password + SAUNA);
+    let values = [data.name, hash, data.pic];
 
     dbPoolInstance.query(query, values, (error, result) => {
       if ( error ) {

@@ -33,7 +33,8 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'postgres',
+    password: 'postgres',
     host: '127.0.0.1',
     database: 'testdb',
     port: 5432
@@ -62,11 +63,17 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const homeModelsFunction = require('./models/home');
+const homeModelsObject = homeModelsFunction( pool );
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const registerModelsFunction = require('./models/register');
+const registerModelsObject = registerModelsFunction( pool );
 
+const loginModelsFunction = require('./models/login');
+const loginModelsObject = loginModelsFunction( pool );
 
+const tweedModelsFunction = require('./models/tweed');
+const tweedModelsObject = tweedModelsFunction( pool );
 
 /*
  * ===================================================
@@ -94,6 +101,8 @@ module.exports = {
    * ADD APP MODELS HERE
    */
 
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  homeModelsObject: homeModelsObject,
+  registerModelsObject: registerModelsObject,
+  loginModelsObject: loginModelsObject,
+  tweedModelsObject: tweedModelsObject
 };

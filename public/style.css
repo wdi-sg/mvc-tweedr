@@ -8,3 +8,8 @@ body {
 h1, h2, h3 {
 	font-family: 'Cinzel', serif;
 }
+
+.homepage-buttons a {
+	color: white;
+	text-decoration: none;
+}

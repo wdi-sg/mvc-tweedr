@@ -13,9 +13,9 @@ INSERT INTO tweets (user_id, tweets) VALUES(2, 'HELLO');
 INSERT INTO tweets (user_id, tweets) VALUES(2, 'HOW ARE YOU ');
 INSERT INTO tweets (user_id, tweets) VALUES(2, 'GOOD BYE');
 
-INSERT INTO tweets (user_id, tweets) VALUES(1, 'Pleasant Day');
-INSERT INTO tweets (user_id, tweets) VALUES(1, 'Horrible Day');
-INSERT INTO tweets (user_id, tweets) VALUES(1, 'Wonderful Day');
+INSERT INTO tweets (user_id, tweets) VALUES(3, 'Pleasant Day');
+INSERT INTO tweets (user_id, tweets) VALUES(3, 'Horrible Day');
+INSERT INTO tweets (user_id, tweets) VALUES(3, 'Wonderful Day');
 
 -- INSERT INTO tweets (
 -- 	(user_id, )

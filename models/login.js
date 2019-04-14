@@ -6,9 +6,9 @@
 module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
-  let getAll = (callback) => {
+  let getAll = (data,callback) => {
 
-    let query = 'SELECT * FROM users';
+    let query = `SELECT * FROM users WHERE username='${data.username}' AND password='${data.password}'`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

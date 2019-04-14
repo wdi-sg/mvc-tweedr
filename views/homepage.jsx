@@ -16,9 +16,25 @@ class Home extends React.Component {
       <html>
         <Header/>
         <body>
-          <h3>CAN ANYBODY HEAR MEEEE</h3>
-          <p> {this.props.ccb[0].tweets}</p>
-          {tweets}
+          <div class="homepage">
+              <h1 class="text-center">Tweedr</h1>
+              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <hr/>
+
+              <div class="homepage-buttons">
+                  <button type="button" class="btn btn-primary btn-lg mr-2"> <a href="/login">Login as User </a></button>
+                  <button type="button" class="btn btn-secondary btn-lg"><a href="/register">Create New Account</a></button>
+              </div>
+
+          </div>
         </body>
       </html>
     );
@@ -26,3 +42,7 @@ class Home extends React.Component {
 }
 
 module.exports = Home;
+
+
+          // <p> {this.props.ccb[0].tweets}</p>
+          // {tweets}

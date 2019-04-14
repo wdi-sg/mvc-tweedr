@@ -6,19 +6,13 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
+  let loginPage = (request, response) => {
         // console.log(request.body);
-
-        let nameTest = request.body;
-        let data = {
-            username: request.body.username,
-            password: request.body.password
-        };
         response.render('login');
   };
 
 
-  let kiwi = (request, response) => {
+  let userCheck = (request, response) => {
         // console.log(request.body);
 
         let nameTest = request.body;
@@ -29,10 +23,17 @@ module.exports = (db) => {
         console.log(data);
         // response.send('login');
 
-        db.login.getAll((error, result) => {
-        console.log(result);
+        db.login.getAll(data,(error, result) => {
         let thing = {ccb : result}
-        response.render('login', thing);
+        console.log(thing);
+        console.log(result);
+
+        if (result === null) {
+            response.send("INCORECCT");
+        } else if (data.username == result[0].username && data.password == result[0].password) {
+            response.send("YAYYYYYYYY");
+        }
+
       });
   };
 
@@ -43,8 +44,8 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
-    userVerify: kiwi
+    index: loginPage,
+    userVerify: userCheck
   };
 
 }

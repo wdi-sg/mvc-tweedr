@@ -1,4 +1,5 @@
 var React = require("react");
+var Header = require('./header');
 
 class Login extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class Login extends React.Component {
 
     return (
       <html>
-        <head />
+        <Header/>
         <body>
           <h3>LOGIN SIOL</h3>
             <form method="post" action="/login">
@@ -21,7 +22,7 @@ class Login extends React.Component {
             <input type="text" name="username"/>
 
             <label for="id">Password</label>
-            <input type="text" name="password"/> <br/>
+            <input type="text" name="password"/>
 
             <input type="submit" value="Submit"/>
           </form>

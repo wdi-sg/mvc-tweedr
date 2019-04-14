@@ -9,12 +9,15 @@ class registerNewUser extends React.Component {
 			  <body>
 			  <h1>Create new account</h1>
 			    <h3>
-			    <form method="post" action="/register" >
+			    <form style={{margin: '5px 0'}} method="post" action="/register" >
 			      <p>Username: <input type="text" name="username" />
 			      </p>
 			      <p>Password: <input type="password" name="password" />
 			      </p>
 			      <input type="submit" value="Submit" />
+			    </form>
+			    <form method="get" action="/" >
+			      <input type="submit" value="Cancel" />
 			    </form>
 			    </h3>
 			  </body>

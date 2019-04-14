@@ -14,9 +14,19 @@ module.exports = (allModels) => {
       response.status(401).render('./unauthorised');
 
     } else {
+      
+      let data = {
+        username: username
+      };
 
-      response.render('./tweed/tweed');
-    
+      const getTweedCallback = (result) => {
+        console.log("tweed controller getTweed result: ");
+        console.log(result);
+        response.render('./tweed/tweed', { object:result });
+      };
+      
+      allModels.tweedModelsObject.getTweedModelFunction(data, getTweedCallback);
+
     } 
   };
 
@@ -32,12 +42,12 @@ module.exports = (allModels) => {
     };
 
     const writeTweedCallback = (result) => {
-      console.log("tweed controller: ");
+      console.log("tweed controller writeTweed result: ");
       console.log(result);
       response.redirect('/');
     };
     
-    allModels.tweedModelsObject.tweedModelFunction(data, writeTweedCallback);
+    allModels.tweedModelsObject.writeTweedModelFunction(data, writeTweedCallback);
   };
 
 

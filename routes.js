@@ -9,5 +9,8 @@ module.exports = (app, allModels) => {
   const tweedrControllerCallbacks = require('./controllers/tweedr_controller')(allModels);
   app.get('/', tweedrControllerCallbacks.index);
   app.post('/tweet/create', tweedrControllerCallbacks.tweetCreate);
+  app.get('/login', tweedrControllerCallbacks.login);
+  app.get('/login/query', tweedrControllerCallbacks.loginQuery);
+  
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

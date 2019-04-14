@@ -1,3 +1,31 @@
-#tweet-button {
+*{
+    font-family: 'Heebo', sans-serif;
+}
+header {
+    background-color: white;
+}
+
+#login-header {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#login-footer {
+    background-color: rgb(245, 248, 250);
+}
+
+#tweet-button, #login-button{
     border-radius: 3rem;
+    background-color: rgb(29, 161, 242);
+    color: white;
+}
+#login-button{
+    font-weight: bold;
+    font-size: 15;
+}
+#login-body{
+    background-color: rgb(230, 236, 240);
+}
+#login-container{
+    background-color: rgb(255, 255, 255);
 }

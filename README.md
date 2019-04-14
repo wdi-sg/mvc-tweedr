@@ -14,15 +14,15 @@ Users can register and/or login in order to create a tweet.
 #### Getting Started
 Create each part of your app step by step.
 
-1. Create a tables.sql for your app. Don't worry too much about making it complete, since with a seed.sql file you can update your db easily.
+✅ 1. Create a tables.sql for your app. Don't worry too much about making it complete, since with a seed.sql file you can update your db easily.
      - The basic tables.sql will have a users table and a tweets table.
      - The app provides a basic user creation, so the basic app doesn't need anything more for users.
 
-2. Implement login of the user.
+✅ 2. Implement login of the user.
 
 3. Create the ability to make a tweet.
 
-4. Change the root route to display all tweets.
+✅ 4. Change the root route to display all tweets.
 
 
 #### Further

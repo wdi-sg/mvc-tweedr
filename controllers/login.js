@@ -1,4 +1,5 @@
 const sha256 = require('js-sha256');
+const SALT = 'shrek';
 
 module.exports = (db) => {
 
@@ -14,7 +15,7 @@ module.exports = (db) => {
 
     };
 
-    let loginDone = (request, response) => {
+    let loggedIn = (request, response) => {
 
         const data = {
             name: request.body.name,
@@ -23,16 +24,24 @@ module.exports = (db) => {
 
         console.log(data);
 
-        const doneWithQuery = (data) => {
-            console.log(data);
-            // response.send("ok ur logged in");
+        const doneWithQuery = (result) => {
+            console.log(result);
+
+            if (result === "Password is wrong") {
+                response.send("Password is wrong");
+            } else if (result === "Username not found") {
+                response.send("Username not found");
+            } else {
+
+                let secretCookie = sha256(SALT + data.name);
+                response.cookie('loggedin', secretCookie);
+                response.render('main/profile', {user: result[0]});
+            }
         }
 
-      db.login.login(data, doneWithQuery, ((error, res) => {
-            response.send("ok ur logged in");
-      }));
-    }
+        db.login.login(data, doneWithQuery);
 
+    };
 
 
 
@@ -44,7 +53,7 @@ module.exports = (db) => {
    */
   return {
     index: login,
-    done: loginDone,
+    done: loggedIn,
 
   };
 

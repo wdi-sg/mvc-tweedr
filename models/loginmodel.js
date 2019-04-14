@@ -23,13 +23,20 @@ module.exports = (dbPoolInstance) => {
 
         if( queryResult.rows.length > 0 ){
 
-            console.log("This is correct");
-            callback(null, queryResult.rows);
+            if (queryResult.rows[0].password === data.password) {
+                console.log("Password is correct");
+                callback(queryResult.rows);
+            } else {
+                console.log("Password is wrong");
+                console.log(data.pasword);
+                callback("Password is wrong");
+            }
+
 
         }else{
 
-            console.log("This is wronggkkkk");
-            callback(null, null);
+            console.log("Username not found");
+            callback("Username not found");
 
         }
       }

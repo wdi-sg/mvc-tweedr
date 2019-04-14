@@ -7,10 +7,11 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
+      db.tweeds.getAll((error, tweedsData) => {
+        response.render('main/index', { tweeds: tweedsData });
       });
   };
+
 
 
   /**
@@ -20,6 +21,7 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
+
   };
 
 }

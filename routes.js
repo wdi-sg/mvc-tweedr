@@ -22,6 +22,7 @@ module.exports = (app, allModels) => {
     app.get('/login', loginControllerCallbacks.login); //--okay
     app.post('/login', loginControllerCallbacks.successL); //-- once logged in user would be directed to home page
 
+    app.get('/register', loginControllerCallbacks.register);
     app.post('/register', loginControllerCallbacks.successR);
 
     app.get('/home', homeControllerCallbacks.home);

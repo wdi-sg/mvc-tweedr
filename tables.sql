@@ -1,7 +1,10 @@
 CREATE TABLE IF NOT EXISTS users (
 id SERIAL PRIMARY KEY,
 username TEXT,
-password TEXT
+password TEXT,
+profile_desc VARCHAR(120),
+profile_pic_url TEXT,
+created_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS tweeds (

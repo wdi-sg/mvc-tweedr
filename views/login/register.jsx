@@ -39,36 +39,52 @@ class Aside extends React.Component{
     }
 }
 
-class LoginForm extends React.Component{
+// class LoginForm extends React.Component{
+//     render(){
+//         return (
+//             <html>
+//                 <div class="p-3 m-5">
+//                     <h2>Login with Existing Account</h2>
+//                     <div class="row pt-4 justify-content-center">
+//                         <form method="POST" action="/login">
+//                             <input type="text" class="p-3 ml-2 mr-1" name="username" placeholder="Username"/>
+//                             <input type="password" class="p-3 ml-1 mr-2" name="password" placeholder="Password"/>
+//                             <input type="submit" class="btn btn-outline-primary border border-primary btn-lg" value="Login"/>
+//                         </form>
+//                     </div>
+//                 </div>
+//             </html>
+//         )
+//     }
+// }
+
+class SignUpForm extends React.Component{
     render(){
         return (
             <html>
                 <div class="p-3 m-5">
-                    <h2>Login with Existing Account</h2>
-                    <div class="row pt-4 justify-content-center">
-                        <form method="POST" action="/login">
-                            <input type="text" class="p-3 ml-2 mr-1" name="username" placeholder="Username"/>
-                            <input type="password" class="p-3 ml-1 mr-2" name="password" placeholder="Password"/>
-                            <input type="submit" class="btn btn-outline-primary border border-primary btn-lg" value="Login"/>
+                    <h2>Register an account</h2>
+                    <div class="row justify-content-center">
+                        <form method="POST" action="/register">
+                        <div class="mt-3">
+                            <label>New Username</label>
+                            <input type="text" class="form-control" name="username" required/>
+                        </div>
+                        <div class="mt-3">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required/>
+                        </div>
+                         <div class="mt-3">
+                            <label>Profile Description</label>
+                            <textarea class="form-control" rows="2" name="profile_desc"></textarea>
+                        </div>
+                        <div class="mt-3">
+                            <label>Upload Photo</label>
+                            <input type="text" class="form-control" name="profile_pic_url"/>
+                        </div>
+                        <button type="submit" class="btn-success border border-primary btn-lg mt-3">Create Account</button>
                         </form>
                     </div>
-                </div>
-            </html>
-        )
-    }
-}
-
-class SignUp extends React.Component{
-    render(){
-        return (
-            <html>
-                <div class="p-3 m-5">
-                    <h2>New?</h2>
-                        <form method="GET" action="/register">
-                            <div class="row justify-content-center">
-                            <button type="submit" class="btn-success border border-primary btn-lg mt-3">Create An Account</button>
-                        </div>
-                    </form>
                 </div>
             </html>
         )
@@ -88,8 +104,7 @@ class Login extends React.Component {
                                 <Aside/>
                             </div>
                             <div class="col-6  bg-light">
-                                <LoginForm/>
-                                <SignUp/>
+                                <SignUpForm/>
                             </div>
                         </div>
                     </div>

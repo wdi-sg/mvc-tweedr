@@ -20,8 +20,8 @@ class Head extends React.Component{
 class NewAccountSuccess extends React.Component {
     render(){
         console.log('IN SUCCESS JSX!!!!!!');
-        console.log(this.props.singleUser.rows[0]);
-        const user = this.props.singleUser.rows[0].username;
+        console.log(this.props.resultAdd.rows[0]);
+        const user = this.props.resultAdd.rows[0].username;
 
         return (
             <html>

@@ -40,7 +40,9 @@ class LeftSidebar extends React.Component{
         return(
             <aside>
                 <figure>
+                    <img src="{this.props.data.userDetails.profile_pic_url}"/>
                     <h4>User profile: {this.props.data.userDetails.username}</h4>
+                    <h3>{this.props.data.userDetails.profile_desc}</h3>
                 </figure>
             </aside>
         )
@@ -104,7 +106,7 @@ class Home extends React.Component {
                                 <div class="col-6">
                                     <form class="mt-3 mb-4" method="POST" action="/addtweeds">
                                         <div class="form-group">
-                                            <label>Tweed Now</label>
+                                            <label>Tweed!</label>
                                             <textarea class="form-control" rows="2" name="tweeds"></textarea>
                                         </div>
                                         <div class="form-button text-right">

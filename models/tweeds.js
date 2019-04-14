@@ -8,7 +8,7 @@ module.exports = (dbPoolInstance) => {
 
         dbPoolInstance.query(query, (err, r) => {
             if( err ){
-                callback(error, null);
+                callback(err, null);
             } else {
                 // invoke callback function with results after query has executed
                 if( r.rows.length > 0 ){

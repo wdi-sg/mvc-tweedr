@@ -55,7 +55,48 @@ module.exports = (db) => {
         })
     }
 
+    let registerStart = (req,res) =>{
+        res.render('login/register');
+    }
+
     let registerSuccess = (req,res)=>{
+
+        // check if username taken
+
+        let enteredUser = req.body.username;
+
+        req.body.password = sha256( SALT + req.body.password );
+
+        //checks if username taken
+        db.users.check(enteredUser, (err, result) =>{
+
+            if( err ){
+                res.send('error');
+            } else {
+                if(result == false){
+                    res.send('User Name taken');
+                } else if(result == true){ ///can use the username. create account
+
+                    db.users.add(req.body, (err, resultAdd)=>{
+                        console.log('ADDDED');// ADD ACCOUNT DETAILS
+                        console.log(resultAdd)
+                        //send cookies
+                        const loginSessionId = sha256( SALT + SESHSALT + req.body.username);
+
+                        res.cookie('userId', resultAdd.rows[0].id);
+                        res.cookie('username', resultAdd.rows[0].username);
+                        res.cookie('sessionId' , loginSessionId);
+                        res.render('login/success', {resultAdd});
+                    })
+                }
+            }
+        })
+
+        /*
+
+
+        console.log('ADDDDD USERRR')
+        console.log(req.body);
         //prepares hash password for model js
         req.body.password = sha256( SALT + req.body.password );
         db.users.add(req.body, (err,singleUser)=>{
@@ -75,6 +116,7 @@ module.exports = (db) => {
                 }
             }
         })
+        */
     };
 
 
@@ -86,6 +128,7 @@ module.exports = (db) => {
    */
   return {
     login: loginStart,
+    register: registerStart,
     successL: loginSucess,
     successR: registerSuccess,
   };

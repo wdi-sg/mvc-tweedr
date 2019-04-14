@@ -10,3 +10,6 @@ INSERT INTO tweeds (tweeds, user_id) VALUES ('Playing Possum', 2);
 INSERT INTO tweeds (tweeds, user_id) VALUES ('Ugly Duckling', 2);
 INSERT INTO tweeds (tweeds, user_id) VALUES ('Down To The Wire', 2);
 INSERT INTO tweeds (tweeds, user_id) VALUES ('Back To the Drawing Board', 2);
+
+
+INSERT INTO users (username, password, profile_desc, profile_pic_url, created_at) VALUES ('sourdog', 'jibber', 'jibber' , 'jibber', 'jibber');

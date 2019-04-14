@@ -4,13 +4,13 @@ var Header = require('./header');
 class Home extends React.Component {
   render() {
 
-    let tweets = this.props.ccb.map(tweet => {
-                              return <div>
-                              <h3>User Id {tweet.user_id}</h3>
-                              <p>{tweet.username}</p>
-                              <p>{tweet.tweets}</p>
-                              </div>
-                            });
+    // let tweets = this.props.ccb.map(tweet => {
+    //                           return <div>
+    //                           <h3>User Id {tweet.user_id}</h3>
+    //                           <p>{tweet.username}</p>
+    //                           <p>{tweet.tweets}</p>
+    //                           </div>
+    //                         });
 
     return (
       <html>

@@ -25,17 +25,18 @@ module.exports = (db) => {
 
         db.login.getAll(data,(error, result) => {
         let thing = {ccb : result}
-        console.log(thing);
-        console.log(result);
-        console.log(result[0].id);
+        // console.log(thing);
+        // console.log(result);
+        // console.log(result[0].id);
 
-        let routeId = 'user/' + result[0].id;
-        console.log(routeId);
+
 
         if (result === null) {
             response.send("INVALID LOG IN DETAILS!");
         } else if (data.username == result[0].username && data.password == result[0].password) {
             // response.send("YAYYYYYYYY");
+            let routeId = 'user/' + result[0].id;
+            console.log(routeId);
             response.redirect(routeId);
             //THIS DIRECTS TO THE USER TWEET PAGE
         }

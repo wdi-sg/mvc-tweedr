@@ -17,11 +17,8 @@ class Head extends React.Component{
     }
 }
 
-class NewAccountSuccess extends React.Component {
+class Fail extends React.Component {
     render(){
-        console.log('IN SUCCESS JSX!!!!!!');
-        console.log(this.props.singleUser.rows[0]);
-        const user = this.props.singleUser.rows[0].username;
 
         return (
             <html>
@@ -32,11 +29,13 @@ class NewAccountSuccess extends React.Component {
                             <div class="col-2">
                             </div>
                             <div class="col-8">
-                                <h2>Welcome {user}</h2>
+                                <h2>Login Failure</h2>
                                 <section>
-                                    <a href="/home">
-                                        <h4>Start TWEEDBING</h4>
-                                    </a>
+                                        <h4>Login Details are wrong!</h4>
+                                        <a href="/login">
+                                        <h4>Please click on the link to try again.</h4>
+                                        </a>
+                                        <h4>Create an account if you do not have one.</h4>
                                 </section>
                             </div>
                             <div class="col-2">
@@ -49,4 +48,4 @@ class NewAccountSuccess extends React.Component {
     }
 }
 
-module.exports = NewAccountSuccess;
+module.exports = Fail;

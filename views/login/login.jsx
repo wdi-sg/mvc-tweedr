@@ -48,7 +48,7 @@ class LoginForm extends React.Component{
                     <div class="row pt-4 justify-content-center">
                         <form method="POST" action="/login">
                             <input type="text" class="p-3 ml-2 mr-1" name="username" placeholder="Username"/>
-                            <input type="text" class="p-3 ml-1 mr-2" name="password" placeholder="Password"/>
+                            <input type="password" class="p-3 ml-1 mr-2" name="password" placeholder="Password"/>
                             <input type="submit" class="btn btn-outline-primary border border-primary btn-lg" value="Login"/>
                         </form>
                     </div>
@@ -74,7 +74,7 @@ class SignUpForm extends React.Component{
                             <label for="password1">Password</label>
                             <input type="password" class="form-control" name="password"/>
                         </div>
-                        <button type="submit" class="btn-success border border-primary btn-lg mt-3">Submit</button>
+                        <button type="submit" class="btn-success border border-primary btn-lg mt-3">Create Account</button>
                         </form>
                     </div>
                 </div>

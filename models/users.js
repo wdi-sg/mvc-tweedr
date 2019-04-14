@@ -28,10 +28,29 @@ module.exports = (dbPool) => {
         })
     };
 
+    let findUser = (dataIn, callback)=>{
+
+        let query = `SELECT * FROM users WHERE username='${dataIn.username}'`;
+
+        dbPool.query( query, (err,r)=>{
+            // console.log('FINDDDIDNGGGGG');
+            // console.log(r);
+            if(err){ // error in query
+                callback(err,null);
+            } else {
+                if(r.rows.length == 0){ //username not found
+                    callback(null,null);
+                } else {
+                    callback(null,r);
+                }
+            }
+        })
+    };
+
     let viewSingleUser = (dataIn,callback)=>{
         console.log('1');
         console.log(dataIn);
-         let query = `SELECT * FROM users WHERE username='${dataIn.username}'`;
+        let query = `SELECT * FROM users WHERE username='${dataIn.username}'`;
 
         dbPool.query(query, (err,r)=>{
             console.log('2')
@@ -40,11 +59,12 @@ module.exports = (dbPool) => {
                 // console.log('3')
                 callback(err, null);
             } else {
-                if(r.rows[0].password == dataIn.password){
+                if( r.rows[0].password == dataIn.password ){
                     console.log('3');
                     // console.log(r);
                     callback(null, r);
                 } else {
+
                     //password does not match
                     callback(err, null);
                 }
@@ -57,6 +77,7 @@ module.exports = (dbPool) => {
 
   return {
     add: addNewUser,
+    findUser: findUser,
     view: viewSingleUser,
   };
 }

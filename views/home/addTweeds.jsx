@@ -34,13 +34,13 @@ class NavBar extends React.Component{
 class LeftSidebar extends React.Component{
     render(){
 
-        console.log('VIEW RIGHTSIDE!!!')
-        console.log(this.props.data);
+        // console.log('VIEW RIGHTSIDE!!!')
+        // console.log(this.props.data);
 
         return(
             <aside>
                 <figure>
-                    <h4>User profile: {this.props.data.userDetails.username}</h4>
+                    <h4>User Profile</h4>
                 </figure>
             </aside>
         )
@@ -102,14 +102,9 @@ class Home extends React.Component {
                                     <LeftSidebar data={this.props.data}/>
                                 </div>
                                 <div class="col-6">
-                                    <form class="mt-3 mb-4" method="POST" action="/addtweeds">
-                                        <div class="form-group">
-                                            <label>Tweed Now</label>
-                                            <textarea class="form-control" rows="2" name="tweeds"></textarea>
-                                        </div>
-                                        <div class="form-button text-right">
-                                            <input type="submit" class="btn btn-outline-primary border border-primary btn-lg " value="TWEED"/>
-                                        </div>
+                                    <form method="POST" action="/addtweeds">
+                                        <input type="text" class="p-3 ml-1 mr-2" name="tweeds" placeholder="Rant?"/>
+                                        <input type="submit" class="btn btn-outline-primary border border-primary btn-lg" value="TWEED"/>
                                     </form>
                                     <ViewTweeds data={this.props.data}/>
                                 </div>

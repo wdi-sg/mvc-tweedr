@@ -1,0 +1,37 @@
+*{
+    font-family: 'Heebo', sans-serif;
+}
+header {
+    background-color: white;
+}
+
+#login-header, #register-header {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#login-footer {
+    background-color: rgb(245, 248, 250);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+#tweet-button, #login-button{
+    border-radius: 3rem;
+    background-color: rgb(29, 161, 242);
+    color: white;
+}
+#login-button{
+    font-weight: bold;
+    font-size: 15;
+}
+#login-body{
+    background-color: rgb(230, 236, 240);
+}
+#login-container{
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+}

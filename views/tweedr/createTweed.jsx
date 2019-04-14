@@ -1,10 +1,10 @@
 var React = require('react');
-var Layout = require('./layout');
+var UserLayout = require('./userLayout');
 
 class CreateTweed extends React.Component {
 
     render () {
-        return (<Layout>
+        return (<UserLayout>
 
             <div class="new-header">
                 <h1>Create Tweed</h1>
@@ -14,14 +14,14 @@ class CreateTweed extends React.Component {
                 <form method="POST" action="/tweed">
 
                     <label for="tweed" />
-                    <input type="text" class="form-control form-control-lg" name="tweets" placeholder="What are you thinking?" />
+                    <input type="text" class="form-control form-control-lg" name="tweed" placeholder="What are you thinking?" />
 
                     <button type="submit" class="btn btn-primary btn-lg float-right">Tweed</button>
 
                 </form>
             </div>
 
-        </Layout>)  // end of return
+        </UserLayout>)  // end of return
 
     }  // end of rendering
 }  // end of class

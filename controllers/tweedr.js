@@ -1,28 +1,43 @@
 module.exports = (db) => {
-    //  controller logic
-
-    // const setCookie = (username) => {
-    //     if (request.cookies === undefined {
-    //         response.cookie('loggedIn', false)
-    //         reponse.cookie('username', username)
-
-    //     } else {
-    //         response.cookie('loggedIn', true);
-    //         response.cookie('username', username);
-    //     }
-    // }
+    //  CONTROLLER LOGIC
 
     const home = (request, response) => {
-        setCookie(false);
-        response.render('tweedr/home');
-    }
+
+        db.tweedr.home((err, results) => {
+            if (err) {
+                response.status(500).send("Error getting tweeds", err.message)
+
+            } else {
+                // //  if no error, render and set cookies
+                // response.render('tweedr/home', { tweeds: results.rows });
+
+                // set cookie
+                console.log(request.cookies.loggedIn);
+                if (request.cookies.loggedIn !== "true") {
+                    console.log("pass this")
+                    response.cookie("loggedIn", false)
+                    // render non-user homepage
+                    // can bring straight to loginform page
+                    response.render('tweedr/loginForm');
+
+                } else {
+                    // means user is already logged in
+                    const currentLog = request.cookies.loggedIn;
+                    request.cookies.loggedIn = currentLog;
+
+                    response.render('tweedr/userHome', { tweeds: results. rows })
+                }
+            }
+        });
+    }  // end of home
 
     const registerForm = (request, response) => {
         response.render('tweedr/registerForm');
     };
 
     const register = (request, response) => {
-        //  use tweedr model method 'register' to create new user entry in db
+        // check if username exist in the table
+        // if it does
         db.tweedr.register(request.body, (err) => {
 
             if (err) {
@@ -57,16 +72,82 @@ module.exports = (db) => {
             } else {
                 //console.log(results.rows[0])
                 // set cookie
-                setCookie(results.rows[0].username)
-                response.send("Logged in");
+                if (request.cookies.loggedIn === "false" || request.cookies.loggedIn === undefined) {
+                    response.cookie("loggedIn", true);
+                    response.cookie("username", results.rows[0].username);
+                   // response.send("Logged in");
+                    response.redirect("/");
+                }
+
+
+            }
+        })
+    };  // end of login
+
+    const logout = (request, response) => {
+        console.log(request.cookies.loggedIn);
+        response.cookie("loggedIn", false);
+        response.cookie("username", undefined);
+        response.redirect('/');
+    };  // end of logout
+
+    const createTweed = (request, response) => {
+        if (request.cookies.loggedIn === "false") {
+            // put status error
+            response.send("Please login.")
+
+        } else {
+            response.render('tweedr/createTweed');
+        }
+    }  // end of createTweed
+
+    const tweed = (request, response) => {
+        const username = request.cookies.username;
+        // add username to request body
+        request.body.username = username;
+
+        db.tweedr.tweed(request.body, (err, results) => {
+            if (err) {
+                console.error("Error posting tweed: ", err.message);
+                response.send("Query error for tweeding");
+
+            } else {
+                //response.send("Tweed - Successful")
+                response.redirect("/")
+            }
+        })
+    };  // end of tweed
+
+    const myTweeds = (request, response) => {
+
+       const username = request.cookies.username;
+        db.tweedr.myTweeds(username, (err, results) => {
+            if (err) {
+                console.error("Error getting personal tweeds", err.message);
+                response.send("Query error for personal tweeds");
+
+            } else {
+                //response.send(results.rows);
+                response.render('tweedr/myTweeds', { tweeds: results.rows })
+            }
+        })
+    };  // end of my tweeds
+
+    const myFollowing = (request, response) => {
+
+        const username = request.cookies.username;
+        db.tweedr.myFollowing(username, (err, results) => {
+            if (err) {
+                console.error("Error getting following: ", err.message);
+                response.status(500).send("Please try again");
+
+            } else {
+                response.render('tweedr/myFollowing', { following: results.rows })
+                //response.send(results.rows);
             }
         })
 
-    };  // end of login
-
-    const createTweed = (request, response) => {
-        response.render('tweedr/createTweed');
-    }
+    };  // end of my following
 
 
     //  export controller functions as a module
@@ -76,7 +157,11 @@ module.exports = (db) => {
         register,
         loginForm,
         login,
-        createTweed
+        logout,
+        createTweed,
+        tweed,
+        myTweeds,
+        myFollowing
     };
 
 }

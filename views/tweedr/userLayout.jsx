@@ -1,6 +1,6 @@
 var React = require('react');
 
-class Layout extends React.Component {
+class UserLayout extends React.Component {
     render() {
         return (
             <html>
@@ -24,11 +24,19 @@ class Layout extends React.Component {
 
                         <ul class="navbar-nav mr-auto">
                           <li class="nav-item">
-                            <a class="nav-link" href="/registerForm">Register</a>
+                            <a class="nav-link" href="/logout">Logout</a>
                           </li>
 
                           <li class="nav-item">
-                            <a class="nav-link" href="/loginForm">Login</a>
+                            <a class="nav-link" href="/myTweeds">MyTweeds</a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a class="nav-link" href="/createTweed">Tweed</a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a class="nav-link" href="/myFollowing">Following</a>
                           </li>
                         </ul>
 
@@ -50,4 +58,4 @@ class Layout extends React.Component {
     }  // end of rendering
 }  // end of layout
 
-module.exports = Layout;
+module.exports = UserLayout;

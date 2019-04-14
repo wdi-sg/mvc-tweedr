@@ -8,8 +8,15 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweeds (
 	id SERIAL PRIMARY KEY,
-	tweets TEXT,
+	tweeds TEXT,
 	users_id INTEGER
+);
+
+
+CREATE TABLE IF NOT EXISTS followers (
+	id SERIAL PRIMARY KEY,
+	users_id INTEGER,
+	followers_users_id INTEGER
 );

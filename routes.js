@@ -11,9 +11,14 @@ module.exports = (app, db) => {
 
     app.get('/loginForm', tweedr.loginForm);
     app.post('/login', tweedr.login);
+    app.get('/logout', tweedr.logout);
 
     app.get('/createTweed', tweedr.createTweed);
-    //app.post('/createTweed')
+    app.post('/tweed', tweedr.tweed);
+
+    app.get('/myTweeds', tweedr.myTweeds);
+
+    app.get('/myFollowing', tweedr.myFollowing);
 
 
 };

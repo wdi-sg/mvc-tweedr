@@ -1,7 +1,7 @@
 var React = require('react');
-var Layout = require('./layout');
+var UserLayout = require('./userLayout');
 
-class Home extends React.Component {
+class MyTweeds extends React.Component {
 
     render () {
 
@@ -13,18 +13,18 @@ class Home extends React.Component {
 
 
             }) // end of map
-        return (<Layout>
+        return (<UserLayout>
 
-            <h1>Home</h1>
+            <h1>My Personal Tweeds</h1>
             <div class="tweeds-container">
                 <ul>
                     {allTweeds}
                 </ul>
             </div>
 
-        </Layout>)  // end of return
+        </UserLayout>)  // end of return
 
     }  // end of rendering
 }  // end of class
 
-module.exports = Home;
+module.exports = MyTweeds;

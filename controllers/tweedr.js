@@ -2,8 +2,9 @@ module.exports = (db) => {
     //  CONTROLLER LOGIC
 
     const home = (request, response) => {
-
-        db.tweedr.home((err, results) => {
+        // get username
+        const username = request.cookies.username;
+        db.tweedr.home(username, (err, results) => {
             if (err) {
                 response.status(500).send("Error getting tweeds", err.message)
 
@@ -26,6 +27,7 @@ module.exports = (db) => {
                     request.cookies.loggedIn = currentLog;
 
                     response.render('tweedr/userHome', { tweeds: results. rows })
+                    //response.send(results.rows);
                 }
             }
         });
@@ -37,18 +39,32 @@ module.exports = (db) => {
 
     const register = (request, response) => {
         // check if username exist in the table
-        // if it does
-        db.tweedr.register(request.body, (err) => {
-
+        db.tweedr.checkUser(request.body, (err, results) => {
             if (err) {
-                console.error("Error registering: ", err);
-                response.sendStatus(500);
+                console.error("Error checking user: ", err.message);
+                response.send("Query error for checking user");
+            }
+
+            //console.log(results);
+
+            if (results.rowCount >= 1) {
+                response.send("You already registered. Please login.");
 
             } else {
-                //response.send("Register - Successful");
-                response.redirect('/');
+                //  if rowcount = 0, means not registered
+                db.tweedr.register(request.body, (err, results) => {
+
+                    if (err) {
+                        console.error("Error registering: ", err);
+                        response.sendStatus(500);
+
+                    } else {
+                        //response.send("Register - Successful");
+                        response.redirect('/');
+                    }
+                })  // end of register db
             }
-        })
+        })  // end of check user
     };  // end of register
 
     const loginForm = (request, response) => {
@@ -113,7 +129,7 @@ module.exports = (db) => {
 
             } else {
                 //response.send("Tweed - Successful")
-                response.redirect("/")
+                response.redirect("/myTweeds")
             }
         })
     };  // end of tweed
@@ -133,8 +149,21 @@ module.exports = (db) => {
         })
     };  // end of my tweeds
 
-    const myFollowing = (request, response) => {
+    const deleteMyTweeds = (request, response) => {
+        console.log("pass line 139")
+        const id = request.params.id;
+        db.tweedr.deleteMyTweeds(id, (err, results) => {
+            if (err) {
+                console.error("Error deleting tweet: ", err.message);
+                response.send("Query error for delete tweed");
 
+            } else {
+                response.redirect("/myTweeds");
+            }
+        })
+    }  // end of delete my tweeds
+
+    const myFollowing = (request, response) => {
         const username = request.cookies.username;
         db.tweedr.myFollowing(username, (err, results) => {
             if (err) {
@@ -146,8 +175,22 @@ module.exports = (db) => {
                 //response.send(results.rows);
             }
         })
-
     };  // end of my following
+
+    const myFollowers = (request, response) => {
+        const username = request.cookies.username;
+        db.tweedr.myFollowers(username, (err, results) => {
+            if (err) {
+                console.error("Error getting followers: ", err.message);
+                response.status(500).send("Please try again'")
+
+            } else {
+                response.render('tweedr/myFollowers', { followers: results.rows })
+                //response.send(results.rows);
+            }
+
+        })
+    }
 
 
     //  export controller functions as a module
@@ -161,7 +204,9 @@ module.exports = (db) => {
         createTweed,
         tweed,
         myTweeds,
-        myFollowing
+        deleteMyTweeds,
+        myFollowing,
+        myFollowers
     };
 
 }

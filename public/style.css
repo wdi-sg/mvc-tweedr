@@ -1,0 +1,61 @@
+h1 {
+	text-align: center;
+	padding: 50px;
+	font-family: 'Love Ya Like A Sister', cursive;
+	font-size: 50px;
+/*	border: 2px solid red;*/
+}
+
+nav {
+	font-family: 'Chelsea Market', cursive;
+}
+
+.tweedForm-container {
+	display: flex ;
+	justify-content: center;
+	margin-bottom: 50px;
+}
+
+
+.tweedButton-container {
+	margin-left: 20px;
+}
+
+.personalTweedsMain-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 120px;
+}
+
+.personalTweeds-container {
+	/*margin: 0 120px;*/
+	font-family: 'Courgette', cursive;
+	font-size: 25px;
+}
+
+.followingMain-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.following-container {
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+/*	border: 2px solid red;*/
+}
+
+.profilePic-container img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.username-container {
+	margin-left: 30px;
+	align-self: center;
+	font-family: 'Courgette', cursive;
+	font-size: 30px;
+}

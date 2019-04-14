@@ -11,7 +11,7 @@ class Register extends React.Component {
             </div>
 
             <div class="form-container">
-                <form method="POST" action="/register">
+                <form method="POST" action="/register" autocomplete="off">
 
                     <div class="form-row">
                         <div class="col">
@@ -26,6 +26,16 @@ class Register extends React.Component {
                     </div>
 
                     <br />
+
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="profile_pic">Profile Picture</label>
+                            <input type="text" class="form-control form-control-lg" name="profile_pic" placeholder="Image URL" />
+                        </div>
+
+                        <div class="col">
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary btn-lg float-right">Register</button>
 

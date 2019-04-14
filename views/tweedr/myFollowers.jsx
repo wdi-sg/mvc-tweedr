@@ -1,14 +1,14 @@
 var React = require('react');
 var UserLayout = require('./userLayout');
 
-class MyFollowing extends React.Component {
+class MyFollowers extends React.Component {
 
     render () {
 
-        const following = this.props.following;
+        const followers = this.props.followers;
         // return the array of objects
 
-        let allFollowing = following.map(obj => {
+        let allFollowers = followers.map(obj => {
             return <div class="following-container">
                 <div class="profilePic-container">
                     <img src={obj.profile_pic} />
@@ -23,9 +23,9 @@ class MyFollowing extends React.Component {
             }) // end of map
         return (<UserLayout>
 
-            <h1>People I Follow</h1>
+            <h1>My Followers</h1>
             <div class="followingMain-container">
-                {allFollowing}
+                {allFollowers}
             </div>
 
         </UserLayout>)  // end of return
@@ -33,4 +33,4 @@ class MyFollowing extends React.Component {
     }  // end of rendering
 }  // end of class
 
-module.exports = MyFollowing;
+module.exports = MyFollowers;

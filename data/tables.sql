@@ -1,13 +1,13 @@
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     id SERIAL PRIMARY KEY,
     username TEXT,
     password TEXT,
     email TEXT,
-    createdDate TEXT,
+    createdDate TEXT
 );
 
-CREATE TABLE tweets
+CREATE TABLE IF NOT EXISTS tweets
 (
     id SERIAL PRIMARY KEY,
     username TEXT,

@@ -24,7 +24,7 @@ class Login extends React.Component {
           required
         />
       );
-      usernameValidation = <div className="invalid-feedback">Username doesn't exist</div>;
+      usernameValidation = <div className="invalid-feedback">Username already taken!</div>;
     } else {
       usernameInput = (
         <input
@@ -56,7 +56,7 @@ class Login extends React.Component {
           required
         />
       );
-      passwordValidation = <div className="invalid-feedback">Invalid Password!</div>;
+      passwordValidation = <div className="invalid-feedback">Password must be at least 7 characters!</div>;
     } else {
       passwordInput = (
         <input
@@ -82,12 +82,12 @@ class Login extends React.Component {
                 <div className="col-8">
                   <div className="row">
                     <div className="col mb-3">
-                      <div id="login-header">Log in to Tweedr</div>
+                      <div id="register-header">Create Your Account</div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col">
-                      <form action="/login/query" method="get">
+                      <form action="/register/query" method="post">
                         <div className="form-row mb-3">
                           <div className="col">
                             <div className="input-group">
@@ -104,20 +104,11 @@ class Login extends React.Component {
                           </div>
                         </div>
                         <button className="btn mt-3" id="login-button" type="submit">
-                          Log In
+                          Register
                         </button>
                       </form>
                     </div>
                   </div>
-                </div>
-                <div className="col-2" />
-              </div>
-            </div>
-            <div className="container pt-3 pb-3" id="login-footer">
-              <div className="row">
-                <div className="col-2" />
-                <div className="col-8">
-                  New to Tweedr? <a href="/register">Sign up now!</a>
                 </div>
                 <div className="col-2" />
               </div>

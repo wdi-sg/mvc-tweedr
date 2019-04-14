@@ -57,7 +57,7 @@ module.exports = dbPoolInstance => {
         // invoke callback function with results after query has executed
 
         if (queryResult.rows.length > 0) {
-          if (queryResult.rows.password_hash === password) {
+          if (queryResult.rows[0].password_hash === password) {
             callback(null, queryResult.rows, true);
           } else {
             callback(null, queryResult.rows, false);
@@ -69,9 +69,52 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  let register = (user_password, callback) => {
+    let username = user_password.username.toString();
+    let password = user_password.password.toString();
+    let query = "SELECT * FROM passwords WHERE user_hash = $1";
+    let values = [username];
+    console.log(username);
+    console.log(password);
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if (error) {
+        // invoke callback function with results after query has executed
+        callback(error, null, null);
+      } else {
+        // invoke callback function with results after query has executed
+
+        if (queryResult.rows.length > 0) {
+          callback(null, null, null);
+        } else {
+          if (queryResult.rows.password_hash.length > 6) {
+            callback(null, queryResult.rows, false);
+          } else {
+            let registerQuery =
+              "INSERT INTO passwords" +
+              "(user_hash, password_hash)" +
+              "VALUES" +
+              "($1, $2)";
+            let registerValues = [username, password];
+            dbPoolInstance.query(
+              registerQuery,
+              registerValues,
+              (error, registerResult) => {
+                if (error) {
+                  console.log(error);
+                }
+                callback(null, queryResult.rows, true);
+              }
+            );
+          }
+        }
+      }
+    });
+  };
+
   return {
     getAll,
     makeTweet,
-    login
+    login,
+    register
   };
 };

@@ -5,13 +5,16 @@ header {
     background-color: white;
 }
 
-#login-header {
+#login-header, #register-header {
     font-weight: bold;
     font-size: 25px;
 }
 
 #login-footer {
     background-color: rgb(245, 248, 250);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
 }
 
 #tweet-button, #login-button{
@@ -28,4 +31,7 @@ header {
 }
 #login-container{
     background-color: rgb(255, 255, 255);
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
 }

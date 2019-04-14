@@ -11,6 +11,8 @@ module.exports = (app, allModels) => {
   app.post('/tweet/create', tweedrControllerCallbacks.tweetCreate);
   app.get('/login', tweedrControllerCallbacks.login);
   app.get('/login/query', tweedrControllerCallbacks.loginQuery);
+  app.get('/register', tweedrControllerCallbacks.register);
+  app.post('/register/query', tweedrControllerCallbacks.registerQuery);
   
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

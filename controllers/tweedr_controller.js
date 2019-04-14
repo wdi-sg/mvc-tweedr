@@ -4,6 +4,8 @@ module.exports = db => {
    * Controller logic
    * ===========================================
    */
+  const hash = require('js-sha256');
+  const SALT = "pepper";
 
   let indexControllerCallback = (request, response) => {
     let data = {};
@@ -57,6 +59,14 @@ module.exports = db => {
    */
 
   let loginQueryControllerCallback = (request, response) => {
+    let username
+    if (request.query.username !== undefined) {
+      username = request.query.username.toString();
+    }
+    let password
+    if (request.query.password !== undefined) {
+      password = request.query.password.toString();
+    }
     db.tweedr.login(request.query, (error, queryResult, password) => {
       if (error) {
         console.log(error);
@@ -66,12 +76,50 @@ module.exports = db => {
           loginValidation["username"] = false;
           loginValidation["password"] = true;
           response.render("tweedr/login", loginValidation);
-        } else if (queryResult !== null) {
+        } else if (queryResult !== null && password === false) {
           loginValidation["username"] = true;
           loginValidation["password"] = password;
           response.render("tweedr/login", loginValidation);
         } else {
+          let cookie = hash(SALT + username + password);
+          response.cookie("userId", cookie);
           response.redirect("/");
+        }
+      }
+    });
+  };
+
+  /**
+   * ===========================================
+   * Register Page
+   * ===========================================
+   */
+  let registerControllerCallback = (request, response) => {
+    response.render("tweedr/register");
+  };
+
+  /**
+   * ===========================================
+   * Register Query Check
+   * ===========================================
+   */
+
+  let registerQueryControllerCallback = (request, response) => {
+    db.tweedr.register(request.body, (error, queryResult, password) => {
+      if (error) {
+        console.log(error);
+      } else {
+        let registerValidation = {};
+        if (queryResult === null) {
+          registerValidation["username"] = false;
+          registerValidation["password"] = true;
+          response.render("tweedr/register", registerValidation);
+        } else if (queryResult !== null && password === false) {
+          registerValidation["username"] = true;
+          registerValidation["password"] = password;
+          response.render("tweedr/register", registerValidation);
+        } else {
+          response.render("tweedr/login");
         }
       }
     });
@@ -81,6 +129,8 @@ module.exports = db => {
     index: indexControllerCallback,
     tweetCreate: tweetCreateControllerCallback,
     login: loginControllerCallback,
-    loginQuery: loginQueryControllerCallback
+    loginQuery: loginQueryControllerCallback,
+    register: registerControllerCallback,
+    registerQuery: registerQueryControllerCallback
   };
 };

@@ -7,7 +7,7 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>Hello, you are working on the tweedr app</h3>
         </body>
       </html>
     );

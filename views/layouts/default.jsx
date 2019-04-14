@@ -23,7 +23,10 @@ class DefaultLayout extends React.Component {
                         <div className="logo">Tweedr</div>
                         { logoutElement }
                     </div>
+
                     {this.props.children}
+
+                    <script src="/js/script.js"></script>
                 </body>
             </html>
     );

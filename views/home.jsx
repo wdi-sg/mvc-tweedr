@@ -5,13 +5,13 @@ class Profile extends React.Component {
   render() {
     return (
         <div className="col-3 profile">
-            <img src="https://images-na.ssl-images-amazon.com/images/I/51Gji7jFNjL._SX425_.jpg"/>
-            <div className="username">Godzilla</div>
+            <img src={ this.props.userProfile.img_url }/>
+            <div className="username">{ this.props.userProfile.username }</div>
 
             <div className="follow">
                 <div>
                     <div className="header">TWEETS</div>
-                    <div className="stats">50</div>
+                    <div className="stats">{ this.props.userTweetCount }</div>
                 </div>
                 <div>
                     <div className="header">FOLLOWING</div>
@@ -19,14 +19,14 @@ class Profile extends React.Component {
                 </div>
                 <div>
                     <div className="header">FOLLOWERS</div>
-                    <div className="stats">1</div>
+                    <div className="stats">10</div>
                 </div>
             </div>
 
-            <div className="post">
-                <form>
-                    <input type="text" placeholder="Compose new Tweet..."/>
-                    <input className="btn btn-primary" type="submit" value="Post"/>
+            <div className="tweet">
+                <form action="/tweet" method="POST">
+                    <input type="text" className="form-control content" name="tweet" placeholder="Compose new Tweet..."/>
+                    <input className="btn btn-primary" type="submit" value="Post" disabled/>
                 </form>
             </div>
         </div>
@@ -34,17 +34,53 @@ class Profile extends React.Component {
   }
 }
 
+class TweetEdit extends React.Component {
+  render() {
+    if (this.props.tweetUser === this.props.userProfile.username) {
+        let element = <a className="edit" href="#">Edit</a>
+
+        return (
+            <span>
+                { element }
+            </span>
+        );
+    }
+
+    return (null);
+  }
+}
+
+class TweetDelete extends React.Component {
+  render() {
+    if (this.props.tweetUser === this.props.userProfile.username) {
+        let element = <a className="delete" href="#">Delete</a>
+
+        return (
+            <span>
+                { element }
+            </span>
+        );
+    }
+
+    return (null);
+  }
+}
+
 class Tweets extends React.Component {
   render() {
     let elements = this.props.tweets.map((item) => {
         return <div className="col-12 tweet">
+                    <img src= { item.img_url }/>
                     <div className="username">{ item.users_username }</div>
                     <div className="content">{ item.content }</div>
                     <div className="footer">
                         <div className="date">Date: { item.created_at }</div>
-                        <div className="reply">Reply</div>
+                        <div>
+                            <TweetEdit tweetUser= { item.users_username } userProfile= {this.props.userProfile}/>
+                            <TweetDelete tweetUser= { item.users_username } userProfile= {this.props.userProfile}/>
+                        </div>
                     </div>
-                </div>
+               </div>
     });
 
     return (
@@ -59,14 +95,14 @@ class Tweets extends React.Component {
 class Home extends React.Component {
   render() {
     return (
-            <DefaultLayout title="Home" login="true">
-                <div className="container">
-                    <div className="row">
-                        <Profile/>
-                        <Tweets tweets={this.props.tweets}/>
-                    </div>
+        <DefaultLayout title="Home" login="true">
+            <div className="container">
+                <div className="row">
+                    <Profile userProfile={this.props.userProfile} userTweetCount={this.props.userTweetCount}/>
+                    <Tweets tweets={this.props.tweets} userProfile={ this.props.userProfile }/>
                 </div>
-            </DefaultLayout>
+            </div>
+        </DefaultLayout>
     );
   }
 }

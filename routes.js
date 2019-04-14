@@ -3,6 +3,7 @@ module.exports = function (app, allModels) {
     const tweetController = require('./controllers/tweet')(allModels);
 
     app.get('/', tweetController.homeRequestHandler);
+    app.post('/tweet', tweetController.addNewTweetRequestHandler);
 
     app.get('/login', userController.loginRequestHandler);
     app.post('/login', userController.authenticateRequestHandler);

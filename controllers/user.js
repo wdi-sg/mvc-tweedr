@@ -20,8 +20,9 @@ module.exports = function(db) {
             let result = await db.users.authenticate(request.body.username, request.body.password);
 
             if (result.length === 1) {
-                response.cookie('username', request.body.username);
-                response.cookie('loggedIn', sha256(request.body.username));
+                response.cookie('username', result[0].username);
+                response.cookie('loggedIn', sha256(result[0].username));
+                response.cookie('img_url', result[0].img_url);
 
                 response.redirect('/');
             } else {
@@ -36,6 +37,7 @@ module.exports = function(db) {
         if (helper.checkCookiesForLogin(request.cookies) === true) {
             response.clearCookie('username', request.cookies['username']);
             response.clearCookie('loggedIn', request.cookies['loggedIn']);
+            response.clearCookie('img_url', request.cookies['img_url']);
         }
 
         response.redirect('/login');
@@ -51,10 +53,10 @@ module.exports = function(db) {
 
     let createAccountRequestHandler = async function(request, response) {
         try {
-            let result = await db.users.createAccount(request.body.username, request.body.password);
+            let success = await db.users.createAccount(request.body.username, request.body.password);
 
-            if (result.length === 1) {
-                response.redirect('user/login');
+            if (success === true) {
+                response.redirect('/login');
             } else {
                 response.send('Username already exist!');
             }

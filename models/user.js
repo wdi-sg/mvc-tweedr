@@ -9,7 +9,7 @@ module.exports = function(dbPoolInstance) {
             const passwordHash = sha256(password + SALT);
 
             const values = [username, passwordHash];
-            const sqlQuery = `SELECT * FROM users
+            const sqlQuery = `SELECT username, img_url FROM users
                               WHERE username= $1 AND password= $2`;
 
             let result = await dbPoolInstance.query(sqlQuery, values);
@@ -29,13 +29,13 @@ module.exports = function(dbPoolInstance) {
             const sqlQuery = `INSERT INTO users (username, password, created_at)
                               VALUES ($1, $2, $3) RETURNING *`;
 
-            let result = await dbPoolInstance.query(sqlQuery, values);
+            await dbPoolInstance.query(sqlQuery, values);
 
-            return result.rows;
+            return true;
 
         } catch(e) {
             console.log('createAccount model: ' + e);
-            return [];
+            return false;
         }
     };
 

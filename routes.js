@@ -20,4 +20,9 @@ const mainControllerCallbacks = require('./controllers/maincontroller')(allModel
 app.get('/register', mainControllerCallbacks.registerRequest);
 app.post('/register', mainControllerCallbacks.registerPost);
 app.get('/login', mainControllerCallbacks.loginRequest);
+app.get('/tweedr/new', mainControllerCallbacks.newTweetRequest);
+app.post('/tweedr', mainControllerCallbacks.newTweetPost);
+app.get('/', mainControllerCallbacks.homeRequest);
+//++++++++++need to fix this+++++++++++//
+app.post('/login', mainControllerCallbacks.loginAuth);
 };

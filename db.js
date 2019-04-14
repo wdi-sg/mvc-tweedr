@@ -88,7 +88,7 @@ module.exports = {
   },
 
   // get a reference to end the connection pool at server end
-  pool:pool,
+  pool: pool,
 
   /*
    * ADD APP MODELS HERE

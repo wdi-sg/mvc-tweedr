@@ -40,9 +40,9 @@ module.exports = (app, allModels) => {
   app.post('/newtweed', newTweed.index);
 
 
-  // const usersControllerCallbacks = require('./controllers/users')(allModels);
-  // app.get('/users', usersControllerCallbacks.index);
-  // app.get('/users/:id', usersControllerCallbacks.index);
+  const usersControllerCallbacks = require('./controllers/users')(allModels);
+  app.get('/users', usersControllerCallbacks.index);
+  app.get('/users/:id', usersControllerCallbacks.index);
 
 
 };

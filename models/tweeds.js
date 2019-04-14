@@ -24,12 +24,12 @@ module.exports = (dbPoolInstance) => {
 
 
         let queryInsert =  `INSERT INTO tweeds
-                            (tweeds, user_id)
+                            (tweeds, created_at, user_id)
                             VALUES
-                            ($1, $2)
+                            ($1, $2, $3)
                             RETURNING *`;
 
-        let values = [ dataIn.twds.tweeds , dataIn.userId ];
+        let values = [ dataIn.twds.tweeds , currentDateAndTime() , dataIn.userId ];
 
         dbPoolInstance.query(queryInsert, values, (err,r) =>{
             console.log('AT QUERY INSIDEEEEEE');
@@ -52,3 +52,20 @@ module.exports = (dbPoolInstance) => {
     // addTweeds: add,
   };
 };
+
+
+  /**
+   * ===========================================
+   * Helper Functions
+   * ===========================================
+   */
+
+
+
+
+var currentDateAndTime = function(){
+    let date = new Date();
+    let dateAndTime = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ` + `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+
+    return dateAndTime;
+}

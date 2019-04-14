@@ -26,8 +26,8 @@ module.exports = (dbPool) => {
     let addNewUser = (dataIn, callback) => {
 
 
-        console.log('CONTROL ADD USER');
-        console.log(dataIn);
+        // console.log('CONTROL ADD USER');
+        // console.log(dataIn);
 
         let timeCreated = currentDateAndTime();
 
@@ -44,6 +44,9 @@ module.exports = (dbPool) => {
     }
 
     let findUser = (dataIn, callback)=>{
+
+        // console.log('SUTTFIN INSIDE');
+        // console.log(dataIn);
 
         let query = `SELECT * FROM users WHERE username='${dataIn.username}'`;
 
@@ -63,19 +66,19 @@ module.exports = (dbPool) => {
     };
 
     let viewSingleUser = (dataIn,callback)=>{
-        console.log('1');
-        console.log(dataIn);
-        let query = `SELECT * FROM users WHERE username='${dataIn.username}'`;
+        // console.log('1');
+        // console.log(dataIn);
+        let query = `SELECT * FROM users WHERE username='${dataIn}'`;
 
         dbPool.query(query, (err,r)=>{
-            console.log('2')
-            console.log(r);
+            // console.log('2')
+            // console.log(r);
             if( err ){
                 // console.log('3')
                 callback(err, null);
             } else {
                 if( r.rows[0].password == dataIn.password ){
-                    console.log('3');
+                    // console.log('3');
                     // console.log(r);
                     callback(null, r);
                 } else {
@@ -87,6 +90,23 @@ module.exports = (dbPool) => {
         });
     };
 
+    let viewAllUsersExceptCurrent = (dataIn,callback)=>{
+
+        const query = `SELECT id FROM users WHERE id > 0
+                       EXCEPT
+                       SELECT id FROM users WHERE id = ${dataIn};`
+
+        dbPool.query(query, (err,r)=>{
+            console.log('DONE QUERRRRRYYY USERS');
+            console.log(r);
+            if( err ){
+                callback(err,null);
+            } else {
+                callback(null,r);
+            }
+        })
+    }
+
 
 
 
@@ -95,6 +115,7 @@ module.exports = (dbPool) => {
     check: checkUser,
     findUser: findUser,
     view: viewSingleUser,
+    viewAllExcept : viewAllUsersExceptCurrent,
   };
 }
 

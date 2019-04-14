@@ -5,11 +5,14 @@ password TEXT,
 profile_desc VARCHAR(120),
 profile_pic_url TEXT,
 created_at TEXT
+-- following TEXT,
+-- followers TEXT
 );
 
 CREATE TABLE IF NOT EXISTS tweeds (
 id SERIAL PRIMARY KEY,
 tweeds TEXT,
+created_at TEXT,
 user_id INTEGER
 );
 

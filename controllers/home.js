@@ -18,11 +18,27 @@ module.exports = (db) => {
             if( err ){
                 response.status(500).send('Error');
             } else {
-                const userDetails = req.cookies; //
+                 //
+                const userName = req.cookies;
+                db.users.findUser(userName, (err,result)=>{
+                    if( err ){
+                        response.status(500).send('Error');
+                    } else {
+                        const userDetails = result.rows[0];
+
+                        db.users.viewAllExcept(req.cookies.userId, (err, result_OtherUsers)=>{
+                            console.log('OTHER USERSSSS');
+                            console.log(result_OtherUsers);
+
+                            const data = {userDetails, resultTweeds}
+                            res.render('home/home', {data});
+                        })
+                    }
+                })
+
                 // console.log("USER DETAILS");
                 // console.log(userDetails);
-                const data = {userDetails, resultTweeds}
-                res.render('home/home', {data});
+
             }
         });
     }
@@ -31,7 +47,6 @@ module.exports = (db) => {
 
         const checkSessionId = sha256 (SALT + SESHSALT + req.cookies.username); // check if user is same session
         if(checkSessionId == req.cookies.sessionId){
-
 
             const dataIn = { twds: req.body , userId: req.cookies.userId};
 
@@ -46,16 +61,23 @@ module.exports = (db) => {
                         if( err ){
                             response.status(500).send('Error');
                         } else {
-                        const userDetails = req.cookies; //
-                        // console.log("USER DETAILS");
-                        // console.log(userDetails);
-                        const data = {userDetails, resultTweeds}
-                        res.render('home/home', {data});
-                    }
-                });
+                            const userName = req.cookies;
+                            db.users.findUser(userName, (err,result)=>{
+                                if( err ){
+                                    response.status(500).send('Error');
+                                } else {
+                                    // if(result == null){
+                                    //     res.send
+                                    // }
+                                    const userDetails = result.rows[0];
+                                    const data = {userDetails, resultTweeds}
+                                    res.render('home/home', {data});
+                                }
+                            })
+                        }
+                    });
                 }
-            })
-            //data in to have userId and tweeds
+            });
         } else {
             res.send('login in again'); /// put a redirect page to login again
         }

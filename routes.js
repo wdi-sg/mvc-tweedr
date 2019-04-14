@@ -27,5 +27,5 @@ module.exports = (app, allModels) => {
 
     app.get('/home', homeControllerCallbacks.home);
     app.post('/addtweeds', homeControllerCallbacks.add);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+
 };

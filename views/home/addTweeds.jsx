@@ -40,7 +40,9 @@ class LeftSidebar extends React.Component{
         return(
             <aside>
                 <figure>
-                    <h4>User Profile</h4>
+                    <img class="profile-photo" src={this.props.data.userDetails.profile_pic_url}/>
+                    <h4>User profile: {this.props.data.userDetails.username}</h4>
+                    <h3>{this.props.data.userDetails.profile_desc}</h3>
                 </figure>
             </aside>
         )
@@ -69,7 +71,15 @@ class ViewTweeds extends React.Component{
         let outList = tweedsAll.map((item,index)=>{
             return  <div class="content tweeds-box">
                         <div class="text-container">
-                            <p class="text text-left">{item.tweeds}</p>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div>
+                                    <p class="text text-left">{item.tweeds}</p>
+                                </div>
+                                <div>
+                                    <a href="/tweeds/edit" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="/tweeds/delete" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
         })
@@ -102,9 +112,14 @@ class Home extends React.Component {
                                     <LeftSidebar data={this.props.data}/>
                                 </div>
                                 <div class="col-6">
-                                    <form method="POST" action="/addtweeds">
-                                        <input type="text" class="p-3 ml-1 mr-2" name="tweeds" placeholder="Rant?"/>
-                                        <input type="submit" class="btn btn-outline-primary border border-primary btn-lg" value="TWEED"/>
+                                    <form class="mt-3 mb-4" method="POST" action="/addtweeds">
+                                        <div class="form-group">
+                                            <label>Tweed!</label>
+                                            <textarea class="form-control" rows="2" name="tweeds"></textarea>
+                                        </div>
+                                        <div class="form-button text-right">
+                                            <input type="submit" class="btn btn-outline-primary border border-primary btn-lg " value="TWEED"/>
+                                        </div>
                                     </form>
                                     <ViewTweeds data={this.props.data}/>
                                 </div>

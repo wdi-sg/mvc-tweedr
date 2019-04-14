@@ -23,7 +23,7 @@ class NavBar extends React.Component{
             <html>
                 <nav class="navbar navbar-dark bg-dark">
                     <div>
-                        <a class="navbar-brand" href="#">TWEEEEEDR</a>
+                        <a class="navbar-brand" href="/home">TWEEEEEDR</a>
                     </div>
                 </nav>
             </html>
@@ -34,13 +34,15 @@ class NavBar extends React.Component{
 class LeftSidebar extends React.Component{
     render(){
 
-        console.log('VIEW RIGHTSIDE!!!')
-        console.log(this.props.data);
+        // console.log('VIEW LEFTSIDE!!!')
+        // console.log(this.props.data);
 
         return(
             <aside>
                 <figure>
-                    <img src="{this.props.data.userDetails.profile_pic_url}"/>
+                    <div class="profile-img">
+                        <img class="profile-photo" src={this.props.data.userDetails.profile_pic_url}/>
+                    </div>
                     <h4>User profile: {this.props.data.userDetails.username}</h4>
                     <h3>{this.props.data.userDetails.profile_desc}</h3>
                 </figure>
@@ -67,14 +69,27 @@ class ViewTweeds extends React.Component{
         // console.log('VIEW TWEEDSSS!!!')
         // console.log(this.props);
         const tweedsAll = this.props.data.resultTweeds;
+        let outList;
+        if(tweedsAll == undefined){
+            outList = 'Start Tweedbing!';
+        } else {
 
-        let outList = tweedsAll.map((item,index)=>{
+            outList = tweedsAll.map((item,index)=>{
             return  <div class="content tweeds-box">
                         <div class="text-container">
-                            <p class="text text-left">{item.tweeds}</p>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div>
+                                    <p class="text text-left">{item.tweeds}</p>
+                                </div>
+                                <div>
+                                    <a href="/tweeds/edit" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="/tweeds/delete" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-        })
+            })
+        }
         return(
             <html>
                 {outList}
@@ -86,9 +101,9 @@ class ViewTweeds extends React.Component{
 class Home extends React.Component {
     render(){
 
-        console.log('home JSX');
-        console.log(this.props.data);
-        // let userId =
+        // console.log('home JSX');
+        // console.log(this.props.data);
+        // // let userId =
         // let formAddPage = `/`
         return (
             <html>

@@ -22,8 +22,9 @@ module.exports = (app, allModels) => {
 
   const usersControllerCallbacks = require('./controllers/users')(allModels);
   app.get('/users', usersControllerCallbacks.index);
+  app.get('/users/:id', usersControllerCallbacks.index);
 
   const loginControllerCallbacks = require('./controllers/login')(allModels);
   app.get('/login', loginControllerCallbacks.index);
-  app.post('/login', loginControllerCallbacks.index);
+  app.post('/login', loginControllerCallbacks.userVerify);
 };

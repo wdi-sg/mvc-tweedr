@@ -72,7 +72,7 @@ const allUsersFunction = require('./models/users');
 const usersModelsObject = allUsersFunction( pool );
 
 const allLoginFunction = require('./models/login');
-const loginModelsObject = allUsersFunction( pool );
+const loginModelsObject = allLoginFunction( pool );
 
 /*
  * ===================================================

@@ -6,14 +6,9 @@
 module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
-  const userName = require('../controllers/login.js');
-  console.log(userName.username);
-  let getAll = (data,callback) => {
+  let getAll = (callback) => {
 
-    console.log(data.username);
-    console.log(callback);
     let query = 'SELECT * FROM users';
-    console.log(query);
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

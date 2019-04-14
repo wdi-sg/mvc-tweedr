@@ -7,7 +7,9 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.users.getAll((error, result) => {
+     let num = request.params.id;
+      db.users.getAll(num,(error, result) => {
+        console.log(result);
         let thing = {ccb : result}
         response.render('homepage', thing);
       });

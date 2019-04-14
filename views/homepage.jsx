@@ -1,4 +1,5 @@
 var React = require("react");
+var Header = require('./header');
 
 class Home extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class Home extends React.Component {
 
     return (
       <html>
-        <head />
+        <Header/>
         <body>
           <h3>CAN ANYBODY HEAR MEEEE</h3>
           <p> {this.props.ccb[0].tweets}</p>

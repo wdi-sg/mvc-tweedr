@@ -30,9 +30,19 @@ module.exports = (app, allModels) => {
   app.get('/login', loginControllerCallbacks.index);
   app.post('/login', loginControllerCallbacks.userVerify);
 
-  const usersControllerCallbacks = require('./controllers/users')(allModels);
-  app.get('/users', usersControllerCallbacks.index);
-  app.get('/users/:id', usersControllerCallbacks.index);
+  //THIS ROUTE SHOWS USER PAGE AFTER LOGIN
+  const userPage = require('./controllers/userpage')(allModels);
+  // app.get('/user', userPage.index);
+  app.get('/user/:id', userPage.index);
+
+  //THIS ROUTE SENDS NEW TWEET TO DATABASE
+  const newTweed = require('./controllers/newtweed')(allModels);
+  app.post('/newtweed', newTweed.index);
+
+
+  // const usersControllerCallbacks = require('./controllers/users')(allModels);
+  // app.get('/users', usersControllerCallbacks.index);
+  // app.get('/users/:id', usersControllerCallbacks.index);
 
 
 };

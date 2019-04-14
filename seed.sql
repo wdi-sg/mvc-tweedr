@@ -17,6 +17,12 @@ INSERT INTO tweets (user_id, tweets) VALUES(3, 'Pleasant Day');
 INSERT INTO tweets (user_id, tweets) VALUES(3, 'Horrible Day');
 INSERT INTO tweets (user_id, tweets) VALUES(3, 'Wonderful Day');
 
+
+SELECT users.username, tweets.tweets, tweets.user_id FROM users INNER JOIN tweets ON users.id = tweets.user_id WHERE tweets.user_id = 3;
+
+
+
+-- THIS CALLS the usernames and tweets yo
 -- INSERT INTO tweets (
 -- 	(user_id, )
 -- )

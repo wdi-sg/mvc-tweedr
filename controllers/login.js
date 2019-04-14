@@ -27,13 +27,18 @@ module.exports = (db) => {
         let thing = {ccb : result}
         console.log(thing);
         console.log(result);
+        console.log(result[0].id);
+
+        let routeId = 'user/' + result[0].id;
+        console.log(routeId);
 
         if (result === null) {
-            response.send("INCORECCT");
+            response.send("INVALID LOG IN DETAILS!");
         } else if (data.username == result[0].username && data.password == result[0].password) {
-            response.send("YAYYYYYYYY");
+            // response.send("YAYYYYYYYY");
+            response.redirect(routeId);
+            //THIS DIRECTS TO THE USER TWEET PAGE
         }
-
       });
   };
 

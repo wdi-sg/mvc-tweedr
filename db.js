@@ -62,17 +62,23 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+// const allPokemonModelsFunction = require('./models/pokemon');
+// const pokemonModelsObject = allPokemonModelsFunction( pool );
 
-const allTweetsFunction = require('./models/tweets');
-const tweetModelsObject = allTweetsFunction( pool );
+// const allTweetsFunction = require('./models/tweets');
+// const tweetModelsObject = allTweetsFunction( pool );
 
-const allUsersFunction = require('./models/users');
-const usersModelsObject = allUsersFunction( pool );
+// const allUsersFunction = require('./models/users');
+// const usersModelsObject = allUsersFunction( pool );
+
+const allUsersPageFunction = require('./models/userpage');
+const usersPageModelsObject = allUsersPageFunction( pool );
 
 const allLoginFunction = require('./models/login');
 const loginModelsObject = allLoginFunction( pool );
+
+const allTweedFunction = require('./models/tweed');
+const tweedModelsObject = allTweedFunction( pool );
 
 /*
  * ===================================================
@@ -101,8 +107,10 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject,
-  tweets: tweetModelsObject,
-  users: usersModelsObject,
-  login: loginModelsObject
+  // pokemon: pokemonModelsObject,
+  // tweets: tweetModelsObject,
+  // users: usersModelsObject,
+  login: loginModelsObject,
+  userpage: usersPageModelsObject,
+  tweed: tweedModelsObject
 };

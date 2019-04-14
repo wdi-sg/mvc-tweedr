@@ -14,7 +14,7 @@ class Index extends React.Component {
           <Header />
           <div className="container">
           Hello World
-          <TweetBox/>
+          <TweetBox userId = {this.props.userId}/>
           <TweetsList allTweets={this.props.allTweets} />
           </div>
         </body>

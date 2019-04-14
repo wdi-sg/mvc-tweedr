@@ -4,17 +4,17 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <nav class="nav d-flex justify-content-around">
-          <a class="nav-link active" href="/">
+        <nav className="nav d-flex justify-content-around">
+          <a className="nav-link active" href="/">
             Home
           </a>
-          <a class="nav-link" href="#">
+          <a className="nav-link" href="#">
             Link
           </a>
-          <a class="nav-link" href="#">
+          <a className="nav-link" href="#">
             Link
           </a>
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+          <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
             Disabled
           </a>
         </nav>

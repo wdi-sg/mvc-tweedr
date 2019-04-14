@@ -8,7 +8,7 @@ module.exports = dbPoolInstance => {
 
   let getAll = callback => {
     let query =
-      "SELECT tweets.id, users.username, tweets.tweet, tweets.date FROM tweets INNER JOIN users ON (users.id = tweets.user_id)";
+      "SELECT users.id, tweets.id, users.username, tweets.tweet, tweets.date FROM tweets INNER JOIN users ON (users.id = tweets.user_id)";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if (error) {

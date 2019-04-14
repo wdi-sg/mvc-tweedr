@@ -7,16 +7,22 @@ module.exports = (db) => {
      */
   
     let indexControllerCallback = (request, response) => {
-        db.tweedr.getAll((error, allTweets) => {
-          response.render('tweedr/index', { allTweets });
+      let data ={};
+      data["userId"] = request.cookies.userId;
+      
+      db.tweedr.getAll((error, allTweets) => {
+          data["allTweets"] = allTweets;
+          response.render('tweedr/index', data);
         });
     };
     let tweetCreateControllerCallback = (request, response) => {
       console.log(request.body);
       console.log(request.query);
+      console.log(request.cookies.userId);
+      
         db.tweedr.makeTweet(request.body, (error, queryResult) => {
           if (error) {
-            console.error('error getting tweet:', error);
+            console.error('error making tweet:', error);
             response.sendStatus(500);
           }
           if (queryResult.rowCount >= 1) {

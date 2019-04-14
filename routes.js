@@ -7,6 +7,8 @@ module.exports = function (app, allModels) {
     app.get('/login', userController.loginRequestHandler);
     app.post('/login', userController.authenticateRequestHandler);
 
+    app.get('/logout', userController.logoutRequestHandler);
+
     app.get('/register', userController.registerRequestHandler);
     app.post('/register', userController.createAccountRequestHandler);
 };

@@ -4,7 +4,7 @@ var DefaultLayout = require('../layouts/default');
 class Login extends React.Component {
   render() {
     return (
-        <DefaultLayout title="Login">
+        <DefaultLayout title="Login" login="false">
             <form className="login" action="/login" method="POST">
                 <h1>Login to Tweedr</h1>
                 <input type="text" className="form-control username" name="username" placeholder="Username"/>

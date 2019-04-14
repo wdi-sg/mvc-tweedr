@@ -2,6 +2,14 @@ var React = require('react');
 
 class DefaultLayout extends React.Component {
   render() {
+    let logoutElement;
+
+    if (this.props.login === "true") {
+        logoutElement = <div className="logout"><a href="/logout">Logout</a></div>;
+    } else {
+        logoutElement = <div className="logout"></div>;
+    }
+
     return (
             <html>
                 <head>
@@ -11,6 +19,10 @@ class DefaultLayout extends React.Component {
                 </head>
 
                 <body>
+                    <div className="nav">
+                        <div className="logo">Tweedr</div>
+                        { logoutElement }
+                    </div>
                     {this.props.children}
                 </body>
             </html>

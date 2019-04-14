@@ -4,7 +4,7 @@ module.exports = function(db) {
 
     let homeRequestHandler = async function(request, response) {
         try {
-            if (helper.checkForLogin(request.cookies) === true) {
+            if (helper.checkCookiesForLogin(request.cookies) === true) {
                 let allTweets = await db.tweets.getAllTweets();
                 let data = { 'tweets': allTweets}
 
@@ -13,7 +13,6 @@ module.exports = function(db) {
                 response.render('user/login');
             }
         } catch(e) {
-
             console.log('tweet controller ' + e);
         }
     };

@@ -15,7 +15,7 @@ module.exports.getCurrentDateAndTime = function() {
            `${ addZero(date.getHours()) }:${ addZero(date.getMinutes()) }:${ addZero(date.getSeconds()) }`;
 }
 
-module.exports.checkForLogin = function (cookies) {
+module.exports.checkCookiesForLogin = function (cookies) {
     if (Object.entries(cookies).length === 0) {
         return false;
     }
@@ -25,5 +25,4 @@ module.exports.checkForLogin = function (cookies) {
     } else {
         return false;
     }
-
 }

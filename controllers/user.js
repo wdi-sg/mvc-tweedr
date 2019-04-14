@@ -5,7 +5,7 @@ module.exports = function(db) {
 
     let loginRequestHandler = async function(request, response) {
         try {
-            if (helper.checkForLogin(request.cookies) === false) {
+            if (helper.checkCookiesForLogin(request.cookies) === false) {
                 response.render('user/login');
             } else {
                 response.redirect('/');
@@ -24,13 +24,21 @@ module.exports = function(db) {
                 response.cookie('loggedIn', sha256(request.body.username));
 
                 response.redirect('/');
-
             } else {
                 response.send('Login Failure');
             }
         } catch(e) {
             console.log('user controller ' + e);
         }
+    };
+
+    let logoutRequestHandler = function(request, response) {
+        if (helper.checkCookiesForLogin(request.cookies) === true) {
+            response.clearCookie('username', request.cookies['username']);
+            response.clearCookie('loggedIn', request.cookies['loggedIn']);
+        }
+
+        response.redirect('/login');
     };
 
     let registerRequestHandler = async function(request, response) {
@@ -58,6 +66,7 @@ module.exports = function(db) {
     return {
         loginRequestHandler,
         authenticateRequestHandler,
+        logoutRequestHandler,
         registerRequestHandler,
         createAccountRequestHandler
     };

@@ -98,6 +98,7 @@ module.exports = db => {
     response.render("tweedr/register");
   };
 
+
   /**
    * ===========================================
    * Register Query Check
@@ -125,12 +126,18 @@ module.exports = db => {
     });
   };
 
+  let logoutControllerCallback = (request, response) => {
+    response.clearCookie("userId")
+    response.render("tweedr/logout");
+  };
+
   return {
     index: indexControllerCallback,
     tweetCreate: tweetCreateControllerCallback,
     login: loginControllerCallback,
     loginQuery: loginQueryControllerCallback,
     register: registerControllerCallback,
-    registerQuery: registerQueryControllerCallback
+    registerQuery: registerQueryControllerCallback,
+    logout: logoutControllerCallback
   };
 };

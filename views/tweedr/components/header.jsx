@@ -8,14 +8,14 @@ class Header extends React.Component {
           <a className="nav-link active" href="/">
             Home
           </a>
-          <a className="nav-link" href="#">
-            Link
+          <a className="nav-link" href="/register">
+            Register
           </a>
-          <a className="nav-link" href="#">
-            Link
+          <a className="nav-link" href="/login">
+            Log In
           </a>
-          <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
-            Disabled
+          <a className="nav-link" href="/logout">
+            Log Out
           </a>
         </nav>
       </header>

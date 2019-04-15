@@ -33,7 +33,7 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'asadullah',
+    user: 'akira',
     host: '127.0.0.1',
     database: 'testdb',
     port: 5432
@@ -62,13 +62,12 @@ pool.on('error', function (err) {
  */
 
 
-// const allPokemonModelsFunction = require('./models/pokemon');
+const allPokemonModelsFunction = require('./models/pokemon');
+const pokemonModelsObject = allPokemonModelsFunction( pool );
 
-// const pokemonModelsObject = allPokemonModelsFunction( pool );
 
 const allUserModelsFunction = require('./models/user');
 const userModelsObject = allUserModelsFunction( pool );
-
 /*
  * ===================================================
  * ===================================================
@@ -81,20 +80,24 @@ const userModelsObject = allUserModelsFunction( pool );
  * ===================================================
  */
 
+var React = require("react");
 
-module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
+class Register extends React.Component {
+  render() {
+    return (
+      <html>
+        <body>
+          <h3>Hello Register</h3>
+                <form method="POST" action="/register">
+                    <input name="name" placeholder="name"/>
+                    <input name="password" placeholder="pass"/>
+                    <input type="submit"/>
+                </form>
 
-  // get a reference to end the connection pool at server end
-  pool:pool,
+        </body>
+      </html>
+    );
+  }
+}
 
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  users: userModelsObject,
-  pokemon: pokemonModelsObject
-};
+module.exports = Register;

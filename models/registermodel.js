@@ -7,9 +7,9 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let createUser = (data, callback) => {
 
-    let query = 'select * from tweeds inner join users on users.id = tweeds.user_id ORDER BY tweeds.id DESC';
+    let query = `INSERT INTO users (name, password, profile_img) VALUES ('${data.name}', '${data.password}', '${data.profile_img}')`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -35,6 +35,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    getAll,
+    createUser,
   };
 };

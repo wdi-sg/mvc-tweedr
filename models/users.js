@@ -70,21 +70,15 @@ module.exports = (dbPoolInstance) => {
 
 //++++++++++need to fix this+++++++++++//
 //Authenticate the user
-  let authenticateLogin = (data, verifiedUser, callback) => {
+let authenticateLogin = (data, verifiedUser) => {
 
     let query = "SELECT * FROM users WHERE username=" + data.username;
 
     dbPoolInstance.query(query, (err, result) => {
 
-        if(error){
-        callback(error, null);
-
-    } else {
-
-        if(result.rows.length >= 1){
+        if(result.rows.length >= 1) {
             const verifiedUser = result.rows[0];
             let hash = sha256(data.password + SALT);
-            callback(null, queryResult.rows);
 
             if(hash === verifiedUser.password) {
                 let auth = true;
@@ -95,43 +89,13 @@ module.exports = (dbPoolInstance) => {
                 auth = false;
                 doneWithQuery(verifiedUser, auth);
             }
-
         } else {
             auth = false;
             doneWithQuery(verifiedUser, auth);
-            callback(null, null);
         }
-      }
+
     });
   };
-
-
-// let authenticateLogin = (data, verifiedUser) => {
-
-//     let query = "SELECT * FROM users WHERE username=" + data.username;
-
-//     dbPoolInstance.query(query, (err, result) => {
-
-//         if(result.rows.length >= 1) {
-//             const verifiedUser = result.rows[0];
-//             let hash = sha256(data.password + SALT);
-
-//             if(hash === verifiedUser.password) {
-//                 let auth = true;
-//                 let hash = sha256(verifiedUser.name + SALT);
-//                 doneWithQuery(verifiedUser, auth);
-
-//             } else {
-//                 auth = false;
-//                 doneWithQuery(verifiedUser, auth);
-//             }
-//         } else {
-//             auth = false;
-//             doneWithQuery(verifiedUser, auth);
-//         }
-
-//     });
-//   };
 
 
 

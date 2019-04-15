@@ -61,7 +61,6 @@ let addNewTweetCallback = (request, response) => {
 let homeRequestCallback = (request, response) => {
     db.users.allTweet((error, allUsers) => {
       console.log('im allUsers' + allUsers);
-      console.log('done');
       response.render('tweedr/home', {allUsers});
     });
 }

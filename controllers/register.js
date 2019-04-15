@@ -1,4 +1,5 @@
 const sha256 = require('js-sha256');
+const SALT = 'shrek';
 
 module.exports = (db) => {
 
@@ -18,7 +19,8 @@ module.exports = (db) => {
 
         const data = {
             name: request.body.name,
-            password: sha256(request.body.password)
+            password: sha256(request.body.password + SALT),
+            profile_img: request.body.profile_img
         }
 
         const doneWithQuery = (data) => {

@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let createUser = (data, callback) => {
 
-    let query = `INSERT INTO users (name, password) VALUES ('${data.name}', '${data.password}')`;
+    let query = `INSERT INTO users (name, password, profile_img) VALUES ('${data.name}', '${data.password}', '${data.profile_img}')`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

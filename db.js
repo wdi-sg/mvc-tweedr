@@ -10,8 +10,6 @@
  * ===================================================
  */
 
-
-
 const pg = require('pg');
 const url = require('url');
 
@@ -71,6 +69,12 @@ const registerObject = register(pool);
 const login = require('./models/loginmodel');
 const loginObject = login(pool);
 
+const createTweed = require('./models/sendtweed');
+const createTweedObject = createTweed(pool);
+
+const showUserTweeds = require('./models/show.js');
+const userTweedsObject = showUserTweeds(pool);
+
 
 
 /*
@@ -101,6 +105,8 @@ module.exports = {
 
   tweeds: tweedsObject,
   register: registerObject,
-  login: loginObject
+  login: loginObject,
+  send: createTweedObject,
+  show: userTweedsObject
 
 };

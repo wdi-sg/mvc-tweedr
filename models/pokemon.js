@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM tweeds';
+    let query = 'select * from tweeds inner join users on users.id = tweeds.user_id ORDER BY tweeds.id DESC';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

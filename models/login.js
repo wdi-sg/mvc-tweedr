@@ -6,10 +6,9 @@
 module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
+  let getAll = (data,callback) => {
 
-  let getAll = (callback) => {
-
-    let query = 'SELECT * FROM tweets';
+    let query = `SELECT * FROM users WHERE username='${data.username}' AND password='${data.password}'`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

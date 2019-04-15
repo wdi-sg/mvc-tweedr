@@ -6,14 +6,19 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
-      db.tweets.getAll((error, result) => {
-        // console.log(result[0]);
-        let thing = {ccb : result}
-        // console.log(thing);
-        response.render('pokemon/index', thing);
+  let userPage = (request, response) => {
+        let id = request.params.id;
+        console.log("THIS" + id);
+
+
+        db.userpage.getAll(id,(error, result) => {
+          let data = {ccb : result};
+          response.render('user', data);
+          console.log(data.ccb[0].username);
       });
   };
+
+
 
 
   /**
@@ -22,7 +27,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    index: userPage,
   };
 
 }

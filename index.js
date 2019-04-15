@@ -22,7 +22,7 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-// Set react-views to be the default view engine
+// Set react-views to be the default view eqdngine
 const reactEngine = require('express-react-views').createEngine();
 
 app.set('views', __dirname + '/views');

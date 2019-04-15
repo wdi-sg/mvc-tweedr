@@ -7,17 +7,17 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.tweets.getAll((error, result) => {
-        // console.log(result[0]);
+     let num = request.params.id;
+      db.users.getAll(num,(error, result) => {
+        console.log(result);
         let thing = {ccb : result}
-        // console.log(thing);
-        response.render('pokemon/index', thing);
+        response.render('homepage', thing);
       });
   };
 
 
   /**
-   * ====================s=======================
+   * ===========================================
    * Export controller functions as a module
    * ===========================================
    */

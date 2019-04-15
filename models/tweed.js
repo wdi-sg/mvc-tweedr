@@ -7,9 +7,11 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let getAll = (data,callback) => {
 
-    let query = 'SELECT * FROM tweets';
+    let query = `INSERT INTO tweets (user_id, tweets) VALUES(${data.userId}, '${data.userTweed}')`;
+
+       // INSERT INTO tweets (user_id, tweets) VALUES(1, 'HEHEHEH');
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

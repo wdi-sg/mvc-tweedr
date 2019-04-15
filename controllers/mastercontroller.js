@@ -12,6 +12,9 @@ module.exports = (db) => {
       });
   };
 
+let register = (request,response) => {
+    console.log("in pokemon controller");
+}
 
   /**
    * ===========================================
@@ -19,7 +22,9 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    // index: index,
+    register: register,
+    // login:  loginControllerCallback,
   };
 
 }

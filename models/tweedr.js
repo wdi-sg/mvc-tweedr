@@ -40,8 +40,24 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let logIn = (data, doneWithQuery) => {
+
+    let query = "SELECT * FROM users WHERE name='" + data.name + "'";
+
+    dbPoolInstance.query(query, (error, result) => {
+      if ( error ) {
+        console.log(error, null);
+      } else {
+        const user = result.rows[0];
+        // console.log(user);
+        doneWithQuery(user);
+      }
+    });
+  };
+
   return {
     view: getAllTweets,
     registerComplete: newUser,
+    logIn: logIn,
   };
 };

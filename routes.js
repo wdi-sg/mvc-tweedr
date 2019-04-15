@@ -18,4 +18,6 @@ module.exports = (app, allModels) => {
   app.get('/', tweedrControllerCallbacks.index);
   app.get('/register', tweedrControllerCallbacks.register);
   app.post('/register/success', tweedrControllerCallbacks.registerComplete);
+  app.get('/login', tweedrControllerCallbacks.login);
+  app.post('/login/success', tweedrControllerCallbacks.loginComplete);
 };

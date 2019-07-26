@@ -5,7 +5,7 @@ class Add_Tweet extends React.Component {
   render() {
     let url = "/tweedr/add_tweet_post"
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
 
             <form className="login-form" method="POST" action={url}>
                 <h2>Add Tweet</h2>
@@ -19,7 +19,7 @@ class Add_Tweet extends React.Component {
                     </tr>
 
                 </table>
-                <input name="user_id"value={this.props.user_id} hidden/>
+                <input name="user_id"value={this.props.cookieUserId} hidden/>
                 <input className="submit-button" type="submit" value="submit"/>
             </form>
       </Default>

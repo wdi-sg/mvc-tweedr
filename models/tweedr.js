@@ -73,7 +73,6 @@ module.exports = (dbPoolInstance) => {
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
-
                 // invoke callback function with results after query has executed
                 callback(error, null);
 
@@ -82,13 +81,20 @@ module.exports = (dbPoolInstance) => {
                 // invoke callback function with results after query has executed
 
                 if (queryResult.rows.length > 0) {
+                    console.log(sha256(form.password));
                     if (queryResult.rows[0].password === sha256(form.password)) {
+                        console.log("ok")
+                        console.log(queryResult.rows)
                         callback(null, queryResult.rows);
                     } else {
+                        console.log("ham")
                         callback(null, null);
+
                     }
                 } else {
+                    console.log("ham2")
                     callback(null, null);
+
 
                 }
             }
@@ -119,8 +125,8 @@ module.exports = (dbPoolInstance) => {
 
     }
 
-    let getSingleUser = (user_id,callback) => {
-        let query = 'SELECT * FROM users WHERE id ='+user_id;
+    let getSingleUser = (user_id, callback) => {
+        let query = 'SELECT * FROM users WHERE id =' + user_id;
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -135,11 +141,129 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let getFollower = (user_id, callback) => {
+
+        let query = `SELECT * FROM users WHERE id IN (SELECT follower_id FROM followers WHERE user_id=${user_id})`
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    console.log(queryResult.rows)
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let checkIfFollowed = (profile_user_id, login_user_id, callback) => {
+        if (parseInt(profile_user_id) === parseInt(login_user_id)) {
+            callback(null, true);
+        } else {
+            let query = `SELECT EXISTS(SELECT * FROM followers WHERE follower_id = ${login_user_id} AND user_id = ${profile_user_id})`
+            dbPoolInstance.query(query, (error, queryResult) => {
+                if (error) {
+                    callback(error, null);
+                    console.log("gg")
+                } else {
+                    if (queryResult.rows[0].exists) {
+                        callback(null, true);
+                    } else {
+                        callback(null, null);
+
+                    }
+                }
+            });
+        }
+
+    }
+
+    let follow = (profile_user_id, login_user_id, callback) => {
+        let query = `INSERT INTO followers (user_id,follower_id) VALUES ($1,$2) RETURNING *`
+        let arr = [profile_user_id, login_user_id];
+        dbPoolInstance.query(query, arr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, true);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let getFollowing = (user_id, callback) => {
+        let query = `SELECT * FROM users WHERE id IN (SELECT user_id FROM followers WHERE follower_id = ${user_id})`
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let countFollower = (profile_id, callback) => {
+        let query = `SELECT COUNT(follower_id) FROM followers WHERE user_id = $1`
+        let arr = [profile_id];
+        dbPoolInstance.query(query, arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].count);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let countFollowing = (profile_id, callback) => {
+        let query = `SELECT COUNT(user_id) FROM followers WHERE follower_id = $1`
+        let arr = [profile_id];
+        dbPoolInstance.query(query, arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows[0].count);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
     return {
         getAll,
         registerUser,
         logInUser,
         addTweet,
-        getSingleUser
+        getSingleUser,
+        getFollower,
+        checkIfFollowed,
+        follow,
+        getFollowing,
+        countFollower,
+        countFollowing
     };
 };

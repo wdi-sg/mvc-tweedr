@@ -4,8 +4,19 @@ class Default extends React.Component {
   render() {
     let cookieLogin = this.props.cookieLogin? "Log Out":"Login"
     let url = this.props.cookieLogin? "/tweedr/logout":"/tweedr/login";
+    let userUrl = "/tweedr/"+this.props.cookieUserId;
     let userName = this.props.cookieLogin? <div><h4>Welcome {this.props.cookieUser}</h4></div>:"";
     let addTweet = this.props.cookieLogin? <li class="nav-item active"><a class="nav-link" href="/tweedr/add_tweet">Add Tweet <span class="sr-only">(current)</span></a></li> : <li></li>;
+    let dropDown = this.props.cookieLogin? <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href={userUrl}>Profile</a>
+                  <a class="dropdown-item" href="/tweedr/follower">Followers</a>
+                  <a class="dropdown-item" href="/tweedr/following">Following</a>
+                </div>
+              </li> : <li></li>
 
     return (
       <html>
@@ -28,12 +39,14 @@ class Default extends React.Component {
               <li class="nav-item active">
                 <a class="nav-link" href={url}>{cookieLogin}<span class="sr-only">(current)</span></a>
               </li>
-
               {addTweet}
+              {dropDown}
+
             </ul>
 
           </div>
           {userName}
+
 
         </nav>
 

@@ -42,3 +42,12 @@
     margin:0 auto;
     margin-top:20px;
 }
+
+.single-user-profile{
+    text-align:center;
+}
+
+.single-user-profile table{
+    width:500px;
+    margin:0 auto;
+}

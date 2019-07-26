@@ -20,6 +20,7 @@ module.exports = (db) => {
                 title: "Home",
                 cookieLogin: cookieLogin,
                 cookieUser: request.cookies["user_name"],
+                cookieUserId: request.cookies["user_id"]
             }
             response.render('tweedr/index', data);
         });
@@ -33,7 +34,8 @@ module.exports = (db) => {
             let data = {
                 title: "Login",
                 cookieLogin: cookieLogin,
-                cookieUser: request.cookies["user_name"]
+                cookieUser: request.cookies["user_name"],
+                cookieUserId: request.cookies["user_id"]
             }
             response.render('tweedr/login', data);
         }
@@ -48,7 +50,8 @@ module.exports = (db) => {
             let data = {
                 title: "Register",
                 cookieLogin: cookieLogin,
-                cookieUser: request.cookies["user_name"]
+                cookieUser: request.cookies["user_name"],
+                cookieUserId: request.cookies["user_id"]
             }
             response.render('tweedr/register', data);
         };
@@ -66,7 +69,7 @@ module.exports = (db) => {
                 title: "Add Tweet",
                 cookieLogin: cookieLogin,
                 cookieUser: request.cookies["user_name"],
-                user_id: request.cookies["user_id"]
+                cookieUserId: request.cookies["user_id"]
             }
             response.render('tweedr/add_tweet', data);
         } else {
@@ -76,17 +79,75 @@ module.exports = (db) => {
 
     let singleUserControllerCallback = (request, response) => {
         let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
-        db.tweedr.getSingleUser(req.params.id,(error, result) => {
+        db.tweedr.getSingleUser(request.params.id, (error, result) => {
+
             let data = {
                 result: result,
-                title: "Home",
+                title: result.name,
                 cookieLogin: cookieLogin,
                 cookieUser: request.cookies["user_name"],
+                cookieUserId: request.cookies["user_id"],
+                followed: false,
+                profile_id: request.params.id
             }
-            response.render('tweedr/singleUser', data);
+            db.tweedr.countFollower(request.params.id, (error, result) => {
+                data["followerCount"] = parseInt(result);
+                db.tweedr.countFollowing(request.params.id, (error, result) => {
+                    data["followingCount"] = parseInt(result);
+                    if (cookieLogin) {
+                        db.tweedr.checkIfFollowed(request.params.id, request.cookies["user_id"], (error, result) => {
+                            if (result) {
+                                data["followed"] = true;
+                            }
+                            response.render('tweedr/singleUser', data);
+                        })
+                    } else {
+                        response.render('tweedr/singleUser', data);
+                    }
+                })
+            })
+
+
+
         });
     }
 
+    let followerListControllerCallback = (request, response) => {
+        let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
+        if (cookieLogin) {
+            db.tweedr.getFollower(request.cookies["user_id"], (error, result) => {
+                let data = {
+                    result: result,
+                    title: "Followers",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                response.render('tweedr/followers', data);
+            });
+        } else {
+            response.send("YOU ARE NOT LOGGED IN");
+        };
+
+    }
+
+    let followingListControllerCallback = (request, response) => {
+        let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
+        if (cookieLogin) {
+            db.tweedr.getFollowing(request.cookies["user_id"], (error, result) => {
+                let data = {
+                    result: result,
+                    title: "Following",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                response.render('tweedr/following', data);
+            });
+        } else {
+            response.send("YOU ARE NOT LOGGED IN");
+        };
+    }
 
 
     /**
@@ -101,7 +162,9 @@ module.exports = (db) => {
         register: registerControllerCallback,
         logout_user: logoutUserControllerCallback,
         add_tweet: addTweetControllerCallback,
-        single_user: singleUserControllerCallback
+        single_user: singleUserControllerCallback,
+        follower_list: followerListControllerCallback,
+        following_list: followingListControllerCallback
     };
 
 }

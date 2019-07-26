@@ -2,26 +2,29 @@ var React = require("react");
 var Default = require("./layout/default");
 
 class Singleuser extends React.Component {
+
   render() {
-    let url = "/tweedr/add_tweet_post"
+    let url = "/tweedr/"+this.props.profile_id+"/follow"
+    let followed = this.props.followed? "":<form method="POST"action={url}><input name="user_id" value={this.props.cookieUserId} hidden/><input type="submit" value="Follow"/></form>
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
+      <div className="single-user-profile">
+        <h2>{this.props.result.name}</h2>
+        <table className="table table-bordered">
+            <tr>
+                <th scope="row">Followers</th>
+                <td>{this.props.followerCount}</td>
+            </tr>
+            <tr>
+                <th scope="row">Following</th>
+                <td>{this.props.followingCount}</td>
+            </tr>
+        </table>
+        {followed}
+        </div>
 
-            <form className="login-form" method="POST" action={url}>
-                <h2>Add Tweet</h2>
-                <table className="table table-bordered">
-                    <tr>
-                        <th scope="column">Tweet</th>
 
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="tweet"/></td>
-                    </tr>
 
-                </table>
-                <input name="user_id"value={this.props.user_id} hidden/>
-                <input className="submit-button" type="submit" value="submit"/>
-            </form>
       </Default>
     );
   }

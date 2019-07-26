@@ -10,7 +10,7 @@ class Home extends React.Component {
     })
 
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
         <div className="tweet-container">
             {listOfTweets}
         </div>

@@ -9,3 +9,10 @@ CREATE TABLE IF NOT EXISTS tweets (
     content TEXT,
     user_id INT
 );
+
+CREATE TABLE IF NOT EXISTS followers (
+    id SERIAL PRIMARY KEY,
+    user_id INT,
+    follower_id INT
+
+);

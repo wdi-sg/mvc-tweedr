@@ -4,9 +4,8 @@
  * ===========================================
  */
 module.exports = (dbPoolInstance) => {
-
   // `dbPoolInstance` is accessible within this function scope
-
+    var sha256 = require('js-sha256');
     let getAll = (callback) => {
 
         let query = 'SELECT * FROM pokemons';
@@ -35,7 +34,8 @@ module.exports = (dbPoolInstance) => {
     };
 
     let getOne = (data,callback) => {
-        let query = 'SELECT name, password FROM users WHERE name=$1 AND password=$2';
+        let query = 'SELECT id, name, password FROM users WHERE name=$1 AND password=$2';
+        data.password = sha256(data.password);
         let values = [data.name, data.password];
         // console.log(data.name);
         // console.log(data.password);
@@ -48,7 +48,7 @@ module.exports = (dbPoolInstance) => {
             else{
                 // invoke callback function with results after query has executed
                 // console.log(data);
-                // console.log(queryResult.rows[0]);
+                // console.log(queryResult.rows);
                 if( data.name === queryResult.rows[0].name && data.password === queryResult.rows[0].password ){
                     callback(null, queryResult.rows[0]);
                 }
@@ -74,14 +74,15 @@ module.exports = (dbPoolInstance) => {
                 }
                 else{
                     let newQuery = 'insert into users (name, password) values($1, $2)';
-                    values.push(data.password);
-                    console.log(values);
+                    values.push(sha256(data.password));
+                    // console.log(values);
                     dbPoolInstance.query(newQuery, values,(error,queryResult)=>{
                         if(error){
                             callback(error,null);
                         }
                         else{
-                            callback(null,queryResult.rows)
+                            // console.log(queryResult);
+                            callback(null,null);
                         }
                     });
                 }
@@ -89,9 +90,23 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let getLoginOne = (data,callback)=>{
+        let query = 'select * from users where id=$1';
+        let values = [data];
+        dbPoolInstance.query(query,values,(error,result)=>{
+            if(error){
+                callback(error,null);
+            }
+            else{
+                callback(null,result);
+            };
+        });
+    };
+
   return {
     getAll,
     getOne,
-    newOne
+    newOne,
+    getLoginOne
   };
 };

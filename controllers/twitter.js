@@ -1,5 +1,5 @@
 module.exports = (db) => {
-
+var sha256 = require('js-sha256');
   /**
    * ===========================================
    * Controller logic
@@ -32,7 +32,21 @@ module.exports = (db) => {
                     response.send('create an account');
                 }
                 else{
-                    response.send('Enter');
+                    // response.send('Enter');
+                    var user_id = result.id;
+                    // console.log(user_id);
+                    let currentSessionCookie = sha256(user_id + 'logged_id');
+                    console.log(user_id+'----->'+currentSessionCookie);
+                    response.cookie('logged_in', currentSessionCookie);
+                    // response.send('Enter');
+                    console.log("logged_in: "+ currentSessionCookie);
+                    response.cookie('loggedin', true);
+                    console.log("loggedin boolean");
+                    response.cookie('user_id', user_id);
+                    console.log("user_id: "+user_id);
+                    // response.send("OKOKOK");
+                    // console.log(response.cookies)
+                    response.redirect("/homepage");
                 }
             }
         });
@@ -42,10 +56,34 @@ module.exports = (db) => {
         // response.send("inside new account check function");
         // response.send(request.body);
         db.twitter.newOne(request.body,(error, result)=>{
-            console.log('error: ', error);
-            console.log('result: ', result);
+            // console.log('error: ', error);
+            // console.log('result: ', result);
             response.redirect('/login');
         })
+    }
+
+    let homePageView = (request,response)=>{
+        // response.send("inside homepageView function");
+        console.log(request.cookies);
+        if(request.cookies.logged_in === undefined){
+            response.send("Please login or create a new account")
+        }
+        else{
+            db.twitter.getLoginOne(request.cookies.user_id,(error,result)=>{
+                if(error){
+                    response.send('error',error);
+                }
+                else{
+                    // console.log(result.rows[0]);
+                    let data = {
+                        result : result.rows[0]
+                    }
+                    console.log(data);
+                    // response.render('homepage', result);
+                    response.send("YAYA");
+                }
+            })
+        }
     }
 
   /**
@@ -57,7 +95,8 @@ module.exports = (db) => {
     login: loginControllerCallback,
     newAccount: newAccountCallback,
     loginCheck: loginCheckCallback,
-    newAccountCheck: newAccountCheckCallback
+    newAccountCheck: newAccountCheckCallback,
+    homePage: homePageView
   };
 
 }

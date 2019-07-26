@@ -14,16 +14,21 @@ module.exports = (db) => {
 
     let indexControllerCallback = (request, response) => {
         let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
-        db.tweedr.getAll((error, result) => {
-            let data = {
-                result: result,
-                title: "Home",
-                cookieLogin: cookieLogin,
-                cookieUser: request.cookies["user_name"],
-                cookieUserId: request.cookies["user_id"]
-            }
-            response.render('tweedr/index', data);
-        });
+        if (cookieLogin) {
+            db.tweedr.getAll(request.cookies["user_id"],(error, result) => {
+                let data = {
+                    result: result,
+                    title: "Home",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                response.render('tweedr/index', data);
+            });
+        } else {
+            response.redirect('/tweedr/login');
+        }
+
     };
 
     let loginControllerCallback = (request, response) => {

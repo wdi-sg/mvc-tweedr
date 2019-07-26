@@ -9,11 +9,13 @@ module.exports = (dbPoolInstance) => {
 
     // `dbPoolInstance` is accessible within this function scope
 
-    let getAll = (callback) => {
+    let getAll = (user_id,callback) => {
 
-        let query = 'SELECT users.name,tweets.content,users.id FROM users INNER JOIN tweets ON (users.id = tweets.user_id) ORDER BY tweets.id DESC';
+        let query = 'SELECT users.id,users.name,tweets.content FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1)';
 
-        dbPoolInstance.query(query, (error, queryResult) => {
+        let arr = [user_id]
+
+        dbPoolInstance.query(query,arr, (error, queryResult) => {
             if (error) {
 
                 // invoke callback function with results after query has executed

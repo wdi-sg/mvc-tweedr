@@ -28,6 +28,7 @@ const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+app.use(express.static(__dirname+'/public/'));
 
 /**
  * ===================================

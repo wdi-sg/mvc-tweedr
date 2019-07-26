@@ -1,0 +1,38 @@
+.login-form{
+    width:50%;
+    margin: 0 auto;
+    margin-top:20px;
+    text-align:center;
+}
+
+.login-form input{
+    width:100%;
+}
+
+.login-form .submit-button{
+    width:100px;
+    display:block;
+    margin:0 auto;
+}
+
+.tweet-container{
+    width:500px;
+    display:flex;
+    flex-direction: column;
+    margin:0 auto;
+    margin-top:10px;
+}
+
+.tweet-card{
+    border:1px solid black;
+    border-radius:8px;
+    padding:10px;
+    margin:2px;
+}
+
+.tweet-in-card{
+    border:1px solid black;
+    min-height:65px;
+    margin:0;
+
+}

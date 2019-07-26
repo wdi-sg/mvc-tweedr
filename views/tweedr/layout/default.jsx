@@ -2,6 +2,10 @@ var React = require('react');
 
 class Default extends React.Component {
   render() {
+    let cookieLogin = this.props.cookieLogin? "Log Out":"Login"
+    let url = this.props.cookieLogin? "/tweedr/logout":"/tweedr/login";
+    let userName = this.props.cookieLogin? <div><h4>Welcome {this.props.cookieUser}</h4></div>:"";
+    let addTweet = this.props.cookieLogin? <li class="nav-item active"><a class="nav-link" href="/tweedr/add_tweet">Add Tweet <span class="sr-only">(current)</span></a></li> : <li></li>;
 
     return (
       <html>
@@ -20,16 +24,16 @@ class Default extends React.Component {
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+
               <li class="nav-item active">
-                <a class="nav-link" href="#">Playlists <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/tweedr/login">Login<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href={url}>{cookieLogin}<span class="sr-only">(current)</span></a>
               </li>
 
+              {addTweet}
             </ul>
 
           </div>
+          {userName}
 
         </nav>
 

@@ -5,7 +5,7 @@ class Register extends React.Component {
   render() {
     let url = '/tweedr/add_user'
     return (
-      <Default title={this.props.title}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
 
             <form className="login-form" action={url} method="POST">
                 <h2>Register</h2>

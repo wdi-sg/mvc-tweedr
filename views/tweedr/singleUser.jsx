@@ -1,32 +1,30 @@
 var React = require("react");
 var Default = require("./layout/default");
 
-class Login extends React.Component {
+class Singleuser extends React.Component {
   render() {
-    let url = "/tweedr/login_user"
+    let url = "/tweedr/add_tweet_post"
     return (
       <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
 
             <form className="login-form" method="POST" action={url}>
-                <h2>Login</h2>
+                <h2>Add Tweet</h2>
                 <table className="table table-bordered">
                     <tr>
-                        <th scope="row">Name</th>
-                        <td><input type="text" name="name"/></td>
+                        <th scope="column">Tweet</th>
+
                     </tr>
                     <tr>
-                        <th scope="row">Password</th>
-                        <td><input type="password" name="password"/></td>
+                        <td><input type="text" name="tweet"/></td>
                     </tr>
+
                 </table>
+                <input name="user_id"value={this.props.user_id} hidden/>
                 <input className="submit-button" type="submit" value="submit"/>
-            </form>
-            <form className="register-button"action="/tweedr/register">
-                <input type="submit" value="Register"/>
             </form>
       </Default>
     );
   }
 }
 
-module.exports = Login;
+module.exports = Singleuser;

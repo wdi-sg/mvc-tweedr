@@ -6,11 +6,11 @@ class Home extends React.Component {
   render() {
 
     const listOfTweets = this.props.result.map(x=>{
-        return <Tweetcard name={x.name} content={x.content}/>
+        return <Tweetcard name={x.name} content={x.content} user_id={x.id}/>
     })
 
     return (
-      <Default title={this.props.title}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser}>
         <div className="tweet-container">
             {listOfTweets}
         </div>

@@ -36,3 +36,9 @@
     margin:0;
 
 }
+
+.register-button input{
+    display:block;
+    margin:0 auto;
+    margin-top:20px;
+}

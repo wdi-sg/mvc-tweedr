@@ -13,8 +13,12 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  const tweedrCC = require('./controllers/tweedr')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  app.get('/', tweedrCC.allTweets);
+
+  app.get('/login', tweedrCC.login);
+
+  //note: post doesn't seem to work here even though the form is post
+  app.get('/signup', tweedrCC.signup);
 };

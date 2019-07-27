@@ -13,26 +13,34 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
-
-        // invoke callback function with results after query has executed
         callback(error, null);
-
-      }else{
-
-        // invoke callback function with results after query has executed
-
-        if( queryResult.rows.length > 0 ){
+      }else if ( queryResult.rows.length > 0 ){
           callback(null, queryResult.rows);
-
         }else{
           callback(null, null);
-
         }
-      }
+
     });
   };
 
+  let getAllTweets = (callback) => {
+    let query = 'SELECT * FROM tweets';
+
+    dbPoolInstance.query(query, (err, result) => {
+        if (err){
+            callback(err, null);
+        } else if (result.rows.length > 0){
+            callback(null, result.rows);
+        } else {
+            callback(null, null);
+        }
+    })
+  }
+
+
+
   return {
     getAll,
+    getAllTweets
   };
 };

@@ -29,6 +29,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
+app.use(express.static(__dirname+'/public/'));
+
 /**
  * ===================================
  * ===================================

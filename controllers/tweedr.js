@@ -1,5 +1,32 @@
 var sha256 = require('js-sha256');
 const SALT = "PUTANG INA MO";
+
+let timeConverted = function(time) {
+    let curretTime = new Date();
+    let timeAgo = curretTime - time;
+
+    var day, hour, minute, seconds;
+    seconds = Math.floor(timeAgo / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+
+    if (day > 0) {
+        return `${day} days ago`
+    } else {
+        if (hour > 0) {
+            return `${hour} hours ago`;
+        }else{
+            return `${minute}m ago`;
+        }
+    }
+
+
+}
+
 module.exports = (db) => {
 
     /**
@@ -15,7 +42,11 @@ module.exports = (db) => {
     let indexControllerCallback = (request, response) => {
         let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
         if (cookieLogin) {
-            db.tweedr.getAll(request.cookies["user_id"],(error, result) => {
+            db.tweedr.getAll(request.cookies["user_id"], (error, result) => {
+
+                for (let i = 0; i < result.length; i++) {
+                    result[i].create_at = timeConverted(result[i].create_at);
+                }
                 let data = {
                     result: result,
                     title: "Home",

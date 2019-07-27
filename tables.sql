@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tweets (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    user_id INT
+    user_id INT,
+    create_at TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS followers (

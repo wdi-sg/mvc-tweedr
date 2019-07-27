@@ -7,19 +7,20 @@ class Register extends React.Component {
     return (
       <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
 
-            <form className="login-form" action={url} method="POST">
-                <h2>Register</h2>
-                <table className="table table-bordered">
-                    <tr>
-                        <th scope="row">Name</th>
-                        <td><input type="text" name="name"/></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Password</th>
-                        <td><input type="password" name="password"/></td>
-                    </tr>
-                </table>
-                <input className="submit-button" type="submit" value="Submit"/>
+            <form className="login-form needs-validation" action={url} method="POST" novalidate>
+              <div className="form-group">
+                <label for="validationTooltip01">Name</label>
+                <input type="text" className="form-control" id="validationTooltip01" name="name" placeholder="Enter Name" required/>
+                <div className="valid-feedback">
+                    Looks good!
+                  </div>
+              </div>
+              <div className="form-group needs-validation" novalidate>
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" className="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required/>
+              </div>
+
+              <button type="submit" className="btn btn-primary">Submit</button>
             </form>
       </Default>
     );

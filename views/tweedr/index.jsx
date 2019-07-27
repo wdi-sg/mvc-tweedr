@@ -5,8 +5,8 @@ var Tweetcard = require("./components/tweetcard");
 class Home extends React.Component {
   render() {
 
-    const listOfTweets = this.props.result.map(x=>{
-        return <Tweetcard name={x.name} content={x.content} user_id={x.id}/>
+    const listOfTweets = this.props.result===null?"":this.props.result.map(x=>{
+        return <Tweetcard name={x.name} content={x.content} user_id={x.id} create_at = {x.create_at}/>
     })
 
     return (

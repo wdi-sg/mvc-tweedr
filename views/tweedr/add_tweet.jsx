@@ -15,12 +15,12 @@ class Add_Tweet extends React.Component {
 
                     </tr>
                     <tr>
-                        <td><input type="text" name="tweet"/></td>
+                        <td><input className="form-control" type="text" name="tweet"/></td>
                     </tr>
 
                 </table>
                 <input name="user_id"value={this.props.cookieUserId} hidden/>
-                <input className="submit-button" type="submit" value="submit"/>
+                <input className="btn btn-primary" type="submit" value="submit"/>
             </form>
       </Default>
     );

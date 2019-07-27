@@ -8,6 +8,7 @@ class Tweetcard extends React.Component {
       <div className="tweet-card">
             <p className="name-in-card"><a href={url}>{this.props.name}</a></p>
             <p className="tweet-in-card">{this.props.content}</p>
+            <p className="tweet-timing">{this.props.create_at}</p>
       </div>
     );
   }

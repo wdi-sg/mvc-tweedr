@@ -1,37 +1,32 @@
 .login-form{
-    width:50%;
+    width:500px;
     margin: 0 auto;
     margin-top:20px;
     text-align:center;
 }
 
-.login-form input{
-    width:100%;
-}
-
-.login-form .submit-button{
-    width:100px;
-    display:block;
-    margin:0 auto;
-}
 
 .tweet-container{
     width:500px;
     display:flex;
     flex-direction: column;
     margin:0 auto;
-    margin-top:10px;
 }
 
 .tweet-card{
-    border:1px solid black;
-    border-radius:8px;
+    border:1px solid #d3d3d3;
     padding:10px;
-    margin:2px;
+    position:relative;
+
+}
+
+.name-in-card a{
+    color:black;
+    font-weight:bold;
 }
 
 .tweet-in-card{
-    border:1px solid black;
+
     min-height:65px;
     margin:0;
 
@@ -50,4 +45,15 @@
 .single-user-profile table{
     width:500px;
     margin:0 auto;
+}
+
+nav h4{
+    color:white;
+}
+
+.tweet-timing{
+    position:absolute;
+    right:17px;
+    top:9px;
+    font-size:13px;
 }

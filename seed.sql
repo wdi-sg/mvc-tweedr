@@ -1,3 +1,3 @@
-INSERT INTO users (name,password) VALUES ('Kenny Ang','f8780dd0a49d7c9b3bd3ec75cb3b80bb786f123442fde41c407eaa2e62e141c5'),('Akira','988147f62db432ff1fd81b85bb26f621fe2e837a9edb254ef94b45389dd5ffd9'),('Khai','20eccf0186b61d0adee7c6617b63f14e716782863172f9827d2453eb17f5cbe5');
-INSERT INTO tweets (content,user_id) VALUES ('Today is a good day',1),('Welcome to GA',2),('Sad life',3),('Putang Ina',1),('Goblok',2),('Ngentot',3);
+INSERT INTO users (name,password) VALUES ('Kenny Ang','f8780dd0a49d7c9b3bd3ec75cb3b80bb786f123442fde41c407eaa2e62e141c5'),('Akira','af1a2068f1e68daa761b0a70ba8e4adc43bb258831536d49091b9904ebdd7367'),('Khai','64fb4486d5941521274028a721d250632ffe6b2f8a86b2c08aecf01d4ab0e424');
+
 INSERT INTO followers (user_id,follower_id) VALUES (1,2),(1,3),(2,1),(2,3),(3,1);

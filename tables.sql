@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
 	profile_img TEXT DEFAULT 'https://www.pngkey.com/png/detail/325-3257134_flappy-bird-flappy-bird-sprite-png.png'
 );
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweeds (
 	id SERIAL PRIMARY KEY,
 	content TEXT,
 	user_id INTEGER,

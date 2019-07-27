@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 
 /**
  * ===================================
- * Configurations and set up
+ *     Configurations and set up
  * ===================================
  */
 
@@ -31,9 +31,7 @@ app.engine('jsx', reactEngine);
 
 /**
  * ===================================
- * ===================================
  *                DB
- * ===================================
  * ===================================
  */
 
@@ -42,9 +40,7 @@ const allModels = require('./db');
 
 /**
  * ===================================
- * ===================================
- * Routes
- * ===================================
+ *             Routes
  * ===================================
  */
 
@@ -64,7 +60,6 @@ const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
 
 let onClose = function(){
-
   server.close(() => {
     console.log('Process terminated')
     allModels.pool.end( () => console.log('Shut down db connection pool'));

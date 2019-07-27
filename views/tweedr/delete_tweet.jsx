@@ -22,8 +22,9 @@ class Delete_Tweet extends React.Component {
                 <p className="delete-confirm-msg">Are you sure you want to delete this tweet?</p>
                 <input name="tweet_id"value={this.props.result[0].id} hidden/>
                 <input className="btn btn-primary" type="submit" value="Yes"/>
-                <button className="btn btn-primary no-button" onClick="location.href='/tweedr'" >No</button>
+
             </form>
+            <form action="/tweedr"><input className="btn btn-primary no-button" type="submit" value="No"/></form>
 
       </Default>
     );

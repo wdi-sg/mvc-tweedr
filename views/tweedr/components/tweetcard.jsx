@@ -16,7 +16,11 @@ class Tweetcard extends React.Component {
               </div> : "";
     return (
       <div className="tweet-card">
-            <p className="name-in-card"><a href={url}>{this.props.name}</a></p>
+            <div className="small-container">
+                <img className="home-profile-pic"src={this.props.profile_pic}/>
+                <p className="name-in-card"><a href={url}>{this.props.name}</a></p>
+            </div>
+
             <p className="tweet-in-card">{this.props.content}</p>
             <p className="tweet-timing">{this.props.create_at}</p>
             {buttonDropdown}

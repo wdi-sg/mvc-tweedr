@@ -13,7 +13,7 @@ h2{
     width:500px;
     display:flex;
     flex-direction: column;
-    margin:0 auto;
+    margin:10px auto;
 }
 
 .tweet-card{
@@ -23,14 +23,19 @@ h2{
 
 }
 
+.name-in-card{
+    padding-top:10px;
+}
 .name-in-card a{
     color:black;
     font-weight:bold;
+    margin-left:10px;
+
 }
 
 .tweet-in-card{
-    min-height:65px;
-    margin:0;
+    min-height:10px;
+    margin-top:10px;
 }
 
 .tweet-card:hover{
@@ -48,6 +53,7 @@ h2{
 
 .single-user-profile{
     text-align:center;
+    margin-top:20px;
 }
 
 .single-user-profile table{
@@ -83,19 +89,25 @@ nav h4{
     height:3px;
 
 }
+.main-container{
+    display:flex;
+}
 
+.main-page-container{
+    width:100%;
+}
 .side-bar{
     background-color:#eaeaea;
-    position:absolute;
+
     width:200px;
     min-height:630px;
-    left:0;
-    top:55px;
+
 
 }
 
 .side-bar h5{
     margin-top:10px;
+    text-align:center;
 }
 
 .side-bar ul{
@@ -116,5 +128,29 @@ nav h4{
 }
 
 .no-button{
-    margin-left:10px;
+    display:block;
+    margin:10px auto;
 }
+
+.single-profile-pic img{
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+}
+
+.single-profile-pic input{
+    margin: 10px 0;
+}
+
+.home-profile-pic{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+}
+
+.small-container{
+    display:flex;
+    align-items: center;
+}
+
+

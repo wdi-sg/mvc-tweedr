@@ -11,7 +11,7 @@ module.exports = (dbPoolInstance) => {
 
     let getAll = (user_id,callback) => {
 
-        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id,tweets.id AS tweet_id FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
+        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id,tweets.id AS tweet_id,users.profile_pic FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
 
         let arr = [user_id]
 
@@ -321,6 +321,45 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let loadProfilePic = (pic_url,user_id,callback)=>{
+        let query = "UPDATE users SET profile_pic=$1 WHERE id = $2 RETURNING *";
+        let arr = [pic_url,user_id]
+        dbPoolInstance.query(query,arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, true);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let getOnlyUserTweets = (user_id,callback)=>{
+        let query = "SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id,tweets.id AS tweet_id,users.profile_pic FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id = $1 ORDER BY tweets.create_at DESC";
+        let arr = [user_id];
+        dbPoolInstance.query(query,arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                console.log(queryResult.rows)
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+
+
     return {
         getAll,
         registerUser,
@@ -336,6 +375,9 @@ module.exports = (dbPoolInstance) => {
         getAllUsers,
         getTweet,
         editTweet,
-        deleteTweet
+        deleteTweet,
+        loadProfilePic,
+        getOnlyUserTweets
+
     };
 };

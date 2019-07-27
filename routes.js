@@ -1,3 +1,6 @@
+var multer = require('multer');
+var upload = multer({ dest: './uploads/' });
+
 module.exports = (app, allModels) => {
 
 
@@ -33,9 +36,11 @@ module.exports = (app, allModels) => {
     app.post('/tweedr/edit_tweet',postCallbacks.edit_tweet);
     app.delete('/tweedr/delete_tweet',postCallbacks.delete_tweet);
     app.get('/tweedr/:id', controllerCallbacks.single_user);
+    app.get('/tweedr/:id/change_profile_pic',controllerCallbacks.change_profile_pic)
+    app.post('/tweedr/:id/change_profile_pic_post',upload.single('myFile'),postCallbacks.change_profile_pic_post)
     app.post('/tweedr/:id/follow', postCallbacks.follow);
 
 
 
-    //app.get('/pokemons/:id', pokemons.getPokemon);
+    // app.get('/pokemons/:id', pokemons.getPokemon);
 };

@@ -1,5 +1,12 @@
 var sha256 = require('js-sha256');
 const SALT = "PUTANG INA MO";
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+    cloud_name: 'kach92',
+    api_key: '677382927843856',
+    api_secret: 'EXaEnYUuH-Xu7qqtNVdNTaTLL4c'
+});
 
 let timeConverted = function(time) {
     let curretTime = new Date();
@@ -153,11 +160,19 @@ module.exports = (db) => {
                             if (result) {
                                 data["followed"] = true;
                             }
-                            db.tweedr.getAllUsers((error, result2) => {
-                                data["allUsers"] = result2;
-                                response.render('tweedr/singleUser', data);
-                            })
 
+                            db.tweedr.getOnlyUserTweets(request.params.id, (error, result3) => {
+                                if (result3 !== null) {
+                                    for (let i = 0; i < result3.length; i++) {
+                                        result3[i].create_at = timeConverted(result3[i].create_at);
+                                    }
+                                }
+                                data["userTweets"] = result3;
+                                db.tweedr.getAllUsers((error, result2) => {
+                                    data["allUsers"] = result2;
+                                    response.render('tweedr/singleUser', data);
+                                })
+                            })
                         })
                     } else {
                         response.render('tweedr/singleUser', data);
@@ -261,6 +276,30 @@ module.exports = (db) => {
         };
     }
 
+    let changeProfilePicControllerCallback = (request, response) => {
+        let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
+        if (cookieLogin) {
+
+            db.tweedr.getSingleUser(request.params.id, (error, result) => {
+
+                let data = {
+                    result: result,
+                    title: "Change Profile",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/change_profile_pic', data);
+                })
+
+            });
+        } else {
+            response.send("YOU ARE NOT LOGGED IN");
+        };
+    }
+
 
 
     /**
@@ -279,7 +318,8 @@ module.exports = (db) => {
         follower_list: followerListControllerCallback,
         following_list: followingListControllerCallback,
         edit_tweet: editTweetControllerCallback,
-        delete_tweet: deleteTweetControllerCallback
+        delete_tweet: deleteTweetControllerCallback,
+        change_profile_pic: changeProfilePicControllerCallback
     };
 
 }

@@ -112,10 +112,37 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let postTweet = (data,data2,callback)=>{
+        let query = 'insert into tweets (tweet, user_id) values($1, $2)';
+        let values = [data.tweet,data2];
+        dbPoolInstance.query(query,values,(error,result)=>{
+            if (error){
+                callback(error,null)
+            }
+            else{
+                callback(null,null)
+            }
+        })
+    }
+
+    let getAllTweets = (callback)=>{
+        let query = 'select users.id, users.name, users.photo, tweets.id, tweets.tweet from users inner join tweets on (users.id = tweets.user_id) order by tweets.id desc';
+        dbPoolInstance.query(query,(error,result)=>{
+            if (error){
+                callback(error,null);
+            }
+            else{
+                callback(null,result);
+            }
+        })
+    }
+
   return {
     getAll,
     getOne,
     newOne,
-    getLoginOne
+    getLoginOne,
+    postTweet,
+    getAllTweets
   };
 };

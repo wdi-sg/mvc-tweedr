@@ -6,3 +6,11 @@ CREATE TABLE IF NOT EXISTS users (
     photo TEXT,
 	  created_at DATE DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS tweets (
+		id SERIAL PRIMARY KEY,
+		tweet TEXT,
+		user_id INTEGER,
+		created_at TIME DEFAULT now()
+
+)

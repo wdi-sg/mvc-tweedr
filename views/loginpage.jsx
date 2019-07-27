@@ -47,7 +47,7 @@ class loginPage extends React.Component {
                                     <button className="btn btn-danger my-2 my-sm-0" type="submit">Login</button>
                                 </form>
                                 <br />
-                                <a href='/twee_dr/create' className="btn btn-danger my-2 my-sm-0">Create Account</a>
+                                <a href='twee_dr/create' className="btn btn-danger my-2 my-sm-0">Create Account</a>
                             </div>
                         </div>
                     </div>

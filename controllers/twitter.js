@@ -46,7 +46,7 @@ var sha256 = require('js-sha256');
                     // console.log("user_id: "+user_id);
                     // response.send("OKOKOK");
                     // console.log(response.cookies)
-                    response.redirect("/twee_dr/homepage/"+result.name);
+                    response.redirect("/twee_dr/homepage/"+result.id);
                 }
             }
         });
@@ -64,26 +64,58 @@ var sha256 = require('js-sha256');
 
     let homePageView = (request,response)=>{
         // response.send("inside homepageView function");
-        console.log(request.cookies);
+        var userId = request.params.id;
+        // console.log(userId);
+        let data = {
+            id:parseInt(userId)
+        }
         if(request.cookies.logged_in === undefined){
             response.send("Please login or create a new account")
         }
         else{
-            db.twitter.getLoginOne(request.cookies.user_id,(error,result)=>{
+            db.twitter.getLoginOne(userId,(error,result)=>{
+                var outcome = false;
+                // console.log(outcome);
                 if(error){
                     response.send('error',error);
                 }
                 else{
-                    // console.log(result.rows[0]);
-                    let data = {
-                        result : result.rows[0]
+                    outcome = true
+                    // console.log('outcome is: ', outcome);
+                    // console.log(result.rows);
+                    data.resultUser = result.rows[0]
+                    // console.log(data);
+                    if(outcome == true){
+                        // console.log("BOOO");
+                        db.twitter.getAllTweets((error,result)=>{
+                            if(error){
+                                response.send('error',error);
+                            }
+                            else{
+                                // console.log(result.rows);
+                                data.allTweets = result.rows;
+                                // console.log(data);
+                                response.render('homepage', data);
+                            }
+                        });
                     }
-                    console.log(data);
-                    response.render('homepage', data);
-                    // response.send("YAYA");
                 }
             })
         }
+    }
+
+    let homePagePostView = (request,response)=>{
+        // response.send("Inside homepagepostview function");
+        console.log(request.params.id);
+        console.log(request.body);
+        db.twitter.postTweet(request.body, request.params.id, (error,result)=>{
+            if(error){
+                response.send('error',error);
+            }
+            else{
+                response.redirect('/twee_dr/homepage/'+request.params.id);
+            }
+        })
     }
 
   /**
@@ -96,7 +128,8 @@ var sha256 = require('js-sha256');
     newAccount: newAccountCallback,
     loginCheck: loginCheckCallback,
     newAccountCheck: newAccountCheckCallback,
-    homePage: homePageView
+    homePage: homePageView,
+    homePagePost: homePagePostView
   };
 
 }

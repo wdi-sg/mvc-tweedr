@@ -1,0 +1,41 @@
+body {
+    background: -moz-radial-gradient(center, ellipse cover, #FFF 0%, #CCC 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #FFF 0%, #CCC 100%);
+    background: radial-gradient(ellipse cover at center, #FFF 0%, #CCC 100%);
+    background-size: cover;
+    min-height: 100vh;
+}
+.navbar {
+    background:#2C9AB0;
+}
+a {
+    color: #2C9AB0;
+    transition: 0.5s;
+}
+a:hover {
+    color: #2C9AB0;
+    opacity: 0.75;
+}
+.btn-primary {
+    background: #2C9AB0;
+    border: 0;
+    transition: 0.5s;
+}
+.btn-primary:hover {
+    background: #2C9AB0;
+    opacity: 0.75;
+}
+
+.nav-tabs a {
+    font-size: 1.5rem;
+}
+.tab-content .tab-pane {
+    padding: 4rem 0 2rem;
+}
+.form-title {
+    margin-bottom: 2rem;
+}
+
+.tweet.card {
+    margin-bottom: 2rem;
+}

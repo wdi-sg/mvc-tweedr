@@ -279,22 +279,26 @@ module.exports = (db) => {
     let changeProfilePicControllerCallback = (request, response) => {
         let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
         if (cookieLogin) {
+            if (parseInt(request.params.id) === parseInt(request.cookies["user_id"])) {
+                db.tweedr.getSingleUser(request.params.id, (error, result) => {
 
-            db.tweedr.getSingleUser(request.params.id, (error, result) => {
+                    let data = {
+                        result: result,
+                        title: "Change Profile",
+                        cookieLogin: cookieLogin,
+                        cookieUser: request.cookies["user_name"],
+                        cookieUserId: request.cookies["user_id"]
+                    }
+                    db.tweedr.getAllUsers((error, result2) => {
+                        data["allUsers"] = result2;
+                        response.render('tweedr/change_profile_pic', data);
+                    })
 
-                let data = {
-                    result: result,
-                    title: "Change Profile",
-                    cookieLogin: cookieLogin,
-                    cookieUser: request.cookies["user_name"],
-                    cookieUserId: request.cookies["user_id"]
-                }
-                db.tweedr.getAllUsers((error, result2) => {
-                    data["allUsers"] = result2;
-                    response.render('tweedr/change_profile_pic', data);
-                })
+                });
+            } else {
+                response.send("INVALID USER");
+            }
 
-            });
         } else {
             response.send("YOU ARE NOT LOGGED IN");
         };

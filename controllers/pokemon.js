@@ -20,6 +20,10 @@ module.exports = (db) => {
       });
   };
 
+  let registerController = (request, response) => {
+      response.render('forms/register');
+  };
+
 
   /**
    * ===========================================
@@ -28,7 +32,8 @@ module.exports = (db) => {
    */
   return {
     // index: indexControllerCallback,
-    allTweets: allTweetsController
+    allTweets: allTweetsController,
+    register: registerController
   };
 
 }

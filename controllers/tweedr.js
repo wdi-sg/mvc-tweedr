@@ -13,16 +13,22 @@ module.exports = (db) => {
   };
 
   let loginCC = (request, response) => {
-    console.log("QUERY", request.query);
-    response.redirect('/')
+    //pass in request.query data
+    db.tweedr.login(request.query, (err, result) => {
+
+        // response.redirect('/');
+    })
+
       // db.tweedr.getAll((error, allTweets) => {
       //   response.render('tweedr/index', { allTweets });
       // });
   };
 
   let signupCC = (request, response) => {
-    console.log("QUERY", request.query);
-    response.redirect('/')
+    db.tweedr.signup(request.query, (err, result) => {
+       response.redirect('/');
+    })
+    // response.redirect('/')
   }
 
   let getAllTweetsCC = (request, response) => {

@@ -15,17 +15,9 @@ class Layout extends React.Component {
 
         <body>
             <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tweets
-                </button>
-                <div className="dropdown-menu" aria-label="dropdown-menu">
-                    <button type="text" href="#">HELLO</button>
 
 
-                </div>
-
-
-
-                <button className="btn btn-secondary dropdown-toggle acc-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
+                <button className="btn btn-secondary dropdown-toggle acc-btn" type="button" id="dropdownAccButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
                 </button>
                 <div className="dropdown-menu" aria-label="dropdown-menu">
                     <form className="px-4 py-3">

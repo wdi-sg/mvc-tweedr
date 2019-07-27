@@ -41,12 +41,12 @@ var sha256 = require('js-sha256');
                     // response.send('Enter');
                     console.log("logged_in: "+ currentSessionCookie);
                     response.cookie('loggedin', true);
-                    console.log("loggedin boolean");
+                    // console.log("loggedin boolean");
                     response.cookie('user_id', user_id);
-                    console.log("user_id: "+user_id);
+                    // console.log("user_id: "+user_id);
                     // response.send("OKOKOK");
                     // console.log(response.cookies)
-                    response.redirect("/homepage");
+                    response.redirect("/twee_dr/homepage/"+result.name);
                 }
             }
         });
@@ -58,7 +58,7 @@ var sha256 = require('js-sha256');
         db.twitter.newOne(request.body,(error, result)=>{
             // console.log('error: ', error);
             // console.log('result: ', result);
-            response.redirect('/login');
+            response.redirect('/twee_dr');
         })
     }
 
@@ -79,8 +79,8 @@ var sha256 = require('js-sha256');
                         result : result.rows[0]
                     }
                     console.log(data);
-                    // response.render('homepage', result);
-                    response.send("YAYA");
+                    response.render('homepage', data);
+                    // response.send("YAYA");
                 }
             })
         }

@@ -47,13 +47,20 @@ module.exports = (dbPoolInstance) => {
             }
             else{
                 // invoke callback function with results after query has executed
-                // console.log(data);
-                // console.log(queryResult.rows);
-                if( data.name === queryResult.rows[0].name && data.password === queryResult.rows[0].password ){
-                    callback(null, queryResult.rows[0]);
+                // console.log(data.name);
+                // console.log(queryResult.rows[0].name);
+                // console.log(data.password);
+                // console.log(queryResult.rows[0].password);
+                if(queryResult.rows.length > 0){
+                    // console.log("Half YESSSSS");
+                    if(data.name === queryResult.rows[0].name && data.password === queryResult.rows[0].password){
+                        // console.log("YESSSS");
+                        callback(null, queryResult.rows[0]);
+                    }
                 }
                 else{
-                    callback(null, null);
+                    console.log("NOOOOOOO");
+                    callback(null,null);
                 }
             }
         });
@@ -73,8 +80,10 @@ module.exports = (dbPoolInstance) => {
                   callback(null, queryResult.rows);
                 }
                 else{
-                    let newQuery = 'insert into users (name, password) values($1, $2)';
+                    let newQuery = 'insert into users (name, password, email, photo) values($1, $2, $3, $4)';
                     values.push(sha256(data.password));
+                    values.push(data.email);
+                    values.push(data.photo)
                     // console.log(values);
                     dbPoolInstance.query(newQuery, values,(error,queryResult)=>{
                         if(error){

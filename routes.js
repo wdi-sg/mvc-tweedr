@@ -19,10 +19,10 @@ module.exports = (app, allModels) => {
     const newAccountCheckCallbacks = require('./controllers/twitter')(allModels);
     const homePageCallbacks = require('./controllers/twitter')(allModels);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    app.get('/homepage', homePageCallbacks.homePage)
-    app.post('/create', newAccountCheckCallbacks.newAccountCheck);
-    app.get('/create', newAccountCallback.newAccount);
-    app.post('/login', loginCheckCallbacks.loginCheck);
-    app.get('/login', loginControllerCallbacks.login);
+    app.get('/twee_dr/homepage/:name', homePageCallbacks.homePage)
+    app.post('/twee_dr/create', newAccountCheckCallbacks.newAccountCheck);
+    app.get('/twee_dr/create', newAccountCallback.newAccount);
+    app.post('/twee_dr/login', loginCheckCallbacks.loginCheck);
+    app.get('/twee_dr', loginControllerCallbacks.login);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

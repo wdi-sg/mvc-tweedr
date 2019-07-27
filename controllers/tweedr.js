@@ -19,6 +19,13 @@ module.exports = (db) => {
       });
   };
 
+  let signupCC = (request, response) => {
+    db.tweedr.signup(request.query, (err, result) => {
+        console.log("CC", result);
+        response.redirect('/');
+    })
+  }
+
   let loginCC = (request, response) => {
     //pass in request.query data
     if (request.cookies.loggedIn === loggedTrue){
@@ -28,6 +35,8 @@ module.exports = (db) => {
         db.tweedr.login(request.query, (err, result) => {
         console.log("CC", result)
         response.cookie('loggedIn', loggedTrue);
+        response.cookie('user', result.name);
+        response.cookie('userid', result.id);
 
         response.redirect('/');
     })
@@ -35,25 +44,27 @@ module.exports = (db) => {
 
   };
 
-  let signupCC = (request, response) => {
-    db.tweedr.signup(request.query, (err, result) => {
-        console.log("CC", result);
-        response.redirect('/');
-    })
-  }
 
-  let getAllTweetsCC = (request, response) => {
-    db.tweedr.getAllTweets((err, allTweets) => {
-        console.log(allTweets);
-        response.render('tweedr/home', { allTweets });
-    })
-  }
 
   let logoutCC = (request, response) => {
     console.log("logging out")
     response.clearCookie('loggedIn');
     response.redirect('/');
   }
+
+//also sends cookies to home
+  let getAllTweetsCC = (request, response) => {
+    db.tweedr.getAllTweets((err, allTweets) => {
+        let data = {
+            getAllTweets: allTweets,
+            cookies: request.cookies
+        }
+        console.log(data)
+        response.render('tweedr/home', data);
+    })
+  }
+
+
 
 
 

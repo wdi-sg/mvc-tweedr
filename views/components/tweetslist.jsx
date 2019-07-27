@@ -2,7 +2,6 @@ var React = require('react');
 
 class TweetsList extends React.Component {
   render() {
-
     let tweetsList = this.props.tweetsList.map(tweet => {
 
         return(

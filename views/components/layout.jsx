@@ -14,6 +14,8 @@ class Layout extends React.Component {
         </head>
 
         <body>
+            <div className="row mx-1 mt-2">
+            <div className="col">
             <div className="dropdown">
 
 
@@ -30,9 +32,9 @@ class Layout extends React.Component {
                             <label for="drop-down password">Password</label>
                             <input type="password" className="form-control" name="password" placeholder="Password"/>
                         </div>
-                        <button type="submit" className="btn btn-success" method="POST" formAction="/signup">Sign up</button>
+                        <button type="submit" className="btn btn-success w-50" method="POST" formAction="/signup">Sign up</button>
 
-                        <button type="submit" className="btn btn-primary ml-1" method="GET" formAction="/login">Login</button>
+                        <button type="submit" className="btn btn-primary w-50" method="GET" formAction="/login">Login</button>
 
 
 
@@ -45,10 +47,15 @@ class Layout extends React.Component {
                     </div>
                 </div>
 
-
             </div>
-          {this.props.children}
-          <p>so hi?</p>
+            </div>
+            </div>
+
+            <div className="row mx-2 mt-2">
+                <div className="col offset-lg-1">
+                    {this.props.children}
+                </div>
+            </div>
         </body>
       </html>
     );

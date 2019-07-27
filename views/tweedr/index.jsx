@@ -6,7 +6,9 @@ class Home extends React.Component {
   render() {
 
     const listOfTweets = this.props.result===null?"":this.props.result.map(x=>{
-        return <Tweetcard name={x.name} content={x.content} user_id={x.id} create_at = {x.create_at}/>
+
+        let isUser = parseInt(x.user_id) === parseInt(this.props.cookieUserId)? true:false;
+        return <Tweetcard name={x.name} content={x.content} user_id={x.id} create_at = {x.create_at} is_user = {isUser}/>
     })
 
     return (

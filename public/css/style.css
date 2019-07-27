@@ -26,11 +26,16 @@
 }
 
 .tweet-in-card{
-
     min-height:65px;
     margin:0;
-
 }
+
+.tweet-card:hover{
+    background-color: #eaeaea;
+    transition: background-color 200ms linear;
+}
+
+
 
 .register-button input{
     display:block;
@@ -53,7 +58,25 @@ nav h4{
 
 .tweet-timing{
     position:absolute;
-    right:17px;
-    top:9px;
+    right: 17px;
+    /* top: 9px; */
+    bottom: -6px;
     font-size:13px;
+}
+
+.edit-button{
+
+    position: absolute;
+    right:0;
+    top:0;
+
+
+}
+
+.grey-balls{
+    background-color: grey;
+    border-radius:100%;
+    width:3px;
+    height:3px;
+
 }

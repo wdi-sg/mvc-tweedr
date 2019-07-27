@@ -11,7 +11,7 @@ module.exports = (dbPoolInstance) => {
 
     let getAll = (user_id,callback) => {
 
-        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
+        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
 
         let arr = [user_id]
 

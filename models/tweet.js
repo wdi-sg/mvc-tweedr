@@ -22,8 +22,6 @@ module.exports = (dbPoolInstance) => {
 
             }else{
 
-                // invoke callback function with results after query has executed
-
                 if( queryResult.rows.length > 0 ){
                     callback(null, queryResult.rows);
 
@@ -36,6 +34,31 @@ module.exports = (dbPoolInstance) => {
 
     // ===========================================
 
+    let checkName = (value, callback) => {
+
+        let query = 'SELECT * FROM users WHERE name = ($1)';
+
+        let values = [value.name];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+
+            if (error) {
+                callback(error, null);
+
+            } else {
+
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+
+                } else {
+                    callback(null, null);
+                }
+            }
+        })
+    };
+
+    // ===========================================
+
     let postRegister = (value, callback) => {
 
         let query = 'INSERT INTO users (name, password) VALUES ($1, $2)RETURNING *';
@@ -44,13 +67,9 @@ module.exports = (dbPoolInstance) => {
 
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if( error ){
-
-                // invoke callback function with results after query has executed
                 callback(error, null);
 
             }else{
-
-                // invoke callback function with results after query has executed
 
                 if( queryResult.rows.length > 0 ){
                     callback(null, queryResult.rows);
@@ -72,13 +91,9 @@ module.exports = (dbPoolInstance) => {
 
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if( error ){
-
-                // invoke callback function with results after query has executed
                 callback(error, null);
 
             }else{
-
-                // invoke callback function with results after query has executed
 
                 if( queryResult.rows.length > 0 ){
                     callback(null, queryResult.rows);
@@ -96,6 +111,7 @@ module.exports = (dbPoolInstance) => {
 
   return {
     getAll,
+    checkName,
     postRegister,
     postNew
   };

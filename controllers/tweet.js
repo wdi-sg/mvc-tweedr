@@ -19,8 +19,8 @@ module.exports = (db) => {
         }
 
         response.render('tweet/home', data);    //goes to views
-      });
-  };
+      })
+    };
 
     //===========================================
 
@@ -33,11 +33,27 @@ module.exports = (db) => {
     //post register path
     let postRegisterControllerCallback = (request, response) => {
 
-        db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
-        console.log("From controller: " + result);
+        //check user table if name have already been taken up
+        db.tweet.checkName(request.body, (error, result) => {
+            if (error) {
+                console.log(error);
 
-        response.redirect('/login'); //redirect to routes, get login form
-      });
+            } else {
+                console.log(result);
+                // response.send(result);
+
+                if (result.rowCount >= 1) {
+                    console.log("username have been taken up, please choose another user name.");
+                    response.redirect('/register'); //redirect to routes, get register form
+
+                } else {
+                    db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
+                        console.log("From controller: " + result);
+                        response.redirect('/login'); //redirect to routes, get login form
+                    })
+                }
+            }
+        })
     };
 
     //===========================================

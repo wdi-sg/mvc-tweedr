@@ -7,32 +7,69 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  // ===========================================
+  //home path
 
-    let query = 'SELECT * FROM tweets';
+    let getAll = (callback) => {
 
-    dbPoolInstance.query(query, (error, queryResult) => {
-      if( error ){
+        let query = 'SELECT * FROM tweets';
 
-        // invoke callback function with results after query has executed
-        callback(error, null);
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if( error ){
 
-      }else{
+                // invoke callback function with results after query has executed
+                callback(error, null);
 
-        // invoke callback function with results after query has executed
+            }else{
 
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
+                // invoke callback function with results after query has executed
 
-        }else{
-          callback(null, null);
+                if( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
 
-        }
-      }
-    });
-  };
+                }else{
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    // ===========================================
+
+    let postRegister = (value, callback) => {
+
+        let query = 'INSERT INTO users (name, password) VALUES ($1, $2)RETURNING *';
+
+        let values = [value.name, value.password];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+            }else{
+
+                // invoke callback function with results after query has executed
+
+                if( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+
+                }else{
+                    callback(null, null);
+                }
+            }
+        });
+
+
+    };
+
+  // ===========================================
+  //register path
+  // ===========================================
 
   return {
     getAll,
+    postRegister
   };
 };

@@ -20,7 +20,7 @@ module.exports = (db) => {
       });
   };
 
-  let registerController = (request, response) => {
+  let registerForm = (request, response) => {
       response.render('forms/register');
   };
 
@@ -28,15 +28,34 @@ module.exports = (db) => {
 
       db.pokemon.createUser(request.body, (error, userCreated) => {
 
+        response.cookie('userID', userCreated[0].id)
         response.cookie('username', userCreated[0].username)
         response.cookie('loggedin', true);
-        response.cookie('userID', userCreated[0].id)
         response.redirect('/');
       });
   };
 
-  let loginController = (request, response) => {
+  let loginForm = (request, response) => {
       response.render('forms/login');
+  };
+
+  let loginController = (request, response) => {
+
+      db.pokemon.checkUser(request.body, (error, checkResult) => {
+
+        if(request.body.password === checkResult[0].password){
+
+            response.cookie('userID', checkResult[0].id)
+            response.cookie('username', checkResult[0].username)
+            response.cookie('loggedin', true);
+            response.redirect('/');
+
+        } else{
+            console.log("Wrong password!")
+            response.status(403);
+        }
+
+      });
   };
 
   /**
@@ -47,9 +66,10 @@ module.exports = (db) => {
   return {
     // index: indexControllerCallback,
     allTweets: allTweetsController,
-    register: registerController,
+    registerForm,
     createUser: createUserController,
-    login: loginController
+    loginForm,
+    login : loginController
   };
 
 }

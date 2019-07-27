@@ -20,7 +20,7 @@ class Home extends React.Component {
       <html>
         <head/>
         <body>
-          <h3>Welcome to your tweetdr page!!</h3>
+          <h3>Welcome to tweetdr!!</h3>
             <table>
                 <tr>
                     <th>ID</th>

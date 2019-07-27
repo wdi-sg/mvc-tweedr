@@ -16,6 +16,8 @@ module.exports = (app, allModels) => {
 
     const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
 
+//user ====================================
+
     //index path
     app.get('/', tweetControllerCallbacks.home);
 
@@ -25,12 +27,23 @@ module.exports = (app, allModels) => {
     //post register path
     app.post('/register', tweetControllerCallbacks.postRegister);
 
+
+
     //get login path
     app.get('/login', tweetControllerCallbacks.getLogin);
 
     //get login path
     app.post('/login', tweetControllerCallbacks.postLogin);
 
+//tweets ==================================
+
+    //get new tweet
+    app.get('/new', tweetControllerCallbacks.getNew);
+
+    //post new tweet
+    app.post('/new', tweetControllerCallbacks.postNew);
+
+//=========================================
 
 //All paths will go to controllers/tweet.js
 

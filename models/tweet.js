@@ -60,8 +60,34 @@ module.exports = (dbPoolInstance) => {
                 }
             }
         });
+    };
 
+    // ===========================================
 
+    let postNew = (value, callback) => {
+
+        let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)RETURNING *';
+
+        let values = [value.tweet, value.user_id];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+            }else{
+
+                // invoke callback function with results after query has executed
+
+                if( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+
+                }else{
+                    callback(null, null);
+                }
+            }
+        });
     };
 
   // ===========================================
@@ -70,6 +96,7 @@ module.exports = (dbPoolInstance) => {
 
   return {
     getAll,
-    postRegister
+    postRegister,
+    postNew
   };
 };

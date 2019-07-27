@@ -11,14 +11,14 @@ module.exports = (db) => {
    //home path
     let homeControllerCallback = (request, response) => {
 
-      db.tweet.getAll((error, result) => {          //goes to model
+      db.tweet.getAll((error, result) => {          //goes to model,getAll function
         console.log("From controller: " + result);
 
         const data = {
             tweets : result
         }
 
-        response.render('tweet/home', data);
+        response.render('tweet/home', data);    //goes to views
       });
   };
 
@@ -27,16 +27,16 @@ module.exports = (db) => {
     //get register path
     let getRegisterControllerCallback = (request, response) => {
 
-        response.render('tweet/register');
+        response.render('tweet/register'); //goes to views
     };
 
     //post register path
     let postRegisterControllerCallback = (request, response) => {
 
-        db.tweet.postRegister(request.body, (error, result) => {
+        db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
         console.log("From controller: " + result);
 
-        response.redirect('/login');
+        response.redirect('/login'); //redirect to routes, get login form
       });
     };
 
@@ -45,13 +45,32 @@ module.exports = (db) => {
     //get login path
     let getLoginControllerCallback = (request, response) => {
 
-        response.render('tweet/login');
+        response.render('tweet/login'); //goes to views
     };
 
     //post login path
     let postLoginControllerCallback = (request, response) => {
 
-        response.redirect('/');
+        response.redirect('/'); //redirect to routes, get home
+    };
+
+    //===========================================
+
+    //get new tweet path
+    let getNewControllerCallback = (request, response) => {
+        console.log("getting new tweet");
+        response.render('tweet/new'); //goes to views
+    };
+
+    //post new tweet path
+    let postNewControllerCallback = (request, response) => {
+        console.log("posting new tweet");
+        db.tweet.postNew(request.body, (error, result) => {    //goes to model postNew function
+        console.log("From controller: " + result);
+
+        response.render('tweet/user');  //goes to views
+      });
+
     };
 
     //===========================================
@@ -71,12 +90,16 @@ module.exports = (db) => {
    * Export controller functions as a module
    * ===========================================
    */
+
+    // routes.js : function name above
   return {
     home: homeControllerCallback,
     getRegister : getRegisterControllerCallback,
     postRegister : postRegisterControllerCallback,
-    getLogin: getLoginControllerCallback,
-    postLogin: postLoginControllerCallback
+    getLogin : getLoginControllerCallback,
+    postLogin : postLoginControllerCallback,
+    getNew : getNewControllerCallback,
+    postNew : postNewControllerCallback
   };
 
 }

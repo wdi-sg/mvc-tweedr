@@ -6,7 +6,7 @@ class Login extends React.Component {
 
     let headerTitle = "Login | Tweedr";
 
-    let loginURL = `/login`;
+    let loginURL = `/home`;
     let registerURL = `/register`;
 
     return (
@@ -22,7 +22,7 @@ class Login extends React.Component {
             <input type={"text"} name={"password"} required/>
             <br/>
             <br/>
-            <input type="submit" value="Sign up"/>
+            <input type="submit" value="Login"/>
         </form>
         <br/>
         <p>New to Tweedr?</p>

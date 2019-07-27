@@ -6,7 +6,7 @@ class Index extends React.Component {
 
     let headerTitle = "Tweedr: Where Tweeds Happen";
 
-    let loginURL = `/login`;
+    let loginURL = `/home`;
     let registerURL = `/register`;
 
     return (

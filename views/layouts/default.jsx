@@ -12,6 +12,9 @@ class DefaultLayout extends React.Component {
             <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
         </head>
         <NavBar/>
+
+
+
         <body>
             <div className="container">{this.props.children}</div>
         </body>

@@ -1,5 +1,9 @@
+const sha256 = require('js-sha256');
+
+
 module.exports = (db) => {
 
+    let secret = 'secretpassword9090'
   /**
    * ===========================================
    * Controller logic
@@ -14,21 +18,33 @@ module.exports = (db) => {
         response.render('login');
     };
 
-    let register = (request, response) => {
-      response.render('register');
-    };
-
-    let home = (request, response) => {
-        db.tweedr.getAllUsers((error, allUsers) => {
+    let checkLogin = (request, response) => {
+        let user = request.body;
+        db.tweedr.checkUserName(user, (error, user) => {
             if (error) {
                 console.log("error in getting file", error);
             } else {
-                let dataSet = {
-                    users : allUsers
+                if (user === 'pass') {
+                    response.send('wrong userpass')
+                } else if (user) {
+                    let hashedCookie = sha256(user.id + 'logged_id' + secret);
+                    let dataSet = {
+                        user : user
+                    }
+                    response.cookie('user_id', user.id);
+                    response.cookie('loggedin', hashedCookie);
+
+                    response.render('home', dataSet);
+                } else {
+                    response.send('wrong userid')
                 }
-                response.render('home', dataSet);
+
             }
         });
+    };
+
+    let register = (request, response) => {
+      response.render('register');
     };
 
     let createUser = (request, response) => {
@@ -38,24 +54,54 @@ module.exports = (db) => {
             if (error) {
                 console.log("error in getting file", error);
 
+            } else if (user === 'taken'){
+                response.send('username taken!')
             } else {
+                let hashedCookie = sha256(user.id + 'logged_id' + secret);
+                response.cookie('user_id', user.id);
+                response.cookie('loggedin', hashedCookie);
+
                 let dataSet = {
                     user : user
                 }
                 response.render('welcome', dataSet);
             }
-
-            // if (user.rowCount >= 1) {
-            //     console.log('User created successfully');
-
-
-            // } else {
-            //     response.send('User could not be created');
-            // }
         });
     };
 
+    let home = (request, response) => {
+        let userId = request.cookies.user_id;
+        let storedCookie = request.cookies.loggedin;
+
+        if (storedCookie === undefined) {
+            response.send('please log in!')
+        } else {
+            db.tweedr.checkUserId(userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting file", error);
+
+                } else {
+                    let currentCookieSesh = sha256(userId + 'logged_id' + secret)
+                    if ( storedCookie === currentCookieSesh ) {
+                        let dataSet = {
+                            user : user
+                        }
+                        response.render('home', dataSet);
+                    } else {
+                        response.send('wrong user')
+                    }
+                }
+            });
+        }
+    };
+
     let redirect = (request, response) => {
+      response.redirect('index');
+    };
+
+    let logout = (request, response) => {
+      response.clearCookie('user_id');
+      response.clearCookie('loggedin');
       response.redirect('index');
     };
 
@@ -68,10 +114,12 @@ module.exports = (db) => {
   return {
     index,
     login,
+    checkLogin,
     register,
     createUser,
     home,
     redirect,
+    logout,
 
   };
 

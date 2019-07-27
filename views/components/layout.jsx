@@ -17,7 +17,7 @@ class Layout extends React.Component {
             <div className="dropdown">
 
 
-                <button className="btn btn-secondary dropdown-toggle acc-btn" type="button" id="dropdownAccButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
+                <button className="btn btn-primary dropdown-toggle acc-btn" type="button" id="dropdownAccButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account
                 </button>
                 <div className="dropdown-menu" aria-label="dropdown-menu">
                     <form className="px-4 py-3">
@@ -30,10 +30,19 @@ class Layout extends React.Component {
                             <label for="drop-down password">Password</label>
                             <input type="password" className="form-control" name="password" placeholder="Password"/>
                         </div>
-                        <button type="submit" className="btn btn-primary" method="POST" formAction="/signup">Sign up</button>
+                        <button type="submit" className="btn btn-success" method="POST" formAction="/signup">Sign up</button>
 
                         <button type="submit" className="btn btn-primary ml-1" method="GET" formAction="/login">Login</button>
+
+
+
                     </form>
+
+
+                    <div className="dropdown-divider"/>
+                    <div className="px-4 py-3">
+                        <a href="/logout" className="btn btn-link">Log out</a>
+                    </div>
                 </div>
 
 

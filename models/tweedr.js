@@ -58,9 +58,22 @@ module.exports = (dbPoolInstance) => {
   }
 
   let login = (requestdata, callback) => {
-    console.log("MODEL QUERY", requestdata);
-    let values = [requestdata.user, requestdata.password];
-    console.log(values);
+    let hash = sha256(requestdata.password);
+    let values = [requestdata.user, hash];
+    let query = `SELECT * FROM users WHERE name = $1 AND password = $2`;
+
+    dbPoolInstance.query(query, values, (err, result) => {
+        if (err){
+            callback(err, null);
+        } else if (result.rows.length < 1){
+            console.log("Login failed.");
+        } else if (result.rows.length = 1){
+            callback(null, result.rows[0]);
+            console.log(result.rows[0].name, "has logged in!")
+        } else {
+            callback(null, null);
+        }
+    })
 
   }
 

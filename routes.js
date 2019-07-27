@@ -21,4 +21,6 @@ module.exports = (app, allModels) => {
 
   //note: post doesn't seem to work here even though the form is post
   app.get('/signup', tweedrCC.signup);
+
+  app.get('/logout', tweedrCC.logout);
 };

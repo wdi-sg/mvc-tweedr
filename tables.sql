@@ -6,5 +6,6 @@ CREATE TABLE Account (
 CREATE TABLE Tweet (
     id SERIAL PRIMARY KEY,
     content TEXT,
-    username VARCHAR(32) REFERENCES Account(username)
+    username VARCHAR(32) REFERENCES Account(username),
+    date_created DATE
 );

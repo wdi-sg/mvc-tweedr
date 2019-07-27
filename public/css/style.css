@@ -39,3 +39,10 @@ a:hover {
 .tweet.card {
     margin-bottom: 2rem;
 }
+
+.dashboard-title {
+    margin-bottom: 2rem;
+}
+.dashboard-logout {
+    margin-top: 4rem;
+}

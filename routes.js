@@ -15,4 +15,5 @@ module.exports = (app, allModels) => {
   app.post('/register', accountControllerCallbacks.register);
   app.post('/login', accountControllerCallbacks.login);
   app.post('/logout', accountControllerCallbacks.logout);
+  app.post('/new', tweetControllerCallbacks.addNew);
 };

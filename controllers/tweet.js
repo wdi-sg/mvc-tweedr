@@ -12,10 +12,22 @@ module.exports = (db) => {
 			let loginSession = req.cookies["logged_in"];
 			if (loginSession){
 				let username = req.cookies["username"];
-				res.render('tweet/dashboard', {allTweets, username});
+				res.render('tweet/dashboard', {allTweets, username, error:queryErr});
 			}
 			else {
 				res.render('tweet/index', {allTweets, error:queryErr});
+			}
+		});
+	};
+	let addNewControllerCallback = (req, res) => {
+		let username = req.cookies["username"];
+		let content = req.body.content;
+		db.tweet.addNew(content, username,(error, callback) => {
+			if (callback) {
+				res.redirect('/');
+			}
+			else {
+				res.redirect('/?err=tweet');
 			}
 		});
 	};
@@ -28,6 +40,7 @@ module.exports = (db) => {
 	 */
 	return {
 		getAll: getAllControllerCallback,
+		addNew: addNewControllerCallback
 	};
 
 }

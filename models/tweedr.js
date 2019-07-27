@@ -11,7 +11,7 @@ module.exports = (dbPoolInstance) => {
 
     let getAll = (user_id,callback) => {
 
-        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
+        let query = 'SELECT users.id,users.name,tweets.content,tweets.create_at,tweets.user_id,tweets.id AS tweet_id FROM users INNER JOIN tweets ON (tweets.user_id = users.id) WHERE users.id IN (SELECT user_id FROM followers WHERE follower_id=$1 UNION SELECT follower_id FROM followers WHERE user_id=$1 UNION SELECT id FROM users WHERE id=$1) ORDER BY tweets.create_at DESC';
 
         let arr = [user_id]
 
@@ -272,6 +272,55 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let getTweet = (tweet_id,callback)=>{
+        let query = `SELECT * FROM tweets WHERE id=`+tweet_id
+        dbPoolInstance.query(query,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let editTweet = (tweet_id,tweet_content,callback)=>{
+        let query = "UPDATE tweets SET content = $1 WHERE id = $2 RETURNING *";
+        let arr = [tweet_content,tweet_id]
+        dbPoolInstance.query(query,arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, true);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
+    let deleteTweet = (tweet_id,callback)=>{
+        let query = "DELETE FROM tweets WHERE id = $1";
+        let arr = [tweet_id]
+        dbPoolInstance.query(query,arr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+
+                    callback(null, true);
+            }
+        });
+    }
+
     return {
         getAll,
         registerUser,
@@ -284,6 +333,9 @@ module.exports = (dbPoolInstance) => {
         getFollowing,
         countFollower,
         countFollowing,
-        getAllUsers
+        getAllUsers,
+        getTweet,
+        editTweet,
+        deleteTweet
     };
 };

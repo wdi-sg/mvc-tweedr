@@ -215,6 +215,52 @@ module.exports = (db) => {
         };
     }
 
+    let editTweetControllerCallback = (request, response) => {
+        let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
+        if (cookieLogin) {
+
+            db.tweedr.getTweet(request.params.id, (error, result) => {
+                let data = {
+                    result: result,
+                    title: "Edit",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/edit_tweet', data);
+                })
+
+            });
+        } else {
+            response.send("YOU ARE NOT LOGGED IN");
+        };
+    }
+
+    let deleteTweetControllerCallback = (request, response) => {
+        let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
+        if (cookieLogin) {
+
+            db.tweedr.getTweet(request.params.id, (error, result) => {
+                let data = {
+                    result: result,
+                    title: "Delete",
+                    cookieLogin: cookieLogin,
+                    cookieUser: request.cookies["user_name"],
+                    cookieUserId: request.cookies["user_id"]
+                }
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/delete_tweet', data);
+                })
+
+            });
+        } else {
+            response.send("YOU ARE NOT LOGGED IN");
+        };
+    }
+
 
 
     /**
@@ -231,7 +277,9 @@ module.exports = (db) => {
         add_tweet: addTweetControllerCallback,
         single_user: singleUserControllerCallback,
         follower_list: followerListControllerCallback,
-        following_list: followingListControllerCallback
+        following_list: followingListControllerCallback,
+        edit_tweet: editTweetControllerCallback,
+        delete_tweet: deleteTweetControllerCallback
     };
 
 }

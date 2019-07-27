@@ -28,8 +28,13 @@ module.exports = (app, allModels) => {
     app.post('/tweedr/add_tweet_post', postCallbacks.add_tweet_post);
     app.get('/tweedr/follower', controllerCallbacks.follower_list);
     app.get('/tweedr/following', controllerCallbacks.following_list);
+    app.get('/tweedr/edit_tweet/:id',controllerCallbacks.edit_tweet);
+    app.get('/tweedr/delete_tweet/:id',controllerCallbacks.delete_tweet);
+    app.post('/tweedr/edit_tweet',postCallbacks.edit_tweet);
+    app.delete('/tweedr/delete_tweet',postCallbacks.delete_tweet);
     app.get('/tweedr/:id', controllerCallbacks.single_user);
     app.post('/tweedr/:id/follow', postCallbacks.follow);
+
 
 
     //app.get('/pokemons/:id', pokemons.getPokemon);

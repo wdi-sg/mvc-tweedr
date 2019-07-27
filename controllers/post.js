@@ -63,6 +63,32 @@ module.exports = (db) => {
         })
     }
 
+    let editTweetPostCallback = (request,response)=>{
+        db.tweedr.editTweet(request.body.tweet_id,request.body.tweet, (error, result) => {
+
+            if(result){
+                response.redirect("/tweedr/");
+            }else{
+                response.send("gg");
+            }
+
+        })
+    }
+
+    let deleteTweetPostCallback = (request,response)=>{
+        db.tweedr.deleteTweet(request.body.tweet_id, (error, result) => {
+
+            if(result){
+                response.redirect("/tweedr/");
+            }else{
+                response.send("gg");
+            }
+
+        })
+    }
+
+
+
 
 
 
@@ -75,7 +101,9 @@ module.exports = (db) => {
         add_user: addUserCallback,
         login_user: logInUserCallback,
         add_tweet_post:addTweetPostCallback,
-        follow:followPostCallback
+        follow:followPostCallback,
+        edit_tweet:editTweetPostCallback,
+        delete_tweet:deleteTweetPostCallback
     };
 
 }

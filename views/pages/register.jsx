@@ -2,22 +2,38 @@ var React = require("react");
 var Layout = require('../layout/layout.jsx');
 
 class Register extends React.Component {
-  render() {
-    return (
-      <html>
-        <head/>
-        <body>
-            Register New Account
-            <form method="POST" action="/register">
-                <input type="text" name="name" placeholder="name"/>
-                <input type="text" name="profile_img" placeholder="img"/>
-                <input type="text" name="password" placeholder="password"/>
-                <input type="submit" value="Submit"/>
-            </form>
-        </body>
-      </html>
-    );
-  }
-}
+    render () {
+        return (
+            <Layout>
+
+            <div class="container">
+
+                <h1>Register New Account</h1>
+
+                <form method="POST" action="/register">
+
+                      <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" placeholder="Select a username"/>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password"/>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="profile_img">Profile Image</label>
+                        <input type="text" class="form-control" name="profile_img" placeholder="Insert a direct link to img"/>
+                      </div>
+                      {/* using bootstrap in-built form function to upload files - how will sql read? */}
+
+                      <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+            </div> {/* closing main body container */}
+        </Layout>
+        )
+    }
+};
 
 module.exports = Register;

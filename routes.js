@@ -5,7 +5,7 @@ module.exports = (app, allModels) => {
   const login = require('./controllers/main')(allModels);
 
   app.get('/register', register.start);
-  app.post('/register', register.done);
+  app.post('/register', register.end);
 
   app.get('/login', login.index);
   app.post('/login', login.done);

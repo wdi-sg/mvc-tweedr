@@ -1,39 +1,28 @@
-const sha256 = require('js-sha256');
-const SALT = 'meow meow poop';
+/**
+ * ===========================================
+ * Export model functions as a module
+ * ===========================================
+ */
+//data(?) from pool is accessible within this function scope
 
-module.exports = (db) => {
+module.exports = (dbPoolInstance) => {
 
-  /**
-   * ===========================================
-   * Controller logic
-   * ===========================================
-   */
+  let newUser = (data, callback) => {
+    let query = `INSERT INTO users (username, password, profile_img) VALUES ('${data.username}', '${data.password}', '${data.profile_img}')`;
 
-    let register = (request, response) => {
-        response.render('pages/register');
-    };
-
-    let registrationComplete = (request, response) => {
-        const data = {
-            name: request.body.name,
-            password: sha256(request.body.password + SALT),
-            profile_img: request.body.profile_img
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if (error) {
+        callback (error, null);
+      } else {
+        if (queryResult.rows.length > 0) {
+          callback (null, queryResult.rows);
+        } else {
+          callback (null, null);
         }
-        const registrationConfirmation = data => {
-            console.log(data);
-            response.send("Registration Complete!");
-        }
-      db.register.createUser(data, registrationConfirmation);
-      //registrationConfirmation is the callback function
-    };
-
-  /**
-   * ===========================================
-   * Export controller functions as a module
-   * ===========================================
-   */
-  return {
-    start: register,
-    end: registrationComplete
+      }
+    });
   };
-}
+  return {
+    newUser,
+  };
+};

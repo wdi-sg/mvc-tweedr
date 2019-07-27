@@ -23,8 +23,8 @@ module.exports = (db) => {
             console.log(data);
             response.send("Registration Complete!");
         }
-      db.register.createUser(data, registrationConfirmation);
-      //registrationConfirmation is the callback function
+      db.register.newUser(data, registrationConfirmation);
+      //registrationConfirmation is the callback function for afterrrr new user is registered
     };
 
   /**

@@ -4,11 +4,9 @@ var cloudinary = require('cloudinary');
 var multer = require('multer');
 var upload = multer({ dest: './uploads/' });
 
-cloudinary.config({
-  cloud_name: 'kach92',
-  api_key: '677382927843856',
-  api_secret: 'EXaEnYUuH-Xu7qqtNVdNTaTLL4c'
-});
+var configForCloudinary = require("../config.json");
+
+cloudinary.config(configForCloudinary);
 module.exports = (db) => {
 
     /**

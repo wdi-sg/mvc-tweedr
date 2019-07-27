@@ -1,12 +1,9 @@
 var sha256 = require('js-sha256');
 const SALT = "PUTANG INA MO";
 var cloudinary = require('cloudinary');
+var configForCloudinary = require("../config.json");
 
-cloudinary.config({
-    cloud_name: 'kach92',
-    api_key: '677382927843856',
-    api_secret: 'EXaEnYUuH-Xu7qqtNVdNTaTLL4c'
-});
+cloudinary.config(configForCloudinary);
 
 let timeConverted = function(time) {
     let curretTime = new Date();

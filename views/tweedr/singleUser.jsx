@@ -15,6 +15,8 @@ class Singleuser extends React.Component {
         return <Tweetcard name={x.name} content={x.content} user_id={x.id} create_at = {x.create_at} is_user = {isUser} tweet_id={x.tweet_id} profile_pic={x.profile_pic}/>
     });
 
+
+    let isUser = parseInt(this.props.profile_id) === parseInt(this.props.cookieUserId)? <form action={button_url}><input type="submit" className="btn btn-primary"value="Change Profile Pic"/></form>:"";
     let followed = this.props.followed? "":<form method="POST"action={url}><input name="user_id" value={this.props.cookieUserId} hidden/><input className="btn btn-primary follow-button" type="submit" value="Follow"/></form>
     return (
       <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
@@ -22,7 +24,7 @@ class Singleuser extends React.Component {
         <h2>{this.props.result.name}</h2>
         <div className="single-profile-pic">
             <img  src={this.props.result.profile_pic}/>
-            <form action={button_url}><input type="submit" className="btn btn-primary"value="Change Profile Pic"/></form>
+            {isUser}
         </div>
 
 

@@ -23,6 +23,10 @@ class Register extends React.Component {
                 <label htmlFor="inputPassword">Password</label>
                 <input type="password" name="password" className="form-control" id="inputPassword" placeholder="Password" />
               </div>
+              <div className="form-group">
+                <label htmlFor="inputEmail">Email Address</label>
+                <input type="email" name="email" className="form-control" id="inputEmail" placeholder="Email Address" />
+              </div>
               <button type="submit" className="btn btn-primary">Submit</button>
             </form>
           </div>

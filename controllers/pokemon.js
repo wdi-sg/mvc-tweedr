@@ -24,6 +24,16 @@ module.exports = (db) => {
       response.render('forms/register');
   };
 
+  let createUserController = (request, response) => {
+
+      db.pokemon.createUser(request.body, (error, userCreated) => {
+
+        response.cookie('username', userCreated[0].username)
+        response.cookie('loggedin', true);
+        response.cookie('userID', userCreated[0].id)
+        response.redirect('/');
+      });
+  };
 
   /**
    * ===========================================
@@ -33,7 +43,8 @@ module.exports = (db) => {
   return {
     // index: indexControllerCallback,
     allTweets: allTweetsController,
-    register: registerController
+    register: registerController,
+    createUser: createUserController
   };
 
 }

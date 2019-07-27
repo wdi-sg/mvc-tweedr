@@ -22,5 +22,7 @@ module.exports = (app, allModels) => {
 
   app.get('/register', pokemonControllerCallbacks.register )
 
-  app.get('/login', pokemonControllerCallbacks.allTweets )
+  app.post('/users', pokemonControllerCallbacks.createUser )
+
+  // app.get('/login', pokemonControllerCallbacks.allTweets )
 };

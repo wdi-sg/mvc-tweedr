@@ -19,7 +19,7 @@ let timeConverted = function(time) {
     } else {
         if (hour > 0) {
             return `${hour} hours ago`;
-        }else{
+        } else {
             return `${minute}m ago`;
         }
     }
@@ -43,10 +43,12 @@ module.exports = (db) => {
         let cookieLogin = (sha256(request.cookies["user_id"] + 'logged_in' + SALT) === request.cookies["logged_in"]) ? true : false;
         if (cookieLogin) {
             db.tweedr.getAll(request.cookies["user_id"], (error, result) => {
-
-                for (let i = 0; i < result.length; i++) {
-                    result[i].create_at = timeConverted(result[i].create_at);
+                if (result !== null) {
+                    for (let i = 0; i < result.length; i++) {
+                        result[i].create_at = timeConverted(result[i].create_at);
+                    }
                 }
+
                 let data = {
                     result: result,
                     title: "Home",
@@ -54,7 +56,10 @@ module.exports = (db) => {
                     cookieUser: request.cookies["user_name"],
                     cookieUserId: request.cookies["user_id"]
                 }
-                response.render('tweedr/index', data);
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/index', data);
+                })
             });
         } else {
             response.redirect('/tweedr/login');
@@ -73,7 +78,12 @@ module.exports = (db) => {
                 cookieUser: request.cookies["user_name"],
                 cookieUserId: request.cookies["user_id"]
             }
-            response.render('tweedr/login', data);
+
+            db.tweedr.getAllUsers((error, result2) => {
+                data["allUsers"] = result2;
+                response.render('tweedr/login', data);
+            })
+
         }
 
     };
@@ -89,7 +99,11 @@ module.exports = (db) => {
                 cookieUser: request.cookies["user_name"],
                 cookieUserId: request.cookies["user_id"]
             }
-            response.render('tweedr/register', data);
+            db.tweedr.getAllUsers((error, result2) => {
+                data["allUsers"] = result2;
+                response.render('tweedr/register', data);
+            })
+
         };
     }
 
@@ -107,7 +121,11 @@ module.exports = (db) => {
                 cookieUser: request.cookies["user_name"],
                 cookieUserId: request.cookies["user_id"]
             }
-            response.render('tweedr/add_tweet', data);
+            db.tweedr.getAllUsers((error, result2) => {
+                data["allUsers"] = result2;
+                response.render('tweedr/add_tweet', data);
+            })
+
         } else {
             response.send("YOU ARE NOT LOGGED IN");
         };
@@ -135,7 +153,11 @@ module.exports = (db) => {
                             if (result) {
                                 data["followed"] = true;
                             }
-                            response.render('tweedr/singleUser', data);
+                            db.tweedr.getAllUsers((error, result2) => {
+                                data["allUsers"] = result2;
+                                response.render('tweedr/singleUser', data);
+                            })
+
                         })
                     } else {
                         response.render('tweedr/singleUser', data);
@@ -159,7 +181,11 @@ module.exports = (db) => {
                     cookieUser: request.cookies["user_name"],
                     cookieUserId: request.cookies["user_id"]
                 }
-                response.render('tweedr/followers', data);
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/followers', data);
+                })
+
             });
         } else {
             response.send("YOU ARE NOT LOGGED IN");
@@ -178,12 +204,17 @@ module.exports = (db) => {
                     cookieUser: request.cookies["user_name"],
                     cookieUserId: request.cookies["user_id"]
                 }
-                response.render('tweedr/following', data);
+                db.tweedr.getAllUsers((error, result2) => {
+                    data["allUsers"] = result2;
+                    response.render('tweedr/following', data);
+                })
+
             });
         } else {
             response.send("YOU ARE NOT LOGGED IN");
         };
     }
+
 
 
     /**

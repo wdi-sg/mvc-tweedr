@@ -11,11 +11,14 @@ class Home extends React.Component {
         return <Tweetcard name={x.name} content={x.content} user_id={x.id} create_at = {x.create_at} is_user = {isUser}/>
     })
 
+
+
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
         <div className="tweet-container">
             {listOfTweets}
         </div>
+
 
       </Default>
     );

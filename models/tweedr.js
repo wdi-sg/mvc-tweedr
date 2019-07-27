@@ -255,6 +255,23 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let getAllUsers = (callback) => {
+        let query = `SELECT * FROM users ORDER BY name ASC`
+        dbPoolInstance.query(query,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+                console.log("gg")
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+
+                }
+            }
+        });
+    }
+
     return {
         getAll,
         registerUser,
@@ -266,6 +283,7 @@ module.exports = (dbPoolInstance) => {
         follow,
         getFollowing,
         countFollower,
-        countFollowing
+        countFollowing,
+        getAllUsers
     };
 };

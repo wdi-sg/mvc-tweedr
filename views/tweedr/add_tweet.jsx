@@ -5,7 +5,7 @@ class Add_Tweet extends React.Component {
   render() {
     let url = "/tweedr/add_tweet_post"
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
 
             <form className="login-form" method="POST" action={url}>
                 <h2>Add Tweet</h2>

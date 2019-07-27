@@ -5,9 +5,9 @@ class Singleuser extends React.Component {
 
   render() {
     let url = "/tweedr/"+this.props.profile_id+"/follow"
-    let followed = this.props.followed? "":<form method="POST"action={url}><input name="user_id" value={this.props.cookieUserId} hidden/><input type="submit" value="Follow"/></form>
+    let followed = this.props.followed? "":<form method="POST"action={url}><input name="user_id" value={this.props.cookieUserId} hidden/><input className="btn btn-primary follow-button" type="submit" value="Follow"/></form>
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
       <div className="single-user-profile">
         <h2>{this.props.result.name}</h2>
         <table className="table table-bordered">

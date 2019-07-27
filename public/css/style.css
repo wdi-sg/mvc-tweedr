@@ -4,6 +4,9 @@
     margin-top:20px;
     text-align:center;
 }
+h2{
+    text-align:center;
+}
 
 
 .tweet-container{
@@ -79,4 +82,35 @@ nav h4{
     width:3px;
     height:3px;
 
+}
+
+.side-bar{
+    background-color:#eaeaea;
+    position:absolute;
+    width:200px;
+    min-height:630px;
+    left:0;
+    top:55px;
+
+}
+
+.side-bar h5{
+    margin-top:10px;
+}
+
+.side-bar ul{
+    list-style-type: none;
+}
+
+.side-bar a{
+    color:black;
+
+}
+.side-bar a:hover{
+    text-decoration: none;
+    color:#007aff;
+}
+
+.follow-button{
+    margin-top:20px;
 }

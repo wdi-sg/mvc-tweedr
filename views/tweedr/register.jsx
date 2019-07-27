@@ -5,8 +5,8 @@ class Register extends React.Component {
   render() {
     let url = '/tweedr/add_user'
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
-
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
+            <h2>Register</h2>
             <form className="login-form needs-validation" action={url} method="POST" novalidate>
               <div className="form-group">
                 <label for="validationTooltip01">Name</label>

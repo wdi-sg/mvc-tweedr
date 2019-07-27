@@ -9,7 +9,7 @@ class Following extends React.Component {
         return <li><a href={url}>{x.name}</a></li>
     })
     return (
-      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId}>
+      <Default title={this.props.title} cookieLogin={this.props.cookieLogin} cookieUser={this.props.cookieUser} cookieUserId={this.props.cookieUserId} allUsers = {this.props.allUsers}>
         <h2>{this.props.cookieUser}'s following:</h2>
         <ul>
             {followers}

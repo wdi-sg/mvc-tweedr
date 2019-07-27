@@ -35,6 +35,10 @@ module.exports = (db) => {
       });
   };
 
+  let loginController = (request, response) => {
+      response.render('forms/login');
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -44,7 +48,8 @@ module.exports = (db) => {
     // index: indexControllerCallback,
     allTweets: allTweetsController,
     register: registerController,
-    createUser: createUserController
+    createUser: createUserController,
+    login: loginController
   };
 
 }

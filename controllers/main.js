@@ -24,10 +24,13 @@ module.exports = (db) => {
 
       if( error ){
         console.log( "ERRR!", error );
+
       }else{
+
         console.log('queryResult');
         console.log(queryResult);
-        if(queryResult[0].password === input.password){
+
+        if(input.password === queryResult[0].password){
 
         var user_id = queryResult[0].id;
 
@@ -37,10 +40,9 @@ module.exports = (db) => {
         response.cookie('user_id', user_id);
         response.redirect('/');
 
-        }else{
-          console.log("WRONG")
-          response.send('wrong');
-        }
+      } else if (input.password === !queryResult[0].password){
+        response.send('wrong');
+      }
 
       }
     });

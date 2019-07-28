@@ -1,0 +1,54 @@
+body{
+	background-image: url('background.jpeg');
+	background-size: cover;
+	font-family: 'Hind Madurai', sans-serif;
+	height: -webkit-fill-available;
+}
+
+.bg-light{
+	background: rgba(3, 169, 244, 0.12) !important;
+	padding: 0 16px;
+	margin-bottom: 1rem;
+}
+
+a.navbar-brand{
+	font-family: 'Righteous', cursive;
+	font-size: 1.8rem;
+	display: flex;
+}
+
+.main-icon{
+	background-image: url('https://image.flaticon.com/icons/svg/874/874957.svg');
+	height: 2.5rem;
+	width: 2.5rem;
+	margin-right: 2px;
+}
+
+.display-tweeds{
+  background-color: rgba(255, 255, 255, 0.44);
+  border: 1px dotted pink;
+  overflow-y: scroll;
+  height: 20rem;
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.latest{
+	font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 2.5rem;
+  background-image: linear-gradient(to right, #1e2927, #3d8a82, #b6ecde);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+textarea{
+	margin-bottom: 1rem;
+}
+
+.page-footer{
+	margin-top: 2rem;
+	bottom:0;
+}

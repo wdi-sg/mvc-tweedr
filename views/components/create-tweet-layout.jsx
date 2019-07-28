@@ -21,9 +21,21 @@ class TweetCard extends React.Component {
                     <div className="card-header text-white bg-primary">Tweet something, {cookies.user}!
                     </div>
                     <div className="card-body bg-light px-2 py-2">
-                        <div className="form py-0 px-0">
-                        <input className="card-input" type="text"/>
-                        </div>
+
+
+
+
+                        <form className="form py-0 px-0" method="POST" action="/tweet">
+                            <input type="text" className="card-input form-control" name="content" placeholder="Type here"/>
+                            <button className="btn btn-primary" type="submit">Tweet</button>
+                        </form>
+
+
+
+
+
+
+
                     </div>
 
                 </div>
@@ -42,3 +54,8 @@ class TweetCard extends React.Component {
 }
 
 module.exports = TweetCard;
+
+ // <div className="form py-0 px-0" method="POST" formAction="/tweet">
+ //                        <input className="card-input" type="text"/>
+ //                        <button className="btn btn-primary" type="submit">Tweet</button>
+ //                        </div>

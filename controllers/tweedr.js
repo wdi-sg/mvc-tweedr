@@ -44,8 +44,6 @@ module.exports = (db) => {
 
   };
 
-
-
   let logoutCC = (request, response) => {
     console.log("logging out")
     response.clearCookie('loggedIn');
@@ -64,7 +62,19 @@ module.exports = (db) => {
     })
   }
 
+  let createTweetCC = (request, response) => {
+    let requestdata = {
+        userid: parseInt(request.cookies.userid),
+        content: request.body.content
+    }
 
+    db.tweedr.createTweet(requestdata, (err, tweet) => {
+
+    console.log('created tweet');
+    response.redirect('/');
+    })
+
+  }
 
 
 
@@ -79,7 +89,8 @@ module.exports = (db) => {
     login: loginCC,
     signup: signupCC,
     allTweets: getAllTweetsCC,
-    logout: logoutCC
+    logout: logoutCC,
+    tweet: createTweetCC
   };
 
 }

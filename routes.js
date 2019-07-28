@@ -23,4 +23,6 @@ module.exports = (app, allModels) => {
   app.get('/signup', tweedrCC.signup);
 
   app.get('/logout', tweedrCC.logout);
+
+  app.post('/tweet', tweedrCC.tweet);
 };

@@ -7,7 +7,7 @@ module.exports = (dbPoolInstance) => {
     var sha256 = require('js-sha256');
 
   // `dbPoolInstance` is accessible within this function scope
-
+  //example
   let getAll = (callback) => {
     let query = 'SELECT * FROM pokemons';
     dbPoolInstance.query(query, (error, queryResult) => {
@@ -20,10 +20,13 @@ module.exports = (dbPoolInstance) => {
         }
     });
   };
+  //end example---------------------------
 
   let getAllTweets = (callback) => {
-    let query = 'SELECT * FROM tweets';
+    // let query = 'SELECT * FROM tweets';
 
+    //creates a merged table around tweets.userid = users.id
+    let query = `SELECT users.id, * from tweets inner join users on (users.id = tweets.userid)`;
     dbPoolInstance.query(query, (err, result) => {
         if (err){
             callback(err, null);
@@ -77,12 +80,33 @@ module.exports = (dbPoolInstance) => {
 
   }
 
+  let createTweet = (requestdata, callback) => {
+    console.log("MODEL BODY: ", requestdata)
+    let values = [requestdata.content, requestdata.userid];
+    let query = `INSERT INTO tweets (content, userid) VALUES ($1, $2) RETURNING *`;
+
+    dbPoolInstance.query(query, values, (err, result) => {
+        if(err){
+            callback(err, null);
+        } else if (result.rows.length < 1){
+            console.log("Failed to create tweet");
+        } else if (result.rows.length = 1){
+            callback(null, result.rows[0]);
+            console.log("TWEET: ", result.rows[0]);
+        } else {
+            callback(null, null);
+        }
+    })
+
+  }
+
 
 
   return {
     getAll,
     getAllTweets,
     login,
-    signup
+    signup,
+    createTweet
   };
 };

@@ -24,11 +24,20 @@ module.exports = (db) => {
 
   let allTweetsController = (request, response) => {
 
+    let data;
+
     if(request.cookies.loggedin === "true") {
         db.pokemon.getAllTweets(request.cookies.userID, (error, allTweets) => {
 
-        response.render('home', { allTweets });
-      });
+            response.render('home', { allTweets })
+
+        });
+
+            // db.pokemon.getUserInfo(request.cookies.userID, (error, userInfo) => {
+            //     // console.log(userInfo)
+            //     data.userInfo =  userInfo;
+            //     return data;
+            // });
 
     } else {
       response.render('landingPage');
@@ -91,8 +100,38 @@ module.exports = (db) => {
         // response.render('home');
         response.redirect('/home')
     });
+  };
 
+  let pictureForm = (request, response) => {
 
+    response.render('forms/pictures');
+
+  };
+
+   let picturesController = (request, response) => {
+
+    db.pokemon.uploadPics(request.cookies.userID, request.body, (error, pictures) => {
+        response.redirect('/home')
+        // console.log(pictures)
+    });
+  };
+
+  let editTweetController = (request, response) => {
+
+    console.log(request.body)
+
+    // db.pokemon.uploadPics(request.body, (error, pictures) => {
+    //     response.redirect('/home')
+    //     // console.log(pictures)
+    // });
+  };
+
+  let deleteTweetController = (request, response) => {
+
+    db.pokemon.deleteTweet(request.body.tweetId, (error, tweets) => {
+        console.log(tweets)
+        response.redirect('/home')
+    });
   };
 
   /**
@@ -109,7 +148,11 @@ module.exports = (db) => {
     loginForm,
     login : loginController,
     logout : logoutController,
-    createTweet : tweetController
+    createTweet : tweetController,
+    pictureForm,
+    uploadPics: picturesController,
+    editTweet: editTweetController,
+    deleteTweet: deleteTweetController
   };
 
 }

@@ -32,6 +32,27 @@ module.exports = (dbPoolInstance) => {
   //   });
   // };
 
+  let getUserInfo = (userID, callback) => {
+
+    let query = "SELECT * FROM pictures WHERE user_id='"+userID+"'";
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
   let getAllTweets = (userID, callback) => {
 
     let query = "SELECT * FROM tweets WHERE user_id='"+userID+"' ORDER BY id DESC";
@@ -123,11 +144,63 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let uploadPics = (userID, dataObj, callback) => {
+
+    console.log(dataObj)
+
+    let query = "INSERT INTO pictures (background_url, profile_url, user_id) VALUES ($1, $2, $3) RETURNING *";
+
+    const values = [dataObj.background_url, dataObj.profile_url, userID]
+
+
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+  let deleteTweet = (tweetID, callback) => {
+
+    console.log(tweetID)
+
+    let query = "DELETE FROM tweets WHERE id =' "+tweetID+" '";
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
   return {
     // getAll,
+    getUserInfo,
     getAllTweets,
     createUser,
     checkUser,
-    createNewTweet
+    createNewTweet,
+    uploadPics,
+    deleteTweet
   };
 };

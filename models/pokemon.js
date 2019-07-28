@@ -32,9 +32,9 @@ module.exports = (dbPoolInstance) => {
   //   });
   // };
 
-  let getAllTweets = (callback) => {
+  let getAllTweets = (userID, callback) => {
 
-    let query = 'SELECT * FROM tweets';
+    let query = "SELECT * FROM tweets WHERE user_id='"+userID+"' ORDER BY id DESC";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -99,10 +99,35 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let createNewTweet = (userID, tweet, callback) => {
+
+    let query = "INSERT INTO tweets (tweets, user_id) VALUES ($1, $2) RETURNING *";
+
+    const values = [tweet, userID]
+
+
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
   return {
     // getAll,
     getAllTweets,
     createUser,
-    checkUser
+    checkUser,
+    createNewTweet
   };
 };

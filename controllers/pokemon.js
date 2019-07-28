@@ -13,15 +13,27 @@ module.exports = (db) => {
   // };
 
   let landingPage = (request, response) => {
+
+    if(request.cookies.loggedin === "true") {
+        response.redirect('/home')
+    } else {
       response.render('landingPage');
+    }
+
   };
 
   let allTweetsController = (request, response) => {
-      db.pokemon.getAllTweets((error, allTweets) => {
-        // response.send(allTweets)
-        // response.render('pokemon/index', { allPokemon });
-        response.render('home');
+
+    if(request.cookies.loggedin === "true") {
+        db.pokemon.getAllTweets(request.cookies.userID, (error, allTweets) => {
+
+        response.render('home', { allTweets });
       });
+
+    } else {
+      response.render('landingPage');
+    }
+
   };
 
   let registerForm = (request, response) => {
@@ -40,7 +52,9 @@ module.exports = (db) => {
   };
 
   let loginForm = (request, response) => {
-      response.render('forms/login');
+
+    response.render('forms/login');
+
   };
 
   let loginController = (request, response) => {
@@ -62,6 +76,25 @@ module.exports = (db) => {
       });
   };
 
+  let logoutController = (request, response) => {
+
+      response.cookie('userID', null)
+      response.cookie('username', null)
+      response.cookie('loggedin', false);
+      response.redirect('/');
+  };
+
+  let tweetController = (request, response) => {
+
+    db.pokemon.createNewTweet(request.cookies.userID, request.body.tweets, (error, allTweets) => {
+        // response.render('home', { allTweets });
+        // response.render('home');
+        response.redirect('/home')
+    });
+
+
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -74,7 +107,9 @@ module.exports = (db) => {
     registerForm,
     createUser: createUserController,
     loginForm,
-    login : loginController
+    login : loginController,
+    logout : logoutController,
+    createTweet : tweetController
   };
 
 }

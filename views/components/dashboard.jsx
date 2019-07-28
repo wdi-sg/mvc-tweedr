@@ -18,12 +18,15 @@ class Dashboard extends React.Component {
 						<div className="col-9">
 							<input type="text" className="form-control" name="content" placeholder="Tweedr your thoughts!"/>
 						</div>
-						<div className="col-3">
+						<div className="col-3 text-right">
 							<button type="submit" className="btn btn-primary">Submit</button>
 						</div>
 					</form>
+					<div className="dashboard-info">
+						See following
+					</div>
 					<form className="dashboard-logout" method="POST" action="/logout">
-						<div className="buttons text-right">
+						<div className="buttons">
 							<button type="submit" className="btn btn-danger">Log out</button>
 						</div>
 					</form>

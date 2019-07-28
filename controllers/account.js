@@ -59,6 +59,62 @@ module.exports = (db) => {
 		});
 	};
 
+	let profileControllerCallback = (req, res) => {
+		let username = req.params.username;
+		db.account.checkAccount(username, (error, user) => {
+			//check if there is such user
+			if (user) {
+				//get tweets from user
+				db.tweet.getUserTweet(username, (error, tweets) => {
+					//check if user have followed
+					let loggedInUser = req.cookies["username"];
+					db.account.checkFollowing(username, loggedInUser, (error, following) => {
+						let follow = "follow";
+						if (following) {
+							follow = "followed";
+						} else if (loggedInUser === username) {
+							follow = "same user";
+						} else if (!loggedInUser) {
+							follow = "please log in";
+						}
+						res.render('tweet/profile', {tweets, username, loggedInUser, follow});
+					});
+				});
+			}
+
+			else{
+				// res.render('tweet/error', {error:'No such user.'});
+				res.send("no such user.");
+			}
+		});
+	};
+
+	let addFollowerControllerCallback = (req, res) => {
+		let username = req.params.username;
+		let loggedInUser = req.cookies["username"];
+		db.account.checkFollowing(username, loggedInUser, (error, following) => {
+			if (following) {
+				db.account.removeFollower(username,loggedInUser,(error, following) => {
+					if (following) {
+						res.redirect('../users/'+username);
+					}
+					else {
+						res.send("Please try again as the server is having issues.");
+					}
+				});
+			}
+			else {
+				db.account.addFollower(username,loggedInUser,(error, following) => {
+					if (following) {
+						res.redirect('../users/'+username);
+					}
+					else {
+						res.send("Please try again as the server is having issues.");
+					}
+				});
+			}
+		});
+	};
 
 	/**
 	 * ===========================================
@@ -68,7 +124,9 @@ module.exports = (db) => {
 	return {
 		register: registerControllerCallback,
 		logout: logoutControllerCallback,
-		login: loginControllerCallback
+		login: loginControllerCallback,
+		profile: profileControllerCallback,
+		addFollower: addFollowerControllerCallback
 	};
 
 };

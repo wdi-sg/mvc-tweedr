@@ -43,6 +43,6 @@ a:hover {
 .dashboard-title {
     margin-bottom: 2rem;
 }
-.dashboard-logout {
-    margin-top: 4rem;
+.dashboard-info,.dashboard-logout {
+    margin-top: 2rem;
 }

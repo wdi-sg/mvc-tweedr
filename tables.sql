@@ -9,3 +9,9 @@ CREATE TABLE Tweet (
     username VARCHAR(32) REFERENCES Account(username),
     date_created DATE
 );
+
+CREATE TABLE Follower (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(32) REFERENCES Account(username),
+    follower VARCHAR(32) REFERENCES Account(username)
+)

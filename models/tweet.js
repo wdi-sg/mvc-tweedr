@@ -56,8 +56,34 @@ module.exports = (dbPoolInstance) => {
 		});
 	};
 
+	let getUserTweet = (username, callback) => {
+
+		let query = 'SELECT * FROM Tweet WHERE LOWER(username) = $1 ORDER BY Tweet.date_created DESC';
+		let values = [username.toLowerCase()];
+		dbPoolInstance.query(query, values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
+
 	return {
 		getAll,
-		addNew
+		addNew,
+		getUserTweet
 	};
 };

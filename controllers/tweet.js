@@ -31,8 +31,6 @@ module.exports = (db) => {
 			}
 		});
 	};
-
-
 	/**
 	 * ===========================================
 	 * Export controller functions as a module

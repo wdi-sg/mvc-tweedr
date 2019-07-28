@@ -11,21 +11,15 @@ module.exports = (dbPoolInstance) => {
   //home path
 
     let getAll = (callback) => {
-
         let query = 'SELECT * FROM tweets';
-
         dbPoolInstance.query(query, (error, queryResult) => {
             if( error ){
-
                 // invoke callback function with results after query has executed
                 callback(error, null);
-
-            }else{
-
-                if( queryResult.rows.length > 0 ){
+            } else {
+                if(queryResult.rows.length > 0) {
                     callback(null, queryResult.rows);
-
-                }else{
+                } else {
                     callback(null, null);
                 }
             }
@@ -35,21 +29,14 @@ module.exports = (dbPoolInstance) => {
     // ===========================================
 
     let checkName = (value, callback) => {
-
         let query = 'SELECT * FROM users WHERE name = ($1)';
-
         let values = [value.name];
-
         dbPoolInstance.query(query, values, (error, queryResult) => {
-
             if (error) {
                 callback(error, null);
-
             } else {
-
                 if (queryResult.rows.length > 0) {
                     callback(null, queryResult.rows);
-
                 } else {
                     callback(null, null);
                 }
@@ -60,30 +47,72 @@ module.exports = (dbPoolInstance) => {
     // ===========================================
 
     let postRegister = (value, callback) => {
-
         let query = 'INSERT INTO users (name, password) VALUES ($1, $2)RETURNING *';
-
         let values = [value.name, value.password];
-
         dbPoolInstance.query(query, values, (error, queryResult) => {
-            if( error ){
+            if(error) {
                 callback(error, null);
-
-            }else{
-
-                if( queryResult.rows.length > 0 ){
+            } else {
+                if(queryResult.rows.length > 0) {
                     callback(null, queryResult.rows);
-
-                }else{
+                } else {
                     callback(null, null);
                 }
             }
-        });
+        })
+    };
+
+    // ===========================================
+    let checkLogin = (value, callback) => {
+        let query = 'SELECT * FROM users WHERE name = ($1)';
+        let values = [value.name];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if (error) {
+                console.log(error);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        })
     };
 
     // ===========================================
 
-    let postNew = (value, callback) => {
+    let postLogin = (value, callback) => {
+        let query = 'SELECT * FROM users WHERE name = ($1)';
+        let values = [value.name];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if (error) {
+                console.log(error);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows)
+                } else {
+                    callback(null, null);
+                }
+            }
+        })
+    };
+
+    // ===========================================
+
+    let getUser = (callback) => {
+        let query = 'SELECT * FROM tweets';
+        dbPoolInstance.query(query, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                callback(null, null);
+            }
+        })
+    }
+
+    // ===========================================
+
+    let postTweet = (value, callback) => {
 
         let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)RETURNING *';
 
@@ -113,6 +142,9 @@ module.exports = (dbPoolInstance) => {
     getAll,
     checkName,
     postRegister,
-    postNew
+    checkLogin,
+    postLogin,
+    getUser,
+    postTweet
   };
 };

@@ -10,14 +10,11 @@ module.exports = (db) => {
 
    //home path
     let homeControllerCallback = (request, response) => {
-
       db.tweet.getAll((error, result) => {          //goes to model,getAll function
         console.log("From controller: " + result);
-
         const data = {
             tweets : result
         }
-
         response.render('tweet/home', data);    //goes to views
       })
     };
@@ -26,39 +23,28 @@ module.exports = (db) => {
 
     //get register path
     let getRegisterControllerCallback = (request, response) => {
-
-        let message = "Welcome Onboard!! Create Your Account!";
-
-                    const data = {
-                        message : message
-                    }
-
+        let message = "Welcome Onboard!! Create Your Own Account!";
+        const data = {
+            message : message
+        }
         response.render('tweet/register', data); //goes to views
     };
 
     //post register path
     let postRegisterControllerCallback = (request, response) => {
-
         //check user table if name have already been taken up
         db.tweet.checkName(request.body, (error, result) => {
             if (error) {
                 console.log(error);
-
             } else {
                 // console.log(result);
-
                 if (result != undefined) {
-                    console.log("username have been taken up, please choose another user name.");
-
-                    response.redirect('/register/new'); //redirect to routes, get register form
-                }
-
-                else {
+                    response.send("username have been taken up, click back and choose another user name.");
+                } else {
                     db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
                         // console.log("From controller: " + result);
-                        console.log("Successful Registered, Login With Your New Account");
-
-                        response.redirect('/login/new'); //redirect to routes, get login form
+                        console.log("Successful Registered");
+                        response.redirect('/user'); //redirect to routes, user
                     })
                 }
             }
@@ -69,33 +55,62 @@ module.exports = (db) => {
 
     //get login path
     let getLoginControllerCallback = (request, response) => {
-
-        response.render('tweet/login'); //goes to views
+        let message = "Welcome!! Let's get you Log In!!";
+        const data = {
+            message : message
+        }
+        response.render('tweet/login', data); //goes to views
     };
 
     //post login path
     let postLoginControllerCallback = (request, response) => {
+        //check if user input wrong name or wrong password
+        db.tweet.checkLogin(request.body, (error, result) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(result);
+                if (result === null) {
+                    response.send("You have keyed in incorrect user name or password, click back and try again.");
+                } else {
+                    db.tweet.postLogin(request.body, (error, result) => {
+                        console.log("From controller: " + result);
+                        console.log("Successful Login");
+                        response.redirect('/user'); //redirect to routes, get home
+                    })
+                }
+            }
+        })
+    };
 
-        response.redirect('/'); //redirect to routes, get home
+    //===========================================
+
+    //get user path
+    let getUserControllerCallback = (request, response) => {
+        db.tweet.getAll((error, result) => {          //goes to model,getAll function
+            console.log("From controller: " + result);
+            const data = {
+                tweets : result
+        }
+        response.render('tweet/user', data);  //goes to views
+      });
     };
 
     //===========================================
 
     //get new tweet path
-    let getNewControllerCallback = (request, response) => {
+    let getTweetControllerCallback = (request, response) => {
         console.log("getting new tweet");
-        response.render('tweet/new'); //goes to views
+        response.render('tweet/tweet'); //goes to views
     };
 
     //post new tweet path
-    let postNewControllerCallback = (request, response) => {
+    let postTweetControllerCallback = (request, response) => {
         console.log("posting new tweet");
-        db.tweet.postNew(request.body, (error, result) => {    //goes to model postNew function
-        console.log("From controller: " + result);
-
-        response.render('tweet/user');  //goes to views
-      });
-
+        db.tweet.postTweet(request.body, (error, result) => {    //goes to model postNew function
+            console.log("From controller: " + result);
+        })
+        response.redirect('/user');  //redirect to routes, get home
     };
 
     //===========================================
@@ -123,8 +138,9 @@ module.exports = (db) => {
     postRegister : postRegisterControllerCallback,
     getLogin : getLoginControllerCallback,
     postLogin : postLoginControllerCallback,
-    getNew : getNewControllerCallback,
-    postNew : postNewControllerCallback
+    getUser : getUserControllerCallback,
+    getTweet : getTweetControllerCallback,
+    postTweet : postTweetControllerCallback
   };
 
 }

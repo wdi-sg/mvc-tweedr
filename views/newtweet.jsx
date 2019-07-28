@@ -9,11 +9,10 @@ class Login extends React.Component {
     let tweetURL = `/newtweet`;
     let user = this.props.user;
     let pl = `What's on your mind, ${user.name}?`;
-    console.log('user', user)
 
     return (
 
-      <DefaultLayout title={headerTitle}>
+      <DefaultLayout title={headerTitle} user={user}>
 
         <h1>New Tweet</h1>
 

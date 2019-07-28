@@ -6,9 +6,15 @@ class Block extends React.Component {
     let tweets = this.props.tweets;
 
     let tweetsArr = tweets.map((tweet,i)=>{
+    let userURL = `/users/${tweet.id}`
         return (
             <div>
-                <p>{i+1}. {tweet.detail}</p>
+                <p>
+                    <form action={userURL}>
+                        <button>Follow</button>
+                    </form>
+                    <a href={userURL}>{tweet.name}</a>: {tweet.detail}
+                </p>
             </div>
         )
     })

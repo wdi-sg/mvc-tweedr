@@ -6,16 +6,17 @@ const TweetBlock = require('./components/userTweetBlock');
 class Home extends React.Component {
   render() {
 
-    let headerTitle = 'Home | Tweedr';
+    let headerTitle = 'Trending | Tweedr';
     let user = this.props.user;
+    let tweets = this.props.tweets;
 
 
     return (
 
       <DefaultLayout title={headerTitle} user={user}>
-        <p> Hello {user.name}! </p>
 
         <h4>All Tweets</h4>
+        <TweetBlock tweets={tweets}/>
 
       </DefaultLayout>
     );

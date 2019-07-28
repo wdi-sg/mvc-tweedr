@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
     // `dbPoolInstance` is accessible within this function scope
 
-    let checkUserName = (user, callback) => {
+    let getUserUsingName = (user, callback) => {
 
         let queryString = 'SELECT * FROM users WHERE users.name = $1';
         let values = [user.name];
@@ -31,13 +31,12 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let createUser = (newUser, callback) => {
+    let createNewUser = (newUser, callback) => {
 
         let queryString = 'SELECT * FROM users WHERE name = $1';
         let values = [newUser.name];
 
         dbPoolInstance.query(queryString, values, (error, result) => {
-            console.log("result", result);
 
             if ( error ){
                 callback(error, null);
@@ -77,25 +76,25 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let displayHome = (userId, callback) => {
+    // let displayHome = (userId, callback) => {
 
-        let queryString = 'SELECT * FROM users WHERE users.id = $1';
-        let values = [userId];
+    //     let queryString = 'SELECT * FROM users WHERE id = $1';
+    //     let values = [userId];
 
-        dbPoolInstance.query(queryString, values, (error, result) => {
-            if ( error ){
-                callback(error, null);
-            } else {
-                if ( result.rows.length > 0 ){
-                callback(null, result.rows[0]);
-                } else {
-                    callback(null, null);
-                }
-            }
-        });
-    };
+    //     dbPoolInstance.query(queryString, values, (error, result) => {
+    //         if ( error ){
+    //             callback(error, null);
+    //         } else {
+    //             if ( result.rows.length > 0 ){
+    //             callback(null, result.rows[0]);
+    //             } else {
+    //                 callback(null, null);
+    //             }
+    //         }
+    //     });
+    // };
 
-    let checkUserId = (userId, callback) => {
+    let getUserUsingId = (userId, callback) => {
 
         let queryString = 'SELECT * FROM users WHERE id = $1';
         let values = [userId];
@@ -113,7 +112,7 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let createTweet = (newTweet, callback) => {
+    let createNewTweet = (newTweet, callback) => {
         let queryString = `INSERT INTO tweets (detail, user_id) VALUES ($1, $2)`;
         let values = [
             newTweet.detail,
@@ -138,11 +137,27 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let getAllTweets = (callback) => {
+        let queryString = `SELECT users.name, tweets.detail, users.id FROM tweets INNER JOIN users ON (tweets.user_id = users.id)`;
+
+        dbPoolInstance.query(queryString, (error, result) => {
+            if( error ){
+                callback(error, null);
+            } else{
+                if( result.rows.length > 0 ){
+                    callback(null, result.rows);
+                } else{
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
   return {
-    checkUserName,
-    createUser,
-    displayHome,
-    checkUserId,
-    createTweet,
+    getUserUsingName,
+    createNewUser,
+    getUserUsingId,
+    createNewTweet,
+    getAllTweets,
   };
 };

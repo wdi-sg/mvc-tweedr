@@ -3,6 +3,9 @@ const NavBar = require('./components/navBar');
 
 class DefaultLayout extends React.Component {
   render() {
+
+    let user = this.props.user;
+
     return (
       <html>
         <head>
@@ -11,9 +14,7 @@ class DefaultLayout extends React.Component {
             <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" rel="stylesheet"/>
             <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
         </head>
-        <NavBar/>
-
-
+        <NavBar user={user}/>
 
         <body>
             <div className="container">{this.props.children}</div>

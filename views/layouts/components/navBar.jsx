@@ -2,6 +2,9 @@ const React = require('react');
 
 class NavBar extends React.Component {
   render() {
+
+    let user = this.props.user;
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,13 +15,16 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="/artists">Trending</a>
+                <a className="nav-link" href="/trending">Trending</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/artists/new">Friends</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/songs">Profile</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/songs">{user.name}</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/newtweet">New Tweet</a>

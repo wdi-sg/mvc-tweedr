@@ -26,11 +26,10 @@ class Register extends React.Component {
                         <label for="profile_img">Profile Image</label>
                         <input type="text" class="form-control" name="profile_img" placeholder="Insert a direct link to img"/>
                       </div>
-                      {/* using bootstrap in-built form function to upload files - how will sql read? */}
 
                       <button type="submit" class="btn btn-secondary">Submit</button>
                 </form>
-            </div> {/* closing main body container */}
+            </div>
         </Layout>
         )
     }

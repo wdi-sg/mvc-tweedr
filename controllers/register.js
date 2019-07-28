@@ -3,31 +3,28 @@ const SALT = 'meow meow poop';
 const cookieParser = require('cookie-parser')
 
 module.exports = (db) => {
-
   /**
    * ===========================================
    * Controller logic
    * ===========================================
    */
-
-    let register = (request, response) => {
+    let registerForm = (request, response) => {
         response.render('pages/register');
     };
 
-    let registrationComplete = (request, response) => {
+    let registrationAttempt = (request, response) => {
         const data = {
-            name: request.body.name,
+            username: request.body.username,
             password: sha256(request.body.password + SALT),
             profile_img: request.body.profile_img
         }
+
         const registrationConfirmation = data => {
             console.log(data);
-            let hashedLogin = sha256('logged_id: ' + queryResult.rows[0].id + SALT);
-            response.cookie('loggedin', hashedLogin);
-            response.cookie('userid', queryResult.rows[0].id);
             response.send("Registration Complete!");
         }
-      db.register.newUser(data, registrationConfirmation);
+
+    db.register.newUser(data, registrationConfirmation);
       //registrationConfirmation is the callback function for afterrrr new user is registered
     };
 
@@ -37,7 +34,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    start: register,
-    end: registrationComplete
+    start: registerForm,
+    end: registrationAttempt
   };
 }

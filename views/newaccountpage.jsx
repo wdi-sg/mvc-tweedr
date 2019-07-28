@@ -24,11 +24,15 @@ class createAccountPage extends React.Component {
                             <form method='post' action='/twee_dr/create'>
                                 <div className="form-group">
                                     <h6 className="card-title">Username:</h6>
-                                    <input type='text' name='name' placeholder='Enter username'/>
+                                    <input type='text' name='username' placeholder='Enter username'/>
                                 </div>
                                 <div className="form-group">
                                     <h6 className="card-title">Password:</h6>
                                     <input type='password' name='password' placeholder='Enter password'/>
+                                </div>
+                                <div className="form-group">
+                                    <h6 className="card-title">Profile Name:</h6>
+                                    <input type='text' name='profilename' placeholder='Enter password'/>
                                 </div>
                                 <div className="form-group">
                                     <h6 className="card-title">Email:</h6>

@@ -38,7 +38,7 @@ class loginPage extends React.Component {
                                 <form method='post' action='/twee_dr/login'>
                                     <div className="form-group">
                                         <h6 className="card-title">Username:</h6>
-                                        <input type='text' name='name' placeholder='Enter username'/>
+                                        <input type='text' name='username' placeholder='Enter username'/>
                                     </div>
                                     <div className="form-group">
                                         <h6 className="card-title">Password:</h6>

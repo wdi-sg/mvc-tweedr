@@ -19,9 +19,11 @@ module.exports = (app, allModels) => {
     const newAccountCheckCallbacks = require('./controllers/twitter')(allModels);
     const homePageCallbacks = require('./controllers/twitter')(allModels);
     const homePagePostCallbacks = require('./controllers/twitter')(allModels);
+    const profilePageCallbacks = require('./controllers/twitter')(allModels);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    app.get('/twee_dr/profile/:id', profilePageCallbacks.profilePage);
     app.post('/twee_dr/homepage/:id/post',homePagePostCallbacks.homePagePost);
     app.get('/twee_dr/homepage/:id', homePageCallbacks.homePage);
     app.post('/twee_dr/create', newAccountCheckCallbacks.newAccountCheck);

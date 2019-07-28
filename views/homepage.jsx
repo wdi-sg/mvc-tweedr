@@ -10,32 +10,37 @@ class homePage extends React.Component {
         margin:'10px 0'
     }
     var imageStyle = {
-        height:'150px',
-        width:'150px',
+        height:'130px',
+        width:'130px',
         margin: '10px auto',
         borderRadius :'100%'
     }
 
     var feed = {
-        maxWidth:'100%'
+        maxWidth:'100%',
+        margin:'10px 0'
     }
 
     var cardHeader = {
         width:'50px',
-        height:'50px'
+        height:'50px',
+        borderRadius:'100%'
     }
-
+    var urlProfile = '/twee_dr/profile/'+this.props.id;
     var urlHomepage = '/twee_dr/homepage/'+this.props.id+'/post';
     var mapAllTweets = this.props.allTweets.map(tweets=>{
         return(
-            <div class="card">
+            <div class="card" style={feed}>
                 <div class="card-header">
                     <img style={cardHeader}src={tweets.photo}/>
-                    {tweets.name}
+                    {tweets.profilename}
                 </div>
                 <div class="card-body">
                     <p class="card-text">{tweets.tweet}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div className="text-right">
+                        <a class="btn-sm" href="/twee_dr/editpost">Editpost</a>
+                        <a class="btn-sm" href="/twee_dr/deletepost">Delete post</a>
+                    </div>
                 </div>
             </div>
         );
@@ -54,16 +59,16 @@ class homePage extends React.Component {
                     <form className="form-inline">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"/>
                         <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-                  </form>
+                    </form>
                 </nav>
                 <div className="row">
                     <div className="col-4">
                         <div className="card" style= {profileCardStyle}>
                                 <div className="card-body">
                                     <img style={imageStyle} src={this.props.resultUser.photo}/>
-                                    <h5 className="card-title">{this.props.resultUser.name}</h5>
+                                    <h5 className="card-title">{this.props.resultUser.profilename}</h5>
                                     <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" className="btn btn-danger">Profile</a>
+                                    <a href= {urlProfile}className="btn btn-danger">Profile</a>
                                 </div>
                         </div>
                     </div>
@@ -76,7 +81,9 @@ class homePage extends React.Component {
                                     <div className="form-group">
                                         <textarea type="text" name="tweet" className="form-control" id="exampleFormControlTextarea1" rows="3"/>
                                     </div>
-                                    <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Post</button>
+                                    <div className="text-right">
+                                        <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Post</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

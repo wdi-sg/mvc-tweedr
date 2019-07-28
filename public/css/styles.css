@@ -1,0 +1,39 @@
+body{
+    min-height: 40vh;
+}
+.main_container{
+    min-width: 800px;
+    width: 900px;
+}
+.card {
+    width: auto;
+    height:150px;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: top;
+
+    border-radius: 20px;
+    margin: 0;
+    padding: 0;
+
+}
+.nav-item{
+    font-size: 1.5em;
+}
+div.card.mb-3{
+    border: 0;
+}
+.col-md-12 {
+    margin-top: 1.5em;
+    margin-bottom:1.5em;
+}
+
+.box{
+    height: 60vw;
+    overflow: scroll;
+}
+.card {
+    padding: 10px;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}

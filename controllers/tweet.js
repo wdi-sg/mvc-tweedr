@@ -12,10 +12,36 @@ module.exports = (db) => {
 			let loginSession = req.cookies["logged_in"];
 			if (loginSession){
 				let username = req.cookies["username"];
-				res.render('tweet/dashboard', {allTweets, username, error:queryErr});
+				res.render('tweet/dashboard', {allTweets, username, error:queryErr, tweets:"all"});
 			}
 			else {
 				res.render('tweet/index', {allTweets, error:queryErr});
+			}
+		});
+	};
+
+	let getFollowingTweetControllerCallback = (req, res) => {
+		let queryErr = req.query.err;
+		let username = req.cookies["username"];
+		db.tweet.getFollowingTweet(username,(error, allTweets) => {
+			if (allTweets){
+				res.render('tweet/dashboard', {allTweets, username, error:queryErr, tweets:"following"});
+			}
+			else {
+				res.send('no tweets by any followers');
+			}
+		});
+	};
+
+	let getFollowerTweetControllerCallback = (req, res) => {
+		let queryErr = req.query.err;
+		let username = req.cookies["username"];
+		db.tweet.getFollowerTweet(username,(error, allTweets) => {
+			if (allTweets){
+				res.render('tweet/dashboard', {allTweets, username, error:queryErr, tweets:"follower"});
+			}
+			else {
+				res.send('no tweets by any followers');
 			}
 		});
 	};
@@ -94,6 +120,8 @@ module.exports = (db) => {
 	 */
 	return {
 		getAll: getAllControllerCallback,
+		getFollowingTweet: getFollowingTweetControllerCallback,
+		getFollowerTweet: getFollowerTweetControllerCallback,
 		addTweet: addTweetControllerCallback,
 		showEditTweet: showEditTweetControllerCallback,
 		editTweet: editTweetControllerCallback,

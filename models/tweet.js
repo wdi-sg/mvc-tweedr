@@ -105,6 +105,54 @@ module.exports = (dbPoolInstance) => {
 		});
 	};
 
+	let getFollowingTweet = (username,callback) => {
+		let query = 'SELECT Tweet.username, Tweet,content, Tweet.date_created FROM Tweet INNER JOIN Follower ON (Tweet.username = Follower.username) WHERE Follower.follower = $1 ORDER BY Tweet.date_created DESC';
+		let values = [username];
+		dbPoolInstance.query(query, values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
+
+	let getFollowerTweet = (username,callback) => {
+		let query = 'SELECT Tweet.username, Tweet,content, Tweet.date_created FROM Tweet INNER JOIN Follower ON (Tweet.username = Follower.follower) WHERE Follower.username = $1 ORDER BY Tweet.date_created DESC';
+		let values = [username];
+		dbPoolInstance.query(query, values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
+
 	let editTweet = (content, tweetId, callback) => {
 
 		let query = 'UPDATE Tweet SET content = $1 WHERE id = $2 RETURNING id';
@@ -160,6 +208,8 @@ module.exports = (dbPoolInstance) => {
 		getTweet,
 		addTweet,
 		getUserTweet,
+		getFollowingTweet,
+		getFollowerTweet,
 		editTweet,
 		deleteTweet
 	};

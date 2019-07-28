@@ -4,7 +4,7 @@ class Tweet extends React.Component {
 	render() {
 		let dateObject = new Date(this.props.tweet.date_created);
 		let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		let profileLink = "./users/"+this.props.tweet.username;
+		let profileLink = "/users/"+this.props.tweet.username;
 		return (
 			<div className="card tweet">
 				<div className="card-body">

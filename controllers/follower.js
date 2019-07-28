@@ -33,13 +33,31 @@ module.exports = (db) => {
 		});
 	};
 
+	let getFollowingControllerCallback = (req, res) => {
+		let username = req.params.username;
+		let loggedInUser = req.cookies["username"];
+		db.follower.getFollowing(username,(error, following) => {
+			res.render('tweet/following',{following, username,loggedInUser});
+		});
+	};
+
+	let getFollowerControllerCallback = (req, res) => {
+		let username = req.params.username;
+		let loggedInUser = req.cookies["username"];
+		db.follower.getFollower(username,(error, follower) => {
+			res.render('tweet/follower',{follower, username, loggedInUser});
+		});
+	};
+
 	/**
 	 * ===========================================
 	 * Export controller functions as a module
 	 * ===========================================
 	 */
 	return {
-		addFollower: addFollowerControllerCallback
+		addFollower: addFollowerControllerCallback,
+		getFollowing: getFollowingControllerCallback,
+		getFollower: getFollowerControllerCallback,
 	};
 
 };

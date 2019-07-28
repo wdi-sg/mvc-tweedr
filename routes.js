@@ -22,4 +22,8 @@ module.exports = (app, allModels) => {
   app.delete('/delete/:username/:tweetId', tweetControllerCallbacks.deleteTweet);
   app.get('/edit/:username/:tweetId', tweetControllerCallbacks.showEditTweet);
   app.put('/edit/:username/:tweetId', tweetControllerCallbacks.editTweet);
+  app.get('/tweets/following', tweetControllerCallbacks.getFollowingTweet);
+  app.get('/tweets/followers', tweetControllerCallbacks.getFollowerTweet);
+  app.get('/users/:username/following', followerControllerCallbacks.getFollowing);
+  app.get('/users/:username/follower', followerControllerCallbacks.getFollower);
 };

@@ -10,6 +10,7 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
   const accountControllerCallbacks = require('./controllers/account')(allModels);
+  const followerControllerCallbacks = require('./controllers/follower')(allModels);
 
   app.get('/', tweetControllerCallbacks.getAll);
   app.post('/register', accountControllerCallbacks.register);
@@ -17,5 +18,5 @@ module.exports = (app, allModels) => {
   app.post('/logout', accountControllerCallbacks.logout);
   app.post('/new', tweetControllerCallbacks.addNew);
   app.get('/users/:username', accountControllerCallbacks.profile);
-  app.post('/follow/:username', accountControllerCallbacks.addFollower)
+  app.post('/follow/:username', followerControllerCallbacks.addFollower)
 };

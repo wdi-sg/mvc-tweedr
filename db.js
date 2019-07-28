@@ -46,9 +46,11 @@ pool.on('error', function (err) {
  */
 const allTweetModelsFunction = require('./models/tweet');
 const allAccountModelsFunction = require('./models/account');
+const allFollowerModelsFunction = require('./models/follower');
 
 const tweetModelsObject = allTweetModelsFunction(pool);
 const accountModelsObject = allAccountModelsFunction(pool);
+const followerModelsObject = allFollowerModelsFunction(pool);
 
 
 /**
@@ -70,5 +72,6 @@ module.exports = {
 	 */
 
 	tweet: tweetModelsObject,
-	account: accountModelsObject
+	account: accountModelsObject,
+	follower: followerModelsObject
 };

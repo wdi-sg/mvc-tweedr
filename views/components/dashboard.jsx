@@ -2,6 +2,7 @@ var React = require('react');
 
 class Dashboard extends React.Component {
 	render() {
+		let userLink = "../users/"+this.props.username;
 		let error = "";
 		if (this.props.error === "login") {
 			error = (
@@ -13,7 +14,7 @@ class Dashboard extends React.Component {
 			<div className="card">
 				{error}
 				<div className="card-body">
-					<h3 className="dashboard-title">Hi {this.props.username}!</h3>
+					<h3 className="dashboard-title">Hi <a href={userLink}>{this.props.username}</a>!</h3>
 					<form className="dashboard-new row" method="POST" action="/new">
 						<div className="col-9">
 							<input type="text" className="form-control" name="content" placeholder="Tweedr your thoughts!"/>

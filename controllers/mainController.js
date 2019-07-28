@@ -66,7 +66,8 @@ module.exports = (db) => {
         if (checkSession(request)) {
             let currentUserId = request.cookies['user_id'];
             db.queryMod.getUser(currentUserId, (error, results) => {
-                response.render('main/profile', {
+                console.log(results);
+                response.render('main/profile', {    
                     "results": results,
                     "currentUserId": currentUserId
                 });

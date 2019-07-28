@@ -3,6 +3,7 @@ var HeaderBar = require('../components/headerbar.jsx');
 
 class Register extends React.Component {
     render() {
+        let userInfo = this.props.results[0];
         return (
             <html>
                 <head>

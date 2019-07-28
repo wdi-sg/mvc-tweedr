@@ -179,11 +179,17 @@ module.exports = (db) => {
     };
 
     let showIndvUser = (request, response) => {
-
         let otherUser = request.params.id;
 
         let userId = request.cookies.user_id;
         let storedCookie = request.cookies.loggedin;
+
+        // db.tweedr.getUserUsingId( otherUser, (error, user) => {
+        //     if (error) {
+        //         console.log("error in getting 1st file", error);
+        //     } else {
+        //     }
+        // });
 
         if (storedCookie === undefined) {
             response.send('please log in!')
@@ -217,6 +223,27 @@ module.exports = (db) => {
                 }
             });
         }
+    };
+
+    let followIndvUser = (request, response) => {
+
+        let newFollower = request.body;
+        let cookie = request.cookies;
+        let newTweet = request.body;
+
+        db.tweedr.createNewFollower(newFollower, (error, user) => {
+            if (error) {
+                console.log("error in getting file", error);
+
+            } else {
+                let currentCookieSesh = sha256(cookie.user_id + 'logged_id' + secret)
+                if ( cookie.loggedin === currentCookieSesh ) {
+                    response.redirect(`/users/${user.user_id}`);
+                } else {
+                    response.send('wrong user')
+                }
+            }
+        });
     };
 
     let showUserProfile = (request, response) => {
@@ -272,6 +299,7 @@ module.exports = (db) => {
     createTweet,
     showAllTweets,
     showIndvUser,
+    followIndvUser,
     showUserProfile,
     logout,
     redirect,

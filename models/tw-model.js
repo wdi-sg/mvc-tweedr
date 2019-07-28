@@ -76,24 +76,6 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    // let displayHome = (userId, callback) => {
-
-    //     let queryString = 'SELECT * FROM users WHERE id = $1';
-    //     let values = [userId];
-
-    //     dbPoolInstance.query(queryString, values, (error, result) => {
-    //         if ( error ){
-    //             callback(error, null);
-    //         } else {
-    //             if ( result.rows.length > 0 ){
-    //             callback(null, result.rows[0]);
-    //             } else {
-    //                 callback(null, null);
-    //             }
-    //         }
-    //     });
-    // };
-
     let getUserUsingId = (userId, callback) => {
 
         let queryString = 'SELECT * FROM users WHERE id = $1';
@@ -121,10 +103,8 @@ module.exports = (dbPoolInstance) => {
 
         dbPoolInstance.query(queryString, values, (error, result) => {
             if( error ){
-                // invoke callback function with results after query has executed
                 callback(error, null);
             } else{
-                // invoke callback function with results after query has executed
 
                 if( result.rows.length > 0 ){
                     callback(null, result.rows[0]);
@@ -153,11 +133,48 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let createNewFollower = (newFollower, callback) => {
+        let queryString = `INSERT INTO followers (user_id, follower_user_id) VALUES ($1, $2) RETURNING user_id`;
+        let values = [
+            newFollower.user_id,
+            newFollower.follower_user_id
+            ];
+
+        dbPoolInstance.query(queryString, values, (error, result) => {
+            if( error ){
+                callback(error, null);
+            } else{
+                if( result.rows.length > 0 ){
+                    callback(null, result.rows[0]);
+                } else{
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getFollowers = ( otherUserId, callback) => {
+        let queryString = `SELECT followers.follower_user_id FROM users INNER JOIN followers ON (users.id = followers.user_id) WHERE users.id = $1)`;
+        let values = [otherUserId];
+        dbPoolInstance.query(queryString, (error, result) => {
+            if( error ){
+                callback(error, null);
+            } else{
+                if( result.rows.length > 0 ){
+                    callback(null, result.rows[0]);
+                } else{
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
   return {
     getUserUsingName,
     createNewUser,
     getUserUsingId,
     createNewTweet,
     getAllTweets,
+    createNewFollower,
   };
 };

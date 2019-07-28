@@ -12,8 +12,11 @@ class User extends React.Component {
 
       <DefaultLayout title={headerTitle} user={user}>
         <h2>Your page</h2>
-        <p>{user.name}</p>
+        <p>Name: {user.name}</p>
         <button>Edit Profile</button>
+        <p>Your followers: 0</p>
+        <p>Following: 0</p>
+        <p>Tweets: </p>
 
       </DefaultLayout>
     );

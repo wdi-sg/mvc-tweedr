@@ -16,7 +16,7 @@ app.use(methodOverride('_method'));
 
 app.use(cookieParser());
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public/'));
 
 app.use(express.urlencoded({
     extended: true
@@ -24,10 +24,9 @@ app.use(express.urlencoded({
 
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
-
+app.engine('jsx', reactEngine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
-app.engine('jsx', reactEngine);
 
 /**
  * ===================================
@@ -61,13 +60,12 @@ setRoutesFunction(app, allModels);
  */
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port ' + PORT + ' ~~~'));
+const server = app.listen(PORT, () => console.log('~~~~~ Express Server Listening on Port :' + PORT + ' ~~~~~'));
 
 let onClose = function() {
-
     server.close(() => {
         console.log('Process terminated')
-        allModels.pool.end(() => console.log('Shut down db connection pool'));
+        allModels.pool.end(() => console.log('Database connection pool shut down'));
     })
 };
 

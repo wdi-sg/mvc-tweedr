@@ -19,10 +19,11 @@ module.exports = (db) => {
 			}
 		});
 	};
-	let addNewControllerCallback = (req, res) => {
+
+	let addTweetControllerCallback = (req, res) => {
 		let username = req.cookies["username"];
 		let content = req.body.content;
-		db.tweet.addNew(content, username,(error, callback) => {
+		db.tweet.addTweet(content, username,(error, callback) => {
 			if (callback) {
 				res.redirect('/');
 			}
@@ -31,6 +32,24 @@ module.exports = (db) => {
 			}
 		});
 	};
+
+	let deleteTweetControllerCallback = (req, res) => {
+		let username = req.params.username;
+		if (username === req.cookies["username"]) {
+			let tweetId = req.params.tweetId;
+			db.tweet.deleteTweet(username, tweetId, (error, callback) => {
+				if (callback) {
+					res.redirect('../../users/'+username);
+				} else {
+					res.send("Please try again as the server is having issues.");
+				}
+			});
+		}
+		else {
+			res.send("You are not authorised to delete this tweet.");
+		}
+	};
+
 	/**
 	 * ===========================================
 	 * Export controller functions as a module
@@ -38,7 +57,8 @@ module.exports = (db) => {
 	 */
 	return {
 		getAll: getAllControllerCallback,
-		addNew: addNewControllerCallback
+		addTweet: addTweetControllerCallback,
+		deleteTweet: deleteTweetControllerCallback
 	};
 
 }

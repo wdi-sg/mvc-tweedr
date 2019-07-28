@@ -46,3 +46,7 @@ a:hover {
 .dashboard-info,.dashboard-logout {
     margin-top: 2rem;
 }
+.btn-remove-tweet {
+    margin: 0;
+    padding: 0;
+}

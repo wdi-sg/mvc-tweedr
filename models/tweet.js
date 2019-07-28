@@ -31,9 +31,9 @@ module.exports = (dbPoolInstance) => {
 			}
 		});
 	};
-	let addNew = (content, username, callback) => {
+	let addTweet = (content, username, callback) => {
 
-		let query = 'INSERT INTO Tweet(content, username) VALUES($1,$2) RETURNING username';
+		let query = 'INSERT INTO Tweet(content, username, date_created) VALUES($1,$2,NOW()) RETURNING username';
 		let values = [content,username];
 		dbPoolInstance.query(query, values, (error, queryResult) => {
 			if (error) {
@@ -81,9 +81,35 @@ module.exports = (dbPoolInstance) => {
 		});
 	};
 
+	let deleteTweet = (username, userId, callback) => {
+
+		let query = 'DELETE FROM Tweet WHERE LOWER(username) = $1 AND id = $2 RETURNING id';
+		let values = [username.toLowerCase(), userId];
+		dbPoolInstance.query(query, values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
+
 	return {
 		getAll,
-		addNew,
-		getUserTweet
+		addTweet,
+		getUserTweet,
+		deleteTweet
 	};
 };

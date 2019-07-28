@@ -7,7 +7,7 @@ CREATE TABLE Tweet (
     id SERIAL PRIMARY KEY,
     content TEXT,
     username VARCHAR(32) REFERENCES Account(username),
-    date_created DATE
+    date_created TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE Follower (

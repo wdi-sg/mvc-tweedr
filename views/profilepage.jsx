@@ -40,22 +40,27 @@ class profilePage extends React.Component {
         marginTop: '10px'
     }
 
+    var tweetCard = {
+        margin:'10px 0'
+    }
+
 
     var urlHome = '/twee_dr/homepage/'+this.props.id;
     var urlHomepage = '/twee_dr/homepage/'+this.props.id+'/post';
+    var urlEditPage = '/twee_dr/editpost'+this.props.userTweets.tweetid;
+    var urlDeletePage = '/twee_dr/editpost'+this.props.userTweets.tweetid;
     var mapAllTweets = this.props.userTweets.map(tweets=>{
         return(
-            <div className="card">
-                <div class="card-header">{tweets.profilename}
-                    <div className = "text-right">
-                        <small class="text-muted">Posted at: {tweets.created_at}</small>
-                    </div>
+            <div style={tweetCard}className="card">
+                <div class="card-header">
+                    <a className="navbar-brand"><img borderRadius="100%" width="30px" height="30px"  className="d-inline-block align-top" src={this.props.user.photo}/>{tweets.profilename}</a>
                 </div>
                 <div class="card-body">
                     <p class="card-text">{tweets.tweet}</p>
                     <div className="text-right">
-                        <a class="btn-sm" href="/twee_dr/editpost">Editpost</a>
-                        <a class="btn-sm" href="/twee_dr/deletepost">Delete post</a>
+                        <small class="text-muted">Posted at: {tweets.created_at}</small>
+                        <a class="btn-sm" href={urlEditPage}>Editpost</a>
+                        <a class="btn-sm" href={urlDeletePage}>Delete post</a>
                     </div>
                 </div>
             </div>
@@ -73,14 +78,24 @@ class profilePage extends React.Component {
         <head>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous"/>
         </head>
-        <body margin="0 auto">
+        <body>
             <div className="container" margin="0 auto">
-                <nav className="navbar navbar-light bg-light">
-                    <a className="navbar-brand" href={urlHome} ><img src="https://img.icons8.com/windows/32/000000/retweet.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Twee_dr</a>
-                    <form className="form-inline">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"/>
-                        <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand"><img src="https://img.icons8.com/windows/32/000000/retweet.png" width="30" height="30" className="d-inline-block align-top" alt=""/>Twee_dr</a>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link active" href={urlHome}>Home</a>
+                        </div>
+                    </div>
+                    <div className="text-center">
+                        <form className="form-inline">
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"/>
+                            <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div className="text-right">
+                        <a class="nav-item nav-link" href="/twee_dr/logout">Logout</a>
+                    </div>
                 </nav>
                 <div class="card mb-3">
                     <img height="200px"src="https://cdn.pixabay.com/photo/2018/07/28/22/12/sky-3569072_960_720.jpg" class="card-img-top"/>
@@ -91,7 +106,7 @@ class profilePage extends React.Component {
                             </div>
                             <div class="col-8">
                                 <div style={cardHeader}className = "cardHead">
-                                    <h5 style={cardHeaderStyle}>{this.props.user.profilename}</h5>
+                                    <h3 style={cardHeaderStyle}>{this.props.user.profilename}</h3>
                                 </div>
                                 <div class="card-body">
                                     <div className="profileText">
@@ -111,6 +126,13 @@ class profilePage extends React.Component {
                                 <div className="card-body">
                                     <p>{mapAllPhoto}</p>
                                     <a href="/postphoto" className="btn btn-sm">Add photo</a>
+                                </div>
+                            </div>
+                            <br />
+                            <div className="card">
+                                <div className="card-header"><h5>Friends</h5></div>
+                                <div className="card-body">
+                                    <p>Add some friends</p>
                                 </div>
                             </div>
                         </div>

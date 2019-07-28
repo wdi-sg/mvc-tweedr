@@ -191,6 +191,11 @@ var sha256 = require('js-sha256');
         })
     }
 
+    let profileLogout = (request,response)=>{
+        // response.send("inside logout function")
+        response.redirect("/twee_dr")
+    }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -203,7 +208,8 @@ var sha256 = require('js-sha256');
     newAccountCheck: newAccountCheckCallback,
     homePage: homePageView,
     homePagePost: homePagePostView,
-    profilePage: profilePageView
+    profilePage: profilePageView,
+    logout: profileLogout
   };
 
 }

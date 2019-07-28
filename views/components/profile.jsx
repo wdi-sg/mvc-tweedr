@@ -4,17 +4,17 @@ class Profile extends React.Component {
 	render() {
 		let tweets = this.props.tweets.map((tweet) => {
 			let editLink = `../edit/${this.props.user}/${tweet.id}`;
-			let removeLink = `../delete/${this.props.user}/${tweet.id}`;
+			let removeLink = `../delete/${this.props.user}/${tweet.id}?_method=DELETE`;
 			return (
 				<li className="list-group-item">
 					<div className="row">
 						<div className="col-10">{tweet.content}</div>
 						<div className="col-1">
-							<form className="form-inline justify-content-end" method="POST" action={editLink}>
+							<a href={editLink}>
 								<button type="submit" className="btn btn-remove-tweet btn-link">
 									<i className="fas fa-pen"></i>
 								</button>
-							</form>
+							</a>
 						</div>
 						<div className="col-1">
 							<form className="form-inline justify-content-end" method="POST" action={removeLink}>

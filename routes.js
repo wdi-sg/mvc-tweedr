@@ -18,6 +18,8 @@ module.exports = (app, allModels) => {
   app.post('/logout', accountControllerCallbacks.logout);
   app.post('/new', tweetControllerCallbacks.addTweet);
   app.get('/users/:username', accountControllerCallbacks.profile);
-  app.post('/follow/:username', followerControllerCallbacks.addFollower)
-  app.post('/delete/:username/:tweetId', tweetControllerCallbacks.deleteTweet)
+  app.post('/follow/:username', followerControllerCallbacks.addFollower);
+  app.delete('/delete/:username/:tweetId', tweetControllerCallbacks.deleteTweet);
+  app.get('/edit/:username/:tweetId', tweetControllerCallbacks.showEditTweet);
+  app.put('/edit/:username/:tweetId', tweetControllerCallbacks.editTweet);
 };

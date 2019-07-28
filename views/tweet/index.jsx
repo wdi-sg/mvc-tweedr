@@ -15,7 +15,9 @@ class Home extends React.Component {
 						{tweets}
 					</div>
 					<div className="col-4">
-						<Form error={this.props.error}/>
+						<div className="side-bar">
+							<Form error={this.props.error}/>
+						</div>
 					</div>
 				</div>
 			</DefaultLayout>

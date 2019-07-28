@@ -50,3 +50,9 @@ a:hover {
     margin: 0;
     padding: 0;
 }
+
+.side-bar .card {
+    position: fixed;
+    display: block;
+    width: 33.3333%;
+}

@@ -2,7 +2,7 @@ var React = require('react');
 
 class Dashboard extends React.Component {
 	render() {
-		let userLink = "../users/"+this.props.username;
+		let userLink = "/users/"+this.props.username;
 		let error = "";
 		if (this.props.error === "login") {
 			error = (
@@ -20,7 +20,7 @@ class Dashboard extends React.Component {
 							<input type="text" className="form-control" name="content" placeholder="Tweedr your thoughts!"/>
 						</div>
 						<div className="col-3 text-right">
-							<button type="submit" className="btn btn-primary">Submit</button>
+							<button type="submit" className="btn btn-primary btn-block">Submit</button>
 						</div>
 					</form>
 					<div className="dashboard-info">

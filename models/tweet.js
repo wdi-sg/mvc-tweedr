@@ -31,6 +31,30 @@ module.exports = (dbPoolInstance) => {
 			}
 		});
 	};
+	let getTweet = (username, tweetId, callback) => {
+
+		let query = 'SELECT * FROM Tweet WHERE id = $1 AND LOWER(username) = $2';
+		let values = [tweetId, username.toLowerCase()];
+		dbPoolInstance.query(query,values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
 	let addTweet = (content, username, callback) => {
 
 		let query = 'INSERT INTO Tweet(content, username, date_created) VALUES($1,$2,NOW()) RETURNING username';
@@ -81,6 +105,31 @@ module.exports = (dbPoolInstance) => {
 		});
 	};
 
+	let editTweet = (content, tweetId, callback) => {
+
+		let query = 'UPDATE Tweet SET content = $1 WHERE id = $2 RETURNING id';
+		let values = [content, tweetId];
+		dbPoolInstance.query(query, values, (error, queryResult) => {
+			if (error) {
+
+				// invoke callback function with results after query has executed
+				callback(error, null);
+
+			} else {
+
+				// invoke callback function with results after query has executed
+
+				if (queryResult.rows.length > 0) {
+					callback(null, queryResult.rows);
+
+				} else {
+					callback(null, null);
+
+				}
+			}
+		});
+	};
+
 	let deleteTweet = (username, userId, callback) => {
 
 		let query = 'DELETE FROM Tweet WHERE LOWER(username) = $1 AND id = $2 RETURNING id';
@@ -108,8 +157,10 @@ module.exports = (dbPoolInstance) => {
 
 	return {
 		getAll,
+		getTweet,
 		addTweet,
 		getUserTweet,
+		editTweet,
 		deleteTweet
 	};
 };

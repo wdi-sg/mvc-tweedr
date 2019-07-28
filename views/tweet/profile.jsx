@@ -20,7 +20,9 @@ class Home extends React.Component {
 						{profile}
 					</div>
 					<div className="col-4">
-						<Dashboard username={this.props.loggedInUser}/>
+						<div className="side-bar">
+							<Dashboard username={this.props.loggedInUser}/>
+						</div>
 					</div>
 				</div>
 			</DefaultLayout>

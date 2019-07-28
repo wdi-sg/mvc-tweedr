@@ -7,10 +7,11 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-                let home = {data : result}
+      db.tweets.getAll((error, result) => {
+        // console.log(result[0]);
+        let home = {data : result}
         // console.log(home);
-        response.render('pokemon/index', home);
+        response.render('homepage', home);
       });
   };
 

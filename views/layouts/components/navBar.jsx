@@ -21,7 +21,7 @@ class NavBar extends React.Component {
                 <a className="nav-link" href="/songs">Profile</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/playlists">New Tweet</a>
+                <a className="nav-link" href="/newtweet">New Tweet</a>
               </li>
               <form method="POST" action="/logout">
                 <button type={"submit"}>Logout</button>

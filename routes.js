@@ -15,15 +15,17 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedrControllerCallbacks = require('./controllers/tw-controller')(allModels);
 
-  app.get('/index', tweedrControllerCallbacks.index);
+  app.get('/index', tweedrControllerCallbacks.showIndex);
 
-  app.get('/login', tweedrControllerCallbacks.login);
+  app.get('/login', tweedrControllerCallbacks.showLogin);
   app.post('/home', tweedrControllerCallbacks.checkLogin);
 
-  app.get('/register', tweedrControllerCallbacks.register);
+  app.get('/register', tweedrControllerCallbacks.showCreateUser);
   app.post('/register', tweedrControllerCallbacks.createUser);
 
-  app.get('/home', tweedrControllerCallbacks.home);
+  app.get('/home', tweedrControllerCallbacks.showHome);
+  app.get('/newtweet', tweedrControllerCallbacks.showCreateTweet);
+  app.post('/newtweet', tweedrControllerCallbacks.createTweet);
 
   app.post('/logout', tweedrControllerCallbacks.logout);
 

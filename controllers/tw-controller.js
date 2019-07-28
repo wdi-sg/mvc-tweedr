@@ -10,17 +10,23 @@ module.exports = (db) => {
    * ===========================================
    */
 
-    let index = (request, response) => {
-        response.render('index');
+    let showIndex = (request, response) => {
+        let cookie = request.cookies;
+        if (cookie.loggedin) {
+            response.redirect('/home')
+        } else {
+            response.render('index');
+        }
     };
 
-    let login = (request, response) => {
+    let showLogin = (request, response) => {
         response.render('login');
     };
 
     let checkLogin = (request, response) => {
-        let user = request.body;
-        db.tweedr.checkUserName(user, (error, user) => {
+        let currentUser = request.body;
+
+        db.tweedr.checkUserName(currentUser, (error, user) => {
             if (error) {
                 console.log("error in getting file", error);
             } else {
@@ -33,17 +39,16 @@ module.exports = (db) => {
                     }
                     response.cookie('user_id', user.id);
                     response.cookie('loggedin', hashedCookie);
-
-                    response.render('home', dataSet);
+                    // response.render('home', dataSet);
+                    response.redirect('/home');
                 } else {
                     response.send('wrong userid')
                 }
-
             }
         });
     };
 
-    let register = (request, response) => {
+    let showCreateUser = (request, response) => {
       response.render('register');
     };
 
@@ -69,14 +74,14 @@ module.exports = (db) => {
         });
     };
 
-    let home = (request, response) => {
+    let showHome = (request, response) => {
         let userId = request.cookies.user_id;
         let storedCookie = request.cookies.loggedin;
 
         if (storedCookie === undefined) {
             response.send('please log in!')
         } else {
-            db.tweedr.checkUserId(userId, (error, user) => {
+            db.tweedr.displayHome(userId, (error, user) => {
                 if (error) {
                     console.log("error in getting file", error);
 
@@ -95,16 +100,102 @@ module.exports = (db) => {
         }
     };
 
-    let redirect = (request, response) => {
-      response.redirect('index');
+    let showCreateTweet = (request, response) => {
+
+        let userId = request.cookies.user_id;
+        let storedCookie = request.cookies.loggedin;
+
+        if (storedCookie === undefined) {
+            response.send('please log in!')
+        } else {
+            db.tweedr.checkUserId(userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting file", error);
+
+                } else {
+                    let currentCookieSesh = sha256(userId + 'logged_id' + secret)
+                    if ( storedCookie === currentCookieSesh ) {
+                        let dataSet = {
+                            user : user
+                        }
+                        response.render('newtweet', dataSet);
+                    } else {
+                        response.send('wrong user')
+                    }
+                }
+            });
+        }
     };
+
+    let createTweet = (request, response) => {
+
+        let cookie = request.cookies;
+        let newTweet = request.body;
+
+        db.tweedr.createTweet(newTweet, (error, user) => {
+            if (error) {
+                console.log("error in getting file", error);
+
+            } else {
+                let currentCookieSesh = sha256(cookie.user_id + 'logged_id' + secret)
+                if ( cookie.loggedin === currentCookieSesh ) {
+                    response.redirect('home');
+                } else {
+                    response.send('wrong user')
+                }
+            }
+        });
+    };
+
+    // let showHome2 = (request, response) => {
+
+    //     let cookie = request.cookies;
+
+    //     db.tweedr.checkUserId(cookie.user_id, (error, user) => {
+    //         if (error) {
+    //             console.log("error in getting file", error);
+
+    //         } else {
+
+    //             let result = checkCookie(cookie);
+    //             if ( result === 'correctuser') {
+    //                 let dataSet = {
+    //                     user : user
+    //                 }
+    //                 response.render('home', dataSet);
+
+    //             } else if (result === 'wronguser') {
+    //                 response.send('wrong user');
+
+    //             } else {
+    //                 response.send('please login!');
+    //             }
+    //         }
+    //     });
+    // };
+
+    // let checkCookie = (cookie) => {
+    //     if(cookie.loggedin === undefined ) {
+    //         return undefined;
+    //     } else {
+    //         let currentCookieSesh = sha256(cookie.user_id + 'logged_id' + secret);
+    //         if (cookie.loggedin === currentCookieSesh) {
+    //             return 'correctuser';
+    //         } else {
+    //             return 'wronguser';
+    //         }
+    //     }
+    // }
 
     let logout = (request, response) => {
       response.clearCookie('user_id');
       response.clearCookie('loggedin');
-      response.redirect('index');
+      response.redirect('/index');
     };
 
+    let redirect = (request, response) => {
+      response.redirect('/index');
+    };
 
   /**
    * ===========================================
@@ -112,15 +203,17 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index,
-    login,
+    showIndex,
+    showLogin,
     checkLogin,
-    register,
+    showCreateUser,
     createUser,
-    home,
-    redirect,
+    showHome,
+    showCreateTweet,
+    createTweet,
     logout,
-
+    redirect,
+    // showHome2,
   };
 
 }

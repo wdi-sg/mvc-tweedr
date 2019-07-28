@@ -12,11 +12,15 @@ module.exports = (db) => {
   //     });
   // };
 
+  let landingPage = (request, response) => {
+      response.render('landingPage');
+  };
+
   let allTweetsController = (request, response) => {
       db.pokemon.getAllTweets((error, allTweets) => {
-        console.log(allTweets)
-        response.send(allTweets)
+        // response.send(allTweets)
         // response.render('pokemon/index', { allPokemon });
+        response.render('home');
       });
   };
 
@@ -31,7 +35,7 @@ module.exports = (db) => {
         response.cookie('userID', userCreated[0].id)
         response.cookie('username', userCreated[0].username)
         response.cookie('loggedin', true);
-        response.redirect('/');
+        response.redirect('/home');
       });
   };
 
@@ -48,7 +52,7 @@ module.exports = (db) => {
             response.cookie('userID', checkResult[0].id)
             response.cookie('username', checkResult[0].username)
             response.cookie('loggedin', true);
-            response.redirect('/');
+            response.redirect('/home');
 
         } else{
             console.log("Wrong password!")
@@ -65,6 +69,7 @@ module.exports = (db) => {
    */
   return {
     // index: indexControllerCallback,
+    landingPage,
     allTweets: allTweetsController,
     registerForm,
     createUser: createUserController,

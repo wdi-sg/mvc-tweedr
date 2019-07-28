@@ -3,11 +3,13 @@ var React = require("react");
 class Register extends React.Component {
   render() {
 
+    let message = this.props.message;
+
     return (
       <html>
         <head/>
         <body>
-          <h3>Welcome!! Let's get you Register!!</h3>
+          <h1>{message}</h1>
 
           <form action="/register" method="POST">
               <p>Your User Name</p>

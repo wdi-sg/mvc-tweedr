@@ -22,7 +22,7 @@ module.exports = (app, allModels) => {
     app.get('/', tweetControllerCallbacks.home);
 
     //get register path
-    app.get('/register', tweetControllerCallbacks.getRegister);
+    app.get('/register/new', tweetControllerCallbacks.getRegister);
 
     //post register path
     app.post('/register', tweetControllerCallbacks.postRegister);
@@ -30,7 +30,7 @@ module.exports = (app, allModels) => {
 
 
     //get login path
-    app.get('/login', tweetControllerCallbacks.getLogin);
+    app.get('/login/new', tweetControllerCallbacks.getLogin);
 
     //get login path
     app.post('/login', tweetControllerCallbacks.postLogin);

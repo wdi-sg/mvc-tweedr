@@ -27,7 +27,13 @@ module.exports = (db) => {
     //get register path
     let getRegisterControllerCallback = (request, response) => {
 
-        response.render('tweet/register'); //goes to views
+        let message = "Welcome Onboard!! Create Your Account!";
+
+                    const data = {
+                        message : message
+                    }
+
+        response.render('tweet/register', data); //goes to views
     };
 
     //post register path
@@ -39,17 +45,20 @@ module.exports = (db) => {
                 console.log(error);
 
             } else {
-                console.log(result);
-                // response.send(result);
+                // console.log(result);
 
-                if (result.rowCount >= 1) {
+                if (result != undefined) {
                     console.log("username have been taken up, please choose another user name.");
-                    response.redirect('/register'); //redirect to routes, get register form
 
-                } else {
+                    response.redirect('/register/new'); //redirect to routes, get register form
+                }
+
+                else {
                     db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
-                        console.log("From controller: " + result);
-                        response.redirect('/login'); //redirect to routes, get login form
+                        // console.log("From controller: " + result);
+                        console.log("Successful Registered, Login With Your New Account");
+
+                        response.redirect('/login/new'); //redirect to routes, get login form
                     })
                 }
             }

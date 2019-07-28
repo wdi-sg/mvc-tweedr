@@ -33,10 +33,11 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'donc',
     host: '127.0.0.1',
-    database: 'testdb',
-    port: 5432
+    database: 'tweedr_db',
+    port: 5432,
+    password: 'password'
   };
 }
 
@@ -62,7 +63,7 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const allPokemonModelsFunction = require('./models/tweet-model');
 
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 

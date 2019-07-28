@@ -1,5 +1,6 @@
 const sha256 = require('js-sha256');
 const SALT = 'meow meow poop';
+const cookieParser = require('cookie-parser')
 
 module.exports = (db) => {
 
@@ -21,6 +22,9 @@ module.exports = (db) => {
         }
         const registrationConfirmation = data => {
             console.log(data);
+            let hashedLogin = sha256('logged_id: ' + queryResult.rows[0].id + SALT);
+            response.cookie('loggedin', hashedLogin);
+            response.cookie('userid', queryResult.rows[0].id);
             response.send("Registration Complete!");
         }
       db.register.newUser(data, registrationConfirmation);

@@ -7,6 +7,6 @@ module.exports = (app, allModels) => {
   app.get('/register', register.start);
   app.post('/register', register.end);
 
-  app.get('/login', login.index);
-  app.post('/login', login.done);
+  app.get('/login', login.start);
+  app.post('/login', login.end);
 };

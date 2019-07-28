@@ -59,5 +59,5 @@ module.exports = {
     register: registerObj,
     login: loginObj,
 
-    //each key is now representing an object and we can call the functions written in that object using key.method.
+    //each key is now representing an object (based on the model) and we can call the functions written in that object using key.method.
 };

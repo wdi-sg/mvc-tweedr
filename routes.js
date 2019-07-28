@@ -28,6 +28,8 @@ module.exports = (app, allModels) => {
   app.post('/newtweet', tweedrControllerCallbacks.createTweet);
 
   app.get('/trending', tweedrControllerCallbacks.showAllTweets);
+  app.get('/users/:id', tweedrControllerCallbacks.showIndvUser);
+  app.get('/profile', tweedrControllerCallbacks.showUserProfile);
 
   app.post('/logout', tweedrControllerCallbacks.logout);
 

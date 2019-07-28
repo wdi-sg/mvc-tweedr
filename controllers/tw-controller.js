@@ -178,6 +178,74 @@ module.exports = (db) => {
         }
     };
 
+    let showIndvUser = (request, response) => {
+
+        let otherUser = request.params.id;
+
+        let userId = request.cookies.user_id;
+        let storedCookie = request.cookies.loggedin;
+
+        if (storedCookie === undefined) {
+            response.send('please log in!')
+
+        } else if (userId === otherUser) {
+            response.redirect('/profile');
+
+        } else {
+            db.tweedr.getUserUsingId( userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting 1st file", error);
+                } else {
+
+                    db.tweedr.getUserUsingId( otherUser, (error, otherUser) => {
+                        if (error) {
+                            console.log("error in getting 2nd file", error);
+
+                        } else {
+                            let currentCookieSesh = sha256(userId + 'logged_id' + secret)
+                            if ( storedCookie === currentCookieSesh ) {
+                                let dataSet = {
+                                    user : user,
+                                    otherUser : otherUser
+                                }
+                                response.render('otherUser', dataSet);
+                            } else {
+                                response.send('wrong user')
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    };
+
+    let showUserProfile = (request, response) => {
+
+        let userId = request.cookies.user_id;
+        let storedCookie = request.cookies.loggedin;
+
+        if (storedCookie === undefined) {
+            response.send('please log in!')
+        } else {
+            db.tweedr.getUserUsingId(userId, (error, user) => {
+                if (error) {
+                    console.log("error in getting file", error);
+
+                } else {
+                    let currentCookieSesh = sha256(userId + 'logged_id' + secret)
+                    if ( storedCookie === currentCookieSesh ) {
+                        let dataSet = {
+                            user : user
+                        }
+                        response.render('user', dataSet);
+                    } else {
+                        response.send('wrong user')
+                    }
+                }
+            });
+        }
+    };
+
     let logout = (request, response) => {
       response.clearCookie('user_id');
       response.clearCookie('loggedin');
@@ -203,6 +271,8 @@ module.exports = (db) => {
     showCreateTweet,
     createTweet,
     showAllTweets,
+    showIndvUser,
+    showUserProfile,
     logout,
     redirect,
     // showHome2,

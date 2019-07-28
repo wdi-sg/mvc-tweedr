@@ -5,7 +5,6 @@ class Register extends React.Component {
     render() {
         let followings = this.props.results[0].count;
         let followers = this.props.results[1].count;
-
         return (
             <html>
                 <head>
@@ -22,7 +21,7 @@ class Register extends React.Component {
                         </div>
                         <p></p>
                         <div className="text-center">
-                            <h4>Who do you want to follow today?
+                            <h4>Who do you want to follow?
                             <form method="POST" action="/newFollow?_method=POST" accept-charset="UTF-8">
                                 <div className="input-group">
                                     <input type="text" name="screen_name"  className="form-control"/>

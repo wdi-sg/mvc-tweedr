@@ -3,7 +3,6 @@ var HeaderBarLess = require('../components/headerbar_less.jsx');
 
 class Home extends React.Component {
     render() {
-        console.log("login page");
         return (
             <html>
                 <head>

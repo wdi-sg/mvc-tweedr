@@ -3,7 +3,6 @@ var HeaderBar = require('../components/headerbar.jsx');
 
 class Register extends React.Component {
     render() {
-        console.log(this.props.results);
         let followings = this.props.results.map((follows)=>{
             return <li className="list-group-item">{follows.screen_name}</li>
         });

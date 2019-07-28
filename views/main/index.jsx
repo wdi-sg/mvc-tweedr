@@ -4,7 +4,6 @@ var TweetBar = require('../components/tweetbar.jsx');
 
 class Home extends React.Component {
     render() {
-        console.log(this.props);
         let tweetsQuery = this.props.allResults.map((tweet) => {
             return <div className="card mb-3" style={{maxWidth:'100%'}}>
               <div className="row no-gutters">
@@ -14,7 +13,10 @@ class Home extends React.Component {
                   <div className="card-body">
                     <h3 className="card-title">{tweet.screen_name},</h3>
                     <h5 className="card-text">{tweet.tweetmsg}</h5>
+                    <p></p>
+                    <p className="card-text"><small className="text-muted">{tweet.timestamp_col.toString()}</small></p>
                   </div>
+
                 </div>
               </div>
             </div>;

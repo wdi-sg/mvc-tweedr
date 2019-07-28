@@ -40,8 +40,40 @@ INNER JOIN following ON (following.followingid = users.id)
 WHERE users.id=1
 ORDER BY tweets.timestamp_col ASC;
 
+following works here
 SELECT following.userid, following.followingid, tweets.tweetmsg FROM following
 INNER JOIN users ON (following.followingid = users.id)
 INNER JOIN tweets ON (tweets.userid = users.id)
-WHERE following.userid=1
+WHERE following.userid=4
 ORDER BY tweets.timestamp_col ASC;
+
+query followers message
+SELECT following.followingid, following.userid, tweets.tweetmsg FROM following
+INNER JOIN users ON (following.followingid = users.id)
+INNER JOIN tweets ON (tweets.userid = users.id)
+WHERE following.followingid=4
+ORDER BY tweets.timestamp_col ASC;
+
+
+
+
+SELECT users.id, users.screen_name, tweets.tweetmsg FROM users
+INNER JOIN tweets ON (tweets.userid = users.id)
+WHERE users.id=1
+UNION
+SELECT following.followingid, users.screen_name, tweets.tweetmsg FROM following
+INNER JOIN users ON (following.followingid = users.id)
+INNER JOIN tweets ON (tweets.userid = users.id)
+WHERE following.userid=1;
+
+
+CREATE OR REPLACE VIEW listTweets
+AS SELECT users.id, users.screen_name, users.avatar, tweets.tweetmsg, tweets.timestamp_col FROM users
+INNER JOIN tweets ON (tweets.userid = users.id)
+WHERE users.id=1
+UNION
+SELECT following.followingid, users.screen_name, users.avatar, tweets.tweetmsg, tweets.timestamp_col FROM following
+INNER JOIN users ON (following.followingid = users.id)
+INNER JOIN tweets ON (tweets.userid = users.id)
+WHERE following.userid=1;
+SELECT * FROM listTweets ORDER BY timestamp_col;

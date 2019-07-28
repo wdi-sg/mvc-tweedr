@@ -1,5 +1,5 @@
 var React = require("react");
-var HeaderBar = require('../components/headerbar.jsx');
+var HeaderBarLess = require('../components/headerbar_less.jsx');
 
 class Register extends React.Component {
     render() {
@@ -11,7 +11,7 @@ class Register extends React.Component {
                     <link rel="stylesheet" href="css/styles.css"/>
                 </head>
                 <body>
-                    <HeaderBar/>
+                    <HeaderBarLess/>
                     <div className="d-flex justify-content-center">
                         <div className="main_container">
                             <h3 className="text-center">Register</h3>

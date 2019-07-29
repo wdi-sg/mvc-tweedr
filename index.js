@@ -1,6 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const sha256 = require('js-sha256');
 
 /**
  * ===================================
@@ -16,7 +17,8 @@ app.use(methodOverride('_method'));
 
 app.use(cookieParser());
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(__dirname+'/public/'));
 
 app.use(express.urlencoded({
   extended: true

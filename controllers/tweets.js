@@ -1,17 +1,21 @@
 module.exports = (db) => {
 
   /**
-   * ===========================================
+   *===========================================
    * Controller logic
    * ===========================================
    */
 
-  let tweetsControllerCallback = (request, response) => {
-    console.log("inside controller");
-    var getTweets = (error, allTweets) => {
-        response.render('homepage', {tweets: allTweets});
+  let tweetsControllerCallback = (req, res) => {
+    console.log("check for cookies");
+    if(req.cookies.loggedin === undefined){
+        res.redirect('/tweedr');
+    }else{
+        var getTweets = (error, allTweets) => {
+        res.render('homepage', {tweets: allTweets});
       };
       db.tweets.getAllTweets(getTweets);
+    }
   };
 
 

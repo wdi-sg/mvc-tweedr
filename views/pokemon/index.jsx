@@ -7,7 +7,13 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>Tweedr</h3>
+            <form action="/tweedr/register" method="GET">
+            <input type="submit" value="Register"/>
+          </form>
+         <form action="/tweedr/login" method="GET">
+            <input type="submit" value="login"/>
+          </form>
         </body>
       </html>
     );

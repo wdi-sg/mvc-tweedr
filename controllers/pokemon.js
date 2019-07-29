@@ -12,6 +12,18 @@ module.exports = (db) => {
       });
   };
 
+   let registerControllerCallback = (request, response) => {
+      db.pokemon.getAll((error, allPokemon) => {
+        response.render('pokemon/register', { allPokemon });
+      });
+  };
+
+   let loginControllerCallback = (request, response) => {
+      db.pokemon.getAll((error, allPokemon) => {
+        response.render('pokemon/login', { allPokemon });
+      });
+  };
+
 
   /**
    * ===========================================

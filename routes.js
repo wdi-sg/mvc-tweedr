@@ -6,15 +6,26 @@ module.exports = (app, allModels) => {
    *  =========================================
    *  =========================================
    *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
+   *         ALL ROUTES FOR CONTROLLER
    *  =========================================
    *  =========================================
    *  =========================================
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  const loginControllerCallbacks = require('./controllers/login')(allModels);
+  const userControllerCallbacks = require('./controllers/user')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
-};
+  //Login + Register User Routes
+  app.get('/', loginControllerCallbacks.redirect);
+  app.get('/login', loginControllerCallbacks.login);
+  app.post('/login', loginControllerCallbacks.loginCheck);
+  app.get('/register', loginControllerCallbacks.register);
+  app.post('/register', loginControllerCallbacks.addUser);
+
+  //User Page
+  app.get('/home/:username', userControllerCallbacks.home);
+  app.post('/home/:username',userControllerCallbacks.addTweed);
+  app.get('/home/:username/alltweeds', userControllerCallbacks.allTweeds); 
+
+}

@@ -1,5 +1,5 @@
 const express = require('express');
-const methodOverride = require('method-override');
+const methodOverride = require('c');
 const cookieParser = require('cookie-parser');
 
 /**
@@ -13,9 +13,7 @@ const app = express();
 
 // Set up middleware
 app.use(methodOverride('_method'));
-
 app.use(cookieParser());
-
 app.use(express.static('public'));
 
 app.use(express.urlencoded({

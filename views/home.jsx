@@ -7,7 +7,13 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>TWEEDR</h3>
+          {this.props.rows.map (tweets =>
+            <div>
+            <p>{tweets.user_id}</p>
+            <p>{tweets.content}</p>
+            </div>
+            )}
         </body>
       </html>
     );

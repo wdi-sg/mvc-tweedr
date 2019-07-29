@@ -1,13 +1,11 @@
 var React = require("react");
-
+var Default = require("./layout/default");
 class Login extends React.Component {
   render() {
     let message = this.props.message;
     return (
-      <html>
-        <head/>
-        <body>
-          <h1>{message}}</h1>
+        <Default>
+          <h1>{message}</h1>
           <form action="/login" method="POST">
               <p>Your User Name</p>
               <input name="name"/>
@@ -16,10 +14,8 @@ class Login extends React.Component {
               <br></br>
               <input type="submit"/>
           </form>
-        </body>
-      </html>
+        </Default>
     );
   }
 }
-
 module.exports = Login;

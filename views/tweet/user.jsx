@@ -1,4 +1,5 @@
 var React = require("react");
+var Default = require("./layout/default");
 class User extends React.Component {
   render() {
     let tweets = this.props.tweets;
@@ -12,9 +13,7 @@ class User extends React.Component {
         )
     })
     return (
-      <html>
-        <head/>
-        <body>
+        <Default>
           <h1>Welcome to your tweetdr page!!</h1>
             <table>
                 <tr>
@@ -38,9 +37,7 @@ class User extends React.Component {
                 </tr>
                     {tweetsList}
             </table>
-
-        </body>
-      </html>
+        </Default>
     );
   }
 }

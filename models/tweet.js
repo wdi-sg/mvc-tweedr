@@ -1,3 +1,6 @@
+var sha256 = require('js-sha256');
+const cookieParser = require('cookie-parser')
+const secretWord = "this is JAVASCRIPT!";
 /**
  * ===========================================
  * Export model functions as a module
@@ -11,7 +14,7 @@ module.exports = (dbPoolInstance) => {
   //home path
 
     let getAll = (callback) => {
-        let query = 'SELECT * FROM tweets';
+        let query = 'SELECT * FROM tweets ORDER BY id';
         dbPoolInstance.query(query, (error, queryResult) => {
             if( error ){
                 // invoke callback function with results after query has executed
@@ -23,7 +26,7 @@ module.exports = (dbPoolInstance) => {
                     callback(null, null);
                 }
             }
-        });
+        })
     };
 
     // ===========================================
@@ -47,8 +50,9 @@ module.exports = (dbPoolInstance) => {
     // ===========================================
 
     let postRegister = (value, callback) => {
-        let query = 'INSERT INTO users (name, password) VALUES ($1, $2)RETURNING *';
-        let values = [value.name, value.password];
+        let hashPassword = sha256(value.password);
+        let query = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
+        let values = [value.name, hashPassword];
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error) {
                 callback(error, null);
@@ -63,9 +67,11 @@ module.exports = (dbPoolInstance) => {
     };
 
     // ===========================================
+
     let checkLogin = (value, callback) => {
-        let query = 'SELECT * FROM users WHERE name = ($1)';
-        let values = [value.name];
+        let hashPassword = sha256(value.password);
+        let query = 'SELECT * FROM users WHERE name = ($1) AND password = ($2)';
+        let values = [value.name, hashPassword];
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if (error) {
                 console.log(error);
@@ -89,7 +95,7 @@ module.exports = (dbPoolInstance) => {
                 console.log(error);
             } else {
                 if (queryResult.rows.length > 0) {
-                    callback(null, queryResult.rows)
+                    callback(null, queryResult.rows);
                 } else {
                     callback(null, null);
                 }
@@ -108,30 +114,24 @@ module.exports = (dbPoolInstance) => {
                 callback(null, null);
             }
         })
-    }
+    };
 
     // ===========================================
 
     let postTweet = (value, callback) => {
-
-        let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)RETURNING *';
-
+        let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2) RETURNING *';
         let values = [value.tweet, value.user_id];
-
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if( error ){
                 callback(error, null);
-
-            }else{
-
-                if( queryResult.rows.length > 0 ){
+            } else {
+                if(queryResult.rows.length > 0) {
                     callback(null, queryResult.rows);
-
-                }else{
+                } else {
                     callback(null, null);
                 }
             }
-        });
+        })
     };
 
   // ===========================================

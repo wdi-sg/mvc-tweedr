@@ -27,7 +27,7 @@ module.exports = (db) => {
         const data = {
             message : message
         }
-        response.render('tweet/register', data); //goes to views
+        response.render('tweet/register', data);    //goes to views
     };
 
     //post register path
@@ -42,9 +42,14 @@ module.exports = (db) => {
                     response.send("username have been taken up, click back and choose another user name.");
                 } else {
                     db.tweet.postRegister(request.body, (error, result) => {    //goes to model, postRegister function
-                        // console.log("From controller: " + result);
-                        console.log("Successful Registered");
-                        response.redirect('/user'); //redirect to routes, user
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log("From controller: " + result);
+                            console.log("Successful Registered");
+                            response.cookie("loggedin", true);
+                            response.redirect('/user');     //redirect to routes, user
+                        }
                     })
                 }
             }
@@ -76,6 +81,7 @@ module.exports = (db) => {
                     db.tweet.postLogin(request.body, (error, result) => {
                         console.log("From controller: " + result);
                         console.log("Successful Login");
+                        response.cookie("loggedin", true);
                         response.redirect('/user'); //redirect to routes, get home
                     })
                 }

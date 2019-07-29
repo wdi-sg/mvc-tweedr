@@ -18,30 +18,33 @@ module.exports = (app, allModels) => {
 
 //user ====================================
 
-    //index path
+    //get index path to display home page
     app.get('/', tweetControllerCallbacks.home);
 
-    //get register path
+    //get register path to display new register form
     app.get('/register/new', tweetControllerCallbacks.getRegister);
 
-    //post register path
+    //post register path redirect to user page
     app.post('/register', tweetControllerCallbacks.postRegister);
 
 
 
-    //get login path
+    //get login path to display login form
     app.get('/login/new', tweetControllerCallbacks.getLogin);
 
-    //get login path
+    //get login path redirect to user page
     app.post('/login', tweetControllerCallbacks.postLogin);
+
+    //get login path to to display user page
+    app.get('/user', tweetControllerCallbacks.getUser);
 
 //tweets ==================================
 
-    //get new tweet
-    app.get('/new', tweetControllerCallbacks.getNew);
+    //get new tweet path to display new tweet form
+    app.get('/tweet/new', tweetControllerCallbacks.getTweet);
 
     //post new tweet
-    app.post('/new', tweetControllerCallbacks.postNew);
+    app.post('/tweet', tweetControllerCallbacks.postTweet);
 
 //=========================================
 

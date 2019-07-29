@@ -1,11 +1,10 @@
 var React = require("react");
+var Default = require("./layout/default");
 class Register extends React.Component {
   render() {
     let message = this.props.message;
     return (
-      <html>
-        <head/>
-        <body>
+        <Default>
           <h1>{message}</h1>
           <form action="/register" method="POST">
               <p>Your User Name</p>
@@ -15,10 +14,8 @@ class Register extends React.Component {
               <br></br>
               <input type="submit"/>
           </form>
-        </body>
-      </html>
+        </Default>
     );
   }
 }
-
 module.exports = Register;

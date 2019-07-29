@@ -1,26 +1,20 @@
 var React = require("react");
-
+var Default = require("./layout/default");
 class Home extends React.Component {
   render() {
-
     let tweets = this.props.tweets;
-
     let tweetsList = tweets.map(tweetsData => {
-
         return(
-                <tr>
-                    <td>{tweetsData.id}</td>
-                    <td>{tweetsData.tweet}</td>
-                    <td>{tweetsData.user_id}</td>
-                </tr>
+            <tr>
+                <td>{tweetsData.id}</td>
+                <td>{tweetsData.tweet}</td>
+                <td>{tweetsData.user_id}</td>
+            </tr>
         )
     })
-
     return (
-      <html>
-        <head/>
-        <body>
-          <h3>Welcome to tweetdr!!</h3>
+        <Default>
+            <h1>Welcome to tweetdr!!</h1>
             <table>
                 <tr>
                     <th>ID</th>
@@ -29,10 +23,8 @@ class Home extends React.Component {
                 </tr>
                     {tweetsList}
             </table>
-        </body>
-      </html>
-    );
+        </Default>
+    )
   }
 }
-
 module.exports = Home;

@@ -51,11 +51,11 @@ module.exports = (dbPoolInstance) => {
         //let hashedPassword = sha256( request.body.password + SALT );
         console.log(data);
 
-        const queryString = "SELECT FROM users WHERE name=$1 AND password=$2";
+        const query = "SELECT FROM users WHERE name=$1 AND password=$2";
 
         const values = [data.name, data.password];
 
-        pool.query(queryString, values, (err, res) => {
+        dbPoolInstance.query(query, values, (error, queryResult) => {
             if (err) {
                 console.log("query error", err.message);
 
@@ -75,22 +75,54 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let userpage = (inputId, callback) => {
+        // hash the password
+        //let hashedPassword = sha256( request.body.password + SALT );
+        console.log("inputId: " + inputId);
+        console.log(typeof inputId);
+
+        const queryString = "SELECT * FROM users WHERE id=($1)";
+
+        const values = [inputId];
+
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+
+            } else {
+                if (queryResult.rows[0] === undefined){
+                    //response.send("Sorry, the user name/password was incorrect.");
+                    callback(null, null);
+                } else {
+                    console.log("YAY");
+                    console.log(queryResult.rows[0] );
+                    callback(null, queryResult.rows);
+
+                    //let hashedLogin = sha256("you are in" + res.rows[0].id + SALT);
+                    // check to see if err is null
+
+                }
+
+            }
+        });
+    };
+
     let createtweet = (data, callback) => {
         // hash the password
         //let hashedPassword = sha256( request.body.password + SALT );
         console.log(data);
 
-        const queryString = "INSERT INTO tweets (name, content) VALUES ($1, $2)";
+        const queryString = "INSERT INTO tweets (user_id, content) VALUES ($1, $2)";
 
         const values = [data.user_id, data.content];
 
-        pool.query(queryString, values, (err, res) => {
+        dbPoolInstance.query(queryString, values, (err, res) => {
             if (err) {
                 console.log("query error", err.message);
 
             } else {
                 if (res.rows[0] === undefined){
-                    response.send("Sorry, the user name/password was incorrect.");
+                    response.send("Sorry, something went wrong");
                 } else {
                     console.log("YAY");
                     console.log(res.rows[0] );
@@ -108,6 +140,7 @@ module.exports = (dbPoolInstance) => {
   return {
     getAll,
     registerUser,
+    userpage,
     logincheck
   };
 };

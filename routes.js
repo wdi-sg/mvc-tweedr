@@ -20,6 +20,7 @@ module.exports = (app, allModels) => {
   app.get('/register', pokemonControllerCallbacks.register);
   app.post('/users', pokemonControllerCallbacks.registerUser);
   app.post('/users/logincheck', pokemonControllerCallbacks.logincheck);
-  app.post('/users/createtweet', pokemonControllerCallbacks.createtweet);
+  app.get('/users/:id', pokemonControllerCallbacks.userpage);
+  app.post('/users/:id', pokemonControllerCallbacks.createtweet);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

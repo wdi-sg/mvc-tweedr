@@ -36,7 +36,7 @@ if( process.env.DATABASE_URL ){
     user: 'donc',
     host: '127.0.0.1',
     database: 'tweedr_db',
-    port: 5432,
+    port: 3000,
     password: 'password'
   };
 }

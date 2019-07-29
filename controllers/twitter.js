@@ -69,7 +69,7 @@ var sha256 = require('js-sha256');
         let data = {
             id:parseInt(userId)
         }
-        if(request.cookies.logged_in === undefined){
+        if(request.cookies.logged_in === undefined || request.cookies.loggedin === false){
             response.send("Please login or create a new account")
         }
         else{
@@ -119,81 +119,88 @@ var sha256 = require('js-sha256');
     }
 
     let profilePageView = (request,response)=>{
-        // response.send('inside profile page function');
-        // console.log(request.params.id);
-        let data = {};
-        let outcome = false;
-        let outcome2 = false;
-        let outcome3 = false;
-        let outcome4 = false;
-        db.twitter.getLoginOne(request.params.id,(error,result)=>{
-            if(error){
-                response.send('error',error);
-            }
-            else{
-                // console.log(result.rows[0]);
-                data.id = request.params.id;
-                data.user = result.rows[0];
-                // outcome = true;
-                // console.log(data);
-                if(outcome = true){
-                    db.twitter.getUserWorkData(request.params.id,(error,result2)=>{
-                        if(error){
-                            response.send('error',error)
-                        }
-                        else{
-                            // console.log(result2.rows[0]);
-                            data.userWork = result2.rows[0];
-                            // console.log(data);
-                            outcome2 = true;
-                            if(outcome2 = true){
-                                db.twitter.getUserSchoolData(request.params.id,(error,result3)=>{
-                                    if (error){
-                                        response.send('error',error)
-                                    }
-                                    else{
-                                        // console.log(result3.rows[0]);
-                                        data.userSchool = result3.rows[0];
-                                        outcome3 = true;
-                                        if(outcome3 = true){
-                                            db.twitter.getUserPhotoData(request.params.id,(error,result4)=>{
-                                                if(error){
-                                                    response.send('error',error)
-                                                }
-                                                else{
-                                                    // console.log(result4.rows);
-                                                    data.userPhoto = result4.rows;
-                                                    // console.log(data);
-                                                    outcome4 = true;
-                                                    if(outcome4 = true){
-                                                        db.twitter.getUserTweetsData(request.params.id,(error,result5)=>{
-                                                            if(error){
-                                                                response.send('error',error);
-                                                            }
-                                                            else{
-                                                                // console.log(result5.rows);
-                                                                data.userTweets = result5.rows;
-                                                                console.log(data);
-                                                                response.render('profilepage',data);
-                                                            }
-                                                        })
-                                                    }
-                                                }
-                                            })
-                                        }
-                                    }
-                                })
-                            }
-                        }
-                    })
+        if (request.cookies.loggedin === 'false' || request.cookies.loggedin === undefined) {
+            console.log(request.cookies.loggedin)
+            response.send("NO ACCESS!");
+        } else {
+            // response.send('inside profile page function');
+            // console.log(request.params.id);
+            let data = {};
+            let outcome = false;
+            let outcome2 = false;
+            let outcome3 = false;
+            let outcome4 = false;
+            db.twitter.getLoginOne(request.params.id,(error,result)=>{
+                if(error){
+                    response.send('error',error);
                 }
-            }
-        })
+                else{
+                    // console.log(result.rows[0]);
+                    data.id = request.params.id;
+                    data.user = result.rows[0];
+                    // outcome = true;
+                    // console.log(data);
+                    if(outcome = true){
+                        db.twitter.getUserWorkData(request.params.id,(error,result2)=>{
+                            if(error){
+                                response.send('error',error)
+                            }
+                            else{
+                                // console.log(result2.rows[0]);
+                                data.userWork = result2.rows[0];
+                                // console.log(data);
+                                outcome2 = true;
+                                if(outcome2 = true){
+                                    db.twitter.getUserSchoolData(request.params.id,(error,result3)=>{
+                                        if (error){
+                                            response.send('error',error)
+                                        }
+                                        else{
+                                            // console.log(result3.rows[0]);
+                                            data.userSchool = result3.rows[0];
+                                            outcome3 = true;
+                                            if(outcome3 = true){
+                                                db.twitter.getUserPhotoData(request.params.id,(error,result4)=>{
+                                                    if(error){
+                                                        response.send('error',error)
+                                                    }
+                                                    else{
+                                                        // console.log(result4.rows);
+                                                        data.userPhoto = result4.rows;
+                                                        // console.log(data);
+                                                        outcome4 = true;
+                                                        if(outcome4 = true){
+                                                            db.twitter.getUserTweetsData(request.params.id,(error,result5)=>{
+                                                                if(error){
+                                                                    response.send('error',error);
+                                                                }
+                                                                else{
+                                                                    // console.log(result5.rows);
+                                                                    data.userTweets = result5.rows;
+                                                                    console.log(data);
+                                                                    response.render('profilepage',data);
+                                                                }
+                                                            })
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
     }
 
     let profileLogout = (request,response)=>{
         // response.send("inside logout function")
-        response.redirect("/twee_dr")
+        response.cookie('loggedin',false);
+        // response.send(request.cookies.loggedin)
+        response.redirect("/twee_dr");
     }
 
   /**

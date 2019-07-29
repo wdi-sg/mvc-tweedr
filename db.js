@@ -95,7 +95,7 @@ module.exports = {
    */
 
   // users: userModelsObject,
+  tweedHomeModelsObject: tweedHomeModelsObject,
   registerModelsObject: registerModelsObject,
   loginModelsObject: loginModelsObject
-
 };

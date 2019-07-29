@@ -7,7 +7,7 @@ class TweedHome extends React.Component {
         <head />
         <body>
           <h3>Create account!</h3>
-          <form method="POST" action="/register">
+          <form method="POST" action="/tweedHome">
           <p> Username: <input type="text" name="username"/> </p>
           <p> Password: <input type="text" name="password"/> </p>
           <input type="submit"/>

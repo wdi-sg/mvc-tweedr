@@ -31,7 +31,6 @@ module.exports = (dbPoolInstance) => {
                                     user: queryResult.rows,
                                     tweeds: queryResultTwo.rows
                                 });
-                                console.log(queryResultTwo.rows);
                             }
                         })
                     //wrong p/w was entered

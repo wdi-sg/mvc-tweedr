@@ -19,8 +19,7 @@ module.exports = (db) => {
             profile_img: request.body.profile_img
         }
 
-        const registrationConfirmation = data => {
-            console.log(data);
+        const registrationConfirmation = () => {
             response.send("Registration Complete!");
         }
 

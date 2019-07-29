@@ -14,7 +14,6 @@ module.exports = (db) => {
                 username: request.body.username,
                 password: sha256(request.body.password + SALT)
             }
-            console.log(data);
 
             //callback function after data has been sent
             //"result" is what is sent to callback from login model
@@ -26,10 +25,11 @@ module.exports = (db) => {
                 } else if (result === "Username does not exist") {
                     response.send("Username does not exist");
                 } else {
-                    let secretCookie = sha256(SALT + data.name);
-                    response.cookie('loggedin', secretCookie);
                     console.log(result);
-                    response.render('main/user', {user: result.user, tweeds: result.tweeds});
+                    let loginCookie = sha256(SALT + data.username);
+                    response.cookie('loggedin', loginCookie);
+                    // response.send("You are now logged in!")
+                    response.render('pages/user', {user: result.user, tweeds: result.tweeds});
                 }
             }
             //sends data to login model with loginResult as the callback function

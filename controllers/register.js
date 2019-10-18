@@ -6,7 +6,7 @@ module.exports = (db) => {
      * ===========================================
      */
   
-    let indexControllerCallback = (request, response) => {
+    let renderRegistrationForm = (request, response) => {
           response.render('users/register');
     };
   
@@ -17,7 +17,7 @@ module.exports = (db) => {
      * ===========================================
      */
     return {
-      index: indexControllerCallback,
+      renderRegistrationForm,
     };
   
   }

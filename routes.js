@@ -6,15 +6,17 @@ module.exports = (app, allModels) => {
    *  =========================================
    *  =========================================
    *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
+   *    ALL ROUTES FOR TWEET CONTROLLER
    *  =========================================
    *  =========================================
    *  =========================================
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  const mainController = require('./controllers/tweedrController')(allModels);
+  
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  app.get('/welcome', mainController.welcomePage);
+  app.get('/login', mainController.logInPage)
+  app.post('/login', mainController.login );
 };

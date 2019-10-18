@@ -8,7 +8,8 @@ module.exports = (app, allModels) => {
   app.get("/", homeControllerCallbacks.home);
   app.get("/register", homeControllerCallbacks.getRegister);
   app.post("/register", homeControllerCallbacks.register);
-  app.get("/login", homeControllerCallbacks.login);
+  app.get("/login", homeControllerCallbacks.getLogin);
+  app.post("/login", homeControllerCallbacks.login);
   app.get("/users", usersControllerCallbacks.users);
   app.get("/users/:id/new", usersControllerCallbacks.newTweet);
   app.get("/users/:id", usersControllerCallbacks.user);

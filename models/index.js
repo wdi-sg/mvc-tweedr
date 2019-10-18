@@ -40,8 +40,28 @@ module.exports = (pool) => {
       }
     });
   };
+
+  const postLogin = (name, callback) => {
+    const query = "SELECT * FROM users WHERE name=$1";
+    const values = [name];
+    pool.query(query, values, (error, queryResult) => {
+      if ( error ) {
+        // invoke callback function with results after query has executed
+        callback(error, null);
+      } else {
+        // invoke callback function with results after query has executed
+        if ( queryResult.rows.length > 0 ) {
+          callback(null, queryResult.rows);
+        } else {
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     getAll,
     postRegister,
+    postLogin,
   };
 };

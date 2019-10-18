@@ -2,13 +2,13 @@ const React = require("react");
 
 class Users extends React.Component {
   render() {
-    console.log(this.props.types);
+    const {name} = this.props;
     return (
       <html>
         <head />
         <body>
           <h1>TWEEDR</h1>
-          <h3>What Ya Thinking?</h3>
+          <h3>{name} What Ya Thinking?</h3>
         </body>
       </html>
     );

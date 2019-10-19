@@ -17,6 +17,10 @@ module.exports = (app, allModels) => {
 
   app.get('/', ControllerCallbacks.index);
 
+  app.get('/register', ControllerCallbacks.register);
+
+  app.post('/register', ControllerCallbacks.success);
+
   app.get('/login', ControllerCallbacks.login);
 
   app.post('/login', ControllerCallbacks.verify);

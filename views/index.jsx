@@ -3,10 +3,14 @@ var React = require("react");
 class Index extends React.Component {
   render() {
           const tweet = this.props.tweets.map((tweet,i)=>{
+
+            let time = tweet.created_at.toString();
         return  <div>
                     <li key = {i}> Tweed: {tweet.tweet}
 
-                        <ul><li> tweeted by {tweet.username}</li></ul>
+                        <ul><li> tweeted by {tweet.username}</li>
+                            <li> tweeted at {time}</li>
+                        </ul>
 
                     </li>
                 </div>

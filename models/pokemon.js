@@ -5,6 +5,12 @@
  */
 module.exports = (dbPoolInstance) => {
 
+ //REGISTRATION OF NEW USER
+  let registerUser = (user,callback)=>{
+
+    let query = `INSERT INTO users (username,password) `
+  }
+
  //SEARCH FOR USERNAME OF USER LOGGING IN
   let verifyUser = (user,callback) => {
 
@@ -29,7 +35,7 @@ module.exports = (dbPoolInstance) => {
     })
   };
 
-
+//DISPLAY ALL TWEETS ON MAIN PAGE
    let getAll = (callback) => {
 
     let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id)`;
@@ -39,7 +45,6 @@ module.exports = (dbPoolInstance) => {
 
         if( queryResult.rows.length > 0 ){
           callback(null, queryResult.rows);
-
 
         }else{
           callback(null, null);

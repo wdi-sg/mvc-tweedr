@@ -12,13 +12,34 @@ module.exports = (db) => {
     response.render('login')
   };
 
+  let registerControllerCallback = (request, response) => {
+    response.render('register')
+  };
+
+  let successControllerCallback = (request,response) => {
+    let user = request.body.username
+    let password = request.body.password
+    let hashedPw = sha256(request.body.password)
+
+        db.pokemon.verifyUser(user,(foundUser)=>{
+
+        if (foundUser === null){
+            response.send('This is a unique username!')
+        } else {
+            const data = {
+                    fail: true
+                }
+                response.render('register',data)
+        }
+    });
+  }
+
   let verifyControllerCallback = (request,response)=>{
     let user = request.body.username
     let password = request.body.password
     let hashedPw = sha256(request.body.password)
 
     console.log(user, password, hashedPw)
-
 
     db.pokemon.verifyUser(user,(foundUser)=>{
 
@@ -90,6 +111,8 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     login: loginControllerCallback,
+    register: registerControllerCallback,
+    success: successControllerCallback,
     verify: verifyControllerCallback,
     tweed: tweedControllerCallback,
     tweedOut: tweedOutControllerCallback

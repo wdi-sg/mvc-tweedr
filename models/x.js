@@ -81,7 +81,7 @@ module.exports = (dbPoolInstance) => {
     };
 
     let postTweed = (userId, tweed, callback) => {
-        let queryArr = [userId, tweed]
+        let queryArr = [userId, tweed];
         let query = 'INSERT INTO tweeds (user_id, content) VALUES ($1,$2)';
         dbPoolInstance.query(query, queryArr, (error, queryResult) => {
             if (error) {
@@ -96,6 +96,22 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let checkLogin = (username, password, callback) =>{
+        let queryArr = [username,password];
+        let query = 'SELECT * FROM users WHERE username = $1 AND hashpassword = $2'
+        dbPoolInstance.query(query,queryArr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    }
+
 
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
@@ -107,5 +123,6 @@ module.exports = (dbPoolInstance) => {
         getTweedUsers,
         getFollowing,
         postTweed,
+        checkLogin,
     };
 };

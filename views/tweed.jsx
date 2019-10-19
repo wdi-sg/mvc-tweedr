@@ -15,7 +15,7 @@ class Tweed extends React.Component {
                 <form method="POST" action="/tweed">
                     <div className="form-group">
                         <label>Your tweed: </label>
-                        <input className="form-control form-control-lg" type="text" placeholder="your tweed" name="tweed" maxLength = "20" required/>
+                        <input className="form-control form-control-lg" type="text" placeholder="your tweed" name="tweed" maxLength = "30" required/>
                     </div>
 
                     <input type="submit" className="btn btn-primary" value="tweed"/>

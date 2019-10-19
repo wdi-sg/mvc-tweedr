@@ -36,6 +36,7 @@ module.exports = (dbPoolInstance) => {
     console.log(query)
 
     dbPoolInstance.query(query, (error, queryResult) => {
+        console.log(queryResult)
         callback(queryResult.rows[0])
     })
   };

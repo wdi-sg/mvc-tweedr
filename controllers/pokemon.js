@@ -89,7 +89,7 @@ module.exports = (db) => {
     console.log(tweed, userId)
 
     db.pokemon.sendTweed(tweed, userId,(tweeded)=>{
-       console.log(tweeded)
+
 
        response.redirect('/profiles/'+userId)
     });
@@ -99,7 +99,7 @@ module.exports = (db) => {
    let indexControllerCallback = (request, response) => {
 
       db.pokemon.getAll((error, allTweets) => {
-        console.log(allTweets)
+
         const data = {
             tweets: allTweets
         }

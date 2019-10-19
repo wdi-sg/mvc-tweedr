@@ -11,7 +11,8 @@ class User extends React.Component {
       <html>
         <head />
         <body>
-          <h3>{display.message}</h3>
+          <h3>{display.title}</h3>
+          <font color="red">{display.message}</font>
             <form method="POST" action={display.formAction}>
                 Name: <input type="text" name="name" required/><br/>
                 Password: <input type="password" name="password" required/><br/>

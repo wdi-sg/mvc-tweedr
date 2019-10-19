@@ -1,5 +1,3 @@
-
-
 var React = require("react");
 
 class Name extends React.Component {

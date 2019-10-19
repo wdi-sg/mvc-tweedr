@@ -6,6 +6,12 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS tweeds(
 	id SERIAL PRIMARY KEY,
-	user_id TEXT,
+	user_id INTEGER,
 	content TEXT
+);
+
+CREATE TABLE IF NOT EXISTS following(
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	following_id INTEGER
 );

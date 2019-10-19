@@ -17,8 +17,8 @@ module.exports = (dbPoolInstance) => {
      * ========         1. FUNCTION            ===========
     =================================================== */
     //Declare your function here. You really only need to customize the query.
-    let getAll = (callback) => {
-        let query = 'SELECT * FROM x';
+    let getAllUsers = (callback) => {
+        let query = 'SELECT * FROM users';
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -32,9 +32,42 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let getName = (callback) => {
-        let query = 'SELECT name FROM x';
-        dbPoolInstance.query(query, (error, queryResult) => {
+    let getNameUsers = (userId, callback) => {
+        let queryArr = [userId]
+        let query = 'SELECT username FROM users WHERE id = $1';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getTweedUsers = (userId, callback) => {
+        let queryArr = [userId]
+        let query = 'SELECT content FROM tweeds WHERE user_id = $1';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getFollowing = (userId, callback) => {
+        let queryArr = [userId]
+        let query = 'SELECT users.username, tweeds.content FROM tweeds INNER JOIN following ON (following.following_id = tweeds.user_id) INNER JOIN users ON (users.id = tweeds.user_id) WHERE (following.user_id = $1)';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
             if (error) {
                 callback(error, null);
             } else {
@@ -52,7 +85,9 @@ module.exports = (dbPoolInstance) => {
     =================================================== */
     //List of functions available
     return {
-        getAll,
-        getName,
+        getAllUsers,
+        getNameUsers,
+        getTweedUsers,
+        getFollowing,
     };
 };

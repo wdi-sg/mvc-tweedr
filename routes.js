@@ -15,6 +15,8 @@ module.exports = (app, allModels) => {
     /* ===================================================
      * ===========       2. ROUTES          ==============
     =================================================== */
+    app.get('/', xCC.loginPage);
+    app.get('/home/:id', xCC.homePage);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

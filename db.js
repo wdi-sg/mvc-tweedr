@@ -28,7 +28,7 @@ if (process.env.DATABASE_URL) {
     configs = {
         user: 'eden',
         host: '127.0.0.1',
-        database: /*'tweedr'*/,
+        database: 'tweedr',
         port: 5432
     };
 }

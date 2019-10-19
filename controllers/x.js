@@ -18,15 +18,38 @@ module.exports = (db) => {
     // 'x/index.jsx' = views/x/index.jsx file
     // { allResult } === const data = {allResult: allResult}
 
-    let indexCC = (request, response) => {
+    let index = (request, response) => {
         db.x.getAll((error, allResult) => {
             response.render('x/index.jsx', { allResult });
         });
     };
 
-    let nameCC = (request, response) => {
+    let name = (request, response) => {
         db.x.getName((error, allResult) => {
             response.render('x/name.jsx', { allResult });
+        });
+    };
+
+    let loginPage = (request, response) => {
+        let hasLoggedIn = request.cookies.hasLoggedIn;
+        let userId = request.cookies.userId;
+        if (hasLoggedIn === undefined){
+            console.log("Not logged in");
+            response.render('x/loginPage.jsx');
+        } else {
+            response.redirect(`home/${userId}`);
+        }
+    }
+
+    let homePage = (request, response) => {
+        let userId = request.cookies.userId;
+        db.x.getNameUsers(userId,(error, name) => {
+            let username = name[0]["username"];
+            db.x.getTweedUsers(userId,(error, tweed) => {
+                db.x.getFollowing(userId,(error,following)=>{
+                    response.render('x/home.jsx',{username,tweed,following});
+                })
+            })
         });
     };
 
@@ -34,8 +57,10 @@ module.exports = (db) => {
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
     return {
-        index: indexCC,
-        name: nameCC,
+        index,
+        name,
+        loginPage,
+        homePage,
     };
 
 }

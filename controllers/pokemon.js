@@ -24,7 +24,13 @@ module.exports = (db) => {
         db.pokemon.verifyUser(user,(foundUser)=>{
 
         if (foundUser === null){
-            response.send('This is a unique username!')
+
+            db.pokemon.registerUser(user,hashedPw,(registered)=>{
+                console.log(registered)
+                response.send('This is a unique username!')
+            })
+
+
         } else {
             const data = {
                     fail: true

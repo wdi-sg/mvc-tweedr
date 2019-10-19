@@ -6,10 +6,15 @@
 module.exports = (dbPoolInstance) => {
 
  //REGISTRATION OF NEW USER
-  let registerUser = (user,callback)=>{
+  let registerUser = (user,hashedPw, callback)=>{
 
-    let query = `INSERT INTO users (username,password) `
-  }
+    let query = `INSERT INTO users (username,password) VALUES ('${user}', '${hashedPw}') RETURNING *`
+    console.log(query)
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+        callback(queryResult.rows[0])
+    })
+  };
 
  //SEARCH FOR USERNAME OF USER LOGGING IN
   let verifyUser = (user,callback) => {
@@ -38,7 +43,7 @@ module.exports = (dbPoolInstance) => {
 //DISPLAY ALL TWEETS ON MAIN PAGE
    let getAll = (callback) => {
 
-    let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id)`;
+    let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id) ORDER BY created_at DESC`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
 
@@ -57,6 +62,7 @@ module.exports = (dbPoolInstance) => {
 //store and send out the functions
   return {
     getAll,
+    registerUser,
     verifyUser,
     sendTweed
   };

@@ -17,6 +17,10 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 //Initiate and configures express
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(methodOverride('_method')); //Allows to use PUT/DELETE
 app.use(cookieParser()); //Converts cookies from string to objects
 app.use(express.static('public')); //Allows access to public files (CSS and JS)

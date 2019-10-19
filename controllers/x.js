@@ -63,6 +63,16 @@ module.exports = (db) => {
         });
     };
 
+    let postTweed= (request, response) => {
+        let userId = request.cookies.userId;
+        let tweed = request.body.tweed;
+        db.x.getNameUsers(userId,(error, name) => {
+            db.x.postTweed(userId, tweed, (error, tweed) => {
+                response.redirect(`home/${userId}`);
+            })
+        });
+    };
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -72,6 +82,7 @@ module.exports = (db) => {
         loginPage,
         homePage,
         userPage,
+        postTweed,
     };
 
 }

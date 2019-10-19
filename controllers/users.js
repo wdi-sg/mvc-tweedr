@@ -16,7 +16,11 @@ module.exports = (db) => {
 
     let createControllerCallback = (req,res) => {
         db.users.insertNew(req,(err,result)=>{
-            res.send("Success!");
+            if (err) {
+                res.send(err.detail);
+            } else {
+                res.send("Success!");
+            };
         });
     };
 

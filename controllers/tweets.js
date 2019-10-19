@@ -4,11 +4,16 @@ module.exports = (db) => {
 ║  │ ││││ │ ├┬┘│ ││  │  ├┤ ├┬┘  ║  │ ││ ┬││
 ╚═╝└─┘┘└┘ ┴ ┴└─└─┘┴─┘┴─┘└─┘┴└─  ╩═╝└─┘└─┘┴└─┘
 */
-    // let indexControllerCallback = (req,res) => {
-    //     db.tweets.getAll((err,result)=>{
-    //         res.send(result);
-    //     });
-    // };
+    let indexControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.tweets.getAll(req,(err,result)=>{
+                res.send(result);
+            });
+        };
+    };
+
     let newControllerCallback = (req,res) => {
         if (req.cookies.loggedIn !== 'yes') {
             res.redirect('/users/login')
@@ -34,6 +39,6 @@ module.exports = (db) => {
     return {
         new: newControllerCallback,
         create: createControllerCallback,
-        // index: indexControllerCallback
+        index: indexControllerCallback
     };
 };

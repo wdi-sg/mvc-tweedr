@@ -22,7 +22,7 @@ module.exports = (dbPoolInstance) => {
 
     let insertNew = (req,callback) => {
         let values = [req.body.username,sha256(req.body.password),req.body.email]
-        let query = "INSERT INTO users (username,password,email) VALUES ($1,$2,$3)";
+        let query = "INSERT INTO users (username,password,email) VALUES ($1,$2,$3) RETURNING *";
         dbPoolInstance.query(query,values,(err,res)=>{
             if (err) {
                 callback(err,null);

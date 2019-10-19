@@ -75,7 +75,6 @@ const allTweetsModelsFunction = require('./models/tweets');
 const allTweetsModelsObject = allTweetsModelsFunction( pool );
 
 
-
 /*
  * ===================================================
  * ===================================================
@@ -106,5 +105,5 @@ module.exports = {
   pokemon: pokemonModelsObject,
   userRegistration: userRegistration,
   userLogin: userLogin,
-  tweets: allTweetsModelsObject
+  tweets: allTweetsModelsObject,
 };

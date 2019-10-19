@@ -11,6 +11,10 @@ module.exports = (db) => {
           response.render('tweets/all', { allTweets });
         });
     };
+
+    let renderNewTweetForm = (request, response) => {
+          response.render('tweets/new');
+    };
   
   
     /**
@@ -19,7 +23,8 @@ module.exports = (db) => {
      * ===========================================
      */
     return {
-        showAllTweets: showAllTweets
+        showAllTweets: showAllTweets,
+        renderNewTweetForm: renderNewTweetForm
     };
   
   }

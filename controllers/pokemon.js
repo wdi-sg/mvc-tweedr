@@ -35,7 +35,11 @@ module.exports = (db) => {
                 response.cookie('username', foundUser.username);
                 response.send('Logged in!')
             } else {
-                response.send('Login failed. Try again.')
+
+                const data = {
+                    fail: true
+                }
+                response.render('login',data)
             }
 
         }
@@ -75,8 +79,6 @@ module.exports = (db) => {
 
         response.render('index', data)
       });
-
-
   };
 
 

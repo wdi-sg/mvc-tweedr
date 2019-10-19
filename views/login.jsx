@@ -6,10 +6,10 @@ class Login extends React.Component {
     render() {
 
 
-        // let fail = ""
-        // if (this.props.fail === "No entry"){
-        //     fail =  <h3 style = {{color:"red"}}>Log in failed. Please try again.</h3>
-        // }
+        let fail = ""
+        if (this.props.fail === true){
+            fail =  <h3 style = {{color:"red"}}>Log in failed. Please try again.</h3>
+        }
 
         return (
             <div>
@@ -33,6 +33,8 @@ class Login extends React.Component {
 
                     <input type="submit" className="btn btn-primary" value="Submit"/>
                 </form>
+                <br/>
+                <h3>{fail}</h3>
             </div>
 
         );

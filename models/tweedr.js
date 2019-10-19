@@ -9,7 +9,9 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM tweet';
+    let query = 'SELECT users.id, users.username, tweet.tweet, tweet.creation_date FROM tweet INNER JOIN USERS ON tweet.user_id=users.id';
+    //   console.log(query)
+    // let query = 'SELECT * FROM tweet';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -35,7 +37,6 @@ module.exports = (dbPoolInstance) => {
   let getAllUsers = (callback) => {
 
     let query = 'SELECT * FROM users';
-
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
 

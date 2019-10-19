@@ -18,23 +18,22 @@ module.exports = (db) => {
     // 'x/index.jsx' = views/x/index.jsx file
     // { allResult } === const data = {allResult: allResult}
 
-    let index = (request, response) => {
-        db.x.getAll((error, allResult) => {
-            response.render('x/index.jsx', { allResult });
-        });
-    };
+    // let index = (request, response) => {
+    //     db.x.getAll((error, allResult) => {
+    //         response.render('x/index.jsx', { allResult });
+    //     });
+    // };
 
-    let name = (request, response) => {
-        db.x.getName((error, allResult) => {
-            response.render('x/name.jsx', { allResult });
-        });
-    };
+    // let name = (request, response) => {
+    //     db.x.getName((error, allResult) => {
+    //         response.render('x/name.jsx', { allResult });
+    //     });
+    // };
 
     let loginPage = (request, response) => {
         let hasLoggedIn = request.cookies.hasLoggedIn;
         let userId = request.cookies.userId;
         if (hasLoggedIn === undefined){
-            console.log("Not logged in");
             response.render('x/loginPage.jsx');
         } else {
             response.redirect(`home/${userId}`);
@@ -43,24 +42,44 @@ module.exports = (db) => {
 
     let homePage = (request, response) => {
         let userId = request.cookies.userId;
-        db.x.getNameUsers(userId,(error, name) => {
-            let username = name[0]["username"];
-            db.x.getTweedUsers(userId,(error, tweed) => {
-                db.x.getFollowing(userId,(error,following)=>{
-                    response.render('x/home.jsx',{username,tweed,following});
+        let hasLoggedIn = request.cookies.hasLoggedIn;
+        if (hasLoggedIn === undefined){
+            response.render('x/loginPage.jsx');
+        } else {
+            db.x.getNameUsers(userId,(error, name) => {
+                let username = name[0]["username"];
+                db.x.getTweedUsers(userId,(error, tweed) => {
+                    db.x.getFollowing(userId,(error,following)=>{
+                        response.render('x/home.jsx',{username,tweed,following});
+                    })
                 })
-            })
-        });
+            });
+        }
     };
 
     let userPage= (request, response) => {
         let visitingId = request.params.id;
-        db.x.getNameUsers(visitingId,(error, name) => {
-            let username = name[0]["username"];
-            db.x.getTweedUsers(visitingId,(error, tweed) => {
-                response.render('x/visitHome.jsx',{username,tweed});
-            })
-        });
+        let userId = request.cookies.userId;
+        let hasLoggedIn = request.cookies.hasLoggedIn;
+        if (hasLoggedIn === undefined){
+            response.render('x/loginPage.jsx');
+        } else {
+            if(visitingId === userId){
+                db.x.getNameUsers(visitingId,(error, name) => {
+                    let username = name[0]["username"];
+                    response.render('x/userProfile.jsx',{username});
+                });
+            } else {
+                db.x.getNameUsers(visitingId,(error, name) => {
+                    let username = name[0]["username"];
+                    db.x.getTweedUsers(visitingId,(error, tweed) => {
+                        response.render('x/visitHome.jsx',{username,tweed});
+                    })
+
+
+                });
+            }
+        }
     };
 
     let postTweed= (request, response) => {
@@ -77,8 +96,8 @@ module.exports = (db) => {
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
     return {
-        index,
-        name,
+        // index,
+        // name,
         loginPage,
         homePage,
         userPage,

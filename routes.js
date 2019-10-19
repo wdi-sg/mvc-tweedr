@@ -17,6 +17,7 @@ module.exports = (app, allModels) => {
     =================================================== */
     app.get('/', xCC.loginPage);
     app.get('/home/:id', xCC.homePage);
+    app.get('/user/:id',xCC.userPage);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

@@ -53,6 +53,16 @@ module.exports = (db) => {
         });
     };
 
+    let userPage= (request, response) => {
+        let visitingId = request.params.id;
+        db.x.getNameUsers(visitingId,(error, name) => {
+            let username = name[0]["username"];
+            db.x.getTweedUsers(visitingId,(error, tweed) => {
+                response.render('x/visitHome.jsx',{username,tweed});
+            })
+        });
+    };
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -61,6 +71,7 @@ module.exports = (db) => {
         name,
         loginPage,
         homePage,
+        userPage,
     };
 
 }

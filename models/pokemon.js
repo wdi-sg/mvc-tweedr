@@ -7,32 +7,19 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let verifyUser = (user,callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = `SELECT * FROM users WHERE username = '${user}';`;
+
 
     dbPoolInstance.query(query, (error, queryResult) => {
-      if( error ){
 
-        // invoke callback function with results after query has executed
-        callback(error, null);
+        callback(queryResult.rows)
 
-      }else{
-
-        // invoke callback function with results after query has executed
-
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
-
-        }else{
-          callback(null, null);
-
-        }
-      }
     });
   };
 
   return {
-    getAll,
+    verifyUser,
   };
 };

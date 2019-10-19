@@ -3,9 +3,7 @@ const React = require('react');
 class Layout extends React.Component {
     render() {
 
-          {/* <li className="nav-item">
-                                    <a className="nav-link" href="http://localhost:3000/">Profile</a>
-                                </li> */}
+
 
         return (
            <html>
@@ -32,6 +30,9 @@ class Layout extends React.Component {
                                 </li>
                                   <li className="nav-item">
                                     <a className="nav-link" href="http://localhost:3000/tweed">Tweed!</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Profile</a>
                                 </li>
 
                             </ul>

@@ -44,6 +44,7 @@ module.exports = (db) => {
     let password = request.body.password
     let hashedPw = sha256(request.body.password)
 
+
     console.log(user, password, hashedPw)
 
     db.pokemon.verifyUser(user,(foundUser)=>{
@@ -55,8 +56,8 @@ module.exports = (db) => {
         } else {
 
             if (foundUser.username === user && foundUser.password === hashedPw){
-
-                response.cookie('loggedin', 'yay');
+                let hashedLog = sha256(foundUser.id.toString())
+                response.cookie('loggedin', hashedLog);
                 response.cookie('userid',foundUser.id);
                 response.cookie('username', foundUser.username);
 
@@ -77,9 +78,12 @@ module.exports = (db) => {
 
     let tweedControllerCallback = (request,response)=>{
 
-        //put in a cookie to allow username to display on tweet page
+        if (request.cookies.loggedin!= undefined && request.cookies.loggedin === sha256(request.cookies.userid.toString())){
+            response.render('tweed')
+        } else {
 
-        response.render('tweed')
+            response.redirect('/login')
+        }
     }
 
   let tweedOutControllerCallback = (request,response)=>{

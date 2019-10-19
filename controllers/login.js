@@ -1,3 +1,6 @@
+const sha256 = require('js-sha256');
+const SALT = "bananas are delicious";
+
 module.exports = db => {
     /**
      * ===========================================
@@ -17,6 +20,8 @@ module.exports = db => {
             console.log("Error!\n", error);
         } else {
             if (loggedInUser) {
+                let currentSessionCookie = sha256( loggedInUser.id + 'logged' + SALT );
+                response.cookie("logged_in", currentSessionCookie);
                 response.render("users/loginSuccess", { loggedInUser });
             } else {
                 response.render("users/loginFail");

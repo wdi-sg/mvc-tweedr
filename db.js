@@ -71,6 +71,9 @@ const userRegistration = registerUser( pool );
 const loginUser = require('./models/login');
 const userLogin = loginUser( pool );
 
+const allTweetsModelsFunction = require('./models/tweets');
+const allTweetsModelsObject = allTweetsModelsFunction( pool );
+
 
 
 /*
@@ -102,5 +105,6 @@ module.exports = {
   // users: userModelsObject,
   pokemon: pokemonModelsObject,
   userRegistration: userRegistration,
-  userLogin: userLogin
+  userLogin: userLogin,
+  tweets: allTweetsModelsObject
 };

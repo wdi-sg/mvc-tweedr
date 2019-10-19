@@ -58,11 +58,9 @@ module.exports = (dbPoolInstance) => {
   };
 
 
-    let checkUsers = (callback) => {
+    let checkUsers = (username, callback) => {
 
-
-    let query = 'SELECT * FROM users WHERE username='+username;
-
+    let query = "SELECT * from users WHERE username='"+username+"'";
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
 
@@ -84,11 +82,10 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-    let addNewUser = (callback) => {
-
-    let query = 'SELECT * FROM users';
-
-    dbPoolInstance.query(query, (error, queryResult) => {
+    let addNewUser = (allData, callback) => {
+    let query  = 'INSERT INTO users (username, password, email, description, user_img, creation_date, user_state) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id';
+    const values = [allData.username, allData.hashedPassword, allData.email, allData.description, allData.user_img, allData.creation_date, "active"];
+    dbPoolInstance.query(query, values, (error, queryResult) => {
       if( error ){
 
         // invoke callback function with results after query has executed

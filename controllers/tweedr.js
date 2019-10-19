@@ -20,10 +20,29 @@ module.exports = (db) => {
 
   let registerPostControllerCallback = (request, response) => {
         let username = request.body.username;
-      db.tweedr.checkUsers((error, postRegister) => {
-                data = {};
+        let userExists = false;
+                const data = {};
+      db.tweedr.checkUsers(username, (error, postRegister) => {
+        data.user = postRegister;
+        // console.log (data.user[0].username) 
+        if (data.user != null) {
+          console.log ('not null')
+        userExists = true;
+        data.message = "Username Taken, please try again..."
+                response.render('tweedr/register', data);
+        }       else { 
         // response.render('tweedr/index', { allTweets });
-                response.send({postRegister});
+        // add the user to the database 
+        const allData = request.body;
+        const SALT = "racketofthesaltyrunlamb";
+            const sha256 = require('js-sha256');
+              allData.hashedPassword = sha256(allData.password + SALT);
+              db.tweedr.addNewUser(allData, (error, postRegister) => {
+            console.log({postRegister})
+
+                response.send(data); 
+              }
+              )};
       });
   };
 

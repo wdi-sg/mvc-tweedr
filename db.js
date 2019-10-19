@@ -63,10 +63,11 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+// const allPokemonModelsFunction = require('./models/pokemon');
+const allTweedrModelsFunction = require('./models/tweedr');
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
+// const pokemonModelsObject = allPokemonModelsFunction( pool );
+const tweedrModelsObject = allTweedrModelsFunction( pool );
 
 
 /*
@@ -96,5 +97,6 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  // pokemon: pokemonModelsObject,
+  tweedr: tweedrModelsObject
 };

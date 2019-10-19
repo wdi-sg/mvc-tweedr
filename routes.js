@@ -23,7 +23,7 @@ module.exports = (app, allModels) => {
   app.post('/register', userRegistrationControllerCallbacks.registerUser);
   app.get('/login', userLoginControllerCallbacks.renderLoginForm);
   app.post('/login', userLoginControllerCallbacks.loginUser);
-  app.get('/tweets', tweetsControllerCallbacks.showAllTweets);  
+  app.get('/', tweetsControllerCallbacks.showAllTweets);  
 
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

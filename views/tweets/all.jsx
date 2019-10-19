@@ -12,6 +12,8 @@ class All extends React.Component {
               {this.props.allTweets.map(tweet => (
                   <React.Fragment>
                       <li>{tweet.content}</li>
+                      <li>@{tweet.name}</li>
+                      <hr/>
                   </React.Fragment>
               ))}
           </ul>

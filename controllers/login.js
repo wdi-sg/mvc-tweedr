@@ -20,7 +20,7 @@ module.exports = db => {
             console.log("Error!\n", error);
         } else {
             if (loggedInUser) {
-              console.log("loggedInUser ***:\n",loggedInUser);
+              // console.log("loggedInUser ***:\n",loggedInUser);
                 let currentSessionCookie = sha256( loggedInUser[0].id + 'logged' + SALT );
                 response.cookie("logged_in", currentSessionCookie);
                 response.cookie("user_id", loggedInUser[0].id);

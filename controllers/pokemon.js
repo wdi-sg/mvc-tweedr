@@ -22,6 +22,9 @@ module.exports = (db) => {
         } else {
 
             if (foundUser.username === user && foundUser.password === password){
+                response.cookie('loggedin', 'yay');
+                response.cookie('userid',foundUser.id);
+                response.cookie('username', foundUser.username);
                 response.send('Logged in!')
             } else {
                 response.send('Login failed. Try again.')
@@ -29,8 +32,29 @@ module.exports = (db) => {
 
         }
     });
-
   }
+
+    let tweedControllerCallback = (request,response)=>{
+
+        //put in a cookie to allow username to display on tweet page
+
+        response.render('tweed')
+    }
+
+  let tweedOutControllerCallback = (request,response)=>{
+    let tweed = request.body.tweed
+    let userId = request.cookies.userid
+
+    console.log(tweed, userId)
+
+    db.pokemon.sendTweed(tweed, userId,(tweeded)=>{
+       console.log(tweeded)
+
+       response.send('Wow, look at your tweed: ' + tweeded.tweet)
+    });
+  }
+
+
   //  let indexControllerCallback = (request, response) => {
   //     db.pokemon.getAll((error, allPokemon) => {
   //       response.render('pokemon/index', { allPokemon });
@@ -46,7 +70,9 @@ module.exports = (db) => {
    */
   return {
     login: loginControllerCallback,
-    verify: verifyControllerCallback
+    verify: verifyControllerCallback,
+    tweed: tweedControllerCallback,
+    tweedOut: tweedOutControllerCallback
   };
 
 }

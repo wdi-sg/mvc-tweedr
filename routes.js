@@ -17,7 +17,11 @@ module.exports = (app, allModels) => {
 
   app.get('/login', ControllerCallbacks.login);
 
-  app.post('/login', ControllerCallbacks.verify)
+  app.post('/login', ControllerCallbacks.verify);
+
+  app.get('/tweed/', ControllerCallbacks.tweed);
+
+  app.post('/tweed/', ControllerCallbacks.tweedOut)
 
 
 

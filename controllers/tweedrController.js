@@ -58,8 +58,21 @@ module.exports = db => {
   };
 
   let homePage = (request, response) => {
+    let userId = request.cookies["user_id"];
+    db.tweets.allTweets(userId,  (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.send("query error");
+      } else {
+        const data = {
+          result: result
+        }
+        console.log(result)
+        response.render('tweedr/home', data)
+      }
+    })
+
   
-    response.render('tweedr/home')
   }
 
   let addTweet = (request, response) => {

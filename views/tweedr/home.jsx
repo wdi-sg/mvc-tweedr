@@ -8,7 +8,7 @@ class Home extends React.Component {
       } else {
         list = this.props.result.map(item => {
             return(
-                <li>{item.tweet}</li>
+                <li className="list-group-item">{item.tweet}</li>
             )
         })
       }
@@ -24,16 +24,24 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
-          <h3>Home page  </h3>
+            <div className="container">
+            <h3 className="display-4 text-center border-bottom">Home page  </h3>
+            <h4 className="text-center">Welcome {this.props.username}</h4>
+            <a href="/tweedr/users" className="btn btn-warning btn-lg">See All Users</a>
 
-          <form action="/addtweet" method="POST">
-          <textarea type="text" name="tweet" placeholder="Write your tweet"/> <br/>
-          <button className="btn btn-primary btn-lg" type="submit">Add Tweet</button>
-          </form>
-    
-    <ul>
-        {list}
-    </ul>
+            <div className="container text-center mt-2">
+            <form action="/addtweet" method="POST">
+                <textarea rows="4" cols="50" type="text" name="tweet" placeholder="Write your tweet"/> <br/>
+                <button className="btn btn-primary btn-lg" type="submit">Add Tweet</button>
+                </form>
+</div>
+               
+<h2>Tweets: </h2>
+<ul className="list-group mt-3">
+{list}
+</ul>
+            </div>
+       
         </body>
       </html>
     );

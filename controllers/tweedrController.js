@@ -59,15 +59,17 @@ module.exports = db => {
 
   let homePage = (request, response) => {
     let userId = request.cookies["user_id"];
+    let userName = request.cookies["user_name"]
     db.tweets.allTweets(userId,  (error, result) => {
       if (error) {
         console.error("query error:", error.stack);
         response.send("query error");
       } else {
         const data = {
-          result: result
+          result: result,
+          username: userName
         }
-        console.log(result)
+       
         response.render('tweedr/home', data)
       }
     })
@@ -88,7 +90,41 @@ module.exports = db => {
     })
   }
   
+  let allUsers = (request, response) => {
+    let userId = request.cookies["user_id"]
+    db.tweets.allTweedrUsers(userId, (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.send("query error");
+      } else {
+       
+        const data = {
+          result: result,
+          userid: userId
+        }
+        console.log(userId)
+        response.render('tweedr/allUsers', data)
+      }
+    })
+  }
 
+  let user = (request, response) => {
+    let id = request.params.id;
+    db.tweets.tweedrUser(id, (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.send("query error");
+      } else {
+       
+        const data = {
+          result: result
+          
+        }
+   
+        response.render('tweedr/user', data)
+      }
+    })
+  }
 
 
   /**
@@ -103,6 +139,8 @@ module.exports = db => {
     registerPage: registerPage,
     register: register,
     home: homePage,
-    addTweet: addTweet
+    addTweet: addTweet,
+    allUsers: allUsers,
+    user: user
   };
 };

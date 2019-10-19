@@ -23,6 +23,8 @@ module.exports = (app, allModels) => {
   app.post('/register', mainController.register);
   app.get('/login', mainController.logInPage);
   app.post('/login', mainController.login );
-  app.post('/addtweet', mainController.addTweet)
+  app.post('/addtweet', mainController.addTweet);
+  app.get('/tweedr/users', mainController.allUsers);
+  app.get('/tweedr/users/:id', mainController.user)
   
 };

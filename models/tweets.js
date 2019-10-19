@@ -82,10 +82,47 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  let allTweedrUsers = (userId, callback) => {
+      let userid = userId
+      let input = [userid]
+    let queryString = "SELECT * FROM users WHERE id!= $1";
+    dbPoolInstance.query(queryString, input, (error, result) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          if (result.rows.length > 0) {
+            callback(null, result.rows);
+          } else {
+            callback(null, null);
+          }
+        }
+      });
+  }
+
+  let tweedrUser = (id, callback) => {
+    let userId = id;
+    let input = [userId]
+    let queryString = "SELECT tweet FROM tweets WHERE user_id = $1";
+    dbPoolInstance.query(queryString, input, (error, result) => {
+        if (error) {
+          callback(error, null);
+        } else {
+          if (result.rows.length > 0) {
+            callback(null, result.rows);
+          } else {
+            callback(null, null);
+          }
+        }
+      });
+  }
+
+
   return {
     addUser,
     checkUser,
     addNewTweet,
-    allTweets
+    allTweets,
+    allTweedrUsers,
+    tweedrUser
   };
 };

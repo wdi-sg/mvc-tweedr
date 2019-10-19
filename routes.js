@@ -15,7 +15,7 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
 
-  app.get('/', tweedrControllerCallbacks.index);
+  app.get('/tweedr', tweedrControllerCallbacks.index);
 
   app.get('/register', tweedrControllerCallbacks.userNew);
 
@@ -24,5 +24,9 @@ module.exports = (app, allModels) => {
   app.get('/login', tweedrControllerCallbacks.userLogin);
 
   app.post('/login', tweedrControllerCallbacks.userLoggedIn);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+
+  app.get('/tweedr/new', tweedrControllerCallbacks.tweedNew);
+
+  app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
+
 };

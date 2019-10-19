@@ -10,7 +10,16 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (req, res) => {
-      res.render('tweedr/index');
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.tweedIndex(req.cookies.user_id, (err, result) => {
+        data = {
+          result: result
+        }
+        res.render('tweedr/index', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
   };
   
   let userNewControllerCallback= (req, res) => {
@@ -45,7 +54,7 @@ module.exports = (db) => {
             res.cookie('user_id', user_id);
             res.cookie('hasLoggedIn', hashedCookie);
             res.cookie('username', req.body.username);
-            res.redirect('/');
+            res.redirect('/tweedr');
           } else {
             res.status(403).send('wrong password');
           }
@@ -56,8 +65,27 @@ module.exports = (db) => {
     });
   };
 
-  
-  
+  let tweedNewControllerCallback= (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      res.render('tweedr/new');
+    } else {
+      res.redirect('/login');
+    }
+  };
+
+  let tweedCreateControllerCallback= (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.tweedCreate(req.body, req.cookies.user_id, (err, result) => {
+        data = {
+          result: result
+        }
+        res.render('tweedr/create', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
+  };
+
 
 
   /**
@@ -70,7 +98,9 @@ module.exports = (db) => {
     userCreate : userCreateControllerCallback,
     userNew : userNewControllerCallback,
     userLogin: userLoginControllerCallback,
-    userLoggedIn: userLoggedInControllerCallback
+    userLoggedIn: userLoggedInControllerCallback,
+    tweedNew: tweedNewControllerCallback,
+    tweedCreate: tweedCreateControllerCallback
   };
 
 }

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
   password TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweeds (
   id SERIAL PRIMARY KEY,
   user_id TEXT,
   message TEXT

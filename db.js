@@ -68,6 +68,9 @@ const pokemonModelsObject = allPokemonModelsFunction( pool );
 const registerUser = require('./models/register');
 const userRegistration = registerUser( pool );
 
+const loginUser = require('./models/login');
+const userLogin = loginUser( pool );
+
 
 
 /*
@@ -98,5 +101,6 @@ module.exports = {
 
   // users: userModelsObject,
   pokemon: pokemonModelsObject,
-  userRegistration: userRegistration
+  userRegistration: userRegistration,
+  userLogin: userLogin
 };

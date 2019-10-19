@@ -27,9 +27,31 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(query, (error, queryResult) => {
         callback(queryResult.rows[0])
     })
-  }
+  };
 
+
+   let getAll = (callback) => {
+
+    let query = 'SELECT * FROM tweets';
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+
+        }else{
+          callback(null, null);
+
+        }
+
+    });
+  };
+
+//store and send out the functions
   return {
+    getAll,
     verifyUser,
     sendTweed
   };

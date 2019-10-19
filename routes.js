@@ -3,7 +3,7 @@ module.exports = (app, allModels) => {
 
   /*
    *  =========================================
-   *  =========================================
+   *  =========================================÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
    *  =========================================
    *  =========================================
    *    ALL ROUTES FOR POKEMON CONTROLLER
@@ -14,6 +14,8 @@ module.exports = (app, allModels) => {
 
   // require the controller
   const ControllerCallbacks = require('./controllers/pokemon')(allModels);
+
+  app.get('/', ControllerCallbacks.index);
 
   app.get('/login', ControllerCallbacks.login);
 

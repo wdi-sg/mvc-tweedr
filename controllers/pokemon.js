@@ -55,12 +55,21 @@ module.exports = (db) => {
   }
 
 
-  //  let indexControllerCallback = (request, response) => {
-  //     db.pokemon.getAll((error, allPokemon) => {
-  //       response.render('pokemon/index', { allPokemon });
-  //     });
+   let indexControllerCallback = (request, response) => {
 
-  // };
+      db.pokemon.getAll((error, allTweets) => {
+        // response.render('pokemon/index', { allPokemon });
+        console.log(allTweets)
+
+        const data = {
+            tweets: allTweets
+        }
+
+        response.render('index', data)
+      });
+
+
+  };
 
 
   /**
@@ -69,6 +78,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
+    index: indexControllerCallback,
     login: loginControllerCallback,
     verify: verifyControllerCallback,
     tweed: tweedControllerCallback,

@@ -1,4 +1,5 @@
 var React = require("react");
+var Layout = require('./layout')
 
 class Profile extends React.Component {
   render() {
@@ -12,9 +13,7 @@ class Profile extends React.Component {
 
 
     return (
-      <html>
-        <head />
-        <body>
+      <Layout>
         <h1> LOOK IT'S YOUR PROFILE, {this.props.name} </h1>
         <br/>
         <h2> Your tweets:</h2>
@@ -23,8 +22,7 @@ class Profile extends React.Component {
 
         </ul>
 
-        </body>
-      </html>
+     </Layout>
     );
   }
 }

@@ -1,6 +1,6 @@
 
 const React = require("react");
-// const Layout = require('./layout');
+const Layout = require('./layout');
 
 class Login extends React.Component {
     render() {
@@ -12,10 +12,7 @@ class Login extends React.Component {
         }
 
         return (
-            <div>
-                <div>
-                    <a href="/register"><input type="submit" className="btn btn-danger " value="REGISTER!!!"/></a>
-                </div>
+             <Layout>
 
                 <h1>WELCOME TO tweedr.</h1>
 
@@ -31,11 +28,11 @@ class Login extends React.Component {
                         <input className="form-control form-control-lg" type="text" placeholder="password" name="password" required/>
                     </div>
 
-                    <input type="submit" className="btn btn-primary" value="Submit"/>
+                    <input type="submit" className="btn btn-danger" value="Login"/>
                 </form>
                 <br/>
                 <h3>{fail}</h3>
-            </div>
+            </Layout>
 
         );
     };

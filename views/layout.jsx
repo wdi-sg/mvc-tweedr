@@ -2,6 +2,11 @@ const React = require('react');
 
 class Layout extends React.Component {
     render() {
+
+          {/* <li className="nav-item">
+                                    <a className="nav-link" href="http://localhost:3000/">Profile</a>
+                                </li> */}
+
         return (
            <html>
                 <head>
@@ -14,17 +19,21 @@ class Layout extends React.Component {
                     <div className="container">
 
                         <nav className="navbar navbar-expand-lg" style = {{backgroundColor: "#0b97b0"}}>
-                            <span className="navbar-brand">bnana.</span>
+                            <span className="navbar-brand">tweedr.</span>
                             <ul className="nav mr-auto mt-lg-0">
                                 <li className="nav-item">
                                     <a className="nav-link" href="http://localhost:3000/">Home</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="http://localhost:3000/Login">Login</a>
+                                  <li className="nav-item">
+                                    <a className="nav-link" href="http://localhost:3000/register">Register</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="http://localhost:3000/Register">Register</a>
+                                    <a className="nav-link" href="http://localhost:3000/login">Login</a>
                                 </li>
+                                  <li className="nav-item">
+                                    <a className="nav-link" href="http://localhost:3000/tweed">Tweed!</a>
+                                </li>
+
                             </ul>
 
                         </nav>

@@ -1,18 +1,13 @@
 
 const React = require("react");
-// const Layout = require('./layout');
+const Layout = require('./layout');
 
 class Tweed extends React.Component {
     render() {
 
-
-        // let fail = ""
-        // if (this.props.fail === "No entry"){
-        //     fail =  <h3 style = {{color:"red"}}>Log in failed. Please try again.</h3>
-        // }
-
         return (
-            <div>
+
+            <Layout>
 
                 <h1>MAKE YOURSELF HEARD</h1>
                 <h2>Tweed something intelligent.</h2>
@@ -23,9 +18,9 @@ class Tweed extends React.Component {
                         <input className="form-control form-control-lg" type="text" placeholder="your tweed" name="tweed" maxLength = "20" required/>
                     </div>
 
-                    <input type="submit" className="btn btn-primary" value="Submit"/>
+                    <input type="submit" className="btn btn-primary" value="tweed"/>
                 </form>
-            </div>
+            </Layout>
 
         );
     };

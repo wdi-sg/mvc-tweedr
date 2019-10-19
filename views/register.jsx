@@ -1,6 +1,6 @@
 
 const React = require("react");
-// const Layout = require('./layout');
+const Layout = require('./layout');
 
 class Register extends React.Component {
     render() {
@@ -11,7 +11,7 @@ class Register extends React.Component {
         }
 
         return (
-            <div>
+            <Layout>
 
                 <h1>WELCOME TO tweedr.</h1>
 
@@ -27,11 +27,12 @@ class Register extends React.Component {
                         <input className="form-control form-control-lg" type="text" placeholder="password" name="password" required/>
                     </div>
 
-                    <input type="submit" className="btn btn-primary" value="Submit"/>
+                    <input type="submit" className="btn btn-danger" value="Register!"/>
                 </form>
                  <br/>
                 <h3>{fail}</h3>
-            </div>
+
+            </Layout>
 
         );
     };

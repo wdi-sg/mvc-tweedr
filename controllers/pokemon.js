@@ -17,7 +17,17 @@ module.exports = (db) => {
     console.log(user, password)
 
     db.pokemon.verifyUser(user,(foundUser)=>{
-        response.send({foundUser})
+        if (foundUser === null){
+            response.send('No such person')
+        } else {
+
+            if (foundUser.username === user && foundUser.password === password){
+                response.send('Logged in!')
+            } else {
+                response.send('Login failed. Try again.')
+            }
+
+        }
     });
 
   }

@@ -13,9 +13,11 @@ module.exports = (dbPoolInstance) => {
 
 
     dbPoolInstance.query(query, (error, queryResult) => {
-
-        callback(queryResult.rows)
-
+        if (queryResult.rows.length>0){
+        callback(queryResult.rows[0])
+        } else {
+        callback(null);
+        }
     });
   };
 

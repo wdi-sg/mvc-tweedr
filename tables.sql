@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS users(
+	id SERIAL PRIMARY KEY,
+	username TEXT UNIQUE,
+	password TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS tweeds(
+	id SERIAL PRIMARY KEY,
+	tweed TEXT,
+	users_id INTEGER
+);

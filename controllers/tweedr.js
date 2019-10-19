@@ -22,11 +22,11 @@ module.exports = (db) => {
     }
   };
   
-  let userNewControllerCallback= (req, res) => {
+  let userNewControllerCallback = (req, res) => {
     res.render('users/new');
   };
 
-  let userCreateControllerCallback= (req, res) => {
+  let userCreateControllerCallback = (req, res) => {
     db.tweedr.userCreate(req.body, (err, result) => {
       data = {
         result: req.body
@@ -39,7 +39,7 @@ module.exports = (db) => {
     res.render('users/login');
   };
 
-  let userLoggedInControllerCallback= (req, res) => {
+  let userLoggedInControllerCallback = (req, res) => {
     db.tweedr.userLogin(req.body, (err, result) => {
       if (err) {
         console.error('query error:', err.stack);
@@ -65,7 +65,7 @@ module.exports = (db) => {
     });
   };
 
-  let tweedNewControllerCallback= (req, res) => {
+  let tweedNewControllerCallback = (req, res) => {
     if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
       res.render('tweedr/new');
     } else {
@@ -86,6 +86,16 @@ module.exports = (db) => {
     }
   };
 
+  let userProfileControllerCallback = (req, res) => {
+    db.tweedr.userProfile(req.params.id, (err, result) => {
+      data = {
+        result: result
+      }
+      console.log(result,"result")
+      res.render('users/show', data);
+    });
+  };
+
 
 
   /**
@@ -100,7 +110,8 @@ module.exports = (db) => {
     userLogin: userLoginControllerCallback,
     userLoggedIn: userLoggedInControllerCallback,
     tweedNew: tweedNewControllerCallback,
-    tweedCreate: tweedCreateControllerCallback
+    tweedCreate: tweedCreateControllerCallback,
+    userProfile: userProfileControllerCallback
   };
 
 }

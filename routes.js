@@ -29,4 +29,6 @@ module.exports = (app, allModels) => {
 
   app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
 
+  app.get('/users/:id',tweedrControllerCallbacks.userProfile);
+
 };

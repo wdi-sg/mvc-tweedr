@@ -86,10 +86,30 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let userProfile = (values, callback) => {
+    const queryArray = [values];
+    const queryString = 'SELECT * from users where id = $1';
+
+    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     userCreate,
     userLogin,
     tweedCreate,
-    tweedIndex
+    tweedIndex,
+    userProfile
   };
 };

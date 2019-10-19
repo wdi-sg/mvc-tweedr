@@ -1,4 +1,5 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav");
 
 class Login extends React.Component {
   render() {
@@ -6,6 +7,7 @@ class Login extends React.Component {
       <html>
         <head />
         <body>
+          <Nav />
           <h3>Login</h3>
           <form action="/login" method="POST">
             <input type="email" name="email" placeholder="enter email" required/><br/>

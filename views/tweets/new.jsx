@@ -1,4 +1,5 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav")
 
 class New extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class New extends React.Component {
       <html>
         <head />
         <body>
+          <Nav />
           {msg}
           <h3>Add New Tweet</h3>
           <form action="/tweets" method="POST">

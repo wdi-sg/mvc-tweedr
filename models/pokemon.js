@@ -47,15 +47,26 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, (error, queryResult) => {
 
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+    });
+  };
+
+  //DISPLAY TWEETS BY USER
+   let myTweets = (id, callback) => {
+
+    let query = `SELECT tweet, created_at FROM tweets WHERE user_id = ${id}ORDER BY created_at DESC`;
+
+    dbPoolInstance.query(query, (error, queryResult) => {
 
         if( queryResult.rows.length > 0 ){
           callback(null, queryResult.rows);
-
         }else{
           callback(null, null);
-
         }
-
     });
   };
 
@@ -64,6 +75,7 @@ module.exports = (dbPoolInstance) => {
     getAll,
     registerUser,
     verifyUser,
-    sendTweed
+    sendTweed,
+    myTweets
   };
 };

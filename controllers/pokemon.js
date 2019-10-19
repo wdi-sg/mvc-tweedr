@@ -109,12 +109,20 @@ module.exports = (db) => {
   };
 
   let profileControllerCallback = (request,response)=>{
-    console.log("cookie name" + request.cookies.username)
+    let id = request.cookies.userid
+        db.pokemon.myTweets(id, (error,myTweets)=>{
 
-     const userInfo = {
-        name: request.cookies.username
-    }
-    response.render('profile',userInfo)
+            console.log(myTweets)
+
+            const userInfo = {
+                name: request.cookies.username,
+                tweets: myTweets
+            }
+          response.render('profile',userInfo)
+        })
+
+
+
   }
 
   /**

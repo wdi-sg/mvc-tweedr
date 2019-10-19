@@ -16,7 +16,7 @@ module.exports = db => {
       response.render("users/registerSuccess", { registeredUser });
     };
 
-    db.user.registerUser(renderCallback, userRegistrationInfo);
+    db.userRegistration.registerUser(renderCallback, userRegistrationInfo);
   };
 
   /**

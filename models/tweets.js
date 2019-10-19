@@ -138,18 +138,37 @@ module.exports = dbPoolInstance => {
   let getFollowing = (userId, callback) => {
     let followerId = userId;
     let input = [followerId];
-    let queryString = "SELECT users.username, followers.followed_user_id, followers.follower_user_id FROM users INNER JOIN followers ON(users.id = followers.followed_user_id) WHERE followers.follower_user_id = $1"
+    let queryString =
+      "SELECT users.username, followers.followed_user_id, followers.follower_user_id FROM users INNER JOIN followers ON(users.id = followers.followed_user_id) WHERE followers.follower_user_id = $1";
     dbPoolInstance.query(queryString, input, (error, result) => {
-        if (error) {
-          callback(error, null);
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.rows.length >= 0) {
+          callback(null, result.rows);
         } else {
-          if (result.rows.length > 0) {
-            callback(null, result.rows);
-          } else {
-            callback(null, null);
-          }
+          callback(null, null);
         }
-      });
+      }
+    });
+  };
+
+  let getFollowers = (userId, callback) => {
+    let followerId = userId;
+    let input = [followerId];
+    let queryString =
+      "SELECT users.username, followers.followed_user_id, followers.follower_user_id FROM users INNER JOIN followers ON(users.id = followers.follower_user_id) WHERE followers.followed_user_id = $1";
+    dbPoolInstance.query(queryString, input, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.rows.length >= 0) {
+          callback(null, result.rows);
+        } else {
+          callback(null, null);
+        }
+      }
+    });
   };
 
   return {
@@ -160,6 +179,7 @@ module.exports = dbPoolInstance => {
     allTweedrUsers,
     tweedrUser,
     follower,
-    getFollowing
+    getFollowing,
+    getFollowers
   };
 };

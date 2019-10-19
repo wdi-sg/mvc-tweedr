@@ -160,6 +160,22 @@ module.exports = db => {
     })
   }
 
+  let followers = (request, response) => {
+    let userId = request.cookies["user_id"]
+    db.tweets.getFollowers(userId, (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.send("query error");
+      } else {
+        const data = {
+          result: result
+        }
+        console.log(result)
+        response.render('tweedr/followers', data)
+      }
+    })
+  }
+
 
   /**
    * ===========================================
@@ -177,6 +193,7 @@ module.exports = db => {
     allUsers: allUsers,
     user: user,
     follow: follow,
-    following: following
+    following: following,
+    followers: followers
   };
 };

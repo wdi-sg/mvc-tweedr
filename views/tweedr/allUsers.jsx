@@ -38,7 +38,6 @@ class Home extends React.Component {
          
             
         </body>
-        <script src="/script.js"></script>
       </html>
     );
   }

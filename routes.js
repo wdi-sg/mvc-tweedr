@@ -28,5 +28,6 @@ module.exports = (app, allModels) => {
   app.get('/tweedr/users/:id', mainController.user);
   app.post('/follow', mainController.follow);
   app.get('/tweedr/following', mainController.following);
+  app.get('/tweedr/followers', mainController.followers)
   
 };

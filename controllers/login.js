@@ -21,9 +21,9 @@ module.exports = db => {
         } else {
             if (loggedInUser) {
               console.log("loggedInUser ***:\n",loggedInUser);
-                let currentSessionCookie = sha256( loggedInUser.id + 'logged' + SALT );
+                let currentSessionCookie = sha256( loggedInUser[0].id + 'logged' + SALT );
                 response.cookie("logged_in", currentSessionCookie);
-                response.cookie("user_id", loggedInUser.id);
+                response.cookie("user_id", loggedInUser[0].id);
                 response.render("users/loginSuccess", { loggedInUser });
             } else {
                 response.render("users/loginFail");

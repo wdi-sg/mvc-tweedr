@@ -25,6 +25,7 @@ module.exports = (app, allModels) => {
   app.post('/login', userLoginControllerCallbacks.loginUser);
   app.get('/', tweetsControllerCallbacks.showAllTweets);  
   app.get('/tweets/new', tweetsControllerCallbacks.renderNewTweetForm);  
+  app.post('/tweets', tweetsControllerCallbacks.addNewTweet);  
 
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

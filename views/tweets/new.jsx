@@ -7,7 +7,7 @@ class New extends React.Component {
         <head />
         <body>
           <h3>Add New Tweet</h3>
-          <form action="/tweets/new" method="POST">
+          <form action="/tweets" method="POST">
             <textarea name="content" rows="5" cols="40"/><br/>
             <input type="submit" value="tweet"/>
           </form>

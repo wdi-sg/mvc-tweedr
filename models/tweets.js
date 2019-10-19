@@ -33,9 +33,9 @@ module.exports = (dbPoolInstance) => {
     };
 
 
-    let addNew = (callback) => {
+    let addNew = (user_id, content, callback) => {
   
-      let query = '';
+      let query = `INSERT INTO tweets (content, user_id) VALUES('${content}', '${user_id}') RETURNING *`;
   
       dbPoolInstance.query(query, (error, queryResult) => {
         if( error ){

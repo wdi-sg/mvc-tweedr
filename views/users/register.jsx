@@ -7,10 +7,10 @@ class Register extends React.Component {
         <head />
         <body>
           <h3>Register</h3>
-          <form action="/users/register" method="POST">
-            <input type="text" placeholder="enter name"/><br/>
-            <input type="email" placeholder="enter email"/><br/>
-            <input type="password" placeholder="enter password"/><br/>
+          <form action="/register" method="POST">
+            <input type="text" name="name" placeholder="enter name"/><br/>
+            <input type="email" name="email" placeholder="enter email"/><br/>
+            <input type="password" name="password" placeholder="enter password"/><br/>
             <input type="submit" value="register"/>
           </form>
         </body>

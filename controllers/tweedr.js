@@ -15,9 +15,26 @@ module.exports = (db) => {
 
 //===================================================
   let indexControllerCallback = (request, response) => {
-      db.tweedr.getAll((error, results) => {
-        response.render('tweedr/index', { results});
+
+    let user_id = request.cookies['user_id'];
+    let username = request.cookies['username'];
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getAll((error, results) => {
+            console.log("the results are:")
+            console.log(results);
+            let data = {
+                username: username,
+                tweeds: results
+            }
+        response.render('tweedr/index', data);
       });
+    } else {
+        response.redirect('/login');
+    };
+
+
   };
 //===================================================
 
@@ -63,7 +80,6 @@ module.exports = (db) => {
     tempUser = username
 
     db.tweedr.registeringUsers(username, hashedPassword, (err, results)=>{
-        console.log(results);
         if (results){
             response.redirect('/login');
         } else {
@@ -82,15 +98,25 @@ module.exports = (db) => {
     let requestPassword = request.body.password;
 
     db.tweedr.loginUsers(requestUsername, (err, results)=>{
-        if (results.rows.length > 0){
+        if (results){
             let hashedPassword = sha256(requestPassword + SALT);
 
-            if (hashedPassword === results.rows[0].password){
+            if (hashedPassword === results[0].password){
+                let user_id = results[0].id;
+                let username = results[0].username;
+                let hashedcookie = sha256(SALT + user_id);
 
-            }
-        }
+                response.cookie('user_id', user_id);
+                response.cookie('username', username);
+                response.cookie('hasLoggedIn', hashedcookie);
 
-
+                response.redirect('/');
+            } else {
+                response.status(403).render('tweedr/errorLogin');
+            };
+        } else {
+            response.status(403).render('tweedr/errorLogin');
+        };
     });
   };
 //===================================================

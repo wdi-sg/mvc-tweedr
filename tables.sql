@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS tweeds(
 	id SERIAL PRIMARY KEY,
 	tweed TEXT,
-	users_id INTEGER
+	users_id INTEGER,
+	created_at TIMESTAMPTZ DEFAULT now()
 );

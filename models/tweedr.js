@@ -91,7 +91,7 @@ module.exports = (dbPoolInstance) => {
 
     username = requestUsername;
 
-    let query = "SELECT * FROM users WHERE name = '" +username+"'";
+    let query = "SELECT * FROM users WHERE username = '" +username+"'";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

@@ -8,14 +8,19 @@ module.exports = (db) => {
 
   let indexControllerCallback = (request, response) => {
       db.tweedr.getAll((error, allTweets) => {
-        // response.render('tweedr/index', { allTweets });
-                response.send({ allTweets });
+        response.render('tweedr/alltweets', { allTweets });
+                // response.send({ allTweets });
       });
   };
 
     let registerControllerCallback = (request, response) => {
         data = {};
         response.render('tweedr/register', data);
+  };
+
+    let loginControllerCallback = (request, response) => {
+        data = {};
+        response.render('tweedr/login', data);
   };
 
   let registerPostControllerCallback = (request, response) => {
@@ -40,7 +45,7 @@ module.exports = (db) => {
               db.tweedr.addNewUser(allData, (error, postRegister) => {
             console.log({postRegister})
 
-                response.send(data); 
+                response.redirect('/tweedr'); 
               }
               )};
       });
@@ -54,6 +59,7 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
+    login: loginControllerCallback,
     register: registerControllerCallback,
     registerPost: registerPostControllerCallback
   };

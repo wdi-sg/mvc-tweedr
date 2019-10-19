@@ -12,15 +12,22 @@ module.exports = db => {
   };
 
   let addNewTweet = (request, response) => {
-
     let user_id = request.cookies.user_id;
+    let user_name = request.cookies.user_name;
     let { content } = request.body;
 
     db.tweets.addNew(user_id, content, (error, newTweet) => {
       if (error) {
         console.log("Error!", error);
       } else {
-        response.send("added new tweet!!!");
+        const data = { 
+          newTweet: newTweet, 
+          message: "Added new tweet!",
+          addedNewTweet: true,
+          user_name: user_name
+        };
+
+        response.render("tweets/new", data);
       }
       // response.render('tweets/addNewSuccess', { newTweet });
     });

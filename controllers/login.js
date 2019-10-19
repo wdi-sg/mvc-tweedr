@@ -24,6 +24,7 @@ module.exports = db => {
                 let currentSessionCookie = sha256( loggedInUser[0].id + 'logged' + SALT );
                 response.cookie("logged_in", currentSessionCookie);
                 response.cookie("user_id", loggedInUser[0].id);
+                response.cookie("user_name", loggedInUser[0].name);
                 response.render("users/loginSuccess", { loggedInUser });
             } else {
                 response.render("users/loginFail");

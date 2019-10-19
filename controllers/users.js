@@ -4,11 +4,17 @@ module.exports = (db) => {
 ║  │ ││││ │ ├┬┘│ ││  │  ├┤ ├┬┘  ║  │ ││ ┬││
 ╚═╝└─┘┘└┘ ┴ ┴└─└─┘┴─┘┴─┘└─┘┴└─  ╩═╝└─┘└─┘┴└─┘
 */
-    // let indexControllerCallback = (req,res) => {
-    //     db.users.getAll((err,result)=>{
-    //         res.send(result);
-    //     });
-    // };
+    let indexControllerCallback = (req,res) => {
+        db.users.getAll(req,(err,result)=>{
+            if (req.cookies.loggedIn !== 'yes') {
+                res.redirect('/users/login')
+            } else {
+                db.users.getAll(req,(err,result)=>{
+                    res.send(result);
+                });
+            };
+        });
+    };
 
     let newControllerCallback = (req,res) => {
         res.render('users/new');
@@ -46,7 +52,7 @@ module.exports = (db) => {
 ╚═╝┴ └─┴  └─┘┴└─ ┴
 */
     return {
-        // index: indexControllerCallback,
+        index: indexControllerCallback,
         new: newControllerCallback,
         create: createControllerCallback,
         login: loginControllerCallback,

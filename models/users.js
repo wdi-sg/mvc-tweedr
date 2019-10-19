@@ -3,11 +3,10 @@ const SALT = 'tweedr';
 
 module.exports = (dbPoolInstance) => {
 
-    let getAll = (callback) => {
-
-        let query = 'SELECT * FROM users';
-
-        dbPoolInstance.query(query,(err,res)=>{
+    let getAll = (req,callback) => {
+        let values = [req.cookies.userId];
+        let query = 'SELECT id,username FROM users WHERE users.id<>$1';
+        dbPoolInstance.query(query,values,(err,res)=>{
             if (err) {
                 callback(err,null);
             } else {

@@ -10,8 +10,6 @@
  * ===================================================
  */
 
-
-
 const pg = require('pg');
 const url = require('url');
 
@@ -47,8 +45,6 @@ pool.on('error', function (err) {
     console.log('idle client error', err.message, err.stack);
 });
 
-
-
 /*
  * ===================================================
  * ===================================================
@@ -61,11 +57,6 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
-
-// const allPokemonModelsFunction = require('./models/pokemon');
-
-// const pokemonModelsObject = allPokemonModelsFunction( pool );
-
 const allUsersModelsFunction = require('./models/users');
 
 const usersModelsObject = allUsersModelsFunction(pool);
@@ -73,6 +64,10 @@ const usersModelsObject = allUsersModelsFunction(pool);
 const allTweetsModelsFunction = require('./models/tweets');
 
 const tweetsModelsObject = allTweetsModelsFunction(pool);
+
+const allFollowsModelsFunction = require('./models/follows');
+
+const followsModelsObject = allFollowsModelsFunction(pool);
 
 /*
  * ===================================================
@@ -100,10 +95,10 @@ module.exports = {
    * ADD APP MODELS HERE
    */
 
-  // users: userModelsObject,
-  // pokemon: pokemonModelsObject,
 // users
     users: usersModelsObject,
 // tweets
-    tweets: tweetsModelsObject
+    tweets: tweetsModelsObject,
+// follows
+    follows: followsModelsObject
 };

@@ -1,3 +1,4 @@
+const sha256 = require("js-sha256");
 module.exports = (app, allModels) => {
 
 
@@ -17,6 +18,11 @@ module.exports = (app, allModels) => {
   
 
   app.get('/welcome', mainController.welcomePage);
-  app.get('/login', mainController.logInPage)
+  app.get('/tweedr/home', mainController.home);
+  app.get('/register', mainController.registerPage);
+  app.post('/register', mainController.register);
+  app.get('/login', mainController.logInPage);
   app.post('/login', mainController.login );
+  app.post('/addtweet', mainController.addTweet)
+  
 };

@@ -1,4 +1,5 @@
 var React = require("react");
+var Layout = require('./layout')
 
 class Index extends React.Component {
   render() {
@@ -17,15 +18,12 @@ class Index extends React.Component {
 
     });
     return (
-      <html>
-        <head />
-        <body>
+       <Layout>
         <h1> ALL TWEEDS ON TWEEDR </h1>
           <ol>
           {tweet}
           </ol>
-        </body>
-      </html>
+        </Layout>
     );
   }
 }

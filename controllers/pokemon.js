@@ -26,11 +26,10 @@ module.exports = (db) => {
         if (foundUser === null){
 
             db.pokemon.registerUser(user,hashedPw,(registered)=>{
-                console.log(registered)
-                response.send('This is a unique username!')
+                console.log("Registered " + registered)
+                response.redirect('/login')
+
             })
-
-
         } else {
             const data = {
                     fail: true
@@ -60,7 +59,10 @@ module.exports = (db) => {
                 response.cookie('loggedin', 'yay');
                 response.cookie('userid',foundUser.id);
                 response.cookie('username', foundUser.username);
-                response.send('Logged in!')
+
+
+                response.redirect('/profiles/'+foundUser.id)
+
             } else {
 
                 const data = {
@@ -97,8 +99,6 @@ module.exports = (db) => {
    let indexControllerCallback = (request, response) => {
 
       db.pokemon.getAll((error, allTweets) => {
-        // response.render('pokemon/index', { allPokemon });
-        console.log(allTweets)
 
         const data = {
             tweets: allTweets
@@ -108,6 +108,14 @@ module.exports = (db) => {
       });
   };
 
+  let profileControllerCallback = (request,response)=>{
+    console.log("cookie name" + request.cookies.username)
+
+     const userInfo = {
+        name: request.cookies.username
+    }
+    response.render('profile',userInfo)
+  }
 
   /**
    * ===========================================
@@ -121,7 +129,8 @@ module.exports = (db) => {
     success: successControllerCallback,
     verify: verifyControllerCallback,
     tweed: tweedControllerCallback,
-    tweedOut: tweedOutControllerCallback
+    tweedOut: tweedOutControllerCallback,
+    profile: profileControllerCallback,
   };
 
 }

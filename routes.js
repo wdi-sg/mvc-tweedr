@@ -17,6 +17,8 @@ module.exports = (app, allModels) => {
 
   app.get('/', ControllerCallbacks.index);
 
+  app.get('/profiles/:id', ControllerCallbacks.profile);
+
   app.get('/register', ControllerCallbacks.register);
 
   app.post('/register', ControllerCallbacks.success);

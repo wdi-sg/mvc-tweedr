@@ -5,7 +5,7 @@ class Home extends React.Component {
 
     let Navbar = require('./navbar.jsx');
 
-    let userID = this.props.tweeds[0].id;
+    let userID = this.props.userID;
 
     let allTweeds;
 
@@ -13,11 +13,11 @@ class Home extends React.Component {
         allTweeds = this.props.tweeds.map(x=>{
             let content = x.tweed;
             let time = x.created_at;
-            let tweed_User_id = x.users_id;
+            let username = x.username
 
             return  <div class="jumbotron jumbotron-fluid">
                       <div class="container">
-                        <p class="lead">@{tweed_User_id}</p>
+                        <p class="lead">@{username}</p>
                         <h2>{content}</h2>
                       </div>
                     </div>

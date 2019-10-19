@@ -22,10 +22,9 @@ module.exports = (db) => {
 
     if( request.cookies['hasLoggedIn'] === hashedValue){
         db.tweedr.getAll(user_id, (error, results) => {
-            console.log("the results are:")
-            console.log(results);
             let data = {
                 username: username,
+                userID: user_id,
                 tweeds: results
             }
         response.render('tweedr/index', data);
@@ -144,11 +143,51 @@ module.exports = (db) => {
     let requestUser = request.body.username;
 
     db.tweedr.getUser(requestUser,(err, results)=>{
-            response.render('users', results);
+        response.render('tweedr/users', results[0]);
     });
   };
 //===================================================
 
+
+
+
+//===================================================
+  let allUsers = (request, response)=>{
+
+    let user_id = request.cookies['user_id']
+
+    db.tweedr.getAllUsers((err, results)=>{
+        let data ={
+            userID: user_id,
+            results: results
+        }
+        response.render('tweedr/allUsers', data);
+    });
+  };
+//===================================================
+
+//===================================================
+  let logout = (request, response)=>{
+    response.cookie('user_id', undefined);
+    response.cookie('username', undefined);
+    response.cookie('hasLoggedIn', undefined);
+
+    response.redirect('/');
+  };
+//===================================================
+
+
+
+//===================================================
+  let followers = (request, response)=>{
+
+    let user_id = request.cookies['user_id']
+
+    db.tweedr.getFollowers(user_id, (err, results)=>{
+        response.render('tweedr/follows', {results});
+    });
+  };
+//===================================================
 
 
   /**
@@ -164,6 +203,9 @@ module.exports = (db) => {
     redirectToHome: goHomeOrGoAway,
     addTweeds: addingTweeds,
     getOneUser: getOneUser,
+    allUsers: allUsers,
+    logout: logout,
+    followers: followers,
   };
 
 }

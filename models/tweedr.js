@@ -11,7 +11,7 @@ module.exports = (dbPoolInstance) => {
 
     let userID = user_id;
 
-    let query = 'SELECT * FROM tweeds WHERE users_id = '+userID+' ORDER by id DESC';
+    let query = 'SELECT username, users.id, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) WHERE users_id = '+userID+' ORDER by tweeds.id DESC';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -176,6 +176,59 @@ module.exports = (dbPoolInstance) => {
   };
 
 
+  let getAllUsers = (callback) => {
+
+    let query = "SELECT * FROM users";
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+  let getFollowers = (user_id, callback) => {
+
+    let userID = user_id;
+
+    let query = "SELECT username, users.id, followers.user_id FROM followers INNER JOIN users ON (users.id = followers.followers_user_id) WHERE followers.user_id = " +userID;
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+
 
 
   return {
@@ -185,5 +238,7 @@ module.exports = (dbPoolInstance) => {
     loginUsers,
     addTweeds,
     getUser,
+    getAllUsers,
+    getFollowers,
   };
 };

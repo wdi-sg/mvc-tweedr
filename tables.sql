@@ -11,3 +11,9 @@ CREATE TABLE IF NOT EXISTS tweeds(
 	users_id INTEGER,
 	created_at TIMESTAMPTZ DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS followers(
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	followers_user_id INTEGER
+)

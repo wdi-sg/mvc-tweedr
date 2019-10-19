@@ -1,9 +1,32 @@
 var React = require("react");
 
-class OneUser extends React.Component {
+class AllUsers extends React.Component {
   render() {
 
     let Navbar = require('./navbar.jsx');
+
+    let allUsers;
+
+    if (this.props.results){
+        allUsers = this.props.results.map(x=>{
+
+            let username = x.username
+
+            return  <div class="card col-6 mx-auto mt-5">
+                      <div class="card-body">
+                        <h5 class="card-title">{username}</h5>
+                      </div>
+                    </div>
+
+        });
+    } else {
+        allUsers = <p>You have not connected with anyone yet</p>
+    }
+
+
+
+
+
 
     return (
       <html>
@@ -14,15 +37,8 @@ class OneUser extends React.Component {
 
           <Navbar/>
           <div className="container">
-            <h3 className="mt-5">Search Result:</h3>
-            <div class="card col-6 mx-auto mt-5">
-              <div class="card-body">
-                <h5 class="card-title">{this.props.username}</h5>
-                <form className="col align-self-center" method='POST' action='/followers'>
-                    <button type="submit" className="btn btn-primary">Already a user? Login here</button>
-                </form>
-              </div>
-            </div>
+            <h3 className="mt-5">All Connections:</h3>
+                {allUsers}
           </div>
 
 
@@ -36,4 +52,4 @@ class OneUser extends React.Component {
   }
 }
 
-module.exports = OneUser;
+module.exports = AllUsers;

@@ -1,4 +1,5 @@
 var React = require("react");
+const Navbar = require("./navbar.jsx");
 
 class Home extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
+          <Navbar/>
             <div className="container text-center">
             <h3 className="display-4 border-bottom ">Tweets From {this.props.result[0].username}</h3>
          <ul className="list-group">

@@ -1,4 +1,5 @@
 var React = require("react");
+const Navbar = require("./navbar.jsx");
 
 class Home extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class Home extends React.Component {
             crossOrigin="anonymous"
           ></link>
         </head>
+        <Navbar/>
         <body>
           <div className="container text-center">
             <h3 className="display-4 border-bottom ">Followers: </h3>

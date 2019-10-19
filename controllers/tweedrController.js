@@ -176,6 +176,13 @@ module.exports = db => {
     })
   }
 
+  let logout = (request, response) => {
+    response.clearCookie("user_id")
+    response.clearCookie("logged_in")
+    response.clearCookie("user_name")
+    response.redirect('/welcome')
+  }
+
 
   /**
    * ===========================================
@@ -194,6 +201,7 @@ module.exports = db => {
     user: user,
     follow: follow,
     following: following,
-    followers: followers
+    followers: followers,
+    logout: logout
   };
 };

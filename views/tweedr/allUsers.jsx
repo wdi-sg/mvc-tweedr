@@ -1,5 +1,5 @@
 var React = require("react");
-
+const Navbar = require("./navbar.jsx");
 class Home extends React.Component {
   render() {
    let list = this.props.result.map(item =>{
@@ -28,10 +28,12 @@ class Home extends React.Component {
      
         </head>
         <body>
+          <Navbar/>
             <div className="container text-center">
             <h3 className="display-4 border-bottom ">All Users</h3>
+            <a href="/tweedr/home" className="btn btn-primary btn-lg mt-3">Back To Home</a>
             
-         <ul className="list-group">
+         <ul className="list-group mt-4">
         {list}
          </ul>
             </div>

@@ -91,7 +91,7 @@ module.exports = (db) => {
     db.pokemon.sendTweed(tweed, userId,(tweeded)=>{
        console.log(tweeded)
 
-       response.send('Wow, look at your tweed: ' + tweeded.tweet)
+       response.redirect('/profiles/'+userId)
     });
   }
 
@@ -99,7 +99,7 @@ module.exports = (db) => {
    let indexControllerCallback = (request, response) => {
 
       db.pokemon.getAll((error, allTweets) => {
-
+        console.log(allTweets)
         const data = {
             tweets: allTweets
         }
@@ -109,16 +109,22 @@ module.exports = (db) => {
   };
 
   let profileControllerCallback = (request,response)=>{
-    let id = request.cookies.userid
+    let id = request.params.id
         db.pokemon.myTweets(id, (error,myTweets)=>{
 
             console.log(myTweets)
 
+            if (myTweets===null){
+                response.redirect('/tweed')
+
+        } else {
+
             const userInfo = {
-                name: request.cookies.username,
+                name: myTweets[0].username,
                 tweets: myTweets
             }
           response.render('profile',userInfo)
+        }
         })
 
 

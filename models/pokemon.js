@@ -43,7 +43,7 @@ module.exports = (dbPoolInstance) => {
 //DISPLAY ALL TWEETS ON MAIN PAGE
    let getAll = (callback) => {
 
-    let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id) ORDER BY created_at DESC`;
+    let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username, users.id FROM tweets INNER JOIN users ON (tweets.user_id = users.id) ORDER BY created_at DESC`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
 
@@ -58,7 +58,7 @@ module.exports = (dbPoolInstance) => {
   //DISPLAY TWEETS BY USER
    let myTweets = (id, callback) => {
 
-    let query = `SELECT tweet, created_at FROM tweets WHERE user_id = ${id}ORDER BY created_at DESC`;
+    let query = `SELECT tweets.tweet, tweets.created_at, users.username FROM tweets INNER JOIN users ON (tweets.user_id=users.id)WHERE user_id = ${id}ORDER BY created_at DESC`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
 

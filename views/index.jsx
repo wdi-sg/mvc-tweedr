@@ -9,7 +9,7 @@ class Index extends React.Component {
         return  <div key = {i}>
                     <li> Tweed: {tweet.tweet}
 
-                        <ul><li> tweeted by {tweet.username}</li>
+                        <ul><li> tweeted by <a href={"http://localhost:3000/profiles/" + tweet.id}>{tweet.username}</a></li>
                             <li> tweeted at {time}</li>
                         </ul>
 

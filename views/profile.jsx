@@ -14,9 +14,9 @@ class Profile extends React.Component {
 
     return (
       <Layout>
-        <h1> LOOK IT'S YOUR PROFILE, {this.props.name} </h1>
+        <h1> Tweedr profile of: {this.props.name} </h1>
         <br/>
-        <h2> Your tweets:</h2>
+        <h2> Tweeds by {this.props.name}:</h2>
         <ul>
             {tweets}
 

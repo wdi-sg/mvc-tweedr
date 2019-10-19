@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+	id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	password TEXT NOT NULL,
+	created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS tweeds (
+	id SERIAL PRIMARY KEY,
+	tweed TEXT NOT NULL,
+	created_at TIMESTAMPTZ DEFAULT now(),
+	edited_at TIMESTAMPTZ
+);
+
+CREATE TABLE IF NOT EXISTS user_tweed (
+	id SERIAL PRIMARY KEY,
+	tweed_id INT NOT NULL,
+	user_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+	id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
+	follower_user_id INT NOT NULL
+);

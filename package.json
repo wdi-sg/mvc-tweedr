@@ -16,6 +16,18 @@
     "method-override": "^2.3.10",
     "pg": "^7.4.3",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
-  }
+    "react-dom": "^16.3.2",
+    "url": "^0.11.0"
+  },
+  "description": "Let's make a cool new app called TWEEDR!! Not Twitter, geez...",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimYen/mvc-tweedr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/SimYen/mvc-tweedr/issues"
+  },
+  "homepage": "https://github.com/SimYen/mvc-tweedr#readme"
 }

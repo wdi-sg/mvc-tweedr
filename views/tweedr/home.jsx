@@ -8,7 +8,12 @@ class Home extends React.Component {
       } else {
         list = this.props.result.map(item => {
             return(
-                <li className="list-group-item">{item.tweet}</li>
+                <li className="list-group-item">
+                <blockquote class="blockquote text-center">
+  <p class="mb-0">{item.tweet}</p>
+  <footer class="blockquote-footer">{item.username}</footer>
+</blockquote>
+                </li>
             )
         })
       }
@@ -24,8 +29,8 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
-            <div className="container">
-            <h3 className="display-4 text-center border-bottom">Home page  </h3>
+            <div className="container mt-5">
+            <h3 className="display-4 text-center border-bottom">TWEEDR </h3>
             <h4 className="text-center">Welcome {this.props.username}</h4>
             <div className="container text-center border-bottom pb-3 pt-3">
             <a href="/tweedr/users" className="btn btn-warning btn-lg">See All Users</a>
@@ -35,13 +40,15 @@ class Home extends React.Component {
            
 
             <div className="container text-center mt-2">
+            <p class="lead">
+Got Something to Say?</p>
             <form action="/addtweet" method="POST">
-                <textarea rows="4" cols="50" type="text" name="tweet" placeholder="Write your tweet" className="mt-4"/> <br/>
-                <button className="btn btn-primary btn-lg" type="submit">Add Tweet</button>
+                <textarea rows="4" cols="100" type="text" name="tweet" placeholder="Write your tweet" className=""/> <br/>
+                <button className="btn btn-primary btn-lg" type="submit">Add Tweed?</button>
                 </form>
 </div>
                
-<h2>Tweets: </h2>
+<h2>Your Tweedr Feed:  </h2>
 <ul className="list-group mt-3">
 {list}
 </ul>

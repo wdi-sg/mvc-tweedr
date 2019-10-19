@@ -14,9 +14,16 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
-          <h3>Welcome to Tweedr</h3>
-          <a href="/register" className="btn btn-primary">Register</a>
-          <a href="/logIn" className="btn btn-primary">Login</a>
+          <div className="container text-center mt-5">
+          <h3 className="display-3 border-bottom">Welcome to Tweedr</h3>
+          <h4 className="lead">It's Like twitter but without all the fancy s**t</h4>
+          <div className="container mt-4">
+          <a href="/register" className="btn btn-primary btn btn-lg ">Register</a>
+          <a href="/logIn" className="btn btn-warning ml-5 btn-lg">Login</a>
+          </div>
+        
+          </div>
+          
         </body>
       </html>
     );

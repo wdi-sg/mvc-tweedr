@@ -68,7 +68,9 @@ module.exports = dbPoolInstance => {
 
   let allTweets = (userId, callback) => {
     let input = [userId];
-    let queryString = "SELECT * FROM tweets WHERE user_id=$1";
+    // let queryString = "SELECT * FROM tweets WHERE user_id=$1";
+    let queryString = "SELECT followers.followed_user_id, tweets.tweet, users.username FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id = $1 "
+
     dbPoolInstance.query(queryString, input, (error, result) => {
       if (error) {
         callback(error, null);

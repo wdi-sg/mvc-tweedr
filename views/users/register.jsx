@@ -1,4 +1,5 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav");
 
 class Register extends React.Component {
   render() {
@@ -6,6 +7,7 @@ class Register extends React.Component {
       <html>
         <head />
         <body>
+          <Nav/>
           <h3>Register</h3>
           <form action="/register" method="POST">
             <input type="text" name="name" placeholder="enter name"/><br/>

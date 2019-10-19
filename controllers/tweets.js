@@ -20,8 +20,8 @@ module.exports = db => {
       if (error) {
         console.log("Error!", error);
       } else {
-        const data = { 
-          newTweet: newTweet, 
+        const data = {
+          newTweet: newTweet,
           message: "Added new tweet!",
           addedNewTweet: true,
           user_name: user_name
@@ -34,7 +34,18 @@ module.exports = db => {
   };
 
   let renderNewTweetForm = (request, response) => {
-    response.render("tweets/new");
+    let logged_in = request.cookies.logged_in;
+    console.log("request.cookies!!!!!!!!\n", request.cookies);
+    console.log(
+      "request.cookies.logged_in!!!!!!!!\n",
+      request.cookies.logged_in
+    );
+
+    if (!logged_in) {
+      response.render("users/login", { msg: "Please log in before tweeting!" });
+    } else {
+      response.render("tweets/new");
+    }
   };
 
   /**

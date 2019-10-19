@@ -3,11 +3,17 @@ const Nav = require("../ui/nav");
 
 class Login extends React.Component {
   render() {
+    let msg = "";
+    if (this.props.msg) {
+      msg = this.props.msg;
+    }
+
     return (
       <html>
         <head />
         <body>
           <Nav />
+          { msg }
           <h3>Login</h3>
           <form action="/login" method="POST">
             <input type="email" name="email" placeholder="enter email" required/><br/>

@@ -1,3 +1,6 @@
+const sha256 = require('js-sha256');
+const SALT = "bananas are delicious";
+
 module.exports = db => {
   /**
    * ===========================================
@@ -35,6 +38,7 @@ module.exports = db => {
 
   let renderNewTweetForm = (request, response) => {
     let logged_in = request.cookies.logged_in;
+    let user_id = request.cookies.user_id;
     console.log("request.cookies!!!!!!!!\n", request.cookies);
     console.log(
       "request.cookies.logged_in!!!!!!!!\n",
@@ -44,7 +48,15 @@ module.exports = db => {
     if (!logged_in) {
       response.render("users/login", { msg: "Please log in before tweeting!" });
     } else {
-      response.render("tweets/new");
+      let verificationSessionCookie = sha256( user_id + 'logged' + SALT );
+      let currentSessionCookie = request.cookies.logged_in;
+
+      if (verificationSessionCookie === currentSessionCookie) {
+        response.render("tweets/new");
+      } else {
+        console.log("hacker!!!!!!");
+        response.render("users/login", { msg: "Please log in again!" });
+      }
     }
   };
 

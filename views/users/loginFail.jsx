@@ -1,4 +1,6 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav");
+const Login = require("../users/login");
 
 class LoginFail extends React.Component {
   render() {
@@ -7,7 +9,7 @@ class LoginFail extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Oops! Wrong email or password entered!</h3>
+          <Login msg="Oops! Wrong email or password entered!" />
         </body>
       </html>
     );

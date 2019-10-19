@@ -11,7 +11,7 @@ module.exports = (app, allModels) => {
   app.get("/login", homeControllerCallbacks.getLogin);
   app.post("/login", homeControllerCallbacks.login);
   app.get("/users", usersControllerCallbacks.users);
-  app.get("/users/:id/new", usersControllerCallbacks.newTweet);
+  app.post("/users", usersControllerCallbacks.newTweet);
   app.get("/users/:id", usersControllerCallbacks.user);
   // app.get('/users/:id', users.getUsers);
 };

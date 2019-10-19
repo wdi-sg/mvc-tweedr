@@ -1,8 +1,8 @@
 module.exports = (db) => {
   // Controller logic
   const usersControllerCallback = (request, response) => {
-    db.users.getAll((error, allUsers) => {
-      response.render("users/users", {allUsers});
+    db.users.getAll((error, tweets) => {
+      response.render("users/users", {tweets});
     });
   };
 
@@ -13,8 +13,11 @@ module.exports = (db) => {
   };
 
   const newTweet = (request, response) => {
-    db.users.getAll((error, allUsers) => {
-      response.render("users/newTweet", {allUsers});
+    const user_id = request.cookies["user_id"];
+    const {message} = request.body;
+    const data = {message, user_id};
+    db.users.postTweet(data, (error, result) => {
+      response.redirect("/users");
     });
   };
 

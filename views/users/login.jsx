@@ -20,6 +20,7 @@ class Login extends React.Component {
             <input type="password" name="password" placeholder="enter password" required/><br/>
             <input type="submit" value="login"/>
           </form>
+          <p><a href="/register">Register</a></p>
         </body>
       </html>
     );

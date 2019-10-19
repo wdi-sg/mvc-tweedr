@@ -1,4 +1,5 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav");
 
 class RegisterSuccess extends React.Component {
   render() {
@@ -7,17 +8,9 @@ class RegisterSuccess extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Yay! You're now registered!</h3>
-          <p>You have registered with these info:</p>
-          <ul>
-              {this.props.registeredUser.map(user => (
-                  <React.Fragment>
-                      <li>{user.name}</li>
-                      <li>{user.email}</li>
-                      <li>{user.password}</li>
-                  </React.Fragment>
-              ))}
-          </ul>
+          <Nav />
+          <h3>Hi, {this.props.registeredUser[0].name}!</h3>
+          <p>Welcome to Tweedr!</p>
         </body>
       </html>
     );

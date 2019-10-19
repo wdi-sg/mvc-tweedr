@@ -1,4 +1,5 @@
-var React = require("react");
+const React = require("react");
+const Nav = require("../ui/nav");
 
 class LoginSuccess extends React.Component {
   render() {
@@ -7,17 +8,8 @@ class LoginSuccess extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Yay! You're now logged in!</h3>
-          <p>You're logged in with these info:</p>
-          <ul>
-            {this.props.loggedInUser.map(user => (
-              <React.Fragment>
-                <li>{user.name}</li>
-                <li>{user.email}</li>
-                <li>{user.password}</li>
-              </React.Fragment>
-            ))}
-          </ul>
+          <Nav />
+          <h3>Welcome back to Tweedr! {this.props.loggedInUser[0].name}</h3>
         </body>
       </html>
     );

@@ -6,7 +6,7 @@ class Index extends React.Component {
         return  <div>
                     <li key = {i}> Tweed: {tweet.tweet}
 
-                        <ul><li> tweeted by {tweet.user_id}</li></ul>
+                        <ul><li> tweeted by {tweet.username}</li></ul>
 
                     </li>
                 </div>

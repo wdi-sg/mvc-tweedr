@@ -1,3 +1,5 @@
+const sha256 = require('js-sha256');
+
 module.exports = (db) => {
 
   /**
@@ -7,21 +9,27 @@ module.exports = (db) => {
    */
 
   let loginControllerCallback = (request, response) => {
-      response.render('login')
+    response.render('login')
   };
 
   let verifyControllerCallback = (request,response)=>{
     let user = request.body.username
     let password = request.body.password
-    // let hashedPw = sha256(request.body.password)
-    console.log(user, password)
+    let hashedPw = sha256(request.body.password)
+
+    console.log(user, password, hashedPw)
+
 
     db.pokemon.verifyUser(user,(foundUser)=>{
+
+        console.log("some password " + foundUser.password)
+
         if (foundUser === null){
             response.send('No such person')
         } else {
 
-            if (foundUser.username === user && foundUser.password === password){
+            if (foundUser.username === user && foundUser.password === hashedPw){
+
                 response.cookie('loggedin', 'yay');
                 response.cookie('userid',foundUser.id);
                 response.cookie('username', foundUser.username);

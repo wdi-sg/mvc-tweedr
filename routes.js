@@ -6,7 +6,7 @@ module.exports = (app, allModels) => {
    *  =========================================÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷÷
    *  =========================================
    *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
+   *    ALL ROUTES FOR TWEEDR CONTROLLER
    *  =========================================
    *  =========================================
    *  =========================================
@@ -24,8 +24,5 @@ module.exports = (app, allModels) => {
   app.get('/tweed/', ControllerCallbacks.tweed);
 
   app.post('/tweed/', ControllerCallbacks.tweedOut)
-
-
-
 
 };

@@ -12,9 +12,9 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, (error, queryResult) => {
         if (queryResult.rows.length>0){
-        callback(queryResult.rows[0])
+            callback(queryResult.rows[0])
         } else {
-        callback(null);
+            callback(null);
         }
     });
   };
@@ -32,7 +32,7 @@ module.exports = (dbPoolInstance) => {
 
    let getAll = (callback) => {
 
-    let query = 'SELECT * FROM tweets';
+    let query = `SELECT tweets.tweet, tweets.created_at, tweets.user_id,users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id)`;
 
     dbPoolInstance.query(query, (error, queryResult) => {
 

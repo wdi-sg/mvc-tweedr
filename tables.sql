@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS users (
     user_state TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS tweet (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER
+    user_id INTEGER,
     tweet TEXT,
-    creation_date DATE,
+    creation_date DATE
 );
 
 CREATE TABLE IF NOT EXISTS following (

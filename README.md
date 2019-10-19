@@ -2,6 +2,17 @@
 
 Let's make a cool new app called TWEEDR!! Not Twitter, geez...
 
+## How to run my version
+### Create your own .env file
+```
+touch .env
+```
+* Assign SALT to your own secret code
+    ```
+    SALT = "my own secret code"
+    ```
+
+
 ### Wireframe!
 
 ![tweedr](https://git.generalassemb.ly/wdi-nyc-goat/LAB_Tweedr/raw/master/assets/tweedr.png)

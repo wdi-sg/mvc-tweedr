@@ -33,9 +33,10 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
-    host: '127.0.0.1',
-    database: 'testdb',
+user: 'new_user',
+password: 'password',
+host: '127.0.0.1',
+database: 'tweedr',
     port: 5432
   };
 }

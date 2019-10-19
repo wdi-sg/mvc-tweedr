@@ -83,26 +83,62 @@ module.exports = dbPoolInstance => {
   };
 
   let allTweedrUsers = (userId, callback) => {
-      let userid = userId
-      let input = [userid]
+    let userid = userId;
+    let input = [userid];
     let queryString = "SELECT * FROM users WHERE id!= $1";
     dbPoolInstance.query(queryString, input, (error, result) => {
-        if (error) {
-          callback(error, null);
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.rows.length > 0) {
+          callback(null, result.rows);
         } else {
-          if (result.rows.length > 0) {
-            callback(null, result.rows);
-          } else {
-            callback(null, null);
-          }
+          callback(null, null);
         }
-      });
-  }
+      }
+    });
+  };
 
   let tweedrUser = (id, callback) => {
     let userId = id;
-    let input = [userId]
-    let queryString = "SELECT tweet FROM tweets WHERE user_id = $1";
+    let input = [userId];
+    let queryString =
+      "SELECT tweets.tweet, users.username FROM users INNER JOIN tweets ON (users.id = user_id) WHERE user_id = $1";
+    dbPoolInstance.query(queryString, input, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.rows.length > 0) {
+          callback(null, result.rows);
+        } else {
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+  let follower = (id, followerId, callback) => {
+    let followed = id;
+    let follower = followerId;
+    let input = [followed, follower];
+    let queryString =
+      "INSERT INTO followers (followed_user_id, follower_user_id) VALUES($1, $2) ";
+    dbPoolInstance.query(queryString, input, (error, result) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        if (result.rows.length > 0) {
+          callback(null, result.rows);
+        } else {
+          callback(null, null);
+        }
+      }
+    });
+  };
+  let getFollowing = (userId, callback) => {
+    let followerId = userId;
+    let input = [followerId];
+    let queryString = "SELECT users.username, followers.followed_user_id, followers.follower_user_id FROM users INNER JOIN followers ON(users.id = followers.followed_user_id) WHERE followers.follower_user_id = $1"
     dbPoolInstance.query(queryString, input, (error, result) => {
         if (error) {
           callback(error, null);
@@ -114,8 +150,7 @@ module.exports = dbPoolInstance => {
           }
         }
       });
-  }
-
+  };
 
   return {
     addUser,
@@ -123,6 +158,8 @@ module.exports = dbPoolInstance => {
     addNewTweet,
     allTweets,
     allTweedrUsers,
-    tweedrUser
+    tweedrUser,
+    follower,
+    getFollowing
   };
 };

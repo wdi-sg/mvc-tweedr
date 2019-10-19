@@ -25,6 +25,8 @@ module.exports = (app, allModels) => {
   app.post('/login', mainController.login );
   app.post('/addtweet', mainController.addTweet);
   app.get('/tweedr/users', mainController.allUsers);
-  app.get('/tweedr/users/:id', mainController.user)
+  app.get('/tweedr/users/:id', mainController.user);
+  app.post('/follow', mainController.follow);
+  app.get('/tweedr/following', mainController.following);
   
 };

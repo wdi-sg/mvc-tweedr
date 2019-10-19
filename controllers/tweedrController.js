@@ -40,18 +40,24 @@ module.exports = db => {
         response.send("query error");
       } else {
         if (user === "correct") {
-          response.send("WRONG PASSWORD");
+          const data = {
+            message: "Error: Please Try Again"
+          }
+          response.render('tweedr/login', data)
+
+          // response.send("WRONG PASSWORD");
         } else if (user) {
           let hashCookie = sha256(SALT + user.id);
           response.cookie("logged_in", hashCookie);
           response.cookie("user_id", user.id);
           response.cookie("user_name", user.username)
-          // const data = {
-          //   username: user.username
-          // }
+       
           response.redirect('/tweedr/home')
         } else {
-          response.send('wrong id')
+          const data = {
+            message: "Please Try Again"
+          }
+          response.render('/tweedr/login', data)
         }
       } 
     });
@@ -102,7 +108,6 @@ module.exports = db => {
           result: result,
           userid: userId
         }
-        console.log(userId)
         response.render('tweedr/allUsers', data)
       }
     })
@@ -118,10 +123,39 @@ module.exports = db => {
        
         const data = {
           result: result
-          
         }
-   
         response.render('tweedr/user', data)
+      }
+    })
+  }
+
+  let follow = (request, response) => {
+    let id = request.body.id;
+    let followerId = request.cookies["user_id"]
+
+    db.tweets.follower(id, followerId, (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.redirect('/tweedr/users')
+      } else {
+   
+        response.redirect('/tweedr/users')
+      }
+    })
+  }
+
+  let following = (request, response) => {
+    let userId = request.cookies["user_id"]
+    db.tweets.getFollowing(userId, (error, result) => {
+      if (error) {
+        console.error("query error:", error.stack);
+        response.send("query error");
+      } else {
+        const data = {
+          result: result
+        }
+        console.log(result)
+        response.render('tweedr/following', data)
       }
     })
   }
@@ -141,6 +175,8 @@ module.exports = db => {
     home: homePage,
     addTweet: addTweet,
     allUsers: allUsers,
-    user: user
+    user: user,
+    follow: follow,
+    following: following
   };
 };

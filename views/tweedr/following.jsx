@@ -5,17 +5,11 @@ class Home extends React.Component {
    let list = this.props.result.map(item =>{
         
         return(
-            <li className="list-group-item"><a href={"/tweedr/users/" + item.id}> <h2>{item.username}</h2></a> 
-            <form action="/follow" method="POST">
-            <input type="hidden" name="id" value={item.id} />
-            <button type="submit" className="btn btn-success" id="follow">Follow</button>
-            </form>
-            </li> 
+           <li className="list-group-item"> {item.username}</li>
         )
        
        
    })
-
     return (
       <html>
         <head>
@@ -29,8 +23,7 @@ class Home extends React.Component {
         </head>
         <body>
             <div className="container text-center">
-            <h3 className="display-4 border-bottom ">All Users</h3>
-            
+            <h3 className="display-4 border-bottom ">Following: </h3>
          <ul className="list-group">
         {list}
          </ul>

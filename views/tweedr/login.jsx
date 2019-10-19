@@ -2,7 +2,12 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-   
+    let message = ""
+      if(this.props.message === "Error: Please Try Again"){
+       message = <div class="alert alert-danger" role="alert">
+    {this.props.message}
+  </div>
+      } 
     return (
       <html>
         <head>
@@ -14,12 +19,16 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
+          <div className="container mt-4 text-center">
           <h3>Please log In </h3>
+          {message}
           <form action="/login" method="POST">
-          <p><input type="text" name="username" placeholder="User Name"/></p>
-          <p> <input type="text" name="password" placeholder="Password"/></p>
+          <p><input type="text" name="username" placeholder="User Name" className="form-control form-control-lg"/></p>
+          <p> <input type="password" name="password" placeholder="Password" className="form-control form-control-lg"/></p>
           <button className="btn btn-primary btn-lg" type="submit">Log In</button>
           </form>
+          </div>
+        
         </body>
       </html>
     );

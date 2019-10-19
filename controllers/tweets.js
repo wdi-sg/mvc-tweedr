@@ -9,8 +9,8 @@ module.exports = (db) => {
             res.redirect('/users/login')
         } else {
             db.tweets.getAll(req,(err,result)=>{
-                console.log(result);
-                res.send(result);
+                let data = {req,result}
+                res.render('tweets/home',data);
             });
         };
     };

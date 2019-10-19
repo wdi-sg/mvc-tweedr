@@ -52,7 +52,7 @@ module.exports = (app, allModels) => {
 // get all following
     app.get('/following', followsController.index);
 // add following
-    app.post('/following', followsController.create);
+    // app.post('/following', followsController.create);
 // get all followers
     // app.get('/followers', followsController.show);
 };

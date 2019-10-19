@@ -21,7 +21,7 @@ module.exports = (db) => {
     let hashedValue = sha256( SALT + user_id );
 
     if( request.cookies['hasLoggedIn'] === hashedValue){
-        db.tweedr.getAll((error, results) => {
+        db.tweedr.getAll(user_id, (error, results) => {
             console.log("the results are:")
             console.log(results);
             let data = {
@@ -124,6 +124,32 @@ module.exports = (db) => {
 
 
 
+//===================================================
+  let addingTweeds = (request, response)=>{
+
+    let requestTweed = request.body.tweed;
+    let requestUserID = request.body.users_id;
+
+    db.tweedr.addTweeds(requestTweed, requestUserID, (err, results)=>{
+            response.redirect('/');
+    });
+  };
+//===================================================
+
+
+
+//===================================================
+  let getOneUser = (request, response)=>{
+
+    let requestUser = request.body.username;
+
+    db.tweedr.getUser(requestUser,(err, results)=>{
+            response.render('users', results);
+    });
+  };
+//===================================================
+
+
 
   /**
    * ===========================================
@@ -136,6 +162,8 @@ module.exports = (db) => {
     login: loginControllerCallback,
     redirect: redirectControllerCallback,
     redirectToHome: goHomeOrGoAway,
+    addTweeds: addingTweeds,
+    getOneUser: getOneUser,
   };
 
 }

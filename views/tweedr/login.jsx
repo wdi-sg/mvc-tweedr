@@ -33,11 +33,11 @@ class Login extends React.Component {
                 <form className="col align-self-center" method='POST' action='/login'>
                   <div className="form-group">
                     <label for="exampleInputEmail1">Username</label>
-                    <input type="text" className="form-control" name="username" placeholder="Enter Username"/>
+                    <input type="text" className="form-control" name="username" placeholder="Enter Username" required/>
                   </div>
                   <div className="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" name="password" placeholder="Password"/>
+                    <input type="password" className="form-control" name="password" placeholder="Password" required/>
                   </div>
                   <button type="submit" className="btn btn-primary">Login</button>
                 </form>

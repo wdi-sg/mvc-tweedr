@@ -3,21 +3,29 @@ var React = require("react");
 class Home extends React.Component {
   render() {
 
+    let Navbar = require('./navbar.jsx');
+
+    let userID = this.props.tweeds[0].id;
+
     let allTweeds;
 
     if(this.props.tweeds){
         allTweeds = this.props.tweeds.map(x=>{
             let content = x.tweed;
-            let time = Date.now() - x.created_at;
+            let time = x.created_at;
+            let tweed_User_id = x.users_id;
 
-            return <li class="list-group-item list-group-item-primary">{content} <span><small>{time}</small></span></li>
+            return  <div class="jumbotron jumbotron-fluid">
+                      <div class="container">
+                        <p class="lead">@{tweed_User_id}</p>
+                        <h2>{content}</h2>
+                      </div>
+                    </div>
 
         });
     } else {
         allTweeds = undefined;
     }
-
-
 
 
     return (
@@ -27,12 +35,46 @@ class Home extends React.Component {
         </head>
         <body>
 
-
+          <Navbar/>
+          <div className="container">
             <h1 className="display-4 text-center mt-5">Hello {this.props.username}</h1>
+
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Tweed
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@{this.props.username}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                       <form className="col align-self-center" method='POST' action='/'>
+                            <div className="form-group">
+                            <textarea type="text" className="form-control" name="tweed" placeholder="The weather is nice today" required/>
+                            </div>
+                            <div className="form-group">
+                            <input type="number" className="form-control d-none" name="users_id" value={userID} required/>
+                            </div>
+                            <button type="button" class="btn btn-secondary mr-4" data-dismiss="modal">Don't tweed</button>
+                            <button type="submit" class="btn btn-primary">Tweed</button>
+                        </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             <h5 className="mt-5">Tweeds:</h5>
             <ul class="list-group">
               {allTweeds}
             </ul>
+          </div>
 
 
 

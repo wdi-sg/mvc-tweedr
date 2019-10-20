@@ -1,5 +1,7 @@
 module.exports = (db) => {
 
+        const SALT = "racketofthesaltyrunlamb";
+        const sha256 = require('js-sha256');
   /**
    * ===========================================
    * Controller logic
@@ -23,24 +25,33 @@ module.exports = (db) => {
         response.render('tweedr/login', data);
   };
 
-      let loginPostControllerCallback = (request, response) => {
+    let loginPostControllerCallback = (request, response) => {
         const allData = request.body;
-        const SALT = "racketofthesaltyrunlamb";
-        const sha256 = require('js-sha256');
         let data = {};
         allData.hashedPassword = sha256(allData.password + SALT);
-      db.tweedr.checkUsers(allData, (error, postRegister) => {
+        db.tweedr.checkUsers(allData, (error, postRegister) => {
         data.user = postRegister;
-        console.log (data.user[0]);
-        if (allData.hashedPassword === data.user[0].password ) {
-          console.log ('passwords match')
+        if (data.user != null) {        
+              if (allData.hashedPassword === data.user[0].password ) {
+                // console.log ('passwords match')
+                              // console.log (data.user[0].username) 
+               // console.log ({postRegister}) 
+                response.redirect('/tweedr'); 
+              }
+              else {
+                 // console.log ('passwords NG match')
+                               // console.log (data.user[0].username) 
+               // console.log ({postRegister}) 
+                data.message = "Username or password invalid..."
+                response.render('tweedr/login', data); 
+
+              }
+
+        } else {
+            // console.log ('user NG match')
+            data.message = "Username or password invalid..."
+          response.render('tweedr/login', data); 
         }
-        else {
-           console.log ('passwords NG match')
-        }
-        // console.log (data.user[0].username) 
-         // console.log ({postRegister}) 
-                       response.redirect('/login'); 
 
       });
 
@@ -52,8 +63,8 @@ module.exports = (db) => {
         let userExists = false;
 
         const allData = request.body;
-        const SALT = "racketofthesaltyrunlamb";
-        const sha256 = require('js-sha256');
+
+
         allData.hashedPassword = sha256(allData.password + SALT);
 
                 const data = {};

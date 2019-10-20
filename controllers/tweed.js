@@ -11,12 +11,9 @@ module.exports = (db) => {
     let user = request.cookies.name;
     if (user === undefined) {
       // redirect to login
-      let account = {};
-      account.title = "Login Account";
-      account.message = "Please login to tweed";
-      account.formAction = "/login";
-      account.user = 0;
-      response.render('user/account', { account });
+      db.users.currentUser((error, account) => {
+        response.render('user/account', { account });
+      });
     } else {
       //check if password correct
       db.users.checkUserName(user, (error, result) => {
@@ -32,12 +29,9 @@ module.exports = (db) => {
             response.render('tweed/tweed', { tweed });
           }  else {
             // inform incorrect password
-            let account = {};
-            account.title = "Login Account";
-            account.message = "Incorrect password, please try again.";
-            account.formAction = "/login";
-            account.user = 0;
-            response.render('user/account', { account });
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
           }
         }
       })
@@ -53,8 +47,8 @@ module.exports = (db) => {
       tweed.tweed = request.body.tweed;
       tweed.user_id = result[0].id;
       db.tweeds.registerTweed(tweed, (error, result) => {
-        // render tweed
-        response.send({ result });
+        // redirect to homepage
+        response.redirec('/');
       });
     });
   };
@@ -62,7 +56,7 @@ module.exports = (db) => {
   let getTweeds = (request, response) => {
     // respond with HTML page of all tweeds
     db.tweeds.allTweeds((error, result) => {
-        response.send({ result })
+        response.render('tweed/index', { result });
     });
   };
 

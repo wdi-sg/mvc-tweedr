@@ -26,7 +26,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let allTweeds = (callback) => {
-    let query = 'SELECT * FROM tweeds';
+    let query = 'SELECT * FROM tweeds ORDER BY created_at DESC';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

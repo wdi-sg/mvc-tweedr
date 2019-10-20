@@ -35,7 +35,7 @@ module.exports = (db) => {
           response.cookie('name', result[0].name);
           response.cookie('loggedIn', result[0].password);
           // redirect to homepage
-          response.send({ account });
+          response.redirect('/');
         });
       }
     });
@@ -62,24 +62,18 @@ module.exports = (db) => {
           response.cookie('name', result[0].name);
           response.cookie('loggedIn', result[0].password);
           // redirect to homepage
-          response.send(result);
+          response.redirect('/');
         } else {
             // inform incorrect password
-            let account = {};
-            account.title = "Login Account";
-            account.message = "Incorrect password, please try again.";
-            account.formAction = "/login";
-            account.user = 0;
-            response.render('user/account', { account });
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
         }
       } else {
         // inform incorrect name
-        let account = {};
-        account.title = "Login Account";
-        account.message = "Incorrect name, please try again.";
-        account.formAction = "/login";
-        account.user = 0;
-        response.render('user/account', { account });
+        db.users.wrongName((error, account) => {
+            response.render('user/account', { account });
+        });
       }
     });
   };

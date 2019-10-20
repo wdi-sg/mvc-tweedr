@@ -54,15 +54,36 @@ module.exports = (dbPoolInstance) => {
   let currentUser = (callback) => {
     let account = {};
     account.title = "Login Account";
+    account.message = "Please login.";
     account.formAction = "/login";
     account.user = 0;
     callback(null, account);
   };
+
+  let wrongPassword = (callback) => {
+    let account = {};
+    account.title = "Login Account";
+    account.message = "Incorrect password, please try again.";
+    account.formAction = "/login";
+    account.user = 0;
+    callback(null, account);
+  }
+
+  let wrongName = (callback) => {
+    let account = {};
+    account.title = "Login Account";
+    account.message = "Incorrect name, please try again.";
+    account.formAction = "/login";
+    account.user = 0;
+    callback(null, account);
+  }
 
   return {
     newUser,
     checkUserName,
     registerUser,
     currentUser,
+    wrongPassword,
+    wrongName
   };
 };

@@ -26,6 +26,5 @@ module.exports = (app, allModels) => {
 
   app.get('/register', tweedrControllerCallbacks.register);
   app.post('/register', tweedrControllerCallbacks.registerPost);
-  // app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+
 };

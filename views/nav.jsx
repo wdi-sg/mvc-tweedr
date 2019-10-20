@@ -3,10 +3,10 @@ const React = require('react');
 class Nav extends React.Component {
     render() {
         let personalised;
-        if (this.props.childen!==undefined) {
-            personalised = this.props.childen;
-        } else {
+        if (this.props.children === undefined) {
             personalised = <a className="my-2 my-sm-0 text-white" href="/users/login">Log in</a>;
+        } else {
+            personalised = this.props.children;
         };
         return (
             <nav className="navbar navbar-dark bg-primary navbar-expand-lg">

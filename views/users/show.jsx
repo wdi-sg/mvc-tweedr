@@ -13,7 +13,7 @@ class Show extends React.Component {
                 <div className="jumbotron">
                     <h1 className="display-4">{username}</h1>
                     <hr className="my-4"/>
-                    <form method="POST" action={"/users/"+id} className="ml-auto">
+                    <form method="POST" action={"/following/"+id} className="ml-auto">
                         <input type="submit" className="btn btn-primary btn-lg" value="Follow"/>
                     </form>
                 </div>

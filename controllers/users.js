@@ -40,7 +40,7 @@ module.exports = (db) => {
                 res.cookie('username',result[0].username);
                 res.cookie('loggedIn','yes');
                 res.cookie('userId',result[0].id);
-                res.send('login success!');
+                res.redirect('/');
             } else {
                 res.send('wronglogin');
             };

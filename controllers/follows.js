@@ -26,15 +26,15 @@ module.exports = (db) => {
     //     };
     // };
 
-    // let createControllerCallback = (req,res) => {
-    //     if (req.cookies.loggedIn !== 'yes') {
-    //         res.redirect('/users/login')
-    //     } else {
-    //         db.follows.addNew(req,(err,result)=>{
-    //             res.redirect("/following");
-    //         });
-    //     };
-    // };
+    let createControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.follows.addNew(req,(err,result)=>{
+                res.redirect("/following");
+            });
+        };
+    };
 /*
 ╔═╗─┐ ┬┌─┐┌─┐┬─┐┌┬┐
 ║╣ ┌┴┬┘├─┘│ │├┬┘ │
@@ -42,7 +42,7 @@ module.exports = (db) => {
 */
     return {
         // new: newControllerCallback,
-        // create: createControllerCallback,
+        create: createControllerCallback,
         index: indexControllerCallback
     };
 };

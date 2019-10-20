@@ -7,15 +7,18 @@ class Register extends React.Component {
     let currentUser = this.props.currentUser;
     let alertUser;
 
-    for (let i=0; i<dbUsers.length; i++){
-        if (currentUser === dbUsers[i].username){
-            alertUser =     <div class="alert alert-danger text-center" role="alert">
-                              Username is already taken
-                            </div>
-        } else {
-            alertUser;
-        }
-    }
+    if (this.props.users){
+        for (let i=0; i<dbUsers.length; i++){
+            if (currentUser === dbUsers[i].username){
+                alertUser =     <div class="alert alert-danger text-center" role="alert">
+                                  Username is already taken
+                                </div>
+            } else {
+                alertUser;
+            };
+        };
+    };
+
 
     return (
       <html>
@@ -36,6 +39,9 @@ class Register extends React.Component {
                   <div className="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" className="form-control" name="password" placeholder="Password" required/>
+                  </div>
+                  <div className="form-group">
+                    <input type="text" className="form-control d-none" name="image" value="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/24e30be0-bd77-4292-b0e6-81262089bad7/d2mndmz-2cce3a75-89eb-4ae5-88a1-7ae95b0287cb.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzI0ZTMwYmUwLWJkNzctNDI5Mi1iMGU2LTgxMjYyMDg5YmFkN1wvZDJtbmRtei0yY2NlM2E3NS04OWViLTRhZTUtODhhMS03YWU5NWIwMjg3Y2IuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.sYMFdXnLVePwBBoKaXnb3yhveaXBt-bBWK1Tw5YYp9I" required/>
                   </div>
                   <button type="submit" className="btn btn-primary">Register</button>
                 </form>

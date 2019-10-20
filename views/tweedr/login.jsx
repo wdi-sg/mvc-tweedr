@@ -3,20 +3,22 @@ var React = require("react");
 class Login extends React.Component {
   render() {
 
-    console.log(this.props.users)
     let dbUsers = this.props.users;
     let currentUser = this.props.currentUser;
     let alertUser;
 
-    for (let i=0; i<dbUsers.length; i++){
-        if (currentUser === dbUsers[i].username){
-            alertUser =     <div class="alert alert-primary text-center" role="alert">
-                              Successfully registered as {currentUser}
-                            </div>
-        } else {
-            alertUser;
-        }
-    }
+    if(this.props.users){
+        for (let i=0; i<dbUsers.length; i++){
+            if (currentUser === dbUsers[i].username){
+                alertUser =     <div class="alert alert-primary text-center" role="alert">
+                                  Successfully registered as {currentUser}
+                                </div>
+            } else {
+                alertUser;
+            };
+        };
+    };
+
 
 
     return (

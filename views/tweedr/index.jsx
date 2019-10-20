@@ -5,26 +5,26 @@ class Home extends React.Component {
 
     let Navbar = require('./navbar.jsx');
 
-    let userID = this.props.userID;
-
     let allTweeds;
 
     if(this.props.tweeds){
         allTweeds = this.props.tweeds.map(x=>{
             let content = x.tweed;
             let time = x.created_at;
-            let username = x.username
-
+            let username = x.username;
+            let image = x.image;
+            console.log(x);
             return  <div class="jumbotron jumbotron-fluid">
                       <div class="container">
-                        <p class="lead">@{username}</p>
+                        <span class="lead mr-2">@{username}</span>
+                        <img style={{height: "5" + "%"}, {width: "5" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
                         <h2>{content}</h2>
                       </div>
                     </div>
 
         });
     } else {
-        allTweeds = undefined;
+        allTweeds = <p>You've not made any tweeds yet, let's get tweeding!</p>;
     }
 
 
@@ -59,7 +59,7 @@ class Home extends React.Component {
                             <textarea type="text" className="form-control" name="tweed" placeholder="The weather is nice today" required/>
                             </div>
                             <div className="form-group">
-                            <input type="number" className="form-control d-none" name="users_id" value={userID} required/>
+                            <input type="number" className="form-control d-none" name="users_id" value={this.props.userID} required/>
                             </div>
                             <button type="button" class="btn btn-secondary mr-4" data-dismiss="modal">Don't tweed</button>
                             <button type="submit" class="btn btn-primary">Tweed</button>

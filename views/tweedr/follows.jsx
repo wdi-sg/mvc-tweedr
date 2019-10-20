@@ -1,6 +1,6 @@
 var React = require("react");
 
-class AllUsers extends React.Component {
+class YouFollow extends React.Component {
   render() {
 
     let Navbar = require('./navbar.jsx');
@@ -11,8 +11,11 @@ class AllUsers extends React.Component {
         allUsers = this.props.results.map(x=>{
 
             let username = x.username
+            let image = x.image
+            console.log(x);
 
             return  <div class="card col-6 mx-auto mt-5">
+                      <img style={{height: "100" + "%"}, {width: "100" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
                       <div class="card-body">
                         <h5 class="card-title">{username}</h5>
                       </div>
@@ -20,7 +23,7 @@ class AllUsers extends React.Component {
 
         });
     } else {
-        allUsers = <p>You have not connected with anyone yet</p>
+        allUsers = <p>You have not followed anyone yet</p>
     }
 
 
@@ -37,7 +40,7 @@ class AllUsers extends React.Component {
 
           <Navbar/>
           <div className="container">
-            <h3 className="mt-5">All Connections:</h3>
+            <h3 className="mt-5">You are following:</h3>
                 {allUsers}
           </div>
 
@@ -52,4 +55,4 @@ class AllUsers extends React.Component {
   }
 }
 
-module.exports = AllUsers;
+module.exports = YouFollow;

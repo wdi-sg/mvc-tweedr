@@ -11,13 +11,15 @@ class AllUsers extends React.Component {
 
         let username = x.username;
         let followUserID = x.id;
+        let image = x.image
 
-        return  <div class="card col-6 mx-auto mt-5">
+        return  <div class="card col-6 mx-auto mt-5 mb-3">
+                  <img style={{height: "100" + "%"}, {width: "100" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
                   <div class="card-body">
                     <h5 class="card-title">{username}</h5>
                     <form className="col align-self-center" method='POST' action='/followers'>
                         <div className="form-group">
-                            <input type="number" className="form-control d-none" name="followers_user_id" value={myID} required/>
+                            <input type="number" className="form-control d-none" name="user_id" value={myID} required/>
                         </div>
                         <div className="form-group">
                             <input type="number" className="form-control d-none" name="followers_user_id" value={followUserID} required/>

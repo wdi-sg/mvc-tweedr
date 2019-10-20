@@ -41,8 +41,6 @@ module.exports = (db) => {
 //===================================================
   let registerControllerCallback = (request, response)=>{
 
-    // let tempUser = request.cookie['temp_username'];
-
     db.tweedr.getUsers((err, results)=>{
         let data = {
             users: results,
@@ -76,9 +74,10 @@ module.exports = (db) => {
 
     let hashedPassword = sha256(request.body.password + SALT);
     let username = request.body.username;
+    let image = request.body.image;
     tempUser = username
 
-    db.tweedr.registeringUsers(username, hashedPassword, (err, results)=>{
+    db.tweedr.registeringUsers(username, hashedPassword, image, (err, results)=>{
         if (results){
             response.redirect('/login');
         } else {
@@ -141,10 +140,21 @@ module.exports = (db) => {
   let getOneUser = (request, response)=>{
 
     let requestUser = request.body.username;
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
 
-    db.tweedr.getUser(requestUser,(err, results)=>{
-        response.render('tweedr/users', results[0]);
-    });
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getUser(requestUser,(err, results)=>{
+                let data = {
+                    userID: user_id,
+                    results: results
+                }
+                response.render('tweedr/users', data);
+        });
+    } else {
+        response.redirect('/login');
+    };
+
   };
 //===================================================
 
@@ -155,16 +165,26 @@ module.exports = (db) => {
   let allUsers = (request, response)=>{
 
     let user_id = request.cookies['user_id']
+    let hashedValue = sha256( SALT + user_id );
 
-    db.tweedr.getAllUsers((err, results)=>{
-        let data ={
-            userID: user_id,
-            results: results
-        }
-        response.render('tweedr/allUsers', data);
-    });
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getAllUsers(user_id, (err, results)=>{
+            let data ={
+                userID: user_id,
+                results: results
+            }
+            response.render('tweedr/allUsers', data);
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
   };
 //===================================================
+
+
+
 
 //===================================================
   let logout = (request, response)=>{
@@ -181,11 +201,80 @@ module.exports = (db) => {
 //===================================================
   let followers = (request, response)=>{
 
-    let user_id = request.cookies['user_id']
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
 
-    db.tweedr.getFollowers(user_id, (err, results)=>{
-        response.render('tweedr/follows', {results});
-    });
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getFollowers(user_id, (err, results)=>{
+            response.render('tweedr/follows', {results});
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
+
+//===================================================
+  let addFollowers = (request, response)=>{
+
+    let user_id = request.body.user_id;
+    let followUserId = request.body.followers_user_id;
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.addingFollowers(user_id, followUserId, (err, results)=>{
+            response.redirect('/followers');
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+  };
+//===================================================
+
+
+
+
+//===================================================
+  let profilePic = (request, response)=>{
+
+
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.showProfilePic(user_id, (err, results)=>{
+            response.render('tweedr/profilePage', results[0]);
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+  };
+//===================================================
+
+
+
+
+//===================================================
+  let changeProfilePic = (request, response)=>{
+
+    let image = request.body.image;
+    let userID = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.changeProfilePic(userID, image, (err, results)=>{
+            response.redirect('/profilePic');
+        });
+    } else {
+        response.redirect('/login');
+    };
+
   };
 //===================================================
 
@@ -206,6 +295,9 @@ module.exports = (db) => {
     allUsers: allUsers,
     logout: logout,
     followers: followers,
+    addFollowers: addFollowers,
+    profilePic: profilePic,
+    changeProfilePic: changeProfilePic,
   };
 
 }

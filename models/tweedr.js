@@ -9,9 +9,10 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (user_id, callback) => {
 
-    let userID = user_id;
+    let query = "SELECT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) INNER JOIN followers ON (followers.followers_user_id = tweeds.users_id) WHERE followers.user_id = "+user_id+" OR users_id = "+user_id+" ORDER by tweeds.id DESC"
 
-    let query = 'SELECT username, users.id, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) WHERE users_id = '+userID+' ORDER by tweeds.id DESC';
+
+    // "SELECT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) WHERE users.id = "+user_id+" ORDER by tweeds.id DESC;";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -33,6 +34,8 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+
 
   let getUsers = (callback) => {
 
@@ -61,13 +64,16 @@ module.exports = (dbPoolInstance) => {
 
 
 
-  let registeringUsers = (username, hashedPassword, callback) => {
+  let registeringUsers = (username, hashedPassword, image, callback) => {
 
-    let inputValues = [username, hashedPassword];
+    let inputValues = [username, hashedPassword, image];
+    console.log(inputValues);
 
-    let query = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *';
+    let query = 'WITH newUser as (INSERT INTO users (username, password, image) VALUES ($1, $2, $3) RETURNING *) INSERT INTO followers (followers_user_id) VALUES ((SELECT id from newUser))';
 
     dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+        console.log("queryResult below:")
+        console.log(queryResult);
       if( error ){
 
         // invoke callback function with results after query has executed
@@ -91,9 +97,7 @@ module.exports = (dbPoolInstance) => {
 
   let loginUsers = (requestUsername, callback) => {
 
-    let username = requestUsername;
-
-    let query = "SELECT * FROM users WHERE username = '" +username+"'";
+    let query = "SELECT * FROM users WHERE username = '" +requestUsername+"'";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -119,9 +123,7 @@ module.exports = (dbPoolInstance) => {
 
   let addTweeds = (requestTweed, requestUserID, callback) => {
 
-    let tweed = requestTweed;
-    let userId = requestUserID;
-    let inputValues = [tweed, userId];
+    let inputValues = [requestTweed, requestUserID];
 
     let query = "INSERT INTO tweeds (tweed, users_id) VALUES ($1, $2)";
 
@@ -150,9 +152,7 @@ module.exports = (dbPoolInstance) => {
 
   let getUser = (requestUser, callback) => {
 
-    let username = requestUser;
-
-    let query = "SELECT * FROM users WHERE username = '" +username+"'";
+    let query = "SELECT * FROM users WHERE username = '" +requestUser+"'";
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -176,9 +176,9 @@ module.exports = (dbPoolInstance) => {
   };
 
 
-  let getAllUsers = (callback) => {
+  let getAllUsers = (user_id, callback) => {
 
-    let query = "SELECT * FROM users";
+    let query = "SELECT * FROM users WHERE users.id != " + user_id;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -200,12 +200,12 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+
 
   let getFollowers = (user_id, callback) => {
 
-    let userID = user_id;
-
-    let query = "SELECT username, users.id, followers.user_id FROM followers INNER JOIN users ON (users.id = followers.followers_user_id) WHERE followers.user_id = " +userID;
+    let query = "SELECT username, users.id, users.image, followers.user_id FROM followers INNER JOIN users ON (users.id = followers.followers_user_id) WHERE followers.user_id = " +user_id;
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -227,6 +227,91 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+
+
+  let addingFollowers = (user_id, followUserId, callback) => {
+
+    let inputValues = [user_id, followUserId];
+
+    let query = "INSERT INTO followers (user_id, followers_user_id) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT * FROM followers WHERE user_id=($1) AND followers_user_id=($2))";
+
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+
+  let showProfilePic = (userID, callback) => {
+
+    let query = "SELECT * FROM users WHERE users.id = " + userID;
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+
+
+  let changeProfilePic = (userID, image, callback) => {
+
+    let inputValues = [image, userID];
+
+    let query = "UPDATE users SET image = ($1) WHERE users.id = ($2)";
+
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
 
 
 
@@ -240,5 +325,8 @@ module.exports = (dbPoolInstance) => {
     getUser,
     getAllUsers,
     getFollowers,
+    addingFollowers,
+    showProfilePic,
+    changeProfilePic,
   };
 };

@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Login extends React.Component {
+class ErrorLogin extends React.Component {
   render() {
 
     let alertUser = <div class="alert alert-danger text-center" role="alert">
@@ -48,4 +48,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = ErrorLogin;

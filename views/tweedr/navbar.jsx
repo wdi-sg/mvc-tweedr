@@ -18,7 +18,10 @@ class Navbar extends React.Component {
                       <a class="nav-item nav-link active" href="/allUsers">All Users</a>
                     </div>
                     <div class="navbar-nav">
-                      <a class="nav-item nav-link active" href="/followers">All Connections</a>
+                      <a class="nav-item nav-link active" href="/profilePic">Profile Picture</a>
+                    </div>
+                    <div class="navbar-nav">
+                      <a class="nav-item nav-link active" href="/followers">Following</a>
                     </div>
                     <div class="navbar-nav">
                       <a class="nav-item nav-link active" href="/logout">Log Out</a>

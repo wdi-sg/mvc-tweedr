@@ -23,7 +23,7 @@ class Login extends React.Component {
 							<form class='m-3' method='POST' action='/login'>
 								Username: <input type='text' name='username' required />
 								<br />
-								Password: <input type='password' name='password' required />
+								Password: <input type='text' name='password' required />
 								<br />
 								<input type='submit' value='Submit' className='m-2' />
 							</form>

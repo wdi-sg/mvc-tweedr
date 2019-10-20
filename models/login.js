@@ -3,6 +3,8 @@
  * Export model functions as a module
  * ===========================================
  */
+const sha256 = require('js-sha256')
+
 module.exports = (dbPoolInstance) => {
 
     // `dbPoolInstance` is accessible within this function scope
@@ -11,8 +13,11 @@ module.exports = (dbPoolInstance) => {
 
         let {
             username,
-            reqPassword
+            password
         } = loginInfo;
+        console.log(password)
+        let hashedReqPassword = sha256(password);
+        console.log(hashedReqPassword)
 
         let query = `SELECT * FROM users WHERE username = '${username}'`;
 
@@ -26,8 +31,8 @@ module.exports = (dbPoolInstance) => {
 
                 // invoke callback function with results after query has executed
 
-                if (queryResult.rows.length > 0 && queryResult.rows[0].password === reqPassword) {
-                    console.log("yay logging in", response.rows)
+                if (queryResult.rows.length > 0 && queryResult.rows[0].password === hashedReqPassword) {
+                    console.log("yay logging in", queryResult.rows)
                     callback(null, queryResult.rows);
 
                 } else {

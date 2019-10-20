@@ -1,3 +1,6 @@
+const sha256 = require('js-sha256')
+
+
 module.exports = (db) => {
 
     /**
@@ -12,11 +15,18 @@ module.exports = (db) => {
 
     let postLoginControllerCallbacks = (request, response) => {
         let loginInfo = request.body;
-        console.log("logging in");
+        console.log("logging in", loginInfo);
         db.login.loggingIn(loginInfo, (error, postLogin) => {
-            console.log("postLogin", postLogin);
+            if (postLogin) {
+                console.log("postLogin", postLogin);
+                let hashedUsernameCookie = sha256(postLogin[0].username);
+                response.cookie("username", hashedUsernameCookie)
+                response.cookie("loggedIn", postLogin[0].id);
+                response.redirect('tweets');
+            } else {
+                response.render('users/loginfail')
+            }
 
-            response.redirect('tweets');
         })
     }
 

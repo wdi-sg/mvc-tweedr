@@ -8,7 +8,7 @@ module.exports = (db) => {
 const loggedIn = function (request) {
  // see if they are logged in?
   if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){
-  userLogged = true;
+  return true;
   } 
 }
   /**
@@ -23,6 +23,17 @@ const loggedIn = function (request) {
         response.render('tweedr/alltweets', { allTweets });
                 // response.send({ allTweets });
       });
+  };
+
+    let tweetControllerCallback = (request, response) => {
+        data = {};
+        // check for user logged in..
+        if (loggedIn(request) === true) {
+          // console.log ('can tweet')
+          response.render('tweedr/tweet', data);
+        } else {
+            response.redirect('/login');
+            }
   };
 
     let registerControllerCallback = (request, response) => {
@@ -116,7 +127,8 @@ const loggedIn = function (request) {
     login: loginControllerCallback,
     loginPost: loginPostControllerCallback,
     register: registerControllerCallback,
-    registerPost: registerPostControllerCallback
+    registerPost: registerPostControllerCallback,
+    tweet: tweetControllerCallback
   };
 
 }

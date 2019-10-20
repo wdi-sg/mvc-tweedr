@@ -23,12 +23,14 @@ module.exports = (app, allModels) => {
  ║ │││├┤ ├┤  │ └─┐
  ╩ └┴┘└─┘└─┘ ┴ └─┘
 */
-// get all tweets
+// get following tweets
     app.get('/', tweetsController.index);
 // get form for new tweet
     app.get('/new', tweetsController.new);
 // send form of new tweet
     app.post('/new', tweetsController.create);
+// get followers tweets
+    app.get('/show', tweetsController.show);
 /*
 ╦ ╦┌─┐┌─┐┬─┐┌─┐
 ║ ║└─┐├┤ ├┬┘└─┐

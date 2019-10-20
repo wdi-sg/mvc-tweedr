@@ -32,8 +32,25 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let showFollowersTweets = (req,callback) => {
+        let values = [req.cookies.userId];
+        let query = `SELECT DISTINCT tweets.content, users.username, tweets.users_id FROM users INNER JOIN tweets ON (users.id = tweets.users_id) INNER JOIN follows ON (tweets.users_id = follows.f_er_users_id) WHERE follows.users_id =$1`;
+        dbPoolInstance.query(query,values,(err,res)=>{
+            if (err) {
+                callback(err,null);
+            } else {
+                if (res.rows.length>0) {
+                    callback(null,res.rows);
+                } else {
+                    callback(null,null);
+                };
+            };
+        });
+    };
+
     return {
         getAll,
-        insertNew
+        insertNew,
+        showFollowersTweets
     };
 };

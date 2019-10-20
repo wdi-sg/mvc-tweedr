@@ -9,7 +9,7 @@ module.exports = (db) => {
             res.redirect('/users/login')
         } else {
             db.tweets.getAll(req,(err,result)=>{
-                let data = {req,result}
+                let data = {req,result};
                 res.render('tweets/home',data);
             });
         };
@@ -32,6 +32,17 @@ module.exports = (db) => {
             });
         };
     };
+
+    let showControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.tweets.showFollowersTweets(req,(err,result)=>{
+                let data = {req,result};
+                res.render('tweets/show',data);
+            });
+        };
+    };
 /*
 ╔═╗─┐ ┬┌─┐┌─┐┬─┐┌┬┐
 ║╣ ┌┴┬┘├─┘│ │├┬┘ │
@@ -40,6 +51,7 @@ module.exports = (db) => {
     return {
         new: newControllerCallback,
         create: createControllerCallback,
-        index: indexControllerCallback
+        index: indexControllerCallback,
+        show: showControllerCallback
     };
 };

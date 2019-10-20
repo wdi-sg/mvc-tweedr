@@ -31,7 +31,6 @@ module.exports = (db) => {
       if (err) {
         res.send( 'query error' );
       } else {
-        console.log(result.rows);
         if (result.rows.length > 0) {
           let hashedPassword = sha256(req.body.password+salt);
           if (hashedPassword === result.rows[0].password) {

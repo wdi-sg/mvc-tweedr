@@ -76,15 +76,15 @@ module.exports = (db) => {
     });
   }
 
-    let tweedControllerCallback = (request,response)=>{
+    // let tweedControllerCallback = (request,response)=>{
 
-        if (request.cookies.loggedin!= undefined && request.cookies.loggedin === sha256(request.cookies.userid.toString())){
-            response.render('tweed')
-        } else {
+    //     if (request.cookies.loggedin!= undefined && request.cookies.loggedin === sha256(request.cookies.userid.toString())){
+    //         response.render('tweed')
+    //     } else {
 
-            response.redirect('/login')
-        }
-    }
+    //         response.redirect('/login')
+    //     }
+    // }
 
   let tweedOutControllerCallback = (request,response)=>{
     let tweed = request.body.tweed
@@ -93,7 +93,6 @@ module.exports = (db) => {
     console.log(tweed, userId)
 
     db.pokemon.sendTweed(tweed, userId,(tweeded)=>{
-
 
        response.redirect('/profiles/'+userId)
     });
@@ -153,7 +152,7 @@ module.exports = (db) => {
     register: registerControllerCallback,
     success: successControllerCallback,
     verify: verifyControllerCallback,
-    tweed: tweedControllerCallback,
+    // tweed: tweedControllerCallback,
     tweedOut: tweedOutControllerCallback,
     profile: profileControllerCallback,
   };

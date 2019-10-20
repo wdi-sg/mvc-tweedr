@@ -21,6 +21,7 @@ class Index extends React.Component {
 
                                         <div className="card-subtitle mb-2 text-muted">tweeted at {time}</div>
 
+                                        <a className="card-link" href={"http://localhost:3000/profiles/" + tweet.id} value="{tweet.userid}"> Follow! </a>
                                     </div>
 
                             </div>
@@ -32,11 +33,7 @@ class Index extends React.Component {
     });
     return (
        <Layout>
-        <h1> ALL TWEEDS ON TWEEDR </h1>
-            <div className="row">
-              {tweet}
-            </div>
-            <br/>
+
 
 
               <h1>MAKE YOURSELF HEARD</h1>
@@ -45,12 +42,17 @@ class Index extends React.Component {
                 <form method="POST" action="/tweed">
                     <div className="form-group">
 
-                        <input className="form-control form-control-lg" type="text" placeholder="your tweed" name="tweed" maxLength = "30" required/>
+                        <input className="form-control form-control-lg" type="text" placeholder="your tweed" name="tweed" maxLength = "100" required/>
                     </div>
 
                     <input type="submit" className="btn btn-primary" value="tweed"/>
                 </form>
+                 <br/>
 
+                <h1> ALL TWEEDS ON TWEEDR </h1>
+                     <div className="row">
+                         {tweet}
+                     </div>
         </Layout>
     );
   }

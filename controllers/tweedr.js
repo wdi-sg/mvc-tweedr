@@ -23,11 +23,41 @@ module.exports = (db) => {
         response.render('tweedr/login', data);
   };
 
+      let loginPostControllerCallback = (request, response) => {
+        const allData = request.body;
+        const SALT = "racketofthesaltyrunlamb";
+        const sha256 = require('js-sha256');
+        let data = {};
+        allData.hashedPassword = sha256(allData.password + SALT);
+      db.tweedr.checkUsers(allData, (error, postRegister) => {
+        data.user = postRegister;
+        console.log (data.user[0]);
+        if (allData.hashedPassword === data.user[0].password ) {
+          console.log ('passwords match')
+        }
+        else {
+           console.log ('passwords NG match')
+        }
+        // console.log (data.user[0].username) 
+         // console.log ({postRegister}) 
+                       response.redirect('/login'); 
+
+      });
+
+  };
+
+
   let registerPostControllerCallback = (request, response) => {
         let username = request.body.username;
         let userExists = false;
+
+        const allData = request.body;
+        const SALT = "racketofthesaltyrunlamb";
+        const sha256 = require('js-sha256');
+        allData.hashedPassword = sha256(allData.password + SALT);
+
                 const data = {};
-      db.tweedr.checkUsers(username, (error, postRegister) => {
+      db.tweedr.checkUsers(allData, (error, postRegister) => {
         data.user = postRegister;
         // console.log (data.user[0].username) 
         if (data.user != null) {
@@ -38,10 +68,7 @@ module.exports = (db) => {
         }       else { 
         // response.render('tweedr/index', { allTweets });
         // add the user to the database 
-        const allData = request.body;
-        const SALT = "racketofthesaltyrunlamb";
-            const sha256 = require('js-sha256');
-              allData.hashedPassword = sha256(allData.password + SALT);
+
               db.tweedr.addNewUser(allData, (error, postRegister) => {
             console.log({postRegister})
 
@@ -60,6 +87,7 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     login: loginControllerCallback,
+    loginPost: loginPostControllerCallback,
     register: registerControllerCallback,
     registerPost: registerPostControllerCallback
   };

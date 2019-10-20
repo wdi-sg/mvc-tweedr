@@ -77,6 +77,14 @@ module.exports = (db) => {
       }
     });
   };
+
+  let exitUser = (request, response) => {
+    //clear cookies
+    response.clearCookie('loggedIn');
+    response.clearCookie('name');
+    response.redirect('/');
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -86,7 +94,8 @@ module.exports = (db) => {
     newUser: getNewUser,
     registerUser: postNewUser,
     currentUser: getUser,
-    loginUser: postUser
+    loginUser: postUser,
+    logoutUser: exitUser
   };
 
 }

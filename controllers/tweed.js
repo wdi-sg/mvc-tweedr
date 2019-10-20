@@ -48,7 +48,7 @@ module.exports = (db) => {
       tweed.user_id = result[0].id;
       db.tweeds.registerTweed(tweed, (error, result) => {
         // redirect to homepage
-        response.redirec('/');
+        response.redirect('/');
       });
     });
   };
@@ -56,6 +56,7 @@ module.exports = (db) => {
   let getTweeds = (request, response) => {
     // respond with HTML page of all tweeds
     db.tweeds.allTweeds((error, result) => {
+      console.log(result);
       let display = {};
       display.result = result;
       // check if user is login

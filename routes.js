@@ -15,6 +15,7 @@ module.exports = (app, allModels) => {
   app.post('/register', userController.registerUser);
   app.get('/login', userController.currentUser);
   app.post('/login', userController.loginUser);
+  app.get('/logout', userController.logoutUser);
 
   // tweeds
   app.get('/new', tweedController.newTweed);

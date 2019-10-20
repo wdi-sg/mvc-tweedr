@@ -5,7 +5,11 @@ class Home extends React.Component {
     const display = this.props;
     const tweeds = display.result.map(tweed => {
       return (
-        <li>{tweed.tweed}</li>
+        // to link to tweed
+        <li>{tweed.tweed}
+            &nbsp;by&nbsp;
+            {tweed.name}</li>
+        // to link to user
       );
     });
     return (

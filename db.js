@@ -60,9 +60,13 @@ const allTweetModels = require('./models/tweets');
 const tweetsModelObject = allTweetModels(pool);
 // const detailsModelObject = allDetailsModels(pool);
 
+// getting registration details....
 const registerUser = require('./models/register');
 const user = registerUser(pool);
 
+// checking if login details are correct..
+const loginUser = require('./models/login');
+const userLogin = loginUser(pool);
 /*
  * ===================================================
  * ===================================================
@@ -90,5 +94,6 @@ module.exports = {
 
 	// users: userModelsObject,
 	tweets: tweetsModelObject,
-	user: user
+	user: user,
+	userLogin: userLogin
 };

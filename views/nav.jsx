@@ -26,6 +26,12 @@ class Nav extends React.Component {
                         <li className="nav-item">
                             <a className="nav-link text-white" href="/users">Users</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link text-white" href="/following">Following</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link text-white" href="/followers">Followers</a>
+                        </li>
                     </ul>
                 </div>
             </nav>

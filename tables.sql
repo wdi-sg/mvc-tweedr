@@ -14,3 +14,5 @@
 -- SELECT tweets.users_id AS users_id,users.username AS username,tweets.content FROM tweets INNER JOIN follows ON (follows.f_er_users_id = tweets.users_id) INNER JOIN users ON (users.id = follows.users_id) WHERE follows.users_id =
 
 -- SELECT DISTINCT tweets.content, users.username, tweets.users_id FROM users INNER JOIN tweets ON (users.id = tweets.users_id) INNER JOIN follows ON (tweets.users_id = follows.f_er_users_id) WHERE follows.users_id =
+
+-- SELECT DISTINCT tweets.content, users.username, tweets.users_id FROM users INNER JOIN tweets ON (users.id = tweets.users_id) INNER JOIN follows ON (tweets.users_id = follows.users_id) WHERE follows.f_er_users_id =$1

@@ -1,3 +1,44 @@
 body{
-	background-color: #FFE6F2;
+	background-color: #A3E6FF;
+}
+
+#tweedPost{
+	margin: 20px auto;
+	width: 100%;
+}
+
+#WOYM{
+	margin-bottom: 5px;
+	width: 100%;
+	height: 10vh;
+}
+
+#tweedBtn{
+	border-radius: 5px;
+	margin: 10px auto;
+}
+
+div{
+	margin: 20px 0;
+}
+
+.users{
+	margin: 0 5px;
+}
+
+p{
+	margin: 20px 0;
+}
+
+.row{
+	margin: 0;
+	height: 100vh;
+}
+
+.col-6{
+	margin: 0;
+}
+
+.loginPage{
+	overflow: hidden;
 }

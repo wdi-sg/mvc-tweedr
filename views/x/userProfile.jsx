@@ -1,23 +1,49 @@
 var React = require("react");
+const Navbar = require('./navbar.jsx');
+const Head = require('./head.jsx');
 
+class TweedFunction extends React.Component {
+    render() {
+        let tweed = this.props.key1.content;
+        return (
+            <p>{tweed}</p>
+        )
+    }
+}
 
 class Home extends React.Component {
   render() {
     let username = this.props.username;
-
+    let id = this.props.user_id;
+    console.log(this.props)
+    let tweedArr = this.props.tweed;
+    if (tweedArr === null) {
+        var tweed = "You have no tweeds!"
+    } else {
+        var tweed = tweedArr.map(tweed => {
+            return <TweedFunction key1={tweed}/>
+        })
+    }
     return (
       <html>
-        <head />
+        <Head />
         <body>
-          <h2>Profile page</h2>
-          <h3>Welcome, {username}!</h3>
-          <form method="GET" action="/" style={{margin: 20+'px'}}>
-            <input type="submit" value="Home"/>
-          </form>
-          <form method="POST" action="/home">
-            <input type="text" name="tweed" placeholder="What's on your mind?" style={{width: 20 + '%'}}/><br/>
-            <input type="submit" value="Tweed"/>
-          </form>
+          <Navbar key1={this.props}/>
+          <div class="container">
+              <h1>Welcome, {username}!</h1>
+              <div id="tweedPost">
+                  <form method="POST" action="/home">
+                    <input id="WOYM" type="text" name="tweed" placeholder="What's on your mind?"/><br/>
+                    <input id="tweedBtn" type="submit" value="Tweed"/>
+                  </form>
+              </div>
+              <div>
+                  <h2>Your tweeds</h2>
+                  <div>
+                    {tweed}
+                  </div>
+              </div>
+          </div>
         </body>
       </html>
     );

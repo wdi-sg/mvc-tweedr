@@ -33,6 +33,7 @@ module.exports = (db) => {
     let homePage = (request, response) => {
         let user_id = request.cookies.user_id;
         let hasLoggedIn = request.cookies.hasLoggedIn;
+        response.cookie("current", "home");
         if (hasLoggedIn === undefined){
             response.render('x/loginPage.jsx');
         } else {
@@ -59,7 +60,10 @@ module.exports = (db) => {
             if(visitingId === user_id){
                 db.x.getNameUsers(visitingId,(error, name) => {
                     let username = name[0]["username"];
-                    response.render('x/userProfile.jsx',{username});
+                    db.x.getTweedUsers(user_id,(error, tweed) => {
+                        response.cookie("current", "profile");
+                        response.render('x/userProfile.jsx',{username,user_id,tweed});
+                    })
                 });
             } else {
                 db.x.getNameUsers(visitingId,(error, name) => {
@@ -72,7 +76,7 @@ module.exports = (db) => {
                             } else {
                                 following = true;
                             }
-                            response.render('x/visitHome.jsx',{username,tweed,visitingId,following});
+                            response.render('x/visitHome.jsx',{username,tweed,visitingId,following,user_id});
                         })
 
                     })
@@ -86,7 +90,12 @@ module.exports = (db) => {
         let tweed = request.body.tweed;
         db.x.getNameUsers(user_id,(error, name) => {
             db.x.postTweed(user_id, tweed, (error, tweed) => {
-                response.redirect(`home/${user_id}`);
+                if (request.cookies.current === "home"){
+                    response.redirect(`home/${user_id}`);
+                } else if (request.cookies.current === "profile"){
+                    response.redirect(`user/${user_id}`);
+                }
+
             })
         });
     };
@@ -154,6 +163,13 @@ module.exports = (db) => {
         }
     }
 
+    let friends = (request,response) =>{
+        let user_id = request.params.id;
+        db.x.checkFollowing(user_id, (error,results)=>{
+            response.render('x/following.jsx',{user_id,results});
+        })
+    }
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -168,6 +184,7 @@ module.exports = (db) => {
         checkupin,
         logout,
         follow,
+        friends,
     };
 
 }

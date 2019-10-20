@@ -192,6 +192,23 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let checkFollowing = (user_id, callback) => {
+        let queryArr = [user_id];
+        let query = 'SELECT * FROM following INNER JOIN users ON (users.id = following.following_id) WHERE following.user_id = $1';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
@@ -209,5 +226,6 @@ module.exports = (dbPoolInstance) => {
         follow,
         unfollow,
         checkFollow,
+        checkFollowing,
     };
 };

@@ -1,5 +1,5 @@
 var React = require("react");
-
+const Head = require('./head.jsx');
 
 class Home extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Home extends React.Component {
     }
     return (
       <html>
-        <head/>
+        <Head/>
         <body>
           <h2>{heading}</h2>
           <form method="POST" action={action}>

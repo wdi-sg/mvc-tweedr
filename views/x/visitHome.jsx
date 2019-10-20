@@ -1,4 +1,6 @@
 var React = require("react");
+const Navbar = require('./navbar.jsx');
+const Head = require('./head.jsx');
 
 class TweedFunction extends React.Component {
     render(){
@@ -34,16 +36,19 @@ class Home extends React.Component {
 
     return (
       <html>
-        <head />
+        <Head />
         <body>
-          <h3>Welcome to {username}'s page!</h3>
-          <form method="POST" action={"/follow/"+id+path3}>
-            <input type="submit" value={path2}/>
-          </form>
-          <div>
-              <h4>{username}'s tweeds</h4>
+          <Navbar key1={this.props}/>
+          <div class="container">
+              <h3>Welcome to {username}'s page!</h3>
+              <form method="POST" action={"/follow/"+id+path3}>
+                <input type="submit" value={path2}/>
+              </form>
               <div>
-                {tweed}
+                  <h4>{username}'s tweeds</h4>
+                  <div>
+                    {tweed}
+                  </div>
               </div>
           </div>
         </body>

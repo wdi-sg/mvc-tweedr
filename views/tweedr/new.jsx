@@ -2,7 +2,6 @@ const React = require('react');
 
 class New extends React.Component {
   render(){
-    console.log(this.props.id);
     return(
       <html>
         <body>

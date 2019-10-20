@@ -12,57 +12,18 @@ module.exports = (db) => {
   let indexControllerCallback = (req, res) => {
     if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
       db.tweedr.tweedIndex(req.cookies.user_id, (err, result) => {
+        if (result != null) {
         data = {
           result: result
         }
         res.render('tweedr/index', data);
+        } else {
+        res.redirect('tweedr/new');
+        }
       });
     } else {
       res.redirect('/login');
     }
-  };
-  
-  let userNewControllerCallback = (req, res) => {
-    res.render('users/new');
-  };
-
-  let userCreateControllerCallback = (req, res) => {
-    db.tweedr.userCreate(req.body, (err, result) => {
-      data = {
-        result: req.body
-      }
-      res.render('users/create', data);
-    });
-  };
-
-  let userLoginControllerCallback= (req, res) => {
-    res.render('users/login');
-  };
-
-  let userLoggedInControllerCallback = (req, res) => {
-    db.tweedr.userLogin(req.body, (err, result) => {
-      if (err) {
-        console.error('query error:', err.stack);
-        res.send( 'query error' );
-      } else {
-        if (result.rows.length > 0) {
-          let hashedPassword = sha256(req.body.password+salt);
-          if (hashedPassword === result.rows[0].password) {
-            let user_id = result.rows[0].id;
-            let hashedCookie = sha256(user_id + salt);
-  
-            res.cookie('user_id', user_id);
-            res.cookie('hasLoggedIn', hashedCookie);
-            res.cookie('username', req.body.username);
-            res.redirect('/tweedr');
-          } else {
-            res.status(403).send('wrong password');
-          }
-        } else {
-          res.status(403).send('wrong username');
-        }
-      }
-    });
   };
 
   let tweedNewControllerCallback = (req, res) => {
@@ -86,30 +47,6 @@ module.exports = (db) => {
     }
   };
 
-  let userProfileControllerCallback = (req, res) => {
-    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
-      db.tweedr.userProfile(req.params.id, (err, result) => {
-        data = {
-          result: result,
-          ownId: req.cookies.user_id
-        }
-        console.log(result,"result")
-        res.render('users/show', data);
-      });
-    } else {
-      res.redirect('/login');
-    }
-  };
-
-  let userFollowControllerCallback = (req, res) => {
-    db.tweedr.userFollow(req.cookies.user_id, req.body.id, (err, result) => {
-      data = {
-        result: [req.body]
-      }
-      res.render('users/followed', data);
-    });
-  };
-
   let tweedShowControllerCallback = (req, res) => {
     if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
       db.tweedr.tweedShow(req.params.id, (err, result) => {
@@ -125,7 +62,6 @@ module.exports = (db) => {
 
   let tweedDeleteControllerCallback = (req, res) => {
     if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
-      console.log(req.params.id);
       db.tweedr.tweedDelete(req.params.id, (err, result) => {
         res.render('tweedr/delete');
       });
@@ -171,14 +107,8 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
-    userCreate : userCreateControllerCallback,
-    userNew : userNewControllerCallback,
-    userLogin: userLoginControllerCallback,
-    userLoggedIn: userLoggedInControllerCallback,
     tweedNew: tweedNewControllerCallback,
     tweedCreate: tweedCreateControllerCallback,
-    userProfile: userProfileControllerCallback,
-    userFollow: userFollowControllerCallback,
     tweedShow: tweedShowControllerCallback,
     tweedDelete: tweedDeleteControllerCallback,
     tweedEdit: tweedEditControllerCallback,

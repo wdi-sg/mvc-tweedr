@@ -13,31 +13,31 @@ module.exports = (app, allModels) => {
 
   // require the controller
   const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
+  const userControllerCallbacks = require('./controllers/user')(allModels);
+  
+  app.get('/register', userControllerCallbacks.userNew);
+
+  app.post('/register', userControllerCallbacks.userCreate);
+
+  app.get('/login', userControllerCallbacks.userLogin);
+
+  app.post('/login', userControllerCallbacks.userLoggedIn);
+  
+  app.get('/users/:id',userControllerCallbacks.userProfile);
+
+  app.post('/users', userControllerCallbacks.userFollow);
 
   app.get('/tweedr', tweedrControllerCallbacks.index);
-
-  app.get('/register', tweedrControllerCallbacks.userNew);
-
-  app.post('/register', tweedrControllerCallbacks.userCreate);
-
-  app.get('/login', tweedrControllerCallbacks.userLogin);
-
-  app.post('/login', tweedrControllerCallbacks.userLoggedIn);
 
   app.get('/tweedr/new', tweedrControllerCallbacks.tweedNew);
 
   app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
 
-  app.get('/users/:id',tweedrControllerCallbacks.userProfile);
-
-  app.post('/users', tweedrControllerCallbacks.userFollow);
-  
   app.get('/tweedr/:id',tweedrControllerCallbacks.tweedShow);
   
-  app.delete('/tweedr/:id', tweedrControllerCallbacks.tweedDelete);
-
   app.get('/tweedr/:id/edit', tweedrControllerCallbacks.tweedEdit);
-
+  
   app.put('/tweedr/:id', tweedrControllerCallbacks.tweedUpdate);
 
+  app.delete('/tweedr/:id', tweedrControllerCallbacks.tweedDelete);
 };

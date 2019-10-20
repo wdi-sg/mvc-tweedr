@@ -10,9 +10,9 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let tweedCreate = (v1, v2, callback) => {
-    const queryArray = [v1.message, v2];
-    const queryString = 'INSERT INTO tweeds (message, user_id) VALUES ($1, $2) RETURNING *';
+  let userCreate = (values, callback) => {
+    const queryArray = [values.username, sha256(values.password+salt), values.name, values.email];
+    const queryString = 'INSERT INTO users (username, password, name, email) VALUES ($1, $2, $3, $4) RETURNING *';
 
     dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
       if( error ){
@@ -29,9 +29,27 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-  let tweedIndex = (values, callback) => {
+  let userLogin = (values, callback) => {
+    const queryArray = [values.username];
+    const queryString = 'SELECT * FROM users WHERE username = $1';
+    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+  let userProfile = (values, callback) => {
     const queryArray = [values];
-    const queryString = 'SELECT * FROM tweeds WHERE user_id = $1';
+    const queryString = 'SELECT * FROM users WHERE id = $1';
 
     dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
       if( error ){
@@ -48,66 +66,9 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-  let tweedShow = (values, callback) => {
-    const queryArray = [values];
-    const queryString = 'SELECT * FROM tweeds WHERE id = $1';
-
-    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
-      if( error ){
-        // invoke callback function with results after query has executed
-        callback(error, null);
-      }else{
-        // invoke callback function with results after query has executed
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
-        }else{
-          callback(null, null);
-        }
-      }
-    });
-  };
-
-  let tweedDelete = (values, callback) => {
-    const queryArray = [parseInt(values)];
-    const queryString = 'DELETE FROM tweeds where id = $1 RETURNING *';
-
-    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
-      if( error ){
-        // invoke callback function with results after query has executed
-        callback(error, null);
-      }else{
-        // invoke callback function with results after query has executed
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
-        }else{
-          callback(null, null);
-        }
-      }
-    });
-  };
-
-  let tweedEdit = (values, callback) => {
-    const queryArray = [parseInt(values)];
-    const queryString = 'SELECT * from tweeds where ID = $1';
-
-    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
-      if( error ){
-        // invoke callback function with results after query has executed
-        callback(error, null);
-      }else{
-        // invoke callback function with results after query has executed
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
-        }else{
-          callback(null, null);
-        }
-      }
-    });
-  };
-
-  let tweedUpdate = (v1, v2, callback) => {
+  let userFollow = (v1, v2, callback) => {
     const queryArray = [v1, v2];
-    const queryString = 'UPDATE tweeds SET message = $1 where id = $2 RETURNING *';
+    const queryString = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
 
     dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
       if( error ){
@@ -125,11 +86,9 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    tweedCreate,
-    tweedIndex,
-    tweedShow,
-    tweedDelete,
-    tweedEdit,
-    tweedUpdate
+    userCreate,
+    userLogin,
+    userProfile,
+    userFollow
   };
 };

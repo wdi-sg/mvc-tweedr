@@ -2,7 +2,6 @@ let React = require('react');
 
 class Edit extends React.Component {
   render() {
-    console.log("this is edit" + this.props.result[0])
     return(
       <html>
         <body>

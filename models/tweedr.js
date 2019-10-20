@@ -105,11 +105,31 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let userFollow = (v1, v2, callback) => {
+    const queryArray = [v1, v2];
+    const queryString = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
+
+    dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     userCreate,
     userLogin,
     tweedCreate,
     tweedIndex,
-    userProfile
+    userProfile,
+    userFollow
   };
 };

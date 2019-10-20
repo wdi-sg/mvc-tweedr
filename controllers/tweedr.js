@@ -87,12 +87,28 @@ module.exports = (db) => {
   };
 
   let userProfileControllerCallback = (req, res) => {
-    db.tweedr.userProfile(req.params.id, (err, result) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.userProfile(req.params.id, (err, result) => {
+        data = {
+          result: result,
+          ownId: req.cookies.user_id
+        }
+        console.log(result,"result")
+        res.render('users/show', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
+  };
+
+  let userFollowControllerCallback = (req, res) => {
+    console.log("body", req.body);
+    db.tweedr.userFollow(req.cookies.user_id, req.body.id, (err, result) => {
       data = {
-        result: result
+        result: [req.body]
       }
-      console.log(result,"result")
-      res.render('users/show', data);
+      console.log(result,"result");
+      res.render('users/followed', data);
     });
   };
 
@@ -111,7 +127,8 @@ module.exports = (db) => {
     userLoggedIn: userLoggedInControllerCallback,
     tweedNew: tweedNewControllerCallback,
     tweedCreate: tweedCreateControllerCallback,
-    userProfile: userProfileControllerCallback
+    userProfile: userProfileControllerCallback,
+    userFollow: userFollowControllerCallback
   };
 
 }

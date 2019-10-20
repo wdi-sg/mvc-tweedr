@@ -1,6 +1,5 @@
 module.exports = (app, allModels) => {
 
-
   /*
    *  =========================================
    *  =========================================
@@ -30,5 +29,7 @@ module.exports = (app, allModels) => {
   app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
 
   app.get('/users/:id',tweedrControllerCallbacks.userProfile);
+
+  app.post('/users', tweedrControllerCallbacks.userFollow);
 
 };

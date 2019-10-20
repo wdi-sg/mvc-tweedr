@@ -11,3 +11,9 @@ CREATE TABLE IF NOT EXISTS tweeds (
   user_id TEXT,
   message TEXT
 );
+
+CREATE TABLE IF NOT EXISTS followers (
+  id SERIAL PRIMARY KEY,
+  user_id TEXT,
+  follower_id TEXT
+)

@@ -4,21 +4,25 @@ const Layout = require('./layouts/default');
 class AllTweets extends React.Component {
    render() {
 
+
         let style = {
-            display: "inline-block",
+            display: "block",
             margin: "2rem",
+            "background-color": "#ffffff",
             "text-align": "center"
         }
-        let style2 = {
-            "text-decoration": "none"
-        }
         const theTweets = this.props.allTweets.map( (tweets, index) => {
+             
             return (
-                <li style={style}>{tweets.tweet}
+                <p style={style}>{tweets.tweet}
                 <br/>
-                {tweets.user_id}
+                {tweets.username}
                 <br/>
-                {tweets.date}               </li>
+
+             {/*   {tweets.creation_date}*/}
+
+                               
+                </p>
                 )
 
         })
@@ -26,12 +30,12 @@ class AllTweets extends React.Component {
 
           <Layout pageTitle={this.props.pageTitle}>
 
-
+                <h1 className="text-center">All the Latest Tweedrs</h1>
 
                   { this.props.warning }
-                        <ul>
+                        
                         {theTweets}
-                        </ul>
+                        
 
 
           </Layout>

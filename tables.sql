@@ -9,13 +9,8 @@ CREATE TABLE IF NOT EXISTS tweeds (
 	id SERIAL PRIMARY KEY,
 	tweed TEXT NOT NULL,
 	created_at TIMESTAMPTZ DEFAULT now(),
-	edited_at TIMESTAMPTZ
-);
-
-CREATE TABLE IF NOT EXISTS user_tweed (
-	id SERIAL PRIMARY KEY,
-	tweed_id INT NOT NULL,
-	user_id INT NOT NULL
+	edited_at TIMESTAMPTZ,
+	user_id INT
 );
 
 CREATE TABLE IF NOT EXISTS followers (

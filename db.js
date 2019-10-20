@@ -48,7 +48,7 @@ const userModelsFunction = require('./models/user');
 const userModelsObject = userModelsFunction( pool );
 
 const tweedModelsFunction = require('./models/tweed');
-const tweedModelsObject = userModelsFunction( pool );
+const tweedModelsObject = tweedModelsFunction( pool );
 
 /*
  * ===================================================

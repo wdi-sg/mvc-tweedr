@@ -2,11 +2,8 @@ var React = require("react");
 
 class User extends React.Component {
   render() {
-    console.log(this.props.account);
     let display=this.props.account;
-    if (display.user) {
-        console.log("login!")
-    }
+    if (display.user) { console.log("login!") } else { console.log("register!") };
     return (
       <html>
         <head />

@@ -18,5 +18,6 @@ module.exports = (app, allModels) => {
 
   // tweeds
   app.get('/new', tweedController.newTweed);
+  app.post('/', tweedController.registerTweed);
 
 };

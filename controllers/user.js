@@ -31,8 +31,11 @@ module.exports = (db) => {
         // INSERT new user into user db
         newUser.password = sha256(newUser.password + SALT);
         db.users.registerUser(newUser, (error, account) => {
-        // redirect to homepage
-        response.send({ account });
+          // set cookies
+          response.cookie('name', result[0].name);
+          response.cookie('loggedIn', result[0].password);
+          // redirect to homepage
+          response.send({ account });
         });
       }
     });

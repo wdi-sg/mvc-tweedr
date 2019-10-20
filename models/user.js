@@ -33,7 +33,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   let registerUser = (newUser, callback) => {
-    // hash password
     let input = [ newUser.name, newUser.password ];
     let query = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
 

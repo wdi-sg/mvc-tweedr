@@ -8,8 +8,8 @@ class AllTweets extends React.Component {
         let style = {
             display: "block",
             margin: "2rem",
-            "background-color": "#ffffff",
-            "text-align": "center"
+            "backgroundColor": "#ffffff",
+            "textAlign": "center"
         }
         const theTweets = this.props.allTweets.map( (tweets, index) => {
              

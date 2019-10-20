@@ -104,7 +104,8 @@ module.exports = (db) => {
       db.pokemon.getAll((error, allTweets) => {
 
         const data = {
-            tweets: allTweets
+            tweets: allTweets,
+            person: request.cookies.userid
         }
 
         response.render('index', data)
@@ -136,8 +137,20 @@ module.exports = (db) => {
                 }
             }
         })
+    }
+
+  let followControllerCallback = (request,response)=>{
+    let id = request.params.id //person to be followed
+    let followerId = request.cookies.userid //person choosing to follow someone (i.e. current user)
 
 
+     db.pokemon.follow(id, followerId, (error,follower)=>{
+
+            console.log(follower)
+
+            response.send('Yay, following user number:' + follower.user_id)
+
+            })
 
   }
 
@@ -155,6 +168,7 @@ module.exports = (db) => {
     // tweed: tweedControllerCallback,
     tweedOut: tweedOutControllerCallback,
     profile: profileControllerCallback,
+    follow: followControllerCallback
   };
 
 }

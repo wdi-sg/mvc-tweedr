@@ -71,12 +71,35 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  //FOLLOW ANOTHER USER
+
+  let follow = (id, followerId,callback)=>{
+
+    let query = `INSERT INTO followers (user_id, follower_id) VALUES (${id}, ${followerId}) RETURNING *`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows[0]);
+        }else{
+          callback(null, null);
+        }
+    });
+  };
+
+
+
+
+
+
+
 //store and send out the functions
   return {
     getAll,
     registerUser,
     verifyUser,
     sendTweed,
-    myTweets
+    myTweets,
+    follow
   };
 };

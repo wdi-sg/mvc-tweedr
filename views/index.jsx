@@ -22,6 +22,13 @@ class Index extends React.Component {
                                         <div className="card-subtitle mb-2 text-muted">tweeted at {time}</div>
 
                                         <a className="card-link" href={"http://localhost:3000/profiles/" + tweet.id} value="{tweet.userid}"> Follow! </a>
+
+                                         <form method="POST" action={"/profiles/"+ tweet.id}>
+
+                                         <button type="submit" className="btn btn-light" value="Follow">Follow</button>
+                                         <input type = "hidden" id = {tweet.userid} value = {this.props.person}/>
+
+                                        </form>
                                     </div>
 
                             </div>

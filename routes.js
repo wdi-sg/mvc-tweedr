@@ -31,6 +31,8 @@ module.exports = (app, allModels) => {
 
   app.post('/tweed', ControllerCallbacks.tweedOut);
 
+  app.post('/profiles/:id', ControllerCallbacks.follow);
+
 
 
 };

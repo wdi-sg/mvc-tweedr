@@ -23,14 +23,12 @@ class Layout extends React.Component {
                                     <a className="nav-link" href="http://localhost:3000/">Home</a>
                                 </li>
                                   <li className="nav-item">
-                                    <a className="nav-link" href="http://localhost:3000/register">Register</a>
+                                    <a className="nav-link" href="http://localhost:3000/register" id = "register">Register</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="http://localhost:3000/login">Login</a>
                                 </li>
-                                  <li className="nav-item">
-                                    <a className="nav-link" href="http://localhost:3000/tweed">Tweed!</a>
-                                </li>
+
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">Profile</a>
                                 </li>

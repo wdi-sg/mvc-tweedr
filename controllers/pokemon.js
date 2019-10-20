@@ -113,6 +113,7 @@ module.exports = (db) => {
   };
 
   let profileControllerCallback = (request,response)=>{
+
     let id = request.params.id
         db.pokemon.myTweets(id, (error,myTweets)=>{
 
@@ -121,14 +122,20 @@ module.exports = (db) => {
             if (myTweets===null){
                 response.redirect('/tweed')
 
-        } else {
+            } else {
 
-            const userInfo = {
-                name: myTweets[0].username,
-                tweets: myTweets
+                if (request.cookies.userid === request.params.id) {
+
+                    const userInfo = {
+                       name: myTweets[0].username,
+                       tweets: myTweets,
+                       mine: true
+                    }
+                    response.render('profile',userInfo)
+                } else {
+                response.send("not your profile!")
+                }
             }
-          response.render('profile',userInfo)
-        }
         })
 
 

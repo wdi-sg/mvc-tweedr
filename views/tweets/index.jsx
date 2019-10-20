@@ -6,13 +6,20 @@ class Home extends React.Component {
         console.log(this.props.allTweets);
         const tweets = this.props.allTweets.map(el => {
             return (
-                <p>{el.id} : {el.content}</p>
+                <div class="alert alert-info" role="alert">
+                {el.id} : {el.content}
+                </div>
             )
         })
 		return (
 			<Layout>
-                <h3> Hello TWEEDR USERS </h3>
-                {tweets}
+                <div className='text-center'>
+
+                <h3 className='m-2 display-1'> All Tweets </h3>
+                <div className="container col-5">
+                    {tweets}
+                </div>
+                </div>
 			</Layout>
 		);
 	}

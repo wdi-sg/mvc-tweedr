@@ -35,7 +35,7 @@ module.exports = (db) => {
 
         db.tweets.addNew(tweetInfo, (error, postTweet) => {
             console.log(postTweet);
-            response.send('added new tweet');
+            response.redirect('tweets');
         })
 
 

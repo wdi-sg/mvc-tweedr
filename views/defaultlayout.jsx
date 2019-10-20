@@ -29,12 +29,12 @@ class DefaultLayout extends React.Component {
 					<nav className='navbar navbar-light' style={navStyle}>
 						<ul className='nav justify-content-center nav-tabs'>
 							<li className='nav-item'>
-								<a className='nav-link ml-2' href='http://localhost:3000/artists' style={aStyle}><strong>TWEEDR</strong>
+								<a className='nav-link ml-2' href='http://localhost:3000/tweets' style={aStyle}><strong>TWEEDR</strong>
 								</a>
 							</li>
 							<li className='nav-item'>
-								<a className='nav-link' href='http://localhost:3000/artists/1/songs' style={aStyle}>
-									Songs By Artist 1
+								<a className='nav-link' href='http://localhost:3000/tweets/new' style={aStyle}>
+									New								
 								</a>
 							</li>
 							<li className='nav-item'>

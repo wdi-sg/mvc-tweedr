@@ -3,7 +3,7 @@ const Navbar = require("./navbar.jsx");
 class Home extends React.Component {
   render() {
       let list;
-      if(this.props.result === null) {
+      if(this.props.result.length === 0) {
           list= null
       } else {
         list = this.props.result.map(item => {

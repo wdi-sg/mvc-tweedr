@@ -72,7 +72,15 @@ module.exports = db => {
         response.send("query error");
       } else if(result === "no followers"){
         console.log("NO FOLLOWERS");
-        response.send("NO FOLLWOWERS")
+        db.tweets.getOwnTweet(userId, (error, result) => {
+        const data = {
+          result: result,
+          username: userName
+        }
+        console.log(result, userName)
+        response.render('tweedr/home', data)
+        
+        })
       } else {
         const data = {
           result: result,

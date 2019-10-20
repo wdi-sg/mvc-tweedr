@@ -59,9 +59,9 @@ module.exports = (dbPoolInstance) => {
   };
 
 
-    let checkUsers = (username, callback) => {
+    let checkUsers = (allData, callback) => {
 
-    let query = "SELECT * from users WHERE username='"+username+"'";
+    let query = "SELECT * from users WHERE username='"+allData.username+"'";
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
 

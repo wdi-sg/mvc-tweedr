@@ -2,7 +2,12 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-   
+    let message = ""
+    if(this.props.message === "USER NAME TAKEN PLEASE USE ANOTHER NAME"){
+     message = <div class="alert alert-danger" role="alert">
+  {this.props.message}
+</div>
+    }
     return (
       <html>
         <head>
@@ -16,6 +21,7 @@ class Home extends React.Component {
         <body>
           <div className="container text-center">
           <h3 className="display-3">Please Register With a Username and Password </h3>
+          {message}
           <form action="/register" method="POST">
           <p><input type="text" name="username" placeholder="User Name" className="form-control form-control-lg"/></p>
           <p> <input type="password" name="password" placeholder="Password" className="form-control form-control-lg"/></p>

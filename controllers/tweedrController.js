@@ -20,10 +20,16 @@ module.exports = db => {
     let newUser = request.body;
     db.tweets.addUser(newUser, (error, user) => {
       if (error) {
-        console.error("query error:", err.stack);
-        response.send("query error");
+        console.error("query error:", error.stack);
+        const data = {
+          message: "USER NAME TAKEN PLEASE USE ANOTHER NAME"
+        }
+        response.render("tweedr/register", data);
       } else {
-        response.redirect('/welcome')
+        
+          response.redirect('/welcome')
+      
+      
       }
     })
   }

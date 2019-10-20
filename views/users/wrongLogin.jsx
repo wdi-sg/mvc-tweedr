@@ -7,7 +7,7 @@ class Login extends React.Component {
             <Layout>
 
                 <div className="jumbotron">
-                    <h1 className="display-4">Log in</h1>
+                    <h1 className="display-4 text-danger">Wrong username or password</h1>
                     <form method="POST" action="/users/login">
                         <div className="form-group">
                             <label>Username</label>

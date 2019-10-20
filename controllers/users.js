@@ -10,7 +10,8 @@ module.exports = (db) => {
                 res.redirect('/users/login')
             } else {
                 db.users.getAll(req,(err,result)=>{
-                    res.send(result);
+                    let data = {req,result};
+                    res.render('users/index',data);
                 });
             };
         });
@@ -25,7 +26,14 @@ module.exports = (db) => {
             if (err) {
                 res.send(err.detail);
             } else {
-                res.send("Success!");
+                if (result !== null) {
+                    res.cookie('username',result[0].username);
+                    res.cookie('loggedIn','yes');
+                    res.cookie('userId',result[0].id);
+                    res.redirect('/');
+                } else {
+                    res.render('users/wrongLogin');
+                };
             };
         });
     };
@@ -42,7 +50,7 @@ module.exports = (db) => {
                 res.cookie('userId',result[0].id);
                 res.redirect('/');
             } else {
-                res.send('wronglogin');
+                res.render('users/wrongLogin');
             };
         });
     };

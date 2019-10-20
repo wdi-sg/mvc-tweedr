@@ -1,8 +1,9 @@
 module.exports = (dbPoolInstance) => {
 
     let getAll = (req,callback) => {
-        let query = 'SELECT * FROM tweets INNER JOIN users ON tweets.users_id = users.id';
-        dbPoolInstance.query(query,(err,res)=>{
+        let values = [req.cookies.userId];
+        let query = 'SELECT users.username AS username,users.id AS users_id,tweets.content FROM users INNER JOIN follows ON users.id = follows.users_id INNER JOIN tweets ON follows.users_id = tweets.users_id WHERE follows.f_er_users_id=$1 OR users.id=$1';
+        dbPoolInstance.query(query,values,(err,res)=>{
             if (err) {
                 callback(err,null);
             } else {

@@ -9,5 +9,4 @@
 -- INNER JOIN table2
 -- ON table1.column_name = table2.column_name;
 
--- SELECT users.username AS username,users.id,tweets.users_id,tweets.content,fo,
--- FROM users INNER JOIN follows ON users.id = follows.f_er_users_id INNER JOIN tweets ON follows.users_id = tweets.users_id WHERE ;
+-- SELECT users.username AS username,users.id AS users_id,tweets.content FROM users INNER JOIN follows ON users.id = follows.users_id INNER JOIN tweets ON follows.users_id = tweets.users_id WHERE follows.f_er_users_id=$1;

@@ -12,7 +12,8 @@ module.exports = (db) => {
                 if (result===null) {
                     res.send('following no one');
                 } else {
-                    res.send(result);
+                    let data = {req,result};
+                    res.render('follows/following',data);
                 };
             });
         };

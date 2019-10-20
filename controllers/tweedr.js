@@ -30,11 +30,26 @@ const loggedIn = function (request) {
         // check for user logged in..
         if (loggedIn(request) === true) {
           // console.log ('can tweet')
-          response.render('tweedr/tweet', data);
+          response.render('tweedr/tweet');
         } else {
             response.redirect('/login');
             }
   };
+
+    let tweetPostControllerCallback = (request, response) => {
+        const allData = request.body;
+        data = {};
+        // check for user logged in..
+        if (loggedIn(request) === true) {
+          console.log ('tweet posted', allData)
+          // add the tweet to the database
+          
+          response.render('tweedr/tweet');
+        } else {
+            response.redirect('/login');
+            }
+  };
+
 
     let registerControllerCallback = (request, response) => {
         data = {};
@@ -128,7 +143,8 @@ const loggedIn = function (request) {
     loginPost: loginPostControllerCallback,
     register: registerControllerCallback,
     registerPost: registerPostControllerCallback,
-    tweet: tweetControllerCallback
+    tweet: tweetControllerCallback,
+    tweetPost: tweetPostControllerCallback
   };
 
 }

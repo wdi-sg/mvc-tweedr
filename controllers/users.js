@@ -6,17 +6,27 @@ module.exports = (db) => {
 
   let userLogged = false;
 
-const loggedIn = function (request) {
- // see if they are logged in?
-  if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){  
-  return true;
-  } 
-}
+  const loggedIn = function (request) {
+   // see if they are logged in?
+    if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){  
+    return true;
+    } 
+  }
   /**
    * ===========================================
    * Controller logic
    * ===========================================
    */
+
+
+    let logoutControllerCallback = (request, response) => {
+        data = {};
+        // response.cookie = 'tweedr_nr=; Max-Age=0';
+        response.cookie('tweedr_nr', '');
+        response.cookie('tweedr_user', '');
+        // response.cookie = "tweedr_nr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        response.redirect('/');
+  };
 
 
     let registerControllerCallback = (request, response) => {
@@ -108,6 +118,7 @@ const loggedIn = function (request) {
   return {
     login: loginControllerCallback,
     loginPost: loginPostControllerCallback,
+    logout: logoutControllerCallback,
     register: registerControllerCallback,
     registerPost: registerPostControllerCallback,
   };

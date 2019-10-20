@@ -9,22 +9,22 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = 'SELECT * FROM tweets';
 
     dbPoolInstance.query(query, (error, queryResult) => {
-      if( error ){
+      if (error) {
 
         // invoke callback function with results after query has executed
         callback(error, null);
 
-      }else{
+      } else {
 
         // invoke callback function with results after query has executed
 
-        if( queryResult.rows.length > 0 ){
+        if (queryResult.rows.length > 0) {
           callback(null, queryResult.rows);
 
-        }else{
+        } else {
           callback(null, null);
 
         }

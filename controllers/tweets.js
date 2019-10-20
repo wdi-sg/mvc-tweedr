@@ -6,10 +6,10 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
-      });
+  let tweedrControllerCallbacks = (request, response) => {
+    db.tweets.getAll((error, allTweets) => {
+      response.render('tweets/index', { allTweets });
+    });
   };
 
 
@@ -19,7 +19,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    index: tweedrControllerCallbacks,
   };
 
 }

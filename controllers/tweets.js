@@ -82,6 +82,57 @@ module.exports = (db) => {
     });
   };
 
+  //////SHOW PAGE TO CREATE A TWEET (USER NEEDS TO BE LOGGED IN)///////
+  let createTweet = (request, response) => {
+    let user_id = request.cookies.user_id;
+    let savedCookie = request.cookies.loggedIn;
+
+    if (savedCookie === undefined) {
+        response.send ("You're not logged in!")
+    } else {
+        db.tweets.getUser(user_id, (error, result) => {
+          if (error) {
+            console.error('error getting user', error);
+            respond.send('error getting user');
+          } else {
+              let data = {
+              "name": result[0].name,
+              "username": result[0].username
+              };
+            response.render('tweets/newtweet', data);
+          }
+        });
+    }
+  };
+
+  /////SUBMIT THE NEW TWEET/////
+  let addTweet = (request, response) => {
+    let newTweet = request.body;
+    let cookieStatus = request.cookies;
+    console.log('This is the cookieStatus: ', cookieStatus);
+
+    let user_id = request.cookies.user_id;
+    let currentSessionCookie = sha256(user_id + 'logged_id' + SALT);
+
+    db.tweets.addTheTweet(newTweet, (error, result) => {
+      if (error) {
+        console.error('error getting user', error);
+        respond.send('error getting user');
+      } else {
+          if (cookieStatus.loggedIn === currentSessionCookie){
+            console.log('this is the new tweet content: ', newTweet);
+            response.send(newTweet);
+          } else {
+            response.send('How did you get here??')
+          }
+      }
+    });
+  };
+
+
+
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -93,7 +144,9 @@ module.exports = (db) => {
     createUser,
     addUser,
     login,
-    verifyLogIn
+    verifyLogIn,
+    createTweet,
+    addTweet
   };
 
 }

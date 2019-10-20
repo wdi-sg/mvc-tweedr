@@ -68,8 +68,47 @@ module.exports = (dbPoolInstance) => {
           }
       }
     });
-  }
+  };
 
+//////FIND USER IN DB TO SHOW CREATE TWEET/////
+  let getUser = (user_id, callback) => {
+    const userValue = [user_id];
+    const queryString = `SELECT * FROM users WHERE id = $1`;
+
+    dbPoolInstance.query(queryString, userValue, (error, queryResult) => {
+      if ( error ){
+        callback(error, null);
+      } else {
+          if ( queryResult.rows.length > 0 ){
+            callback(null, queryResult.rows);
+          } else {
+            callback(null, null);
+          }
+      }
+    });
+  };
+
+//////ADD THE NEW TWEET TO DATABASE/////
+  let addTheTweet = (newTweet, callback) => {
+    //newTweet defined in controller as request.body
+    let users_userid = cookieStatus.user_id;
+    const thisUser = `SELECT * FROM users WHERE id = ${users_userid}`;
+
+    const newValues = [thisUser.id, thisUser.username, newTweet.content];
+    const queryString = `INSERT INTO tweets (users_userid, users_username, content) VALUES ($1, $2, $3)`;
+
+    dbPoolInstance.query(queryString, newValues, (error, queryResult) => {
+      if ( error ){
+        callback(error, null);
+      } else {
+          if ( queryResult.rows.length > 0 ){
+            callback(null, queryResult.rows);
+          } else {
+            callback(null, null);
+          }
+      }
+    });
+  };
 
 
 
@@ -86,6 +125,8 @@ module.exports = (dbPoolInstance) => {
   return {
     getAllTweetsData,
     addNewUser,
-    userLogIn
+    userLogIn,
+    getUser,
+    addTheTweet
   };
 };

@@ -7,8 +7,9 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Welcome, {this.props.name}!</h3>
-          <h2>Logged in as @{this.props.username}</h2>
+          <h1>Welcome, {this.props.name}!</h1>
+          <h3>Logged in as @{this.props.username}</h3>
+          <br />
         </body>
       </html>
     );

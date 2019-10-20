@@ -26,5 +26,8 @@ module.exports = (app, allModels) => {
   app.get('/login', allTweetsControllerCallbacks.login);
   app.post('/home', allTweetsControllerCallbacks.verifyLogIn);
 
+  app.get('/newtweet', allTweetsControllerCallbacks.createTweet);
+  app.post('/newtweet', allTweetsControllerCallbacks.addTweet);
+
 
 };

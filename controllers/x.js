@@ -65,10 +65,17 @@ module.exports = (db) => {
                 db.x.getNameUsers(visitingId,(error, name) => {
                     let username = name[0]["username"];
                     db.x.getTweedUsers(visitingId,(error, tweed) => {
-                        response.render('x/visitHome.jsx',{username,tweed});
+                        db.x.checkFollow(user_id,visitingId,(error,gotFollow)=>{
+                            var following;
+                            if(gotFollow === null){
+                                following = false;
+                            } else {
+                                following = true;
+                            }
+                            response.render('x/visitHome.jsx',{username,tweed,visitingId,following});
+                        })
+
                     })
-
-
                 });
             }
         }
@@ -132,6 +139,21 @@ module.exports = (db) => {
         response.redirect('/');
     }
 
+    let follow = (request,response) =>{
+        let action = request.params.action;
+        let id = request.params.id;
+        let user_id = request.cookies.user_id;
+        if(action === "en"){
+            db.x.follow(user_id, id, (error,results)=>{
+                response.redirect('/');
+            })
+        } else if (action === "un"){
+            db.x.unfollow(user_id, id, (error,results)=>{
+                response.redirect('/');
+            })
+        }
+    }
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -145,6 +167,7 @@ module.exports = (db) => {
         upin,
         checkupin,
         logout,
+        follow,
     };
 
 }

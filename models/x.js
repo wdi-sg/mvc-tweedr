@@ -144,6 +144,53 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let follow = (user_id, id, callback) => {
+        let queryArr = [user_id, id];
+        let query = 'INSERT INTO following (user_id, following_id) VALUES ($1,$2)';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let unfollow = (user_id, id, callback) => {
+        let queryArr = [user_id, id];
+        let query = 'DELETE FROM following WHERE user_id = $1 AND following_id = $2';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let checkFollow = (user_id, id, callback) => {
+        let queryArr = [user_id, id];
+        let query = 'SELECT * FROM following WHERE user_id = $1 AND following_id = $2';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
 
 
     /* ===================================================
@@ -159,5 +206,8 @@ module.exports = (dbPoolInstance) => {
         checkLogin,
         checkUserExists,
         registerUser,
+        follow,
+        unfollow,
+        checkFollow,
     };
 };

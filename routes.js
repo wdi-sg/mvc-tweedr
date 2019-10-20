@@ -22,6 +22,7 @@ module.exports = (app, allModels) => {
     app.get('/sign/:upin',xCC.upin);
     app.post('/sign/:upin',xCC.checkupin);
     app.get('/logout', xCC.logout);
+    app.post('/follow/:id/:action', xCC.follow);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

@@ -279,6 +279,32 @@ module.exports = (db) => {
 //===================================================
 
 
+
+
+
+
+//===================================================
+  let followYou = (request, response)=>{
+
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.followYou(user_id, (err, results)=>{
+            response.render('tweedr/followYou', {results});
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
+
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -294,6 +320,7 @@ module.exports = (db) => {
     getOneUser: getOneUser,
     allUsers: allUsers,
     logout: logout,
+    followYou: followYou,
     followers: followers,
     addFollowers: addFollowers,
     profilePic: profilePic,

@@ -22,6 +22,7 @@ module.exports = (app, allModels) => {
   app.post('/users', tweedrControllerCallbacks.getOneUser);
   app.get('/allUsers', tweedrControllerCallbacks.allUsers);
   app.get('/logout', tweedrControllerCallbacks.logout);
+  app.get('/followYou', tweedrControllerCallbacks.followYou)
   app.get('/followers', tweedrControllerCallbacks.followers);
   app.post('/followers', tweedrControllerCallbacks.addFollowers);
   app.get('/profilePic', tweedrControllerCallbacks.profilePic);

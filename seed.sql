@@ -22,10 +22,18 @@ WHERE users.id = 2 ORDER by tweeds.id DESC;
 
 
 -- showing people that user is following
-SELECT username, users.id, followers.user_id
+SELECT username, users.id, followers.user_id, users.image
 FROM followers INNER JOIN users
 ON (users.id = followers.followers_user_id)
 WHERE followers.user_id = 1;
+
+
+
+-- showing people that is following user
+SELECT username, users.id, followers.user_id, users.image
+FROM followers INNER JOIN users
+ON (users.id = followers.user_id)
+WHERE followers.followers_user_id = 1;
 
 
 

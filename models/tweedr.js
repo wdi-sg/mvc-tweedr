@@ -203,6 +203,33 @@ module.exports = (dbPoolInstance) => {
 
 
 
+  let followYou = (user_id, callback) => {
+
+    let query = "SELECT username, users.id, users.image, followers.user_id FROM followers INNER JOIN users ON (users.id = followers.user_id) WHERE followers.followers_user_id =" +user_id;
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+
+
   let getFollowers = (user_id, callback) => {
 
     let query = "SELECT username, users.id, users.image, followers.user_id FROM followers INNER JOIN users ON (users.id = followers.followers_user_id) WHERE followers.user_id = " +user_id;
@@ -324,6 +351,7 @@ module.exports = (dbPoolInstance) => {
     addTweeds,
     getUser,
     getAllUsers,
+    followYou,
     getFollowers,
     addingFollowers,
     showProfilePic,

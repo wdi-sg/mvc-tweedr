@@ -24,6 +24,9 @@ class Navbar extends React.Component {
                       <a class="nav-item nav-link active" href="/followers">Following</a>
                     </div>
                     <div class="navbar-nav">
+                      <a class="nav-item nav-link active" href="/followYou">Followers</a>
+                    </div>
+                    <div class="navbar-nav">
                       <a class="nav-item nav-link active" href="/logout">Log Out</a>
                     </div>
                     <form class="form-inline my-2 my-lg-0" method='POST' action='/users'>

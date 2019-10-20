@@ -102,6 +102,7 @@ module.exports = (db) => {
 
     let upin = (request,response) =>{
         let upin = request.params.upin;
+
         if(upin === "in"){
             let h1 = 'Login Page';
             response.render("x/signupin.jsx",{h1});
@@ -133,7 +134,11 @@ module.exports = (db) => {
             db.x.checkUserExists(username, (error, results)=>{
                 if(results === null){
                     db.x.registerUser(username,password,(error,results)=>{
-                        response.send(`Registered ${username} as a member of Tweedr!`);
+                        let user_id = results[0]["id"]
+                    let hasLoggedIn = sha256(user_id + SALT);
+                    response.cookie('user_id',user_id);
+                    response.cookie('hasLoggedIn',hasLoggedIn);
+                    response.redirect(`/home/${user_id}`);
                     })
                 } else {
                     response.send(`Sorry. The name ${username} is already in use!`)

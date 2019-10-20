@@ -146,7 +146,7 @@ module.exports = (dbPoolInstance) => {
 
     let registerUser = (username, hashPassword, callback) => {
         let queryArr = [username, hashPassword];
-        let query = 'INSERT INTO users (username, hashPassword) VALUES ($1,$2)';
+        let query = 'INSERT INTO users (username, hashPassword) VALUES ($1,$2) RETURNING *';
         dbPoolInstance.query(query, queryArr, (error, queryResult) => {
             if (error) {
                 callback(error, null);

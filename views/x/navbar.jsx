@@ -13,7 +13,7 @@ class Navbar extends React.Component {
                 <li class="mx-3"><a href={Tweedr + "friends/" + user_id}>Friends</a></li>
               </ul>
 
-              <form method="GET" action="/logout">
+              <form method="GET" action="/logout" class="mr-3">
                 <input type="submit" value="logout"/>
               </form>
             </nav>

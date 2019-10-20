@@ -13,12 +13,14 @@ class Home extends React.Component {
       <html>
         <Head/>
         <body>
-          <h2>{heading}</h2>
-          <form method="POST" action={action}>
-            username: <input type="text" name="username"/><br/>
-            password: <input type="text" name="password"/><br/>
-            <input type="submit" value="submit"/>
-          </form>
+          <div class="py-2 px-4">
+              <h2>{heading}</h2>
+              <form method="POST" action={action}>
+                username: <input type="text" name="username"/><br/>
+                password: <input type="text" name="password"/><br/>
+                <input type="submit" value="submit"/>
+              </form>
+          </div>
         </body>
       </html>
     );

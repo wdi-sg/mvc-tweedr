@@ -170,6 +170,31 @@ module.exports = (db) => {
         })
     }
 
+    let viewTweed = (request,response) =>{
+        let tweed_id = request.params.id;
+        let user_id = request.cookies.user_id;
+        db.x.getSpecificTweedUsers(user_id, tweed_id,(error,results)=>{
+            response.render('x/editTweed.jsx',{results,user_id});
+        })
+    }
+
+    let editTweed = (request,response) =>{
+        let tweed_id = request.params.id;
+        let user_id = request.cookies.user_id;
+        let content = request.body.tweed;
+        db.x.editTweed(content,tweed_id,(error,result)=>{
+            response.redirect('/');
+        })
+    }
+
+    let deleteTweed = (request,response) =>{
+        let tweed_id = request.params.id;
+        let user_id = request.cookies.user_id;
+        db.x.deleteTweed(tweed_id,(error,result)=>{
+            response.redirect('/');
+        })
+    }
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -185,6 +210,9 @@ module.exports = (db) => {
         logout,
         follow,
         friends,
+        viewTweed,
+        editTweed,
+        deleteTweed,
     };
 
 }

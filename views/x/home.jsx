@@ -16,9 +16,10 @@ class FollowingTweeds extends React.Component {
 
 class TweedFunction extends React.Component {
     render() {
+        let tweedId = this.props.key1.id;
         let tweed = this.props.key1.content;
         return (
-            <p>{tweed}</p>
+            <p><a href={"http://localhost:3000/tweed/"+tweedId}>{tweed}</a></p>
         )
     }
 }
@@ -36,7 +37,7 @@ class AllUsersFunction extends React.Component {
 class Home extends React.Component {
     render() {
         let username = this.props.username;
-
+        console.log(this.props);
         let tweedArr = this.props.tweed;
         if (tweedArr === null) {
             var tweed = "You have no tweeds!"

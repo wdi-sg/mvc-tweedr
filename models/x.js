@@ -50,7 +50,23 @@ module.exports = (dbPoolInstance) => {
 
     let getTweedUsers = (userId, callback) => {
         let queryArr = [userId]
-        let query = 'SELECT content FROM tweeds WHERE user_id = $1';
+        let query = 'SELECT * FROM tweeds WHERE user_id = $1';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let getSpecificTweedUsers = (userId, tweedId, callback) => {
+        let queryArr = [userId, tweedId]
+        let query = 'SELECT * FROM tweeds WHERE user_id = $1 AND id = $2';
         dbPoolInstance.query(query, queryArr, (error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -208,6 +224,39 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let editTweed = (content, tweed_id,callback) => {
+        let queryArr = [content,tweed_id];
+        let query = 'UPDATE tweeds SET content = $1 WHERE id = $2';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+    let deleteTweed = (tweed_id,callback) => {
+        let queryArr = [tweed_id];
+        let query = 'DELETE FROM tweeds WHERE id = $1';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
 
     /* ===================================================
@@ -218,6 +267,7 @@ module.exports = (dbPoolInstance) => {
         getAllUsers,
         getNameUsers,
         getTweedUsers,
+        getSpecificTweedUsers,
         getFollowing,
         postTweed,
         checkLogin,
@@ -227,5 +277,7 @@ module.exports = (dbPoolInstance) => {
         unfollow,
         checkFollow,
         checkFollowing,
+        editTweed,
+        deleteTweed,
     };
 };

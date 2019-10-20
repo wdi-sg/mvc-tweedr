@@ -13,7 +13,7 @@ body{
 	height: 10vh;
 }
 
-#tweedBtn{
+#tweedBtn, input{
 	border-radius: 5px;
 	margin: 10px auto;
 }

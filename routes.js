@@ -24,6 +24,9 @@ module.exports = (app, allModels) => {
     app.get('/logout', xCC.logout);
     app.post('/follow/:id/:action', xCC.follow);
     app.get('/friends/:id', xCC.friends);
+    app.get('/tweed/:id', xCC.viewTweed);
+    app.post('/tweed/:id', xCC.editTweed);
+    app.post('/deletetweed/:id', xCC.deleteTweed);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

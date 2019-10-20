@@ -61,9 +61,9 @@ module.exports = db => {
           response.redirect('/tweedr/home')
         } else {
           const data = {
-            message: "Please Try Again"
+            message: "Error: Please Try Again"
           }
-          response.render('/tweedr/login', data)
+          response.render('tweedr/login', data)
         }
       } 
     });
@@ -84,16 +84,16 @@ module.exports = db => {
           username: userName,
           message: "NO FOLLOWERS"
         }
-        console.log(result, userName)
+       
         response.render('tweedr/home', data)
-        
+      
         })
       } else {
         const data = {
           result: result,
           username: userName
         }
-       
+        console.log(result)
         response.render('tweedr/home', data)
       }
     })
@@ -139,10 +139,15 @@ module.exports = db => {
         response.send("query error");
       } else {
        
-        const data = {
-          result: result
+        if(result === null){
+          
+        } else {
+          const data = {
+            result: result
+          }
+          response.render('tweedr/user', data)
         }
-        response.render('tweedr/user', data)
+     
       }
     })
   }

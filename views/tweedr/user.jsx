@@ -3,7 +3,11 @@ const Navbar = require("./navbar.jsx");
 
 class Home extends React.Component {
   render() {
-   let list = this.props.result.map(item =>{
+    let list = ""
+    if(this.props.message === "empty" ) {
+      list = ""
+    } else {
+       list = this.props.result.map(item =>{
        
         return(
             <li className="list-group-item"><a href="#">{item.tweet}</a> </li> 
@@ -11,6 +15,8 @@ class Home extends React.Component {
        
        
    })
+    }
+
     return (
       <html>
         <head>
@@ -24,7 +30,7 @@ class Home extends React.Component {
         <body>
           <Navbar/>
             <div className="container text-center">
-            <h3 className="display-4 border-bottom ">Tweets From {this.props.result[0].username}</h3>
+            <h3 className="display-4 border-bottom ">Tweets </h3>
          <ul className="list-group">
         {list}
          </ul>

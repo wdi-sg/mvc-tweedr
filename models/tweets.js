@@ -37,7 +37,7 @@ module.exports = dbPoolInstance => {
         callback(error, null);
       } else {
         if (result.rows.length > 0) {
-          if (sha256(user.password) === result.rows[0].password) {
+          if (sha256(user.password) === result.rows[0].password && user.username === result.rows[0].username) {
             callback(null, result.rows[0]);
           } else {
             callback(null, "correct");
@@ -71,7 +71,7 @@ module.exports = dbPoolInstance => {
   let allTweets = (userId, callback) => {
     let input = [userId];
     // let queryString = "SELECT * FROM tweets WHERE user_id=$1";
-    let queryString = "SELECT followers.followed_user_id, followers.follower_user_id,  tweets.tweet, users.username FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id OR followers.follower_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id = $1 OR tweets.user_id = $1  "
+    let queryString = "SELECT followers.followed_user_id, followers.follower_user_id,  tweets.tweet, users.username, tweets.created_at FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id OR followers.follower_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id = $1 OR tweets.user_id = $1 ORDER BY created_at DESC"
 
 
 
@@ -140,6 +140,7 @@ module.exports = dbPoolInstance => {
       }
     });
   };
+
 
   let follower = (id, followerId, callback) => {
     let followed = id;

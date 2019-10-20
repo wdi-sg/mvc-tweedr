@@ -2,7 +2,8 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-    const tweeds = this.props.result.map(tweed => {
+    const display = this.props;
+    const tweeds = display.result.map(tweed => {
       return (
         <li>{tweed.tweed}</li>
       );
@@ -11,7 +12,14 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>TWEEDR</h3>
+          <h1>TWEEDR</h1>
+          <h2>{display.user}</h2>
+          <form method="GET" action={display.formAction1}>
+            <input type="submit" value={display.button1}/>
+          </form>
+          <form method="GET" action={display.formAction2}>
+            <input type="submit" value={display.button2}/>
+          </form>
           <ul>
             {tweeds}
           </ul>

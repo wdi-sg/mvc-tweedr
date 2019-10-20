@@ -56,7 +56,23 @@ module.exports = (db) => {
   let getTweeds = (request, response) => {
     // respond with HTML page of all tweeds
     db.tweeds.allTweeds((error, result) => {
-        response.render('tweed/index', { result });
+      let display = {};
+      display.result = result;
+      // check if user is login
+      let user = request.cookies.name;
+      if (user === undefined) {
+        display.formAction1 = "/register";
+        display.button1 = "Register";
+        display.formAction2 = "/login";
+        display.button2 = "Login";
+      } else {
+          display.user = user;
+          display.formAction1 = "/user/" + user;
+          display.button1 = "Profile";
+          display.formAction2 = "/new";
+          display.button2 = "Tweed";
+      }
+      response.render('tweed/index', display);
     });
   };
 

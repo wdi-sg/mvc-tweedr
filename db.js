@@ -10,7 +10,7 @@
  * ===================================================
  */
 
-
+const SALT = "racketofthesaltyrunlamb";
 
 const pg = require('pg');
 const url = require('url');
@@ -40,6 +40,7 @@ database: 'tweedr',
     port: 5432
   };
 }
+
 
 
 const pool = new pg.Pool(configs);

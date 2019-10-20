@@ -7,7 +7,7 @@ module.exports = (db) => {
 
 const loggedIn = function (request) {
  // see if they are logged in?
-  if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){
+  if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){  
   return true;
   } 
 }
@@ -42,9 +42,17 @@ const loggedIn = function (request) {
         // check for user logged in..
         if (loggedIn(request) === true) {
           console.log ('tweet posted', allData)
-          // add the tweet to the database
-          
-          response.render('tweedr/tweet');
+          // get user ID
+          allData.username = request.cookies['tweedr_user'];
+          db.tweedr.checkUsers(allData, (error, postRegister) => {
+            data.user = postRegister;
+            // console.log (data.user[0].id)
+            allData.user_id = data.user[0].id;
+            // add the tweet to the database
+            db.tweedr.addTweet(allData, (error, postRegister) => {
+            response.redirect('tweedr');
+                });
+          });
         } else {
             response.redirect('/login');
             }

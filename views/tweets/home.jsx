@@ -6,8 +6,6 @@ class New extends React.Component {
     render() {
         let cards = this.props.result.map(tweet=>{
             let {users_id,content,username,timestamp} = tweet;
-            const d = new Date();
-            let date = `${d.getDate(timestamp)}/${d.getMonth(timestamp)+1} ${d.getHours(timestamp)}:${d.getMinutes(timestamp)}`;
             return (
                 <div className="card border-secondary my-3" style={{width: "100%"}}>
                     <div className="card-body text-secondary">
@@ -15,7 +13,7 @@ class New extends React.Component {
                     </div>
                     <div className="card-footer d-flex justify-content-between">
                         <a href={"/users/"+users_id}>{username}</a>
-                        <span>{date}</span>
+                        <span className="text-muted">{timestamp.toLocaleDateString() +" "+ timestamp.toLocaleTimeString()}</span>
                     </div>
                 </div>
             );

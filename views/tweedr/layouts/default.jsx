@@ -31,7 +31,10 @@ class Layout extends React.Component {
                                 </li>
                             </ul>
                             <form className="form-inline my-2 my-lg-0" method="GET" action={"/login"}>
-                                <input className="btn btn-outline-success my-2 my-sm-0" type="submit" value="Log In"/>
+                                <input className="btn btn-outline-success my-2 my-sm-0" type="submit" value="Login"/>
+                            </form>
+                             <form className="form-inline my-2 my-lg-0" method="GET" action={"/logout"}>
+                                <input className="btn btn-outline-success my-2 my-sm-0" type="submit" value="Logout"/>
                             </form>
                             <form className="form-inline my-2 my-lg-0" method="GET" action={"/register"}>
                                 <input className="btn btn-outline-success my-2 my-sm-0" type="submit" value="Register"/>

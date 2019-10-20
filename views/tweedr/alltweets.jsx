@@ -16,7 +16,7 @@ class AllTweets extends React.Component {
             return (
                 <p style={style}>{tweets.tweet}
                 <br/>
-                {tweets.username}
+                <a href={"/u/"+tweets.username} className="btn btn-sm btn-outline-info m-1">{tweets.username}</a>
                 <br/>
 
              {/*   {tweets.creation_date}*/}
@@ -30,7 +30,7 @@ class AllTweets extends React.Component {
 
           <Layout pageTitle={this.props.pageTitle}>
 
-                <h1 className="text-center">All the Latest Tweedrs</h1>
+                <h1 className="text-center">{this.props.pageTitle}</h1>
 
                   { this.props.warning }
                         

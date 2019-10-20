@@ -7,10 +7,13 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
-
+  let getAll = (showUserTweet,callback) => {
     let query = 'SELECT users.id, users.username, tweet.tweet, tweet.creation_date FROM tweet INNER JOIN USERS ON tweet.user_id=users.id';
-    //   console.log(query)
+    if (showUserTweet != null) {
+      query = query+ " WHERE users.username ='"+showUserTweet+"'";
+    }
+
+      // console.log(query)
     // let query = 'SELECT * FROM tweet';
 
     dbPoolInstance.query(query, (error, queryResult) => {

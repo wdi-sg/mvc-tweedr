@@ -2,8 +2,7 @@ const SALT = "racketofthesaltyrunlamb";
 const sha256 = require('js-sha256');
 
 module.exports = (db) => {
-
-
+  
   let userLogged = false;
 
 const loggedIn = function (request) {
@@ -20,12 +19,24 @@ const loggedIn = function (request) {
 
   let indexControllerCallback = (request, response) => {
     loggedIn(request);
-      db.tweedr.getAll((error, allTweets) => {
+    let showUserTweet = null;
+      db.tweedr.getAll(showUserTweet, (error, allTweets) => {
+        allTweets.pageTitle = "Latest Tweets";
         response.render('tweedr/alltweets', { allTweets });
                 // response.send({ allTweets });
       });
   };
 
+
+  let myindexControllerCallback = (request, response) => {
+    let showUserTweet = request.params.id;
+      db.tweedr.getAll(showUserTweet, (error, allTweets) => {
+        allTweets.pageTitle = showUserTweet +"'s latest tweets";
+        console.log({allTweets})
+        response.render('tweedr/alltweets', { allTweets });
+                // response.send({ allTweets });
+      });
+  };
     let tweetControllerCallback = (request, response) => {
         data = {};
         // check for user logged in..
@@ -70,6 +81,7 @@ const loggedIn = function (request) {
    */
   return {
     index: indexControllerCallback,
+    mytweet: myindexControllerCallback,
     tweet: tweetControllerCallback,
     tweetPost: tweetPostControllerCallback
   };

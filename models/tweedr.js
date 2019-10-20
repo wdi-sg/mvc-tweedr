@@ -107,11 +107,37 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+    let addTweet = (allData, callback) => {
+    let query  = 'INSERT INTO tweet (user_id, tweet, creation_date) VALUES ($1, $2, $3) RETURNING id';
+    const now = new Date()
+    const values = [allData.user_id, allData.tweet, now];
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
 
   return {
     getAll,
     getAllUsers,
     checkUsers,
-    addNewUser
+    addNewUser,
+    addTweet
   };
 };

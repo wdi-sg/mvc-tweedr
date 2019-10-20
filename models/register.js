@@ -14,6 +14,7 @@ module.exports = (dbPoolInstance) => {
         let query = 'INSERT INTO users (username, password) VALUES ($1, $2)';
 
         const newUserArr = [userInfo.username, sha256(userInfo.password)]
+
         dbPoolInstance.query(query, newUserArr, (error, queryResult) => {
             if (error) {
 

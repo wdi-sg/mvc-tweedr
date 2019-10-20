@@ -19,6 +19,9 @@ module.exports = (app, allModels) => {
 
     app.get('/tweets', tweetsControllerCallbacks.index);
 
+    app.get('/tweets/new', tweetsControllerCallbacks.new);
+    app.post('/tweets', tweetsControllerCallbacks.postNew)
+
     app.get('/register', registerControllerCallbacks.index);
     app.post('/register', registerControllerCallbacks.registerPost);
 

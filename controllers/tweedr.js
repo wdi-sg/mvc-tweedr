@@ -1,7 +1,16 @@
 module.exports = (db) => {
 
-        const SALT = "racketofthesaltyrunlamb";
-        const sha256 = require('js-sha256');
+  const SALT = "racketofthesaltyrunlamb";
+  const sha256 = require('js-sha256');
+
+  let userLogged = false;
+
+const loggedIn = function (request) {
+ // see if they are logged in?
+  if (sha256(request.cookies['tweedr_user'] + SALT) === request.cookies['tweedr_nr'] ){
+  userLogged = true;
+  } 
+}
   /**
    * ===========================================
    * Controller logic
@@ -9,6 +18,7 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
+    loggedIn(request);
       db.tweedr.getAll((error, allTweets) => {
         response.render('tweedr/alltweets', { allTweets });
                 // response.send({ allTweets });
@@ -36,6 +46,12 @@ module.exports = (db) => {
                 // console.log ('passwords match')
                               // console.log (data.user[0].username) 
                // console.log ({postRegister}) 
+               // lets get em cookied
+            let currentSessionCookie = sha256( allData.username + SALT );
+            response.cookie('tweedr_user', allData.username);
+            response.cookie('tweedr_nr', currentSessionCookie);
+
+
                 response.redirect('/tweedr'); 
               }
               else {

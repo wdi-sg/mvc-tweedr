@@ -26,13 +26,13 @@ class Navbar extends React.Component {
                     <div class="navbar-nav">
                       <a class="nav-item nav-link active" href="/followYou">Followers</a>
                     </div>
-                    <div class="navbar-nav">
-                      <a class="nav-item nav-link active" href="/logout">Log Out</a>
-                    </div>
-                    <form class="form-inline my-2 my-lg-0" method='POST' action='/users'>
+                    <form class="form-inline my-2 my-lg-0 mr-4" method='POST' action='/users'>
                       <input class="form-control mr-sm-2" type="text" name="username" placeholder="username" required/>
                       <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search Users</button>
                     </form>
+                    <div class="navbar-nav">
+                      <a class="btn btn-outline-dark" href="/logout">Log Out</a>
+                    </div>
                 </div>
             </nav>
         </header>

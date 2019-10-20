@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (user_id, callback) => {
 
-    let query = "SELECT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) INNER JOIN followers ON (followers.followers_user_id = tweeds.users_id) WHERE followers.user_id = "+user_id+" OR users_id = "+user_id+" ORDER by tweeds.id DESC"
+    let query = "SELECT DISTINCT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) INNER JOIN followers ON (followers.followers_user_id = tweeds.users_id) WHERE followers.user_id = "+user_id+" OR users_id = "+user_id+" ORDER by tweeds.id DESC"
 
 
     // "SELECT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) WHERE users.id = "+user_id+" ORDER by tweeds.id DESC;";
@@ -69,11 +69,9 @@ module.exports = (dbPoolInstance) => {
     let inputValues = [username, hashedPassword, image];
     console.log(inputValues);
 
-    let query = 'WITH newUser as (INSERT INTO users (username, password, image) VALUES ($1, $2, $3) RETURNING *) INSERT INTO followers (followers_user_id) VALUES ((SELECT id from newUser))';
+    let query = 'WITH newUser as (INSERT INTO users (username, password, image) VALUES ($1, $2, $3) RETURNING *) INSERT INTO followers (followers_user_id) VALUES ((SELECT id from newUser)) RETURNING *';
 
     dbPoolInstance.query(query, inputValues, (error, queryResult) => {
-        console.log("queryResult below:")
-        console.log(queryResult);
       if( error ){
 
         // invoke callback function with results after query has executed
@@ -152,9 +150,11 @@ module.exports = (dbPoolInstance) => {
 
   let getUser = (requestUser, callback) => {
 
-    let query = "SELECT * FROM users WHERE username = '" +requestUser+"'";
+    let query = "SELECT * FROM users WHERE username LIKE '" +requestUser+"%'";
 
     dbPoolInstance.query(query, (error, queryResult) => {
+        console.log("queryResult below:")
+        console.log(queryResult);
       if( error ){
 
         // invoke callback function with results after query has executed

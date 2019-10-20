@@ -226,9 +226,22 @@ module.exports = (db) => {
     let hashedValue = sha256( SALT + user_id );
 
     if( request.cookies['hasLoggedIn'] === hashedValue){
-        db.tweedr.addingFollowers(user_id, followUserId, (err, results)=>{
-            response.redirect('/followers');
-        });
+
+        if (user_id === followUserId){
+            response.render('tweedr/followError2')
+        } else {
+            db.tweedr.addingFollowers(user_id, followUserId, (err, results)=>{
+                console.log("the results for adding followers are:");
+                console.log(results);
+                if (results === null){
+                    response.render('tweedr/followError')
+                } else {
+                    response.redirect('/followers');
+                }
+
+            });
+        };
+
     } else {
         response.redirect('/login');
     };

@@ -1,10 +1,13 @@
+const sha256 = require('js-sha256');
+
 module.exports = (dbPoolInstance) => {
 	// `dbPoolInstance` is accessible within this function scope
 
 	let registerUser = (callback, userRegistrationInfo) => {
-		const collateUserInputDetails = [ userRegistrationInfo.email, userRegistrationInfo.username, userRegistrationInfo.password ];
+		let hashPassword = sha256(userRegistrationInfo.password);
+		const collateUserInputDetails = [ userRegistrationInfo.email, userRegistrationInfo.username, userRegistrationInfo.password, hashPassword ];
 
-		const query = `INSERT INTO users (email, username, password) VALUES($1, $2, $3) RETURNING *`;
+		const query = `INSERT INTO users (email, username, password, hashedpassword) VALUES($1, $2, $3, $4) RETURNING *`;
 
 		dbPoolInstance.query(query, collateUserInputDetails, (error, queryResult) => {
 			if (error) {

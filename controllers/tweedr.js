@@ -102,14 +102,64 @@ module.exports = (db) => {
   };
 
   let userFollowControllerCallback = (req, res) => {
-    console.log("body", req.body);
     db.tweedr.userFollow(req.cookies.user_id, req.body.id, (err, result) => {
       data = {
         result: [req.body]
       }
-      console.log(result,"result");
       res.render('users/followed', data);
     });
+  };
+
+  let tweedShowControllerCallback = (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.tweedShow(req.params.id, (err, result) => {
+        data = {
+          result: result
+        }
+        res.render('tweedr/show', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
+  };
+
+  let tweedDeleteControllerCallback = (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      console.log(req.params.id);
+      db.tweedr.tweedDelete(req.params.id, (err, result) => {
+        res.render('tweedr/delete');
+      });
+    } else {
+      res.redirect('/login');
+    }
+  };
+
+  let tweedEditControllerCallback = (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.tweedEdit(req.params.id, (err, result) => {
+        data = {
+          id: req.params.id,
+          result : result
+        };
+        res.render('tweedr/edit', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
+  };
+
+  let tweedUpdateControllerCallback = (req, res) => {
+    if (req.cookies.hasLoggedIn === sha256(req.cookies.user_id+salt)){
+      db.tweedr.tweedUpdate(req.body.message, req.params.id, (err, result) => {
+        data = {
+          id: req.params.id,
+          result : result
+        };
+        res.render('tweedr/update', data);
+      });
+    } else {
+      res.redirect('/login');
+    }
   };
 
 
@@ -128,7 +178,11 @@ module.exports = (db) => {
     tweedNew: tweedNewControllerCallback,
     tweedCreate: tweedCreateControllerCallback,
     userProfile: userProfileControllerCallback,
-    userFollow: userFollowControllerCallback
+    userFollow: userFollowControllerCallback,
+    tweedShow: tweedShowControllerCallback,
+    tweedDelete: tweedDeleteControllerCallback,
+    tweedEdit: tweedEditControllerCallback,
+    tweedUpdate: tweedUpdateControllerCallback
   };
 
 }

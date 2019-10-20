@@ -31,5 +31,13 @@ module.exports = (app, allModels) => {
   app.get('/users/:id',tweedrControllerCallbacks.userProfile);
 
   app.post('/users', tweedrControllerCallbacks.userFollow);
+  
+  app.get('/tweedr/:id',tweedrControllerCallbacks.tweedShow);
+  
+  app.delete('/tweedr/:id', tweedrControllerCallbacks.tweedDelete);
+
+  app.get('/tweedr/:id/edit', tweedrControllerCallbacks.tweedEdit);
+
+  app.put('/tweedr/:id', tweedrControllerCallbacks.tweedUpdate);
 
 };

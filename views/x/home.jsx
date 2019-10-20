@@ -37,11 +37,15 @@ class Home extends React.Component {
         <head />
         <body>
           <h2>Home page</h2>
+          <form method="GET" action="/logout">
+            <input type="submit" value="logout"/>
+          </form>
           <h3>Welcome, {username}!</h3>
           <form method="POST" action="/home">
             <input type="text" name="tweed" placeholder="What's on your mind?" style={{width: 20 + '%'}}/><br/>
             <input type="submit" value="Tweed"/>
           </form>
+
           <div>
               <h4>Your tweeds</h4>
               <div>

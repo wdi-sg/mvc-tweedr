@@ -21,6 +21,7 @@ module.exports = (app, allModels) => {
     app.get('/user/:id',xCC.userPage);
     app.get('/sign/:upin',xCC.upin);
     app.post('/sign/:upin',xCC.checkupin);
+    app.get('/logout', xCC.logout);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

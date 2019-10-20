@@ -98,7 +98,7 @@ module.exports = (dbPoolInstance) => {
 
     let checkLogin = (username, password, callback) =>{
         let queryArr = [username,password];
-        let query = 'SELECT * FROM users WHERE username = $1 AND hashpassword = $2'
+        let query = 'SELECT * FROM users WHERE username = $1 AND hashpassword = $2';
         dbPoolInstance.query(query,queryArr,(error, queryResult) => {
             if (error) {
                 callback(error, null);
@@ -112,6 +112,39 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    let checkUserExists = (username , callback) =>{
+        let queryArr = [username];
+        let query = 'SELECT * FROM users WHERE username = $1';
+        dbPoolInstance.query(query, queryArr,(error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    }
+
+    let registerUser = (username, hashPassword, callback) => {
+        let queryArr = [username, hashPassword];
+        let query = 'INSERT INTO users (username, hashPassword) VALUES ($1,$2)';
+        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null, queryResult.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
@@ -124,5 +157,7 @@ module.exports = (dbPoolInstance) => {
         getFollowing,
         postTweed,
         checkLogin,
+        checkUserExists,
+        registerUser,
     };
 };

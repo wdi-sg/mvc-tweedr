@@ -110,8 +110,24 @@ module.exports = (db) => {
                 }
             })
         } else if (upin === "up"){
-            response.send(request.body.password);
+            let username = request.body.username;
+            let password = request.body.password;
+            db.x.checkUserExists(username, (error, results)=>{
+                if(results === null){
+                    db.x.registerUser(username,password,(error,results)=>{
+                        response.send(`Registered ${username} as a member of Tweedr!`);
+                    })
+                } else {
+                    response.send(`Sorry. The name ${username} is already in use!`)
+                }
+            })
         }
+    }
+
+    let logout = (request,response)=>{
+        response.clearCookie('user_id');
+        response.clearCookie('hasLoggedIn');
+        response.redirect('/');
     }
 
     /* ===================================================
@@ -126,6 +142,7 @@ module.exports = (db) => {
         postTweed,
         upin,
         checkupin,
+        logout,
     };
 
 }

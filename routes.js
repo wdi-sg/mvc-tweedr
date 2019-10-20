@@ -17,6 +17,7 @@ module.exports = (app, allModels) => {
   const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
 
   app.get('/tweedr', tweedrControllerCallbacks.index);
+  app.get('/', tweedrControllerCallbacks.index);
 
   app.get('/tweet', tweedrControllerCallbacks.tweet);
   app.post('/tweet', tweedrControllerCallbacks.tweetPost);

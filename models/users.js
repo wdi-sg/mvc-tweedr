@@ -51,9 +51,26 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let showUser = (req,callback) => {
+        let values = [req.params.id];
+        let query = `SELECT * FROM users WHERE id=$1`;
+        dbPoolInstance.query(query,values,(err,res)=>{
+            if (err) {
+                callback(err,null);
+            } else {
+                if (res.rows.length>0) {
+                    callback(null,res.rows);
+                } else {
+                    callback(null,null);
+                };
+            };
+        });
+    };
+
     return {
         getAll,
         insertNew,
-        verifyLogin
+        verifyLogin,
+        showUser
     };
 };

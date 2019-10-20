@@ -44,6 +44,8 @@ module.exports = (app, allModels) => {
     app.get('/users/login', usersController.login);
 // send login info and verify
     app.post('/users/login', usersController.check);
+// show individual user
+    app.get('/users/:id', usersController.show);
 /*
 ╔═╗┌─┐┬  ┬  ┌─┐┬ ┬┌─┐
 ╠╣ │ ││  │  │ ││││└─┐

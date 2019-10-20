@@ -46,6 +46,13 @@ module.exports = (db) => {
             };
         });
     };
+
+    let showControllerCallback = (req,res) => {
+        db.users.showUser(req,(err,result)=>{
+            let data = {req,result};
+            res.render('users/show',data);
+        });
+    };
 /*
 ╔═╗─┐ ┬┌─┐┌─┐┬─┐┌┬┐
 ║╣ ┌┴┬┘├─┘│ │├┬┘ │
@@ -56,6 +63,7 @@ module.exports = (db) => {
         new: newControllerCallback,
         create: createControllerCallback,
         login: loginControllerCallback,
-        check: checkControllerCallback
+        check: checkControllerCallback,
+        show: showControllerCallback
     };
 };

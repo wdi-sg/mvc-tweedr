@@ -54,12 +54,6 @@ pool.on('error', function(err) {
  * ===================================================
  */
 
-const allTweetModels = require('./models/tweets');
-// const detailsModelObject = require('./models/register');
-
-const tweetsModelObject = allTweetModels(pool);
-// const detailsModelObject = allDetailsModels(pool);
-
 // getting registration details....
 const registerUser = require('./models/register');
 const user = registerUser(pool);
@@ -67,6 +61,10 @@ const user = registerUser(pool);
 // checking if login details are correct..
 const loginUser = require('./models/login');
 const userLogin = loginUser(pool);
+
+// finding all user tweets from db
+const userTweets = require('./models/usertweets');
+const allUserTweetsModelObject = userTweets(pool);
 /*
  * ===================================================
  * ===================================================
@@ -93,7 +91,7 @@ module.exports = {
    */
 
 	// users: userModelsObject,
-	tweets: tweetsModelObject,
 	user: user,
-	userLogin: userLogin
+	userLogin: userLogin,
+	tweets: allUserTweetsModelObject
 };

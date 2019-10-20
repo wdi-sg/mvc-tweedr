@@ -1,4 +1,6 @@
 var React = require("react");
+const Navbar = require('./navbar.jsx');
+const Head = require('./head.jsx');
 
 class FollowingTweeds extends React.Component {
     render(){
@@ -20,29 +22,44 @@ class TweedFunction extends React.Component {
     }
 }
 
+class AllUsersFunction extends React.Component {
+    render(){
+        let username = this.props.key1.username;
+        let id = this.props.key1.id;
+        return(
+            <p><a href={'http://localhost:3000/user/'+id}>{username}</a></p>
+        )
+    }
+}
+
 class Home extends React.Component {
   render() {
     let username = this.props.username;
-    let tweedArr = this.props.tweed;
 
+    let tweedArr = this.props.tweed;
     let tweed = tweedArr.map(tweed =>{
         return <TweedFunction key1={tweed}/>
     })
+
     let fTweedArr = this.props.following;
     let fTweed = fTweedArr.map(fTweed =>{
         return <FollowingTweeds key1={fTweed}/>
     })
+
+    let allUsersArr = this.props.allUsers;
+    let allUsers = allUsersArr.map(allUsers =>{
+        return <AllUsersFunction key1={allUsers}/>
+    })
+
     return (
       <html>
-        <head />
+        <Head/>
         <body>
+        <Navbar key1={this.props}/>
           <h2>Home page</h2>
-          <form method="GET" action="/logout">
-            <input type="submit" value="logout"/>
-          </form>
           <h3>Welcome, {username}!</h3>
           <form method="POST" action="/home">
-            <input type="text" name="tweed" placeholder="What's on your mind?" style={{width: 20 + '%'}}/><br/>
+            <input type="text" name="tweed" placeholder="What's on your mind?"/><br/>
             <input type="submit" value="Tweed"/>
           </form>
 
@@ -58,6 +75,13 @@ class Home extends React.Component {
                 {fTweed}
               </div>
           </div>
+          <div>
+            <h4>Users in Tweedr</h4>
+            <div>
+              {allUsers}
+            </div>
+          </div>
+          <script src="/script.js"/>
         </body>
       </html>
     );

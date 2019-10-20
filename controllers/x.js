@@ -40,7 +40,9 @@ module.exports = (db) => {
                 let username = name[0]["username"];
                 db.x.getTweedUsers(user_id,(error, tweed) => {
                     db.x.getFollowing(user_id,(error,following)=>{
-                        response.render('x/home.jsx',{username,tweed,following});
+                        db.x.getAllUsers((error,allUsers)=>{
+                            response.render('x/home.jsx',{username,tweed,following,allUsers,user_id});
+                        });
                     })
                 })
             });

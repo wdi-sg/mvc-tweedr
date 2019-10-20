@@ -14,12 +14,15 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
-          <h3>Please Register With a Username and Password </h3>
+          <div className="container text-center">
+          <h3 className="display-3">Please Register With a Username and Password </h3>
           <form action="/register" method="POST">
-          <p><input type="text" name="username" placeholder="User Name"/></p>
-          <p> <input type="text" name="password" placeholder="Password"/></p>
-          <button className="btn btn-primary btn-lg" type="submit">Log In</button>
+          <p><input type="text" name="username" placeholder="User Name" className="form-control form-control-lg"/></p>
+          <p> <input type="password" name="password" placeholder="Password" className="form-control form-control-lg"/></p>
+          <button className="btn btn-primary btn-lg" type="submit">Register</button>
           </form>
+          </div>
+         
         </body>
       </html>
     );

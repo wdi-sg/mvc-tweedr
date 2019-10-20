@@ -66,10 +66,13 @@ module.exports = db => {
   let homePage = (request, response) => {
     let userId = request.cookies["user_id"];
     let userName = request.cookies["user_name"]
-    db.tweets.allTweets(userId,  (error, result) => {
+    db.tweets.allTweets(userId, (error, result) => {
       if (error) {
         console.error("query error:", error.stack);
         response.send("query error");
+      } else if(result === "no followers"){
+        console.log("NO FOLLOWERS");
+        response.send("NO FOLLWOWERS")
       } else {
         const data = {
           result: result,
@@ -150,6 +153,11 @@ module.exports = db => {
       if (error) {
         console.error("query error:", error.stack);
         response.send("query error");
+      } else if(result === null) {
+        const data = {
+          message : "empty"
+        }
+        response.render('tweedr/following', data)
       } else {
         const data = {
           result: result
@@ -166,11 +174,17 @@ module.exports = db => {
       if (error) {
         console.error("query error:", error.stack);
         response.send("query error");
+      } else if(result === null) {
+        const data = {
+          message : "empty"
+        }
+        response.render('tweedr/followers', data)
+        
       } else {
         const data = {
           result: result
         }
-        console.log(result)
+        
         response.render('tweedr/followers', data)
       }
     })

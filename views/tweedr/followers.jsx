@@ -3,9 +3,16 @@ const Navbar = require("./navbar.jsx");
 
 class Home extends React.Component {
   render() {
-    let list = this.props.result.map(item => {
-      return <li className="list-group-item"> {item.username}</li>;
-    });
+
+    let list = "";
+    if(this.props.message === "empty") {
+      list=""
+    } else {
+      list = this.props.result.map(item => {
+        return <li className="list-group-item"> {item.username}</li>
+      });
+    }
+
     return (
       <html>
         <head>

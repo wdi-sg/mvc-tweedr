@@ -19,13 +19,20 @@ module.exports = (db) => {
         };
     };
 
-    // let newControllerCallback = (req,res) => {
-    //     if (req.cookies.loggedIn !== 'yes') {
-    //         res.redirect('/users/login')
-    //     } else {
-    //         res.render('tweets/new');
-    //     };
-    // };
+    let showControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.follows.getAllFollowers(req,(err,result)=>{
+                if (result===null) {
+                    res.send('no followers');
+                } else {
+                    let data = {req,result};
+                    res.render('follows/followers',data);
+                };
+            });
+        };
+    };
 
     let createControllerCallback = (req,res) => {
         if (req.cookies.loggedIn !== 'yes') {
@@ -42,7 +49,7 @@ module.exports = (db) => {
 ╚═╝┴ └─┴  └─┘┴└─ ┴
 */
     return {
-        // new: newControllerCallback,
+        show: showControllerCallback,
         create: createControllerCallback,
         index: indexControllerCallback
     };

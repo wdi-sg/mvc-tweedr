@@ -56,5 +56,5 @@ module.exports = (app, allModels) => {
 // add following
     app.post('/following/:id', followsController.create);
 // get all followers
-    // app.get('/followers', followsController.show);
+    app.get('/followers', followsController.show);
 };

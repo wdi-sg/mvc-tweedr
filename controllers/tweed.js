@@ -48,12 +48,21 @@ module.exports = (db) => {
     // get user id
     let user = request.cookies.name;
     db.users.checkUserName(user, (error, result) => {
+      // POST tweed
       let tweed = {}
       tweed.tweed = request.body.tweed;
       tweed.user_id = result[0].id;
       db.tweeds.registerTweed(tweed, (error, result) => {
+        // render tweed
         response.send({ result });
       });
+    });
+  };
+
+  let getTweeds = (request, response) => {
+    // respond with HTML page of all tweeds
+    db.tweeds.allTweeds((error, result) => {
+        response.send({ result })
     });
   };
 
@@ -64,9 +73,8 @@ module.exports = (db) => {
    */
   return {
     newTweed: getNewTweed,
-    registerTweed: postNewTweed
-    // currentUser: getUser,
-    // loginUser: postUser
+    registerTweed: postNewTweed,
+    allTweeds: getTweeds
   };
 
 }

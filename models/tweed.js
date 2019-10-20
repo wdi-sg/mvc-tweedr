@@ -25,7 +25,25 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let allTweeds = (callback) => {
+    let query = 'SELECT * FROM tweeds';
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     registerTweed,
+    allTweeds
   };
 };

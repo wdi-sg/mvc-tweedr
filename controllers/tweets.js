@@ -19,9 +19,7 @@ module.exports = (db) => {
 
   ///////SHOWS PAGE TO REGISTER A USER////////
   let createUser = (request, response) => {
-      //db.tweets.userCreation((error, createUser) => {
-        response.render('tweets/createUser');
-      //});
+    response.render('tweets/createUser');
   };
 
   ///////SUBMITS REGISTRATION FORM AND ADD TO USER DB//////
@@ -33,7 +31,7 @@ module.exports = (db) => {
         console.error('error getting user', error);
         respond.send('error getting user');
       } else {
-          console.log('result from controller:', result);
+          //console.log('result from controller:', result);
           let user_id = result[0].id;
           let currentSessionCookie = sha256(user_id + 'logged_id' + SALT);
           response.cookie('user_id', user_id);
@@ -49,6 +47,41 @@ module.exports = (db) => {
     });
   };
 
+  ///////SHOWS PAGE TO LOG IN////////
+  let login = (request, response) => {
+    response.render('tweets/login');
+  };
+
+  //////VERIFY DATA TO LOG IN//////
+  let verifyLogIn = (request, response) => {
+    let user = request.body;
+    let hashedPassword = sha256(user.password + SALT);
+    console.log("hashed entered password: " + hashedPassword);
+
+    db.tweets.userLogIn(user, (error, result) => {
+      if (error){
+        console.error('error getting user', error);
+        respond.send('error getting user');
+      } else {
+          if (hashedPassword === result[0].password) {
+            let user_id = result[0].id;
+            let currentSessionCookie = sha256(user_id + 'logged_id' + SALT);
+            response.cookie('user_id', user_id);
+            response.cookie('loggedIn', currentSessionCookie);
+
+            let data = {
+            "name": result[0].name,
+            "username": result[0].username
+            };
+
+            response.render('tweets/home', data);
+          } else {
+                response.status(403).send('Oops! Wrong password');
+          };
+      };
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -59,6 +92,8 @@ module.exports = (db) => {
     getAllTweets,
     createUser,
     addUser,
+    login,
+    verifyLogIn
   };
 
 }

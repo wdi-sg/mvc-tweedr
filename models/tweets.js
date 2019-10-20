@@ -7,6 +7,7 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
   const sha256 = require('js-sha256');
   const SALT = "bababanana";
+
 //////SHOW ALL TWEETS//////
   let getAllTweetsData = (callback) => {
     let query = 'SELECT * FROM tweets';
@@ -34,8 +35,8 @@ module.exports = (dbPoolInstance) => {
     const query = `INSERT INTO users (name, email, username, password) VALUES ($1, $2, $3, $4) RETURNING *`;
 
     dbPoolInstance.query(query, newValues, (error, queryResult) => {
-        console.log ("this is queryResult from models: ", queryResult);
-        console.log("this is queryResult.rows from models: ", queryResult.rows);
+        //console.log ("this is queryResult from models: ", queryResult);
+        //console.log("this is queryResult.rows from models: ", queryResult.rows);
       if ( error ){
         callback(error, null);
       } else {
@@ -47,6 +48,27 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+//////FINDS USER IN DATABASE TO LOG IN//////
+  let userLogIn = (user, callback) => {
+    //user defined in controller as request.body
+    //check database for this user
+    const userValue = [user.username];
+    const queryString = `SELECT * FROM users WHERE username = $1`;
+    console.log("the user is " + userValue);
+
+    dbPoolInstance.query(queryString, userValue, (error, queryResult) => {
+      if ( error ){
+        callback(error, null);
+      } else {
+          if ( queryResult.rows.length > 0 ){
+            callback(null, queryResult.rows);
+          } else {
+            callback(null, null);
+          }
+      }
+    });
+  }
 
 
 
@@ -63,6 +85,7 @@ module.exports = (dbPoolInstance) => {
 
   return {
     getAllTweetsData,
-    addNewUser
+    addNewUser,
+    userLogIn
   };
 };

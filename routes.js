@@ -19,6 +19,12 @@ module.exports = (app, allModels) => {
 
 //('route', defined-callback-from-above.key-from-controller-return)
   app.get('/', allTweetsControllerCallbacks.getAllTweets);
+
   app.get('/register', allTweetsControllerCallbacks.createUser);
   app.post('/register', allTweetsControllerCallbacks.addUser);
+
+  app.get('/login', allTweetsControllerCallbacks.login);
+  app.post('/home', allTweetsControllerCallbacks.verifyLogIn);
+
+
 };

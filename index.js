@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use(express.urlencoded({
-  extended: true
+    extended: true
 }));
 
 // Set react-views to be the default view engine
@@ -65,10 +65,10 @@ const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of
 
 let onClose = function () {
 
-  server.close(() => {
-    console.log('Process terminated')
-    allModels.pool.end(() => console.log('Shut down db connection pool'));
-  })
+    server.close(() => {
+        console.log('Process terminated')
+        allModels.pool.end(() => console.log('Shut down db connection pool'));
+    })
 };
 
 process.on('SIGTERM', onClose);

@@ -120,7 +120,7 @@ module.exports = (db) => {
             console.log(myTweets)
 
             if (myTweets===null){
-                response.redirect('/tweed')
+                response.redirect('/')
 
             } else {
 

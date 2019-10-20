@@ -23,5 +23,5 @@ module.exports = (app, allModels) => {
     app.post('/register', registerControllerCallbacks.registerPost);
 
     app.get('/login', loginControllerCallbacks.index);
-    app.get('/login', loginControllerCallbacks.login);
+    app.post('/login', loginControllerCallbacks.login);
 };

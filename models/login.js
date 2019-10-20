@@ -9,10 +9,14 @@ module.exports = (dbPoolInstance) => {
 
     let loggingIn = (loginInfo, callback) => {
 
-        let query = 'INSERT INTO users (username, password) VALUES ($1, $2)';
+        let {
+            username,
+            reqPassword
+        } = loginInfo;
 
-        const loginInfoArr = [loginInfo.username, loginInfo.password]
-        dbPoolInstance.query(query, loginInfoArr, (error, queryResult) => {
+        let query = `SELECT * FROM users WHERE username = '${username}'`;
+
+        dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
 
                 // invoke callback function with results after query has executed
@@ -22,11 +26,14 @@ module.exports = (dbPoolInstance) => {
 
                 // invoke callback function with results after query has executed
 
-                if (queryResult.rows.length > 0) {
+                if (queryResult.rows.length > 0 && queryResult.rows[0].password === reqPassword) {
+                    console.log("yay logging in", response.rows)
                     callback(null, queryResult.rows);
 
                 } else {
+                    // if username is not found 
                     callback(null, null);
+                    console.log('invalid username!')
 
                 }
             }

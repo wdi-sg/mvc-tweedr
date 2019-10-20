@@ -99,6 +99,6 @@ module.exports = {
      */
 
     tweets: tweetsModelsObject,
-    users: usersModelsObject,
+    login: usersModelsObject,
     register: registerModelsObject,
 };

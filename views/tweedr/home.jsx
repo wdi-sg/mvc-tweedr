@@ -3,10 +3,23 @@ const Navbar = require("./navbar.jsx");
 class Home extends React.Component {
   render() {
       let list;
+      let message; 
       if(this.props.result.length === 0) {
           list= null
       } else {
-        list = this.props.result.map(item => {
+        if(this.props.message === "NO FOLLOWERS") {
+          list = this.props.result.map(item => {
+            return(
+                <li className="list-group-item">
+                <blockquote class="blockquote text-center">
+  <p class="mb-0">{item.tweet}</p>
+  <footer class="blockquote-footer">{this.props.username}</footer>
+</blockquote>
+                </li>
+            )
+        })
+        } else {
+          list = this.props.result.map(item => {
             return(
                 <li className="list-group-item">
                 <blockquote class="blockquote text-center">
@@ -16,6 +29,8 @@ class Home extends React.Component {
                 </li>
             )
         })
+        }
+      
       }
    
     return (

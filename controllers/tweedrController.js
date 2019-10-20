@@ -81,7 +81,8 @@ module.exports = db => {
         db.tweets.getOwnTweet(userId, (error, result) => {
         const data = {
           result: result,
-          username: userName
+          username: userName,
+          message: "NO FOLLOWERS"
         }
         console.log(result, userName)
         response.render('tweedr/home', data)

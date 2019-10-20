@@ -6,11 +6,12 @@ class Usertweets extends React.Component {
 		console.log(this.props);
 		let displayTweets = this.props.allTweets.map((user) => {
 			return (
-				<p>
-					@{user.username}
-					<br />
-					Tweets: {user.tweets}
-				</p>
+				<div class="container bg-info text-black">
+					<div class="row">
+						<div class="col-sm">@{user.username}</div>
+						<div class="col-sm">"{user.tweets}"</div>
+					</div>
+				</div>
 			);
 		});
 		return (
@@ -25,9 +26,16 @@ class Usertweets extends React.Component {
 				</head>
 				<body class="bg-primary">
 					<div class="container text-center text-white">
-						<h1>Your Tweeder homepage</h1>
+						<h1>Welcome to Tweeder</h1>
 						<hr />
 						{displayTweets}
+						<form method="POST" action="/tweets/new">
+							<br />
+							<br />
+							<button type="submit" class="btn btn-danger">
+								Compose new tweet!
+							</button>
+						</form>
 					</div>
 				</body>
 			</html>

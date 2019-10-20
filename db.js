@@ -47,7 +47,8 @@ pool.on('error', function (err) {
 const userModelsFunction = require('./models/user');
 const userModelsObject = userModelsFunction( pool );
 
-
+const tweedModelsFunction = require('./models/tweed');
+const tweedModelsObject = userModelsFunction( pool );
 
 /*
  * ===================================================
@@ -64,10 +65,7 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool:pool,
 
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  user: userModelsObject
+  // * ADD APP MODELS HERE
+  users: userModelsObject,
+  tweeds: tweedModelsObject
 };

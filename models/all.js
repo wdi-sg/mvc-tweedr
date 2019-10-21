@@ -109,10 +109,13 @@ let loginUser = (callback, userLoginInfo) => {
   };
 
 //post tweet, insert into tweets
-let postTweet = (userId, tweed, callback) => {
+let postTweet = ( callback) => {
 
 
-    let query = 'INSERT INTO tweeds (user_id, post) VALUES ($1,$2)';
+
+    // let query = 'INSERT INTO tweeds (user_id, post) VALUES ($1,$2)';
+     let query = 'SELECT post FROM tweets';
+     console.log(query);
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -139,12 +142,66 @@ let postTweet = (userId, tweed, callback) => {
 
 
 
+//db.payments.getUserSentPayments( sender_id, (error, payments) => { ...
+   let sentPayments = (request, callback) => {
 
+        let query = 'SELECT * FROM payments WHERE sender_id=$1';
+        dbPoolInstance.query(query, (error, queryResult)=>{
+              if (err) {
+                callback(err,null);
+              } else {
+                if (res.rows.length>0) {
+                    callback(null,res.rows);
+                } else {
+                    callback(null,null);
+                };
+            };
+        });
+    };
+
+
+// db.payments.getUserRecievedPayments( recipient_id, (error, payments) => { ...
+    let receivedPayments = (request, callback) => {
+
+        let query = 'SELECT * FROM payments WHERE recipient_id=$1';
+        dbPoolInstance.query(query, (error, queryResult)=>{
+
+              if (err) {
+                callback(err,null);
+              } else {
+                if (res.rows.length>0) {
+                    callback(null,res.rows);
+                } else {
+                    callback(null,null);
+                };
+            };
+        });
+    };
+
+
+ // let postPayment = (request, callback) => {
+ //         const { sender_id, recipient_id, amount } = paymentInfo;
+
+ //      let query = 'SELECT * FROM payments WHERE sender_id=$1';
+ //        dbPoolInstance.query(query, queryArr, (error, queryResult) => {
+ //            if (error) {
+ //                callback(error, null);
+ //            } else {
+ //                if (queryResult.rows.length > 0) {
+ //                    callback(null, queryResult.rows);
+ //                } else {
+ //                    callback(null, null);
+ //                }
+ //            }
+ //        });
+ //
 
   return {
     tweets,
     postTweet,
     registerUser,
-    loginUser
+    loginUser,
+    sentPayments,
+    receivedPayments
   };
 };

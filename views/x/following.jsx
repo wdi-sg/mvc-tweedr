@@ -17,9 +17,13 @@ class Home extends React.Component {
     let username = this.props.username;
     let id = this.props.visitingId;
     let followingArr = this.props.results;
-    let following = followingArr.map(element =>{
-        return <FriendFunction key1={element}/>
-    })
+    if (followingArr === null){
+        var following = "You are not following anyone!"
+    } else {
+        var following = followingArr.map(element =>{
+            return <FriendFunction key1={element}/>
+        })
+    }
     console.log(this.props.results);
     // let tweedArr = this.props.tweed;
     // if (tweedArr !== null){

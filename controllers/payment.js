@@ -78,6 +78,42 @@ module.exports = (db) => {
         });
     };
 
+    /** GET Method to get recipient's payment
+     * ==========================================================================
+     * Call model method to get the payment info by recipient_id HERE
+     *   1. Check method 'getUserRecievedPayments' is created, with SELECT query in model
+     *   2. Check 'payments' key is exported from db.js
+     *.  3. Remember to parseInt recipient_id in the method in model file
+     * ==========================================================================
+     */
+    const getRecipientPayment = (request, response) => {
+
+        let sender_id = 8; // This is to check if the sender_id is the current logged in user. By right, the value should be from the current logged in user's user id cookie.
+        let recipient_id = parseInt(request.params.recipient_id);
+        const inputValues = [recipient_id, sender_id];
+        console.log("From Controller: " + inputValues);
+
+        db.payments.getUserRecievedPayments(inputValues, (error, payments) => {
+
+            if (error) {
+
+                console.log("This is from payment controller. There is error getting the payment record by recipient ID!");
+
+            } else {
+
+                if (payments.length > 0) {
+
+                    response.send(payments);
+
+                } else {
+
+                    response.send("This user has not received any payment from you.");
+
+                }
+            }
+        });
+    };
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -86,6 +122,7 @@ module.exports = (db) => {
     return {
         getPaymentForm: getNewPaymentForm,
         postPayment: createPaymentDetails,
-        getPaymentBySender: getSenderPayment
+        getPaymentBySender: getSenderPayment,
+        getPaymentByRecipient: getRecipientPayment
     };
 };

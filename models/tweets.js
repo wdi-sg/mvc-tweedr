@@ -165,29 +165,21 @@ let getUserReceivedPayments =(recipient_id, callback) => {
 
 let getPaymentTotalByRecipient = (recipient_id, callback) => {
 
-        let query = `SELECT * FROM payment WHERE recipient_id= ${recipient_id}`
+        let query = `SELECT SUM(amount) FROM payment WHERE recipient_id= ${recipient_id}`
 
     dbPoolInstance.query(query, (error, queryResult) => {
-      console.log(queryResult)
 
-      let total = queryResult.reduce((a,b)=>{
-        return a.amount+b.amount
-      })
-        callback(total)
+      callback(queryResult.rows[0])
   });
 }
 
 let getPaymentTotalBySender = (recipient_id, callback) => {
 
-        let query = `SELECT * FROM payment WHERE sender_id= ${sender_id}`
+        let query = `SELECT SUM(amount) FROM payment WHERE sender_id= ${sender_id}`
 
     dbPoolInstance.query(query, (error, queryResult) => {
-      console.log(queryResult)
 
-      let total = queryResult.reduce((a,b)=>{
-        return a.amount+b.amount
-      })
-        callback(total)
+      callback(queryResult.rows[0])
   });
 }
 

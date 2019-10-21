@@ -1,6 +1,6 @@
 const express = require('express');
-const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
 
 /**
  * ===================================
@@ -8,15 +8,12 @@ const cookieParser = require('cookie-parser');
  * ===================================
  */
 
-// Init express app
 const app = express();
 
 // Set up middleware
-app.use(methodOverride('_method'));
-
 app.use(cookieParser());
-
 app.use(express.static('public'));
+app.use(methodOverride('_method'));
 
 app.use(express.urlencoded({
   extended: true
@@ -31,9 +28,7 @@ app.engine('jsx', reactEngine);
 
 /**
  * ===================================
- * ===================================
  *                DB
- * ===================================
  * ===================================
  */
 
@@ -42,9 +37,7 @@ const allModels = require('./db');
 
 /**
  * ===================================
- * ===================================
  * Routes
- * ===================================
  * ===================================
  */
 

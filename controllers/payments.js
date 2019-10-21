@@ -34,6 +34,7 @@ module.exports = (db) => {
 
         ];
       data.payments = payments;
+      // console.log("show", data.payments)
       response.render("payments/paymentssent", data );
     // });
   };

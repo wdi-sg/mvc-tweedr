@@ -39,6 +39,8 @@ const allUsersModelsFunction = require("./models/users");
 const usersModelsObject = allUsersModelsFunction( pool );
 const allHomeModelsFunction = require("./models/index");
 const homeModelsObject = allHomeModelsFunction( pool );
+const allPaymentsModelsFunction = require("./models/payments");
+const paymentsModelsObject = allPaymentsModelsFunction( pool );
 
 
 // ======          MODULE EXPORTS            =========
@@ -57,4 +59,5 @@ module.exports = {
   // users: userModelsObject,
   home: homeModelsObject,
   users: usersModelsObject,
+  payments: paymentsModelsObject,
 };

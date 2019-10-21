@@ -31,7 +31,8 @@ module.exports = (app, allModels) => {
     app.get('/tweets', tweetsControllerCallbacks.tweets);
 
     // Render New Payment Form
-    app.get('/payment', paymentControllerCallbacks.getPaymentForm);
+    app.get('/payment/new', paymentControllerCallbacks.getPaymentForm);
 
-
+    // Post new payment
+    app.post('/payment', paymentControllerCallbacks.postPayment);
 };

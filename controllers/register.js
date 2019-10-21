@@ -16,7 +16,7 @@ module.exports = (db) => {
 		const renderRegistrationInfo = (error, registeredUser) => {
 			response.render('tweets/registerSuccess', { registeredUser });
 		};
-		// inserting into db
+		// inserting into db, db needs to have a user....
 		db.user.registerUser(renderRegistrationInfo, userRegistrationInfo);
 	};
 

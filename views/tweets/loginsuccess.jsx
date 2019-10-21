@@ -3,13 +3,11 @@ var React = require('react');
 class Loginsuccess extends React.Component {
 	render() {
 		console.log('in login sucess!!');
-		console.log('this.props');
 		let displayLoginData = this.props.loggedInUser.map((user) => {
 			return (
-				<p>
-					Username: {user.username}
-					Password: {user.password}
-				</p>
+				<span>
+					Username: {user.username}, Password: {user.password}
+				</span>
 			);
 		});
 		return (

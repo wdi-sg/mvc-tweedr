@@ -1,3 +1,6 @@
+const sha256 = require('js-sha256');
+const SALT = 'SEI20 FTW';
+
 module.exports = (db) => {
 	/**
    * ===========================================
@@ -21,6 +24,14 @@ module.exports = (db) => {
 			} else {
 				// successful login
 				if (loggedInUser) {
+					// hashing username, and giving it a cookie
+					let loginCookie = sha256(userLoginInfo.username + 'logged' + SALT);
+					response.cookie('logged_in', loginCookie);
+					// unhashed username, for reference
+					response.cookie('username', userLoginInfo.username);
+					// console.log('WHAT IS THIS', loggedInUser[0].id);
+					// // give cookie to user id
+					response.cookie('users_id', loggedInUser[0].id);
 					response.render('tweets/loginsuccess', { loggedInUser });
 				} else {
 					// login failed

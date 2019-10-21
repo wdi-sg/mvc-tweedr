@@ -3,15 +3,15 @@
  * Export model functions as a module
  * ===========================================
  */
-module.exports = (dbPoolInstance) => {
+module.exports = (pool) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = 'SELECT name FROM users';
 
-    dbPoolInstance.query(query, (error, queryResult) => {
+    pook.query(query, (error, queryResult) => {
       if( error ){
 
         // invoke callback function with results after query has executed

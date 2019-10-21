@@ -50,4 +50,7 @@ module.exports = (app, allModels) => {
 
     // Get payment by ID
     app.get('/payment/:id', paymentControllerCallbacks.getPaymentById);
+
+    // Get all payments
+    app.get('/', paymentControllerCallbacks.getAllPayment);
 };

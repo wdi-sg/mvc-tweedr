@@ -1,8 +1,7 @@
 -- CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY,username TEXT UNIQUE,password TEXT,email TEXT);
 -- CREATE TABLE IF NOT EXISTS tweets (id SERIAL PRIMARY KEY,users_id INTEGER,content TEXT);
 -- CREATE TABLE IF NOT EXISTS follows (id SERIAL PRIMARY KEY,users_id INTEGER,f_er_users_id INTEGER);
-
-
+CREATE TABLE IF NOT EXISTS payments (id SERIAL PRIMARY KEY, sender_id INT, recipient_id INT, amount NUMERIC);
 
 -- SELECT column_name(s)
 -- FROM table1

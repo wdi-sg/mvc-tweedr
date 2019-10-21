@@ -69,6 +69,12 @@ const allFollowsModelsFunction = require('./models/follows');
 
 const followsModelsObject = allFollowsModelsFunction(pool);
 
+// payments
+
+const allPaymentsModelsFunction = require('./models/payments');
+
+const paymentsModelsObject = allPaymentsModelsFunction(pool);
+
 /*
  * ===================================================
  * ===================================================
@@ -100,5 +106,7 @@ module.exports = {
 // tweets
     tweets: tweetsModelsObject,
 // follows
-    follows: followsModelsObject
+    follows: followsModelsObject,
+// payments
+    payments: paymentsModelsObject
 };

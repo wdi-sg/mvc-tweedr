@@ -46,21 +46,22 @@ let registerUser = (inputUsername, inputEmail, inputPwd, callback) => {
 
     const inputValues = [inputUsername, inputEmail, inputPwd];
 
-    let query = "INSERT INTO users (name, email, password) VALUES('" + inputUsername + "', '" + inputEmail + "', '" + inputPwd + "')";
+    let query = "INSERT INTO users (name, email, password) VALUES($1, $2, $3)";
     console.log(query);
 
-    dbPoolInstance.query(query, (error, queryResult) => {
-      if (error) {
-        // invoke callback function with results after query has executed
-        callback(error, null);
-      } else {
-        // invoke callback function with results after query has executed
-        if (queryResult.rows.length > 0) {
-          callback(null, queryResult.rows);
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+
+        if (error) {
+            // invoke callback function with results after query has executed
+            callback(error, null);
         } else {
-          callback(null, null);
+            // invoke callback function with results after query has executed
+            if (queryResult.rows.length > 0) {
+              callback(null, queryResult.rows);
+            } else {
+              callback(null, null);
+            }
         }
-      }
     });
   };
 

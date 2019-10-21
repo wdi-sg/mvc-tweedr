@@ -10,9 +10,9 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let paymentSent = (values, callback) => {
-    const queryArray = [values.sender_id, values.recipient_id, values.amount), values.name, values.email];
-    const queryString = 'INSERT INTO payments (sender_id, recipient_id, amount) VALUES ($1, $2, $3) RETURNING *';
+  let sendingPayments= (v1, v2, v3, callback) => {
+    const queryArray = [v1, v2, v3];
+    const queryString = 'INSERT INTO payments (recipient_id, sender_id, amount) VALUES ($1, $2, $3) RETURNING *';
 
     dbPoolInstance.query(queryString, queryArray, (error, queryResult) => {
       if( error ){
@@ -105,7 +105,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    paymentSent,
+    sendingPayments,
     getUserSentPayments,
     getUserReceivedPayments,
     getPaymentTotalBySender,

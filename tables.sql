@@ -10,3 +10,11 @@ CREATE TABLE IF NOT EXISTS tweets (
     user_id INTEGER,
     post TEXT
 );
+
+
+CREATE TABLE IF NOT EXISTS payments (
+    id SERIAL PRIMARY KEY,
+    sender_id INTEGER,
+    recipient_id INTEGER,
+    amount INTEGER
+);

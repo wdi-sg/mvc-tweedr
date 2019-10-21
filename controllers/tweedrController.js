@@ -78,13 +78,13 @@ module.exports = db => {
         response.send("query error");
       } else if(result === "no followers"){
         console.log("NO FOLLOWERS");
-        db.tweets.getOwnTweet(userId, (error, result) => {
+        db.tweets.getOwnTweet(userId, (error, results) => {
         const data = {
-          result: result,
+          result: results,
           username: userName,
           message: "NO FOLLOWERS"
         }
-       
+       console.log("THIS IS THE GETOWN TWEET" + result)
         response.render('tweedr/home', data)
       
         })
@@ -93,7 +93,7 @@ module.exports = db => {
           result: result,
           username: userName
         }
-        console.log(result)
+        console.log("THIS IS THE ALLTWEET" + result)
         response.render('tweedr/home', data)
       }
     })

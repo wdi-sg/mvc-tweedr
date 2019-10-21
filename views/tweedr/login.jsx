@@ -19,14 +19,16 @@ class Home extends React.Component {
           ></link>
         </head>
         <body>
-          <div className="container mt-4 text-center">
-          <h3>Please log In </h3>
+          <div className="container mt-5 text-center">
+          <h3 className="display-4">Please log In </h3>
           {message}
           <form action="/login" method="POST">
           <p><input type="text" name="username" placeholder="User Name" className="form-control form-control-lg"/></p>
           <p> <input type="password" name="password" placeholder="Password" className="form-control form-control-lg"/></p>
           <button className="btn btn-primary btn-lg" type="submit">Log In</button>
+          <a href="/welcome" className="btn btn-secondary btn-lg ml-4">Back</a>
           </form>
+          
           </div>
         
         </body>

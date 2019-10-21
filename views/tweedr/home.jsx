@@ -3,19 +3,18 @@ const Navbar = require("./navbar.jsx");
 class Home extends React.Component {
   render() {
       let list;
-      let message; 
+      
       if(this.props.result.length === 0) {
-          list= null
+          list= ""
       } else {
         if(this.props.message === "NO FOLLOWERS") {
           list = this.props.result.map(item => {
             return(
                 <li className="list-group-item">
                 <blockquote class="blockquote text-center">
-  <p class="mb-0">{item.tweet}</p>
-  <footer class="blockquote-footer">{this.props.username}</footer>
-  
-</blockquote>
+                <p class="mb-0">{item.tweet}</p>
+                <footer class="blockquote-footer">{this.props.username}</footer>
+                </blockquote>
                 </li>
             )
         })
@@ -24,10 +23,10 @@ class Home extends React.Component {
             return(
                 <li className="list-group-item">
                 <blockquote class="blockquote text-center">
-  <p class="mb-0">{item.tweet}</p>
-  <footer class="blockquote-footer">{item.username}</footer>
-  <footer class="blockquote-footer">{item.created_at["DATE"]}</footer>
-</blockquote>
+                <p class="mb-0">{item.tweet}</p>
+                <footer class="blockquote-footer">{item.username}</footer>
+                {/* <footer class="blockquote-footer">Created On {item.date}</footer> */}
+                </blockquote>
                 </li>
             )
         })

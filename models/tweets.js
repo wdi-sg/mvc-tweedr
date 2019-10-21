@@ -71,7 +71,9 @@ module.exports = dbPoolInstance => {
   let allTweets = (userId, callback) => {
     let input = [userId];
     // let queryString = "SELECT * FROM tweets WHERE user_id=$1";
-    let queryString = "SELECT followers.followed_user_id, followers.follower_user_id,  tweets.tweet, users.username, tweets.created_at FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id OR followers.follower_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id = $1 OR tweets.user_id = $1 ORDER BY created_at DESC"
+    // let queryString = "SELECT followers.followed_user_id, followers.follower_user_id,  tweets.tweet, users.username FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id OR followers.follower_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id = $1 OR tweets.user_id = $1 ORDER BY created_at DESC"
+    let queryString = "SELECT DISTINCT followers.followed_user_id, followers.follower_user_id,  tweets.tweet, users.username, tweets.created_at FROM followers INNER JOIN tweets ON (followers.followed_user_id = tweets.user_id OR followers.follower_user_id = tweets.user_id) INNER JOIN users ON (tweets.user_id = users.id) WHERE followers.follower_user_id != $1 AND tweets.user_id = $1 OR followers.followed_user_id=$1 ORDER BY created_at DESC"
+
 
 
 
@@ -82,6 +84,7 @@ module.exports = dbPoolInstance => {
         if (result.rows.length > 0) {
         
           callback(null, result.rows);
+          console.log("THIS IS ALSO RESUTSA " +  result.rows[0]["created_at"])
         } else if(result.rows.length === 0) {
          
           callback(null, "no followers");
@@ -92,7 +95,7 @@ module.exports = dbPoolInstance => {
 
   let getOwnTweet = (userId, callback) =>{
     let input = [userId];
-    let queryString = "SELECT * FROM tweets WHERE user_id=$1";
+    let queryString = "SELECT * FROM tweets WHERE tweets.user_id=$1";
 
     dbPoolInstance.query(queryString, input, (error, result) => {
       if (error) {

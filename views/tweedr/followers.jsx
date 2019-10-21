@@ -27,7 +27,7 @@ class Home extends React.Component {
         <body>
           <div className="container text-center">
             <h3 className="display-4 border-bottom ">Followers: </h3>
-            <ul className="list-group">{list}</ul>
+            <ul className="list-group mt-4">{list}</ul>
           </div>
         </body>
         <script src="/script.js"></script>

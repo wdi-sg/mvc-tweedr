@@ -24,9 +24,9 @@ class Home extends React.Component {
         </head>
         <body>
           <Navbar/>
-            <div className="container text-center">
+            <div className="container text-center mt-4">
             <h3 className="display-4 border-bottom ">Following: </h3>
-         <ul className="list-group">
+         <ul className="list-group mt-4">
         {list}
          </ul>
             </div>

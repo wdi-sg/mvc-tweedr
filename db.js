@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'syahirah',
+    user: 'home',
     host: '127.0.0.1',
-    database: 'tweets',
+    database: 'codeshare',
     port: 5432
   };
 }

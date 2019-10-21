@@ -29,7 +29,7 @@ module.exports = (db) => {
     db.tweets.addNewUser(newUser, (error, result) => {
       if (error){
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');//minor typo fixed
       } else {
           //console.log('result from controller:', result);
           let user_id = result[0].id;
@@ -61,7 +61,7 @@ module.exports = (db) => {
     db.tweets.userLogIn(user, (error, result) => {
       if (error){
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');
       } else {
           if (hashedPassword === result[0].password) {
             let user_id = result[0].id;
@@ -93,7 +93,7 @@ module.exports = (db) => {
         db.tweets.getUser(user_id, (error, result) => {
           if (error) {
             console.error('error getting user', error);
-            respond.send('error getting user');
+            response.send('error getting user');
           } else {
               let data = {
               "name": result[0].name,
@@ -114,10 +114,10 @@ module.exports = (db) => {
     let user_id = request.cookies.user_id;
     let currentSessionCookie = sha256(user_id + 'logged_id' + SALT);
 
-    db.tweets.addTheTweet(newTweet, (error, result) => {
+    db.tweets.addTheTweet(user_id, newTweet, (error, result) => {
       if (error) {
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');
       } else {
           if (cookieStatus.loggedIn === currentSessionCookie){
             console.log('this is the new tweet content: ', newTweet);

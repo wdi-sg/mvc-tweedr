@@ -89,13 +89,13 @@ module.exports = (dbPoolInstance) => {
   };
 
 //////ADD THE NEW TWEET TO DATABASE/////
-  let addTheTweet = (newTweet, callback) => {
+  let addTheTweet = (user_id, newTweet, callback) => {
     //newTweet defined in controller as request.body
-    let users_userid = cookieStatus.user_id;
-    const thisUser = `SELECT * FROM users WHERE id = ${users_userid}`;
 
-    const newValues = [thisUser.id, thisUser.username, newTweet.content];
-    const queryString = `INSERT INTO tweets (users_userid, users_username, content) VALUES ($1, $2, $3)`;
+    const thisUser = `SELECT * FROM users WHERE id = ${user_id}`;
+
+    const newValues = [thisUser.id, thisUser.username, newTweet];
+    const queryString = `INSERT INTO tweet (users_userid, users_username, content) VALUES ($1, $2, $3)`;
 
     dbPoolInstance.query(queryString, newValues, (error, queryResult) => {
       if ( error ){

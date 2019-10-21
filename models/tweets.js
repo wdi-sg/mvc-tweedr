@@ -111,6 +111,86 @@ module.exports = (dbPoolInstance) => {
   };
 
 
+//CREATE NEW PAYMENT
+let createPayment = (sender_id, recipient_id, amount, callback) => {
+
+    let array = [sender_id, recipient_id, amount]
+    let query = 'INSERT INTO payment (sender_id, recipient_id, amount) VALUES ($1, $2, $3)'
+
+    dbPoolInstance.query(query, array, (error, queryResult) => {
+
+        callback(queryResult.rows[0])
+
+  });
+};
+
+//GET PAYMENT
+
+let getPayment = (payment_id, callback) => {
+
+        let query = `SELECT * FROM payment WHERE id= ${payment_id}`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+        callback(queryResult.rows[0])
+
+  });
+};
+
+//GET SENT PAYMENTS (by user sending payment)
+
+let getUserSentPayments = (sender_id, callback) => {
+
+        let query = `SELECT * FROM payment WHERE sender_id= ${sender_id}`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+        callback(queryResult.rows[0])
+    });
+  };
+
+//GET RECEIVED PAYMENTS
+
+let getUserReceivedPayments =(recipient_id, callback) => {
+
+        let query = `SELECT * FROM payment WHERE recipient_id= ${recipient_id}`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+        callback(queryResult.rows[0])
+    });
+  };
+
+
+
+let getPaymentTotalByRecipient = (recipient_id, callback) => {
+
+        let query = `SELECT * FROM payment WHERE recipient_id= ${recipient_id}`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      console.log(queryResult)
+
+      let total = queryResult.reduce((a,b)=>{
+        return a.amount+b.amount
+      })
+        callback(total)
+  });
+}
+
+let getPaymentTotalBySender = (recipient_id, callback) => {
+
+        let query = `SELECT * FROM payment WHERE sender_id= ${sender_id}`
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      console.log(queryResult)
+
+      let total = queryResult.reduce((a,b)=>{
+        return a.amount+b.amount
+      })
+        callback(total)
+  });
+}
+
 
 
 
@@ -127,6 +207,12 @@ module.exports = (dbPoolInstance) => {
     addNewUser,
     userLogIn,
     getUser,
-    addTheTweet
+    addTheTweet,
+    createPayment,
+    getPayment,
+    getUserSentPayments,
+    getUserReceivedPayments,
+    getPaymentTotalByRecipient,
+    getPaymentTotalBySender
   };
 };

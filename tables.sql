@@ -12,3 +12,10 @@ CREATE TABLE IF NOT EXISTS tweet (
 	users_username TEXT,
 	content TEXT
 );
+
+CREATE TABLE IF NOT EXISTS payment (
+	id SERIAL PRIMARY KEY,
+	sender_id INTEGER,
+	recipient_id INTEGER,
+	amount INTEGER
+);

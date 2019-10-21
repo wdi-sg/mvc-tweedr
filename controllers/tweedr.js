@@ -277,7 +277,7 @@ module.exports = (db) => {
   let changeProfilePic = (request, response)=>{
 
     let image = request.body.image;
-    let userID = request.cookies['user_id'];
+    let user_id = request.cookies['user_id'];
     let hashedValue = sha256( SALT + user_id );
 
     if( request.cookies['hasLoggedIn'] === hashedValue){

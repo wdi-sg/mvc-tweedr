@@ -261,7 +261,7 @@ module.exports = (dbPoolInstance) => {
 
     let inputValues = [user_id, followUserId];
 
-    let query = "INSERT INTO followers (user_id, followers_user_id) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT * FROM followers WHERE user_id=($1) AND followers_user_id=($2))";
+    let query = "INSERT INTO followers (user_id, followers_user_id) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT * FROM followers WHERE user_id=($1) AND followers_user_id=($2)) RETURNING *";
 
     dbPoolInstance.query(query, inputValues, (error, queryResult) => {
       if( error ){

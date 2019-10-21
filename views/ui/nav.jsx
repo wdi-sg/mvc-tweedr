@@ -11,6 +11,9 @@ class Nav extends React.Component {
           <li>
             <a href="/tweets/new">Add New Tweet</a>
           </li>
+          <li>
+            <a href="/payments/send">Send Payment</a>
+          </li>
         </ul>
       </nav>
     );

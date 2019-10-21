@@ -27,6 +27,7 @@ module.exports = (app, allModels) => {
   app.get('/', tweetsControllerCallbacks.showAllTweets);  
   app.get('/tweets/new', tweetsControllerCallbacks.renderNewTweetForm);  
   app.post('/tweets', tweetsControllerCallbacks.addNewTweet);  
-  app.get('/payments/send', paymentControllerCallbacks.renderSendPaymentForm);
+  app.get('/payments/new', paymentControllerCallbacks.renderSendPaymentForm);
+  app.post('/payments', paymentControllerCallbacks.sendPayment);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

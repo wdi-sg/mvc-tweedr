@@ -13,10 +13,19 @@ module.exports = db => {
     let user_name = request.cookies.user_name;
     let { content } = request.body;
 
-    db.payments.sendPayment(user_id, content, (error, paymentSent) => {
-      if (error) {
-        console.log("Error!", error);
-      } else {
+    // ******* model functions:
+    // db.payments.sendPayment(user_id, content, (error, paymentSent) => {
+    //   if (error) {
+        // console.log("Error!", error);
+    //   } else {
+        const paymentSent = [
+            {
+              sender_id : 2,
+              recipient_id : 4,
+              amount : 1600
+            }
+          ];
+          
         const data = {
           paymentSent: paymentSent,
           message: "Payment sent!",
@@ -24,11 +33,11 @@ module.exports = db => {
           user_name: user_name
         };
 
-        response.send("going to send payment!!!!");
-        // response.render("payments/send", data);
-      }
+        // response.send("going to send payment!!!!");
+        response.render("payments/send", data);
+    //   }
       // response.render('tweets/addNewSuccess', { newTweet });
-    });
+    // });
   };
 
   let renderSendPaymentForm = (request, response) => {

@@ -339,6 +339,94 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  // THIS WILL INSERT A ROW INTO PAYMENTS WITH THE DETAILS OF THE TRANSACTION AND RETURN THE ROW 
+  let getUserSentPayments = (sender_id, recipient_id, amount, callback) => {
+    let inputValues = [sender_id, recipient_id, amount]
+    let query = "INSERT INTO payments (sender_id, recipient_id, amount) VALUES ($1, $2, $3)"
+   
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows[0]);
+
+          /*The queryREsult.rows[0] will look like this
+          {
+            sender_id: 2,
+            recipientid: 4,
+            amount: 1600
+          }
+          */
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  }
+
+
+
+// THIS WILL SELECT ALL THE ROWS WITH THE RECIPIENT ID AND RETURN THE AMOUNT RECIEVED AND ADD THEM UP.
+  let getPaymentTotalByRecipient = (recipient_id, callback) => {
+    let inputValues = [recipient_id];
+    let query = "SELECT payments.amount, users.username FROM payments INNER JOIN users ON  (payments.recipient_id = users.id) WHERE recipient_id = $1"
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        if( queryResult.rows.length > 0 ){
+          // I DID THE SUM OF THE ARRAY HERE SO NO NEED TO DO ON YOUR SIDE
+          let totalarr = queryResult.rows.map(item => {
+            return item.amount
+          })
+          let total = totalarr.reduce((a, b) => a + b, 0)
+          const result = {
+            recipientUsername: queryResult.rows[0].username,
+            totalAmountRecieved: total
+          }
+          callback(null, result);
+          /*The total will just be a whole number */
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  }
+
+  // THIS WILL SELECT ALL THE ROWS WITH THE SENDER ID AND RETURN THE AMOUNT RECIEVED AND ADD THEM UP.
+  let getPaymentTotalBySender = (sender_id, callback) => {
+    let inputValues = [sender_id];
+    let query = "SELECT payments.amount, users.username FROM payments INNER JOIN users ON  (payments.sender_id = users.id) WHERE sender_id = $1"
+    dbPoolInstance.query(query, inputValues, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        if( queryResult.rows.length > 0 ){
+          // I DID THE SUM OF THE ARRAY HERE SO NO NEED TO DO ON YOUR SIDE
+          let totalarr = queryResult.rows.map(item => {
+            return item.amount
+          })
+          let total = totalarr.reduce((a, b) => a + b, 0)
+          const result = {
+            senderUsername: queryResult.rows[0].username,
+            totalAmountSent: total
+          }
+          callback(null, result);
+          /*The total will just be a whole number */
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  }
+
+
+
 
 
 
@@ -356,5 +444,8 @@ module.exports = (dbPoolInstance) => {
     addingFollowers,
     showProfilePic,
     changeProfilePic,
+    getUserSentPayments,
+    getPaymentTotalByRecipient,
+    getPaymentTotalBySender
   };
 };

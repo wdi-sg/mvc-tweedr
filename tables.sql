@@ -18,3 +18,10 @@ CREATE TABLE IF NOT EXISTS followers(
 	user_id INTEGER,
 	followers_user_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS payments (
+	id SERIAL PRIMARY KEY,
+	sender_id INTEGER,
+	recipient_id INTEGER,
+	amount INTEGER
+);

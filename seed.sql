@@ -1,6 +1,3 @@
-INSERT INTO users (name) VALUES ('John');
-INSERT INTO users (name) VALUES ('Jane');
-
-INSERT INTO tweets (content, user_id) VALUES ('It''s a great day!', 1);
-INSERT INTO tweets (content, user_id) VALUES ('It''s an awesome day!', 2);
-
+INSERT INTO recipient (sender_id,recipient_id,amount) VALUES ('2','4','1600');
+INSERT INTO recipient (sender_id,recipient_id,amount) VALUES ('8','5','12');
+INSERT INTO recipient (sender_id,recipient_id,amount) VALUES ('6','4','1');

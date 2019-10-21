@@ -1,12 +1,11 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    email TEXT,
-    password TEXT
-);
-
-CREATE TABLE IF NOT EXISTS tweets (
+CREATE TABLE IF NOT EXISTS sender (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    content TEXT
+);
+
+CREATE TABLE IF NOT EXISTS recipient (
+    id SERIAL PRIMARY KEY,
+    sender_id INTEGER,
+    recipient_id INTEGER,
+    amount INTEGER
 );

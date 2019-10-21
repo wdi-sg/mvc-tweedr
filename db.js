@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'mariadimitrijevic',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr_db',
     port: 5432
   };
 }
@@ -62,9 +62,19 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const allPokemonModelsFunction = require('./models/all');
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const allModelsObject = allPokemonModelsFunction ( pool );
+
+
+const registerUserModelsFunction = require('./models/all');
+const registerUserModelsObject = registerUserModelsFunction( pool );
+
+const loginUserModelsFunction = require('./models/all');
+const userLoginModelsObject = loginUserModelsFunction( pool );
+
+const allTweetsModelsFunction = require('./models/all');
+const allTweetsModelsObject = allTweetsModelsFunction( pool );
 
 
 
@@ -94,6 +104,15 @@ module.exports = {
    * ADD APP MODELS HERE
    */
 
+//not sure if I need these, since all my models are in one file
+
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  all: allModelsObject,
+  register: registerUserModelsObject,
+  login: userLoginModelsObject,
+  tweets: allTweetsModelsObject
+
+
+
+
 };

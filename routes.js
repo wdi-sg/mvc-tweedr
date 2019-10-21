@@ -44,4 +44,7 @@ module.exports = (app, allModels) => {
 
     // GET payment total by sender
     app.get('/payment/sender/:sender_id/total', paymentControllerCallbacks.getTotalPaymentBySender);
+
+    // GET payment total by recipient
+    app.get('/payment/recipient/:recipient_id/total', paymentControllerCallbacks.getTotalPaymentByRecipient);
 };

@@ -18,5 +18,15 @@
     "pg": "^7.12.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
-  }
+  },
+  "description": "Let's make a cool new app called TWEEDR!! Not Twitter, geez...",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mau-dev/mvc-tweedr.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/mau-dev/mvc-tweedr/issues"
+  },
+  "homepage": "https://github.com/mau-dev/mvc-tweedr#readme"
 }

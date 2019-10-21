@@ -114,6 +114,41 @@ module.exports = (db) => {
         });
     };
 
+        /** GET Method to get sender's total payment
+     * ==========================================================================
+     * Call model method to get the payment info by sender_id HERE
+     *   1. Check method 'getPaymentTotalBySender' is created, with SELECT query in model
+     *   2. Check 'payments' key is exported from db.js
+     *.  3. Remember to parseInt sender_id in the method in model file
+     * ==========================================================================
+     */
+    const getSenderTotalPayment = (request, response) => {
+
+        let sender_id = parseInt(request.params.sender_id); // This value should be retrieved from current logged in user's user ID cookie.
+        const inputValues = [sender_id];
+        console.log("From Controller: " + inputValues);
+
+        db.payments.getPaymentTotalBySender(inputValues, (error, total) => {
+
+            if (error) {
+
+                console.log("This is from payment controller. There is error getting the total payment by sender ID!");
+
+            } else {
+
+                if (total !== null) {
+
+                    response.send(total);
+
+                } else {
+
+                    response.send("You have not made any payment.");
+
+                }
+            }
+        });
+    };
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -123,6 +158,7 @@ module.exports = (db) => {
         getPaymentForm: getNewPaymentForm,
         postPayment: createPaymentDetails,
         getPaymentBySender: getSenderPayment,
-        getPaymentByRecipient: getRecipientPayment
+        getPaymentByRecipient: getRecipientPayment,
+        getTotalPaymentBySender: getSenderTotalPayment
     };
 };

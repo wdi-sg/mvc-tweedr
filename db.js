@@ -18,10 +18,10 @@ if ( process.env.DATABASE_URL ) {
   };
 } else {
   configs = {
-    user: "springfield",
-    host: "127.0.0.1",
-    database: "tweedr",
-    port: 5432,
+    user: process.env.user,
+    host: process.env.host,
+    database: process.env.database,
+    port: process.env.port,
   };
 }
 

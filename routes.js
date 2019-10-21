@@ -39,4 +39,6 @@ module.exports = (app, allModels) => {
     // Get payment by sender_id
     app.get('/payment/sender/:sender_id', paymentControllerCallbacks.getPaymentBySender);
 
+    // Get payment by recipient_id
+    app.get('/payment/recipient/:recipient_id', paymentControllerCallbacks.getPaymentByRecipient);
 };

@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS tweeds (
   id SERIAL PRIMARY KEY,
-  user_id TEXT,
+  user_id INTEGER,
   message TEXT
 );
 
 CREATE TABLE IF NOT EXISTS followers (
   id SERIAL PRIMARY KEY,
-  user_id TEXT,
-  follower_id TEXT
+  user_id INTEGER,
+  follower_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS payments (

@@ -39,11 +39,15 @@ module.exports = (dbPoolInstance) => {
 
 
 //register user
-let registerUser = (callback, userRegistrationInfo) => {
-    const { name, email, password } = userRegistrationInfo;
-    password = sha256(password);
+let registerUser = (inputUsername, inputEmail, inputPwd, callback) => {
 
-    let query = `INSERT INTO users (name, email, password) VALUES('${name}','${email}','${password}') RETURNING *`;
+    /*const { name, email, password } = userRegistrationInfo;
+    password = sha256(password);*/
+
+    const inputValues = [inputUsername, inputEmail, inputPwd];
+
+    let query = "INSERT INTO users (name, email, password) VALUES('" + inputUsername + "', '" + inputEmail + "', '" + inputPwd + "')";
+    console.log(query);
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if (error) {

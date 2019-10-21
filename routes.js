@@ -13,5 +13,8 @@ module.exports = (app, allModels) => {
   app.get("/users", usersControllerCallbacks.users);
   app.post("/users", usersControllerCallbacks.newTweet);
   app.get("/users/:id", usersControllerCallbacks.user);
+  // added for payments
+  app.get("/payments/received/:id", paymentsControllerCallbacks.paymentsReceived);
+  app.get("/payments/sent/:id", paymentsControllerCallbacks.paymentsSent);
   // app.get('/users/:id', users.getUsers);
 };

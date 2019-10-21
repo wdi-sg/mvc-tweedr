@@ -1,39 +1,23 @@
 var React = require("react");
 
-class YouFollow extends React.Component {
+class RecipientTotal extends React.Component {
   render() {
 
     let Navbar = require('./navbar.jsx');
 
-    let allUsers;
+    let name;
+    let amount;
+    let dollar;
 
     if (this.props.results){
-        allUsers = this.props.results.map(x=>{
-
-            let username = x.username
-            let image = x.image
-            let follow_id = x.id
-            console.log(x);
-
-            return  <div class="card col-6 mx-auto mt-5">
-                      <img style={{height: "100" + "%"}, {width: "100" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
-                      <div class="card-body">
-                        <h5 class="card-title">{username}</h5>
-                        <form className="col align-self-center" method='GET' action={'/recipientTotal/'+ follow_id}>
-                            <button type="submit" className="btn btn-primary">Total Received</button>
-                        </form>
-                      </div>
-                    </div>
-
-        });
+        name = this.props.results.recipientUsername;
+        amount = this.props.results.totalAmountRecieved;
+        dollar = "$";
     } else {
-        allUsers = <p>You have not followed anyone yet</p>
+        name = null;
+        amount = "User have not received any money yet";
+        dollar = null;
     }
-
-
-
-
-
 
     return (
       <html>
@@ -44,8 +28,8 @@ class YouFollow extends React.Component {
 
           <Navbar/>
           <div className="container">
-            <h3 className="mt-5">You are following:</h3>
-                {allUsers}
+            <h3 className="mt-5">User {name} have received this amount in total:</h3>
+            <h1 className="display-4 mt-5 text-center">{dollar}{amount}</h1>
           </div>
 
 
@@ -59,4 +43,4 @@ class YouFollow extends React.Component {
   }
 }
 
-module.exports = YouFollow;
+module.exports = RecipientTotal;

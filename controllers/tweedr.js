@@ -6,6 +6,8 @@ module.exports = (db) => {
 
     let SALT = "xiangjiao";
     let tempUser;
+    let recipientName;
+    let amount;
 
   /**
    * ===========================================
@@ -188,9 +190,9 @@ module.exports = (db) => {
 
 //===================================================
   let logout = (request, response)=>{
-    response.cookie('user_id', undefined);
-    response.cookie('username', undefined);
-    response.cookie('hasLoggedIn', undefined);
+    response.clearCookie('user_id', { path: '/' });
+    response.clearCookie('username', { path: '/' });
+    response.clearCookie('hasLoggedIn', { path: '/' });
 
     response.redirect('/');
   };
@@ -317,6 +319,111 @@ module.exports = (db) => {
 
 
 
+//===================================================
+  let paymentPage = (request, response)=>{
+
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getFollowers(user_id, (err, results)=>{
+            if(results){
+                let data = {
+                    userID: user_id,
+                    results: results,
+                    paymentSuccess: {
+                        recipientName: recipientName,
+                        amount: amount
+                    }
+                };
+                setTimeout(function(){
+                    recipientName = null;
+                    amount = null;
+                }, 100);
+                response.render('tweedr/paymentPage', data);
+            } else {
+                response.render('tweedr/noUserToPay');
+            }
+
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
+//===================================================
+  let paymentProcess = (request, response)=>{
+
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+    let sender_id = request.body.user_id;
+    let recipient_id = request.body.followers_user_id;
+    recipientName = request.body.username;
+    amount = request.body.amount;
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getUserSentPayments(sender_id, recipient_id, amount, (err, results)=>{
+            response.redirect('/paymentPage');
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
+
+
+//===================================================
+  let recipientTotal = (request, response)=>{
+
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+    let recipient_id = request.params.id
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getPaymentTotalByRecipient(recipient_id, (err, results)=>{
+            response.render('tweedr/recipientTotal', {results});
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
+
+
+
+//===================================================
+  let senderTotal = (request, response)=>{
+
+    let recipient_id = request.params.id;
+    let user_id = request.cookies['user_id'];
+    let hashedValue = sha256( SALT + user_id );
+
+    if( request.cookies['hasLoggedIn'] === hashedValue){
+        db.tweedr.getPaymentTotalBySender(user_id, (err, results)=>{
+            response.render('tweedr/senderTotal', {results});
+        });
+    } else {
+        response.redirect('/login');
+    };
+
+
+  };
+//===================================================
+
+
 
   /**
    * ===========================================
@@ -338,6 +445,10 @@ module.exports = (db) => {
     addFollowers: addFollowers,
     profilePic: profilePic,
     changeProfilePic: changeProfilePic,
+    paymentPage: paymentPage,
+    paymentProcess: paymentProcess,
+    recipientTotal: recipientTotal,
+    senderTotal: senderTotal,
   };
 
 }

@@ -1,39 +1,9 @@
 var React = require("react");
 
-class YouFollow extends React.Component {
+class PaymentPage extends React.Component {
   render() {
 
     let Navbar = require('./navbar.jsx');
-
-    let allUsers;
-
-    if (this.props.results){
-        allUsers = this.props.results.map(x=>{
-
-            let username = x.username
-            let image = x.image
-            let follow_id = x.id
-            console.log(x);
-
-            return  <div class="card col-6 mx-auto mt-5">
-                      <img style={{height: "100" + "%"}, {width: "100" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
-                      <div class="card-body">
-                        <h5 class="card-title">{username}</h5>
-                        <form className="col align-self-center" method='GET' action={'/recipientTotal/'+ follow_id}>
-                            <button type="submit" className="btn btn-primary">Total Received</button>
-                        </form>
-                      </div>
-                    </div>
-
-        });
-    } else {
-        allUsers = <p>You have not followed anyone yet</p>
-    }
-
-
-
-
-
 
     return (
       <html>
@@ -44,8 +14,8 @@ class YouFollow extends React.Component {
 
           <Navbar/>
           <div className="container">
-            <h3 className="mt-5">You are following:</h3>
-                {allUsers}
+            <h3 className="mt-5">All Users:</h3>
+            <p>You are not following anyone yet, you can only make payment to someone you followed</p>
           </div>
 
 
@@ -59,4 +29,4 @@ class YouFollow extends React.Component {
   }
 }
 
-module.exports = YouFollow;
+module.exports = PaymentPage;

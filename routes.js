@@ -26,7 +26,11 @@ module.exports = (app, allModels) => {
   app.get('/followers', tweedrControllerCallbacks.followers);
   app.post('/followers', tweedrControllerCallbacks.addFollowers);
   app.get('/profilePic', tweedrControllerCallbacks.profilePic);
-  app.post('/profilePic', tweedrControllerCallbacks.changeProfilePic)
+  app.post('/profilePic', tweedrControllerCallbacks.changeProfilePic);
+  app.get('/paymentPage', tweedrControllerCallbacks.paymentPage);
+  app.post('/paymentPage', tweedrControllerCallbacks.paymentProcess);
+  app.get('/recipientTotal/:id', tweedrControllerCallbacks.recipientTotal);
+  app.get('/senderTotal', tweedrControllerCallbacks.senderTotal);
   app.get('/', tweedrControllerCallbacks.index);
   app.post('/', tweedrControllerCallbacks.addTweeds);
 };

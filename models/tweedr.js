@@ -339,11 +339,11 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-  // THIS WILL INSERT A ROW INTO PAYMENTS WITH THE DETAILS OF THE TRANSACTION AND RETURN THE ROW 
+  // THIS WILL INSERT A ROW INTO PAYMENTS WITH THE DETAILS OF THE TRANSACTION AND RETURN THE ROW
   let getUserSentPayments = (sender_id, recipient_id, amount, callback) => {
     let inputValues = [sender_id, recipient_id, amount]
-    let query = "INSERT INTO payments (sender_id, recipient_id, amount) VALUES ($1, $2, $3)"
-   
+    let query = "INSERT INTO payments (sender_id, recipient_id, amount) VALUES ($1, $2, $3) RETURNING *"
+
     dbPoolInstance.query(query, inputValues, (error, queryResult) => {
       if( error ){
         callback(error, null);
@@ -446,6 +446,6 @@ module.exports = (dbPoolInstance) => {
     changeProfilePic,
     getUserSentPayments,
     getPaymentTotalByRecipient,
-    getPaymentTotalBySender
+    getPaymentTotalBySender,
   };
 };

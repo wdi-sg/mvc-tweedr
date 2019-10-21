@@ -41,3 +41,16 @@ UPDATE users SET image = ($1) WHERE users.id = ($2);
 
 -- find similar results from table column
 SELECT * FROM users WHERE username LIKE 'ryan';
+
+
+-- Get results from one query and use for another
+WITH newUser as (INSERT INTO users (username, password, image) VALUES ($1, $2, $3) RETURNING *) INSERT INTO followers (followers_user_id) VALUES ((SELECT id from newUser)) RETURNING *
+
+
+
+WITH amountTotal AS (SELECT payments.amount, users.username FROM payments INNER JOIN users ON  (payments.recipient_id = users.id) WHERE recipient_id = $1) SELECT SUM (amount) from amountTotal
+
+
+
+
+SELECT SUM(payments.amount), users.username FROM payments INNER JOIN users ON  (payments.recipient_id = users.id) WHERE recipient_id = $1

@@ -186,6 +186,40 @@ module.exports = (db) => {
         });
     };
 
+    /** GET Method to get single payment by ID
+     * ==========================================================================
+     * Call model method to get the payment info by ID HERE
+     *   1. Check method 'getPaymentById' is created, with SELECT query in model
+     *   2. Check 'payments' key is exported from db.js
+     * ==========================================================================
+     */
+    const getUserPaymentById = (request, response) => {
+
+        let payment_id = parseInt(request.params.id);
+        const inputValues = [payment_id];
+        console.log("From Controller: " + inputValues);
+
+        db.payments.getPaymentById(inputValues, (error, payment) => {
+
+            if (error) {
+
+                console.log("This is from payment controller. There is error getting the specified payment by ID!");
+
+            } else {
+
+                if (payment.length > 0) {
+
+                    response.send(payment);
+
+                } else {
+
+                    response.send("No payments.");
+
+                }
+            }
+        });
+    };
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -197,6 +231,7 @@ module.exports = (db) => {
         getPaymentBySender: getSenderPayment,
         getPaymentByRecipient: getRecipientPayment,
         getTotalPaymentBySender: getSenderTotalPayment,
-        getTotalPaymentByRecipient: getRecipientTotalPayment
+        getTotalPaymentByRecipient: getRecipientTotalPayment,
+        getPaymentById: getUserPaymentById
     };
 };

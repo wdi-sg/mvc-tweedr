@@ -21,8 +21,11 @@ CREATE TABLE IF NOT EXISTS follows (
 );
 
 CREATE TABLE IF NOT EXISTS payments (
-    id SERIAL PRIMARY KEY,
+    transaction_id SERIAL PRIMARY KEY,
     sender_id INTEGER,
+    sender_username TEXT,
     recipient_id INTEGER,
-    amount FLOAT
+    recipient_username TEXT,
+    amount FLOAT,
+    payment_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

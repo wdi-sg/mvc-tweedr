@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'mariadimitrijevic',
+    user: 'siewling',
     host: '127.0.0.1',
-    database: 'tweedr_db',
+    database: 'mariatweedr',
     port: 5432
   };
 }

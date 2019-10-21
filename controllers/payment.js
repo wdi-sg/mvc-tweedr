@@ -220,6 +220,40 @@ module.exports = (db) => {
         });
     };
 
+    /** GET Method to get all sent and received payment
+     * ==========================================================================
+     * Call model method to get the payment info HERE
+     *   1. Check method 'getAllPayment' is created, with SELECT query in model
+     *   2. Check 'payments' key is exported from db.js
+     * ==========================================================================
+     */
+    const getAllSentReceivedPayment = (request, response) => {
+
+        let currentUserID = 5; // This value should be retrieved from current logged in user's user id cookie.
+        const inputValues = [currentUserID];
+        console.log("From Controller: " + inputValues);
+
+        db.payments.getAllPayment(inputValues, (error, payment) => {
+
+            if (error) {
+
+                console.log("This is from payment controller. There is error getting all payment for this user!");
+
+            } else {
+
+                if (payment.length > 0) {
+
+                    response.send(payment);
+
+                } else {
+
+                    response.send("No payments sent or received.");
+
+                }
+            }
+        });
+    };
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -232,6 +266,7 @@ module.exports = (db) => {
         getPaymentByRecipient: getRecipientPayment,
         getTotalPaymentBySender: getSenderTotalPayment,
         getTotalPaymentByRecipient: getRecipientTotalPayment,
-        getPaymentById: getUserPaymentById
+        getPaymentById: getUserPaymentById,
+        getAllPayment: getAllSentReceivedPayment
     };
 };

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS follows (
     follower_id INTEGER UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS payment (
+CREATE TABLE IF NOT EXISTS payments (
     id SERIAL PRIMARY KEY,
     sender_id INTEGER,
     recipient_id INTEGER,

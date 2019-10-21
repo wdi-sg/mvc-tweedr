@@ -1,6 +1,5 @@
 module.exports = (app, allModels) => {
-
-  /*
+	/*
    *  =========================================
    *  =========================================
    *  =========================================
@@ -11,33 +10,42 @@ module.exports = (app, allModels) => {
    *  =========================================
    */
 
-  // require the controller
-  const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
-  const userControllerCallbacks = require('./controllers/user')(allModels);
-  
-  app.get('/register', userControllerCallbacks.userNew);
+	// require the controller
+	const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
+	const userControllerCallbacks = require('./controllers/user')(allModels);
+	const paymentsControllerCallback = require('./controllers/payments')(allModels);
 
-  app.post('/register', userControllerCallbacks.userCreate);
+	// cool routes!
 
-  app.get('/login', userControllerCallbacks.userLogin);
+	app.get('/register', userControllerCallbacks.userNew);
 
-  app.post('/login', userControllerCallbacks.userLoggedIn);
-  
-  app.get('/users/:id',userControllerCallbacks.userProfile);
+	app.post('/register', userControllerCallbacks.userCreate);
 
-  app.post('/users', userControllerCallbacks.userFollow);
+	app.get('/login', userControllerCallbacks.userLogin);
 
-  app.get('/tweedr', tweedrControllerCallbacks.index);
+	app.post('/login', userControllerCallbacks.userLoggedIn);
 
-  app.get('/tweedr/new', tweedrControllerCallbacks.tweedNew);
+	app.get('/users/:id', userControllerCallbacks.userProfile);
 
-  app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
+	app.post('/users', userControllerCallbacks.userFollow);
 
-  app.get('/tweedr/:id',tweedrControllerCallbacks.tweedShow);
-  
-  app.get('/tweedr/:id/edit', tweedrControllerCallbacks.tweedEdit);
-  
-  app.put('/tweedr/:id', tweedrControllerCallbacks.tweedUpdate);
+	app.get('/tweedr', tweedrControllerCallbacks.index);
 
-  app.delete('/tweedr/:id', tweedrControllerCallbacks.tweedDelete);
+	app.get('/tweedr/new', tweedrControllerCallbacks.tweedNew);
+
+	app.post('/tweedr', tweedrControllerCallbacks.tweedCreate);
+
+	app.get('/tweedr/:id', tweedrControllerCallbacks.tweedShow);
+
+	app.get('/tweedr/:id/edit', tweedrControllerCallbacks.tweedEdit);
+
+	app.put('/tweedr/:id', tweedrControllerCallbacks.tweedUpdate);
+
+	app.delete('/tweedr/:id', tweedrControllerCallbacks.tweedDelete);
+
+	// @@@@@@@@@@@@@@@@@@@@@ payment part @@@@@@@@@@@@@@@@@@@@@@@@@
+
+	// creates form to send payment
+	app.get('/payments/form', paymentsControllerCallback.renderPaymentForm);
+	app.post('/payments', paymentsControllerCallback.paymentReceived);
 };

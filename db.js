@@ -70,6 +70,10 @@ const allUserModelsFunction = require('./models/user');
 
 const userModelsObject = allUserModelsFunction( pool );
 
+const allPaymentModelsFunction = require('./models/user');
+
+const paymentModelsObject = allUserModelsFunction( pool );
+
 
 
 /*
@@ -100,5 +104,6 @@ module.exports = {
 
   // users: userModelsObject,
   tweedr: tweedrModelsObject,
-  user: userModelsObject
+  user: userModelsObject,
+  payment: paymentModelObject
 };

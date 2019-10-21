@@ -1,0 +1,1 @@
+INSERT INTO payments (sender_id, recipient_id, amount) VALUES (1, 2, 1000), (1, 2, 2000), (2, 1, 300), (3, 2, 500);

@@ -4,6 +4,7 @@ module.exports = (app, allModels) => {
   // require the controller
   const homeControllerCallbacks = require("./controllers/index")(allModels);
   const usersControllerCallbacks = require("./controllers/users")(allModels);
+  const paymentsControllerCallbacks = require("./controllers/payments")(allModels);
 
   app.get("/", homeControllerCallbacks.home);
   app.get("/register", homeControllerCallbacks.getRegister);
@@ -14,7 +15,7 @@ module.exports = (app, allModels) => {
   app.post("/users", usersControllerCallbacks.newTweet);
   app.get("/users/:id", usersControllerCallbacks.user);
   // added for payments
-  app.get("/payments/received/:id", paymentsControllerCallbacks.paymentsReceived);
-  app.get("/payments/sent/:id", paymentsControllerCallbacks.paymentsSent);
+  app.get("/payments/received/", paymentsControllerCallbacks.paymentsReceived);
+  app.get("/payments/sent/", paymentsControllerCallbacks.paymentsSent);
   // app.get('/users/:id', users.getUsers);
 };

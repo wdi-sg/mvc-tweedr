@@ -8,70 +8,64 @@ module.exports = (db) => {
         if (req.cookies.loggedIn !== 'yes') {
             res.redirect('/users/login')
         } else {
-            db.tweets.getAll(req,(err,result)=>{
-                if (result===null) {
-                    res.render("error",req)
-                } else {
-                    let data = {req,result};
-                    res.render('tweets/home',data);
-                };
-            });
+            let data = {req,result: null};
+            res.render('payments/index',data);
         };
     };
 
-    let newControllerCallback = (req,res) => {
+    let getSentControllerCallback = (req,res) => {
         if (req.cookies.loggedIn !== 'yes') {
             res.redirect('/users/login')
         } else {
-            let data = {req};
-            res.render('tweets/new',data);
-        };
-    };
-
-    let createControllerCallback = (req,res) => {
-        if (req.cookies.loggedIn !== 'yes') {
-            res.redirect('/users/login')
-        } else {
-            db.tweets.insertNew(req,(err,result)=>{
-                res.redirect('/');
-            });
-        };
-    };
-
-    let showControllerCallback = (req,res) => {
-        if (req.cookies.loggedIn !== 'yes') {
-            res.redirect('/users/login')
-        } else {
-            db.tweets.showFollowersTweets(req,(err,result)=>{
+            db.payments.getUserSentPayments(req,(err,result)=>{
                 let data = {req,result};
-                res.render('tweets/show',data);
+                res.render("payments/index",data);
             });
         };
     };
 
-    let likeControllerCallback = (req,res) => {
+    let getReceivedControllerCallback = (req,res) => {
         if (req.cookies.loggedIn !== 'yes') {
             res.redirect('/users/login')
         } else {
-            console.log('IM AT CONTROLLER')
-            db.tweets.like(req,(err,result)=>{
-            console.log('IM AT CONTROLLER')
+            db.payments.getUserReceivedPayments(req,(err,result)=>{
                 let data = {req,result};
-                res.send(data);
+                res.render("payments/index",data);
             });
         };
     };
 
+    let totalSentControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.payments.getPaymentTotalBySender(req,(err,result)=>{
+                let data = {req,result};
+                res.render("payments/index",data);
+            });
+        };
+    };
+
+    let totalReceivedControllerCallback = (req,res) => {
+        if (req.cookies.loggedIn !== 'yes') {
+            res.redirect('/users/login')
+        } else {
+            db.payments.getPaymentTotalByRecipient(req,(err,result)=>{
+                let data = {req,result};
+                res.render("payments/index",data);
+            });
+        };
+    };
 /*
 ╔═╗─┐ ┬┌─┐┌─┐┬─┐┌┬┐
 ║╣ ┌┴┬┘├─┘│ │├┬┘ │
 ╚═╝┴ └─┴  └─┘┴└─ ┴
 */
     return {
-        new: newControllerCallback,
-        create: createControllerCallback,
         index: indexControllerCallback,
-        show: showControllerCallback,
-        like: likeControllerCallback
+        getSent: getSentControllerCallback,
+        getReceived: getReceivedControllerCallback,
+        totalSent: totalSentControllerCallback,
+        totalReceived: totalReceivedControllerCallback
     };
 };

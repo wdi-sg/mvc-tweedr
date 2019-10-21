@@ -18,6 +18,12 @@ module.exports = (app, allModels) => {
     const tweetsController = require('./controllers/tweets')(allModels);
 // require follows controller
     const followsController = require('./controllers/follows')(allModels);
+// require payments controller
+    const paymentsController = require('./controllers/payments')(allModels);
+
+// PAIRING EXERCISE
+
+// PAIRING EXERCISE
 /*
 ╔╦╗┬ ┬┌─┐┌─┐┌┬┐┌─┐
  ║ │││├┤ ├┤  │ └─┐
@@ -31,6 +37,8 @@ module.exports = (app, allModels) => {
     app.post('/new', tweetsController.create);
 // get followers tweets
     app.get('/show', tweetsController.show);
+// likes
+    app.post('/like', tweetsController.like);
 /*
 ╦ ╦┌─┐┌─┐┬─┐┌─┐
 ║ ║└─┐├┤ ├┬┘└─┐
@@ -59,4 +67,18 @@ module.exports = (app, allModels) => {
     app.post('/following/:id', followsController.create);
 // get all followers
     app.get('/followers', followsController.show);
+/*
+╔═╗┌─┐┬ ┬┌┬┐┌─┐┌┐┌┌┬┐
+╠═╝├─┤└┬┘│││├┤ │││ │
+╩  ┴ ┴ ┴ ┴ ┴└─┘┘└┘ ┴
+*/
+    app.get('/payments', paymentsController.index)
+// get payments that user sent out
+    app.get('/payments/payouts', paymentsController.getSent);
+// get payments that user received
+    app.get('/payments/received', paymentsController.getReceived);
+// get total amount of payment sent
+    app.get('/payments/totalout', paymentsController.totalSent);
+// get total amount of payment received
+    app.get('/payments/totalin', paymentsController.totalReceived);
 };

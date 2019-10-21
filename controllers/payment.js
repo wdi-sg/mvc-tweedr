@@ -114,7 +114,7 @@ module.exports = (db) => {
         });
     };
 
-        /** GET Method to get sender's total payment
+    /** GET Method to get sender's total payment
      * ==========================================================================
      * Call model method to get the payment info by sender_id HERE
      *   1. Check method 'getPaymentTotalBySender' is created, with SELECT query in model
@@ -149,6 +149,43 @@ module.exports = (db) => {
         });
     };
 
+    /** GET Method to get recipient's total payment
+     * ==========================================================================
+     * Call model method to get the payment info by recipient_id HERE
+     *   1. Check method 'getPaymentTotalByRecipient' is created, with SELECT query in model
+     *   2. Check 'payments' key is exported from db.js
+     *.  3. Remember to parseInt recipient_id in the method in model file
+     * ==========================================================================
+     */
+    const getRecipientTotalPayment = (request, response) => {
+
+        let sender_id = 8; // This is to check if the sender_id is the current logged in user. By right, the value should be from the current logged in user's user id cookie.
+
+        let recipient_id = parseInt(request.params.recipient_id);
+        const inputValues = [recipient_id];
+        console.log("From Controller: " + inputValues);
+
+        db.payments.getPaymentTotalByRecipient(inputValues, (error, total) => {
+
+            if (error) {
+
+                console.log("This is from payment controller. There is error getting the total payment by recipient ID!");
+
+            } else {
+
+                if (total !== null) {
+
+                    response.send(total);
+
+                } else {
+
+                    response.send("This user has not received any payment from you.");
+
+                }
+            }
+        });
+    };
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -159,6 +196,7 @@ module.exports = (db) => {
         postPayment: createPaymentDetails,
         getPaymentBySender: getSenderPayment,
         getPaymentByRecipient: getRecipientPayment,
-        getTotalPaymentBySender: getSenderTotalPayment
+        getTotalPaymentBySender: getSenderTotalPayment,
+        getTotalPaymentByRecipient: getRecipientTotalPayment
     };
 };

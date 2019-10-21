@@ -17,6 +17,7 @@ module.exports = (app, allModels) => {
     const registerControllerCallbacks = require('./controllers/register')(allModels);
     const loginControllerCallbacks = require('./controllers/login')(allModels);
     const tweetsControllerCallbacks = require('./controllers/tweets')(allModels);
+    const paymentControllerCallbacks = require('./controllers/payment')(allModels);
 
     // app.get('/pokemons', pokemonControllerCallbacks.index);
     //app.get('/pokemons/:id', pokemons.getPokemon);
@@ -28,5 +29,9 @@ module.exports = (app, allModels) => {
 
 
     app.get('/tweets', tweetsControllerCallbacks.tweets);
+
+    // Render New Payment Form
+    app.get('/payment', paymentControllerCallbacks.getPaymentForm);
+
 
 };

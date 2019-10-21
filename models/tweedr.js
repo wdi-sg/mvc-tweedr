@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (user_id, callback) => {
 
-    let query = "SELECT DISTINCT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) INNER JOIN followers ON (followers.followers_user_id = tweeds.users_id) WHERE followers.user_id = "+user_id+" OR users_id = "+user_id+" ORDER by tweeds.id DESC"
+    let query = "SELECT DISTINCT username, users.id, users.image, tweed, tweeds.created_at, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) INNER JOIN followers ON (followers.followers_user_id = tweeds.users_id) WHERE followers.user_id = "+user_id+" OR users_id = "+user_id+" ORDER by tweeds.id DESC"
 
 
     // "SELECT username, users.id, users.image, tweed, tweeds.id FROM tweeds INNER JOIN users ON (users.id = tweeds.users_id) WHERE users.id = "+user_id+" ORDER by tweeds.id DESC;";

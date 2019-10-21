@@ -10,14 +10,21 @@ class Home extends React.Component {
     if(this.props.tweeds){
         allTweeds = this.props.tweeds.map(x=>{
             let content = x.tweed;
-            let time = x.created_at;
+            let currentDate = new Date();
+            let today = x.created_at;
+            let date = `${today.getFullYear()}/${today.getMonth() +
+            1}/${today.getDate()}`;
+            let time =
+            `${today.getHours()}:` + `${today.getMinutes()}:${today.getSeconds()}`;
             let username = x.username;
             let image = x.image;
             console.log(x);
             return  <div class="jumbotron jumbotron-fluid">
                       <div class="container">
                         <span class="lead mr-2">@{username}</span>
-                        <img style={{height: "5" + "%"}, {width: "5" + "%"}} src={image} class="card-img-top rounded-circle align-self-center" alt="default photo"/>
+                        <img style={{height: "5" + "%"}, {width: "5" + "%"}} src={image} class="card-img-top rounded-circle align-self-center mr-2" alt="default photo"/>
+                        <span class="mr-2">{date}</span>
+                        <span class="mr-2">{time}</span>
                         <h2>{content}</h2>
                       </div>
                     </div>

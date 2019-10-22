@@ -44,6 +44,9 @@ class Home extends React.Component {
               <form method="POST" action={"/follow/"+id+path3}>
                 <input type="submit" value={path2}/>
               </form>
+              <form method="GET" action="/payment/2/5000">
+                <input type="submit" value="Give money"/>
+              </form>
               <div>
                   <h4>{username}'s tweeds</h4>
                   <div>

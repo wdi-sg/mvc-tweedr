@@ -200,6 +200,21 @@ module.exports = (db) => {
         })
     }
 
+    let getMoney = (request, response) =>{
+        // let user_id = request.cookies.user_id;
+        let amount = request.params.value;
+        // let recipient_id = request.params.id;
+        const payments =
+          {
+            sender_id : 2,
+            sender_name: "Jack",
+            recipient_id : 4,
+            recipient_name: "Eden",
+            amount,
+          }
+          response.render('x/payment.jsx',payments)
+    }
+
     /* ===================================================
      * =====          2. RETURN FUNCTION          ========
     =================================================== */
@@ -218,6 +233,7 @@ module.exports = (db) => {
         viewTweed,
         editTweed,
         deleteTweed,
+        getMoney,
     };
 
 }

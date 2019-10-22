@@ -145,14 +145,16 @@ module.exports = (db) => {
 
 
      db.pokemon.follow(id, followerId, (error,follower)=>{
-
+        if (id === followerId) {
+            console.error('error in following', error);
+            response.send("You can't follow yourself!");
+        } else {
             console.log(follower)
 
             response.send('Yay, following user number:' + follower.user_id)
-
-            })
-
-  }
+        };
+    });
+  };
 
   /**
    * ===========================================

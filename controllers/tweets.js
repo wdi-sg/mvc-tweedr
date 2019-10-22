@@ -29,7 +29,7 @@ module.exports = (db) => {
     db.tweets.addNewUser(newUser, (error, result) => {
       if (error){
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');
       } else {
           //console.log('result from controller:', result);
           let user_id = result[0].id;
@@ -59,9 +59,10 @@ module.exports = (db) => {
     console.log("hashed entered password: " + hashedPassword);
 
     db.tweets.userLogIn(user, (error, result) => {
+        console.log("this is the result: ", result);
       if (error){
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');
       } else {
           if (hashedPassword === result[0].password) {
             let user_id = result[0].id;
@@ -93,7 +94,7 @@ module.exports = (db) => {
         db.tweets.getUser(user_id, (error, result) => {
           if (error) {
             console.error('error getting user', error);
-            respond.send('error getting user');
+            response.send('error getting user');
           } else {
               let data = {
               "name": result[0].name,
@@ -117,7 +118,7 @@ module.exports = (db) => {
     db.tweets.addTheTweet(newTweet, (error, result) => {
       if (error) {
         console.error('error getting user', error);
-        respond.send('error getting user');
+        response.send('error getting user');
       } else {
           if (cookieStatus.loggedIn === currentSessionCookie){
             console.log('this is the new tweet content: ', newTweet);
@@ -129,10 +130,68 @@ module.exports = (db) => {
     });
   };
 
+  /////SHOW PAGE TO MAKE PAYMENT(USER MUST BE LOGGED IN)/////
+  let newPayment = (request, response) => {
+    let user_id = request.cookies.user_id;
+    let savedCookie = request.cookies.loggedIn;
 
+    //checks whether user is logged in
+    if (savedCookie === undefined) {
+        response.send ("You're not logged in!")
+    } else {
+        db.tweets.getUser(user_id, (error, result) => {
+          if (error) {
+            console.error('error getting user', error);
+            response.send('error getting user');
+          } else {
+            //if logged in, can make payments
+              let data = {
+              "id": result[0].id,
+              "name": result[0].name,
+              "username": result[0].username
+              };
+            response.render('tweets/payment', data);
+          }
+        });
+    }
+  };
 
+  //////SUBMITS PAYMENT TO DB & SHOW PAYMENT DETAILS ON PAGE//////
+  let submitPayment = (request, response) => {
+    let paymentMade = request.body;
 
+    db.tweets.sendPayment(paymentMade, (error, result) => {
+      if (error){
+        console.error('error getting user', error);
+        response.send('payment not found');
+      } else {
+          let data = {
+            "paymentid": result[0].id,
+            "date": result[0].created_at,
+            "sender": result[0].sender_id,
+            "recipient": result[0].recipient_id,
+            "amount": result[0].amount
+          };
+        response.render('tweets/invoice', data);
+      }
+    });
+  };
 
+  ////////SHOW ALL THIS USER'S PAYMENTS//////
+  let userPayments = (request, response) => {
+    let recipient_id = request.cookies.user_id;
+
+    //result should get user's list of received payments
+    db.tweets.getUserReceivedPayments(recipient_id, (error, result) => {
+        let data = {
+            "receivedDate": result.created_at,
+            "receivedFrom": result.sender_id,
+            "receivedAmount": result.amount
+        }
+
+        response.send(result);
+      });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -146,7 +205,10 @@ module.exports = (db) => {
     login,
     verifyLogIn,
     createTweet,
-    addTweet
+    addTweet,
+    newPayment,
+    submitPayment,
+    userPayments
   };
 
 }

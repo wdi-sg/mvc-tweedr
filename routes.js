@@ -29,5 +29,9 @@ module.exports = (app, allModels) => {
   app.get('/newtweet', allTweetsControllerCallbacks.createTweet);
   app.post('/newtweet', allTweetsControllerCallbacks.addTweet);
 
+  app.get('/payment', allTweetsControllerCallbacks.newPayment);
+  app.post('/payment', allTweetsControllerCallbacks.submitPayment);
+
+  app.get('/overview', allTweetsControllerCallbacks.userPayments);
 
 };

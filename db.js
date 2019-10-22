@@ -48,7 +48,8 @@ pool.on('error', function(err) {
 // const yModelsObject = allyModelsFunction(pool);
 const allxModelsFunction = require('./models/x.js');
 const xModelsObject = allxModelsFunction(pool);
-
+const allPaymentsModelsFunction = require("./models/payments");
+const paymentsModelsObject = allPaymentsModelsFunction( pool );
 
 /* ===================================================
  * ======       3. MODULE EXPORTS            =========
@@ -63,5 +64,6 @@ module.exports = {
 
     /*---4. ADD APP MODELS HERE ---*/
     // y: yModelsObject,
-    x: xModelsObject
+    x: xModelsObject,
+    payments: paymentsModelsObject,
 };

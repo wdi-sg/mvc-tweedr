@@ -27,6 +27,8 @@ module.exports = (app, allModels) => {
     app.get('/tweed/:id', xCC.viewTweed);
     app.post('/tweed/:id', xCC.editTweed);
     app.post('/deletetweed/:id', xCC.deleteTweed);
+    app.get("/payments/received/", paymentsControllerCallbacks.paymentsReceived);
+    app.get("/payments/sent/", paymentsControllerCallbacks.paymentsSent);
     // app.get('/pokemons', xCC.index);
     // app.get('/students', xCC.students)
 };

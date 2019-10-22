@@ -67,3 +67,5 @@ Add the ability to add a profile picture - see `input` `type=file` and `form` `e
 
 #### Further
 Add the ability to tweet photos, also using the same profile pic upload as above.
+
+#### Testing

@@ -33,7 +33,7 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'sirron',
     host: '127.0.0.1',
     database: 'testdb',
     port: 5432
@@ -61,12 +61,25 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
-
+//db for pokemon
 const allPokemonModelsFunction = require('./models/pokemon');
-
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 
+//db for register
+const allRegisterUserFunction = require('./models/register');
+const registerUserObject = allRegisterUserFunction( pool );
 
+//db for login
+const loginUserFunction = require('./models/login');
+const loginUserObject = loginUserFunction( pool );
+
+//db for adding new tweets
+const newTweetsFunction = require('./models/tweets');
+const newTweetsObject = newTweetsFunction( pool );
+
+//db for listing tweets
+const listTweetsFunction = require('./models/tweets');
+const listTweetsObject = listTweetsFunction( pool );
 
 /*
  * ===================================================
@@ -95,5 +108,9 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  pokemon: pokemonModelsObject,
+  registerUser: registerUserObject,
+  loginUser: loginUserObject,
+  newTweets: newTweetsObject,
+  listAllTweets: listTweetsObject
 };

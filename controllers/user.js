@@ -6,10 +6,23 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
-    response.send("success");
+  let login = (request, response) => {
+        response.render("user/login");
   };
 
+  let loggedIn = (request, response) => {
+ db.users.validateUser(request.body.username,(error, user)=>{
+    if(error){
+      response.send( error );
+        }else{
+            if(user.length > 1){
+                response.send("Your user name or password is invalid.");
+            }else{
+                response.send(user[0]);
+            }
+        }
+    });
+};
 
   /**
    * ===========================================
@@ -17,7 +30,8 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    login: login,
+    loggedIn: loggedIn
   };
 
 }

@@ -4,12 +4,9 @@ class Home extends React.Component {
   render() {
     console.log(this.props.types);
     return (
-      <html>
-        <head />
-        <body>
+      <DefaultLayout title="Sign In">
           <h3>Hello</h3>
-        </body>
-      </html>
+      </DefaultLayout>
     )
   }
 }

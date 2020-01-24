@@ -66,6 +66,8 @@ const allPokemonModelsFunction = require('./models/pokemon');
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 const userFunction = require('./models/user');
 const userModelsObject = userFunction( pool );
+const tweetFunction = require('./models/tweet');
+const tweetModelsObject =  tweetFunction( pool );
 
 
 /*
@@ -93,7 +95,7 @@ module.exports = {
   /*
    * ADD APP MODELS HERE
    */
-
+  tweets: tweetModelsObject,
   users: userModelsObject,
   pokemon: pokemonModelsObject
 };

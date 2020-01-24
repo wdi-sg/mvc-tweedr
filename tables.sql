@@ -1,9 +1,11 @@
-CREATE TABLE IF NOT EXIST users(
+CREATE TABLE IF NOT EXISTS users(
 	user_id SERIAL PRIMARY KEY,
 	username TEXT,
-	password TEXT,
+	password TEXT
 
 );
-CREATE TABLE IF NOT EXIST tweets(
-
+CREATE TABLE IF NOT EXISTS tweets(
+	tweet_id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	message TEXT
 );

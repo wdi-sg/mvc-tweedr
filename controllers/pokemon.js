@@ -7,13 +7,15 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allUsers) => {
-        response.render('pokemon/index', { allUsers });
+      db.pokemon.getAll("users", (error, allUsers) => {
+        response.render('tweedr/home', {allUsers});
       });
   };
 
   let test1 = (request, response) => {
-    db.pokemon.get
+    db.pokemon.getAll("tweed", (err, allTweeds) => {
+        response.send("I'm Here!!");
+    })
   }
 
 

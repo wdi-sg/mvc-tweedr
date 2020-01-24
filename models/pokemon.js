@@ -7,9 +7,9 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let getAll = (table, callback) => {
 
-    let query = 'SELECT * FROM users';
+    let query = 'SELECT * FROM ' + table + ';';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -22,7 +22,8 @@ module.exports = (dbPoolInstance) => {
         // invoke callback function with results after query has executed
 
         if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
+            /*console.log("Result.rows :", queryResult.rows)*/
+            callback(null, queryResult.rows);
 
         }else{
           callback(null, null);
@@ -31,6 +32,8 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+
 
   return {
     getAll,

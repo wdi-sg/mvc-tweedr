@@ -11,12 +11,15 @@ module.exports = (db) => {
   };
   let addTweet =(request, response) => {
     db.tweets.setTweet(request.cookies.user_id,request.body.message,(err)=>{
-        response.send('Updated');
+        response.redirect('/tweet');
     });
   };
   let listTweet = (request,response) => {
     db.tweets.getTweets((err, tweets)=>{
-        response.send(tweets);
+        const data = {
+            tweets: tweets,
+        }
+        response.render("tweet/listTweets", data);
     });
   };
   /**

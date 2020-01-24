@@ -10,9 +10,14 @@ module.exports = (db) => {
         response.render("tweet/makeTweet");
   };
   let addTweet =(request, response) => {
-    db.tweets.setTweet(1,request.body.message,(err)=>{
+    db.tweets.setTweet(request.cookies.user_id,request.body.message,(err)=>{
         response.send('Updated');
-    })
+    });
+  };
+  let listTweet = (request,response) => {
+    db.tweets.getTweets((err, tweets)=>{
+        response.send(tweets);
+    });
   };
   /**
    * ===========================================
@@ -22,6 +27,7 @@ module.exports = (db) => {
   return {
     makeTweet,
     addTweet,
+    listTweet
   };
 
 }

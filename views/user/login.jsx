@@ -3,7 +3,7 @@ var DefaultLayout = require('../layouts/default');
 class LoginPage extends React.Component {
   render() {
     return (
-        <DefaultLayout>
+        <DefaultLayout title="Sign in">
         <div className="container h-100">
     <div className="row h-100 justify-content-center align-items-center">
         <div className="col-10 col-md-8 col-lg-6">

@@ -14,15 +14,7 @@ class DefaultLayout extends React.Component {
 
       </head>
         <body style={{backgroundColor:"#ADDBFF"}}>
-          <div>
-      <nav className="navbar navbar-expand-lg navbar-transparent">
-      <h2><a href="/" style={{textDecoration:"none"}}>tweedr</a></h2>
-  <div className="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul className="navbar-nav">
-          </ul>
-      </div>
-        </nav>
-          {this.props.children}</div>
+          {this.props.children}
         </body>
       </html>
     );

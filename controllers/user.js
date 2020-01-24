@@ -16,7 +16,7 @@ module.exports = (db) => {
 
   let login = (request, response) => {
     (isLoggedIn(request))
-    ? response.redirect("/tweet") :
+    ? response.redirect("/") :
     response.render("user/login");
   }
 

@@ -10,7 +10,7 @@ class Home extends React.Component {
           <h3>Hello</h3>
         </body>
       </html>
-    );
+    )
   }
 }
 

@@ -17,4 +17,8 @@ module.exports = (app, allModels) => {
 
   app.get('/pokemons', pokemonControllerCallbacks.index);
   //app.get('/pokemons/:id', pokemons.getPokemon);
+
+  app.get('/login', pokemonControllerCallbacks.displayLogin);
+
+  app.post('/login', pokemonControllerCallbacks.submitLogin)
 };

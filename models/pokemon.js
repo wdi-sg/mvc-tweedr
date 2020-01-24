@@ -32,7 +32,28 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let checkLogin = (callback,name,password) => {
+    
+    let query = "SELECT * FROM users WHERE name='"+name+"'"
+    
+    dbPoolInstance.query(query, (error, queryResult) => {
+
+      if( error ){
+        callback(error, "Error");
+
+      }else{
+        
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, "Username not found");
+        }
+      }
+    });
+  };
+
   return {
-    getAll,
+    checkLogin: checkLogin
   };
 };

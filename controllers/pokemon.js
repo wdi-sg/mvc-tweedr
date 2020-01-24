@@ -1,5 +1,6 @@
 module.exports = (db) => {
-
+  
+var sha256 = require('js-sha256');
   /**
    * ===========================================
    * Controller logic
@@ -12,6 +13,33 @@ module.exports = (db) => {
       });
   };
 
+  let displayLogin = (request,response) => {
+    response.render('pokemon/index')
+  }
+
+  let submitLogin = (request,response) => {
+    const name = request.body.name;
+    const password = request.body.password;
+    const callback = (error,result) => {
+      if(password == result[0].password){
+        //Login successful: 
+
+        //Implement cookies 
+        response.cookie('username',name);
+        response.cookie('loggedIn',sha256(password))
+        response.cookie('userid',result[0].id)
+
+        response.send('Password match')
+      } else {
+        //Render to another page   
+        response.send('Password no match')
+      }
+    }
+
+    db.pokemon.checkLogin(callback,name,password)
+    
+  }
+
 
   /**
    * ===========================================
@@ -20,6 +48,8 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
+    displayLogin: displayLogin,
+    submitLogin: submitLogin
   };
 
 }

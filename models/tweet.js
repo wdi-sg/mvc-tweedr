@@ -15,9 +15,9 @@ let setTweet = (userId, msg, callback) => {
     });
   };
   let getTweets = (callback) => {
-    let query = 'SELECT * FROM tweets';
+    let query = 'SELECT * FROM tweets ORDER BY tweet_id DESC';
     dbPoolInstance.query(query,(error, queryResult) => {
-      callback(error, queryResult);
+      callback(error, queryResult.rows);
     });
   };
   return {

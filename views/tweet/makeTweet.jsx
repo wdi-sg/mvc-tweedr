@@ -7,7 +7,7 @@ class LoginPage extends React.Component {
         <div className="container h-100">
     <div className="row h-100 justify-content-center align-items-center">
         <div className="col-10 col-md-8 col-lg-6">
-<form className="mt-5" method="POST" action="/newTweet">
+<form className="mt-5" method="POST" action="/tweet">
   <div className="form-group">
     <div className="d-flex flex-row">
     <input type="text" className="form-control" name="message"/>

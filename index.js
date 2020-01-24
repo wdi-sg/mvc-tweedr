@@ -62,13 +62,20 @@ app.get('/', (request,response) => {
 });
 
 app.get('/register', (request,response) => {
-
+  response.render(registerForm);
 });
 
 app.post('register', (request,response) => {
   let queryText = "INSERT into users (username, password) VALUES ($1, $2) RETURNING *";
   let secretPassword = sha256(request.body.password + SALT);
   const values = [request.body.name, secretPassword];
+  pool.query(queryText, values, (err, result) => {
+    if (err) {
+      response.send(404);
+    } else {
+      response.send('Registered');
+    }
+  });
 });
 
 /**

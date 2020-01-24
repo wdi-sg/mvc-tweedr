@@ -1,5 +1,5 @@
 module.exports = (db) => {
-  
+
 var sha256 = require('js-sha256');
   /**
    * ===========================================
@@ -8,14 +8,14 @@ var sha256 = require('js-sha256');
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
-      });
+    db.pokemon.getAll((error, allPokemon) => {
+      response.render('pokemon/index', { allPokemon });
+    });
   };
 
   let displayLogin = (request,response) => {
     response.render('pokemon/index')
-  }
+  };
 
   let submitLogin = (request,response) => {
     const name = request.body.name;
@@ -29,15 +29,40 @@ var sha256 = require('js-sha256');
         response.cookie('loggedIn',sha256(password))
         response.cookie('userid',result[0].id)
 
-        response.send('Password match')
+        // response.send('hey')
+        response.redirect('/login/' + result[0].id)
+
       } else {
         //Render to another page   
         response.send('Password no match')
       }
     }
 
-    db.pokemon.checkLogin(callback,name,password)
+    db.pokemon.checkLogin(callback,name,password)   
+  }
+
+  let userPage = (request,response) => {
+    let id = request.params.id
     
+    let loggedInCookie = request.cookies['loggedIn']
+    console.log(loggedInCookie)
+
+    // Using the ID , find the user record
+    // Then locate the password 
+    // loggedIncookie must be equal to sha256(password)
+
+    const callback = (err,result) => {
+      
+      if(loggedInCookie == sha256(result[0].password)){
+        response.send("success")
+      } else {
+        response.send("fail")
+      }
+    }
+
+    db.pokemon.userVerification(callback,id)
+
+
   }
 
 
@@ -49,7 +74,8 @@ var sha256 = require('js-sha256');
   return {
     index: indexControllerCallback,
     displayLogin: displayLogin,
-    submitLogin: submitLogin
+    submitLogin: submitLogin,
+    userPage: userPage
   };
 
 }

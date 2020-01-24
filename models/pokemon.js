@@ -53,7 +53,30 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let userVerification = (callback,id) => {
+
+    let query = "SELECT * FROM users WHERE id='"+id+"'"
+
+     dbPoolInstance.query(query, (error, queryResult) => {
+
+      if( error ){
+        callback(error, "Error");
+
+      }else{
+        
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+
+        }else{
+          callback(null, "User not found");
+        }
+      }
+    });
+
+  }
+
   return {
-    checkLogin: checkLogin
+    checkLogin: checkLogin,
+    userVerification: userVerification
   };
 };

@@ -4,7 +4,6 @@ var Navbar = require("../navbar")
 
 class Home extends React.Component {
   render() {
-    console.log(this.props.allUsers)
     return (
       <html>
         <Head />

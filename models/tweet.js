@@ -14,7 +14,14 @@ let setTweet = (userId, msg, callback) => {
       callback(error);
     });
   };
+  let getTweets = (callback) => {
+    let query = 'SELECT * FROM tweets';
+    dbPoolInstance.query(query,(error, queryResult) => {
+      callback(error, queryResult);
+    });
+  };
   return {
     setTweet,
+    getTweets
   };
 };

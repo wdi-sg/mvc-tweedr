@@ -13,9 +13,9 @@ class DefaultLayout extends React.Component {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
       </head>
-        <body>
+        <body style={{backgroundColor:"#ADDBFF"}}>
           <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-transparent">
       <h2>tweedr</h2>
   <div className="collapse navbar-collapse" id="navbarNavDropdown">
     <ul className="navbar-nav">

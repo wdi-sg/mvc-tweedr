@@ -20,13 +20,14 @@ var sha256 = require('js-sha256');
   let submitLogin = (request,response) => {
     const name = request.body.name;
     const password = request.body.password;
+
     const callback = (error,result) => {
       if(password == result[0].password){
         //Login successful: 
-
+        const id = result[0].id
         //Implement cookies 
         response.cookie('username',name);
-        response.cookie('loggedIn',sha256(password))
+        response.cookie('loggedIn',sha256(id.toString()))
         response.cookie('userid',result[0].id)
 
         // response.send('hey')
@@ -41,7 +42,8 @@ var sha256 = require('js-sha256');
     db.pokemon.checkLogin(callback,name,password)   
   }
 
-  let userPage = (request,response) => {
+  let createTweet = (request,response) => {
+
     let id = request.params.id
     
     let loggedInCookie = request.cookies['loggedIn']
@@ -50,19 +52,13 @@ var sha256 = require('js-sha256');
     // Using the ID , find the user record
     // Then locate the password 
     // loggedIncookie must be equal to sha256(password)
+    if(loggedInCookie == sha256(id.toString())) {
+      response.send('createTweet')
 
-    const callback = (err,result) => {
-      
-      if(loggedInCookie == sha256(result[0].password)){
-        response.send("success")
-      } else {
-        response.send("fail")
-      }
+    } else {
+      response.send("You are not supposed to be here.")
+
     }
-
-    db.pokemon.userVerification(callback,id)
-
-
   }
 
 
@@ -75,7 +71,7 @@ var sha256 = require('js-sha256');
     index: indexControllerCallback,
     displayLogin: displayLogin,
     submitLogin: submitLogin,
-    userPage: userPage
+    createTweet: createTweet
   };
 
 }

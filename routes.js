@@ -22,5 +22,5 @@ module.exports = (app, allModels) => {
 
   app.post('/login', pokemonControllerCallbacks.submitLogin);
 
-  app.get('/login/:id',pokemonControllerCallbacks.userPage)
+  app.get('/login/:id',pokemonControllerCallbacks.createTweet)
 };

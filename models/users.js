@@ -64,8 +64,12 @@ module.exports = (dbPoolInstance) => {
       if (err) {
         console.log('Error', err);
       } else {
-        console.log('user logged in');
-        createLoggedInToken(result.rows[0].id, result.rows[0].username, callback);
+        if (result.rows.length > 0) {
+          console.log('user logged in');
+          createLoggedInToken(result.rows[0].id, result.rows[0].username, callback);
+        } else {
+          console.log('bad username or password');
+        }
       }
     })
   }

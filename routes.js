@@ -15,6 +15,7 @@ module.exports = (app, allModels) => {
   // require the controller
   const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
   const userControllerCallbacks = require('./controllers/users')(allModels);
+  const messageControllerCallbacks = require('./controllers/messages')(allModels);
 
   app.get('/pokemons', pokemonControllerCallbacks.index);
   //app.get('/pokemons/:id', pokemons.getPokemon);
@@ -30,4 +31,8 @@ module.exports = (app, allModels) => {
   app.post('/register', userControllerCallbacks.registerAccount);
 
   app.get('/check', userControllerCallbacks.checkIfSignedIn);
+
+  app.get('/messages/new', messageControllerCallbacks.newMessageForm);
+
+  app.post('/messages/', messageControllerCallbacks.postNewMessage);
 };

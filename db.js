@@ -64,9 +64,11 @@ pool.on('error', function (err) {
 
 const allPokemonModelsFunction = require('./models/pokemon');
 const allUsersModelsFunction = require('./models/users');
+const allMessagesModelsFunction = require('./models/messages');
 
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 const usersModelsObject = allUsersModelsFunction( pool );
+const messagesModelsObject = allMessagesModelsFunction( pool );
 
 
 
@@ -92,11 +94,8 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool:pool,
 
-  /*
-   * ADD APP MODELS HERE
-   */
 
-  // users: userModelsObject,
   pokemon: pokemonModelsObject,
-  users: usersModelsObject
+  users: usersModelsObject,
+  messages: messagesModelsObject
 };

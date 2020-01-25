@@ -6,7 +6,7 @@ module.exports = db => {
     const userID = request.cookies.userID;
     const username = request.cookies.username;
     const loggedIn = request.cookies.loggedIn;
-    if (loggedIn !== undefined) {
+    if (loggedIn === sha256(SALT + userID)) {
       db.tweedr.getTweeds(userID, (err, result) => {
         const data = {
           userID: userID,
@@ -139,7 +139,9 @@ module.exports = db => {
     const userID = request.params.id;
     db.tweedr.showUser(userID, (err, result) => {
       if (result !== undefined) {
-        if (request.cookies.loggedIn !== undefined) {
+        if (
+          request.cookies.loggedIn === sha256(SALT + request.cookies.userID)
+        ) {
           const user = result;
           const currentUser = request.cookies.username;
           const data = {
@@ -154,7 +156,10 @@ module.exports = db => {
           response.render("error", data);
         }
       } else {
-        response.send("User doesn't exist!");
+        const data = {
+          errorMessage: "User doesn't exist!"
+        };
+        response.render("error", data);
       }
     });
   };
@@ -219,7 +224,7 @@ module.exports = db => {
     const userID = request.cookies.userID;
     const username = request.cookies.username;
     const loggedIn = request.cookies.loggedIn;
-    if (loggedIn !== undefined) {
+    if (loggedIn === sha256(SALT + userID)) {
       db.tweedr.showTweed(tweedID, (error, result) => {
         if (result === "No such tweet!") {
           const data = {

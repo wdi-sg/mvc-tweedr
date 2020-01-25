@@ -27,19 +27,27 @@ module.exports = db => {
   };
 
   const showRegisterForm = (request, response) => {
-    const data = {
-      header: "Register",
-      actionPath: "/register"
-    };
-    response.render("register", data);
+    if (request.cookies.loggedIn === undefined) {
+      const data = {
+        header: "Register",
+        actionPath: "/register"
+      };
+      response.render("register", data);
+    } else {
+      response.redirect("/");
+    }
   };
 
   const showLoginForm = (request, response) => {
-    const data = {
-      header: "Login",
-      actionPath: "/login"
-    };
-    response.render("register", data);
+    if (request.cookies.loggedIn === undefined) {
+      const data = {
+        header: "Login",
+        actionPath: "/login"
+      };
+      response.render("register", data);
+    } else {
+      response.redirect("/");
+    }
   };
 
   const registerUser = (request, response) => {
@@ -131,13 +139,20 @@ module.exports = db => {
     const userID = request.params.id;
     db.tweedr.showUser(userID, (err, result) => {
       if (result !== undefined) {
-        const user = result;
-        const currentUser = request.cookies.username;
-        const data = {
-          user: user,
-          currentUser: currentUser
-        };
-        response.render("user", data);
+        if (request.cookies.loggedIn !== undefined) {
+          const user = result;
+          const currentUser = request.cookies.username;
+          const data = {
+            user: user,
+            currentUser: currentUser
+          };
+          response.render("user", data);
+        } else {
+          const data = {
+            errorMessage: "You need to be logged in to follow other users!"
+          };
+          response.render("error", data);
+        }
       } else {
         response.send("User doesn't exist!");
       }

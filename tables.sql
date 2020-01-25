@@ -8,4 +8,11 @@ CREATE TABLE IF NOT EXISTS tweets (
   id SERIAL PRIMARY KEY,
   message TEXT,
   user_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  id SERIAL PRIMARY KEY,
+  token TEXT NOT NULL UNIQUE,
+  user_id INTEGER,
+  expiry TIMESTAMP NOT NULL
 )

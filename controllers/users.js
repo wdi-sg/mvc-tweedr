@@ -16,12 +16,14 @@ module.exports = (db) => {
     let inputUsername = request.body.username;
     let inputPassword = request.body.password;
 
-    const callbackFunction = () => {
-      // set cookies.
+    const callbackFunction = (loginToken, user_id, expiry) => {
+      response.cookies('loginToken', loginToken, {expires: expiry});
+      data = {message: 'Signed in successfully!'};
+      response.render('message', data);
       // redirect to home page.
 
       console.log('did the callback');
-    }
+    };
 
     db.users.signIn(inputUsername, inputPassword, callbackFunction);
   }

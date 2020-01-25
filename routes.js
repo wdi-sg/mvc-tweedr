@@ -35,4 +35,6 @@ module.exports = (app, allModels) => {
   app.get('/messages/new', messageControllerCallbacks.newMessageForm);
 
   app.post('/messages/', messageControllerCallbacks.postNewMessage);
+
+  app.get('/', messageControllerCallbacks.displayAllMessages);
 };

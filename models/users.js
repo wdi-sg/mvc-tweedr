@@ -29,6 +29,7 @@ module.exports = (dbPoolInstance) => {
         console.log(authResult);
         if (authResult) {
           if (moment().isBefore(moment(authResult.expiry))) {
+            console.log(authResult.user_id);
             callbackFunction(authResult.user_id);
             return;
           }

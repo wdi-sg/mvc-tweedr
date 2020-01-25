@@ -19,12 +19,12 @@ module.exports = (db) => {
         response.render('message', { message: "Tweed Posted!" });
       }
 
-      const postMessage = (cbmessage, userID, callbackFunction) => {
+      const postMessage = (userID) => {
         if (userID) {
         db.messages.postMessage(message, userID, displayConfirmation);
-      } else {
-        console.log('invalid userID');
-      }
+        } else {
+          console.log('invalid userID');
+        }
 
       }
 
@@ -40,7 +40,19 @@ module.exports = (db) => {
 
     db.users.verifyUserSignedIn(logInToken, displayNewMessageForm);
 
+  }
 
+
+  const displayAllMessages = (request, response) => {
+
+
+    const sendMessagesToViewController = (err, result) => {
+      console.log(result);
+      data = {messages: result};
+      response.render('messages/allmessages', data);
+    }
+
+    db.messages.selectAllMessages(sendMessagesToViewController);
   }
 
   /**
@@ -50,7 +62,8 @@ module.exports = (db) => {
    */
   return {
     newMessageForm: newMessageForm,
-    postNewMessage: postNewMessage
+    postNewMessage: postNewMessage,
+    displayAllMessages: displayAllMessages
   };
 
 }

@@ -17,7 +17,7 @@ module.exports = (db) => {
     let inputPassword = request.body.password;
 
     const callbackFunction = (loginToken, user_id, expiry) => {
-      response.cookies('loginToken', loginToken, {expires: expiry});
+      response.cookie('loginToken', loginToken, {expires: expiry});
       data = {message: 'Signed in successfully!'};
       response.render('message', data);
       // redirect to home page.

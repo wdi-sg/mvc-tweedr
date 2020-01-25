@@ -6,7 +6,8 @@
 
 const sha256 = require('js-sha256');
 const SALT = 'potatoTomatoHelloGoodbyeSleep';
-const SESSION_LENGTH_TIME = 1210000000; // 2 weeks
+const SESSION_LENGTH_TIME = {weeks: 2}; // 2 weeks
+const moment = require('moment');
 
 /**
  * ===========================================
@@ -16,25 +17,22 @@ const SESSION_LENGTH_TIME = 1210000000; // 2 weeks
 module.exports = (dbPoolInstance) => {
 
   // verify if user is signed in, if so, perform the callback.
-  const verifyUserSignedIn = () => {
+  const verifyUserSignedIn = (loginToken, callbackFunction) => {
     console.log('checking if user is signed in');
   }
 
 
   const createLoggedInToken = (id, username, loggedInCallback) => {
-    console.log('making session');
-    const timeNow = new Date();
-    const loginToken = sha256(id + timeNow + SALT);
-    const expiryDate = new Date() + SESSION_LENGTH_TIME;
+    const timeNow = moment();
+    const loginToken = sha256(id + timeNow.format() + SALT);
+    const expiryDate = moment().add(SESSION_LENGTH_TIME);
     const queryString = 'INSERT INTO sessions (token, user_id, expiry) VALUES ($1, $2, $3) RETURNING *;';
-    const queryValues = [loginToken, id, expiryDate];
-    console.log(queryValues);
+    const queryValues = [loginToken, id, expiryDate.format()];
     dbPoolInstance.query(queryString, queryValues, (err, result) => {
       if (err) {
-
+        console.log('error!', err);
       } else {
-      console.log('Session token created');
-      loggedInCallback(loginToken, user_id, expiry);
+        loggedInCallback(loginToken, result.rows[0].user_id, result.rows[0].expiry);
     }
     });
   };
@@ -49,7 +47,7 @@ module.exports = (dbPoolInstance) => {
         console.log('Error', err);
       } else {
         console.log('user logged in');
-        createLoggedInToken(result.rows.id, result.rows.username, callback);
+        createLoggedInToken(result.rows[0].id, result.rows[0].username, callback);
       }
     })
   }

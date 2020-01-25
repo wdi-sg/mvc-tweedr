@@ -3,9 +3,9 @@ const Layout = require("./layout");
 
 class Index extends React.Component {
   render() {
-    console.log(this.props.tweeds);
     let tweedElement;
     let header;
+    console.log(this.props);
     if (this.props.tweeds !== undefined) {
       header = <h3>My Tweets</h3>;
       const tweeds = this.props.tweeds;
@@ -13,7 +13,12 @@ class Index extends React.Component {
         const tweetLink = "/tweeds/" + tweed.id;
         return (
           <p>
-            <a href={tweetLink}>{tweed.tweets}</a>
+            <a className="mr-3" href={tweetLink}>
+              {tweed.tweets}
+            </a>{" "}
+            <span>
+              <em>{tweed.created_at.toString()}</em>
+            </span>
           </p>
         );
       });
@@ -26,6 +31,7 @@ class Index extends React.Component {
         loggedIn={this.props.loggedIn}
       >
         <div className="container">
+          <h1 className="display-1 text-center">Tweedr</h1>
           {header}
           {tweedElement}
         </div>

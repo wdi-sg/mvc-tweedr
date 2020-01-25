@@ -3,10 +3,9 @@ const Layout = require("./layout");
 
 class Following extends React.Component {
   render() {
-    console.log(this.props);
     let type;
     let tweetElement;
-    console.log(this.props);
+
     if (this.props.type === "following") {
       type = "Tweeds from people you're following:";
       const tweets = this.props.followingTweets;
@@ -16,7 +15,12 @@ class Following extends React.Component {
           <div>
             <h6>{tweet.username} tweeded:</h6>
             <p>
-              <a href={tweetLink}>{tweet.tweets}</a>
+              <a className="mr-3" href={tweetLink}>
+                {tweet.tweets}
+              </a>
+              <span>
+                <em>{tweet.created_at.toString()}</em>
+              </span>
             </p>
           </div>
         );
@@ -30,7 +34,12 @@ class Following extends React.Component {
           <div>
             <h6>{tweet.username} tweeded:</h6>
             <p>
-              <a href={tweetLink}>{tweet.tweets}</a>
+              <a className="mr-3" href={tweetLink}>
+                {tweet.tweets}
+              </a>
+              <span>
+                <em>{tweet.created_at.toString()}</em>
+              </span>
             </p>
           </div>
         );
@@ -43,7 +52,7 @@ class Following extends React.Component {
         userID={this.props.userID}
         loggedIn={this.props.loggedIn}
       >
-        <div className="container">
+        <div className="container mt-3">
           <h2>{type}</h2>
           {tweetElement}
         </div>

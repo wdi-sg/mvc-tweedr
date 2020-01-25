@@ -106,7 +106,14 @@ module.exports = db => {
       username: username,
       loggedIn: loggedIn
     };
-    response.render("newTweed", data);
+    if (request.cookies.loggedIn === undefined) {
+      const data = {
+        errorMessage: "You have to be logged in to add a Tweed!"
+      };
+      response.render("error", data);
+    } else {
+      response.render("newTweed", data);
+    }
   };
 
   const postTweed = (request, response) => {
@@ -141,6 +148,7 @@ module.exports = db => {
     const userID = request.params.id;
     const followerID = request.cookies.userID;
     db.tweedr.followUser(userID, followerID, (err, result) => {
+      console.log(result);
       if (err) {
         console.log(err);
         const data = {

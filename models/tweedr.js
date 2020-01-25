@@ -79,7 +79,7 @@ module.exports = dbPoolInstance => {
 
   const seePostsOfFollowing = (userID, callback) => {
     const values = [userID];
-    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as username
+    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as username, tweets.created_at
                     FROM tweets
                     INNER JOIN user_follower
                     on (tweets.user_id = user_follower.user_id)
@@ -96,7 +96,7 @@ module.exports = dbPoolInstance => {
 
   const seePostsOfFollowers = (userID, callback) => {
     const values = [userID];
-    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as   username
+    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as username, tweets.created_at
                     FROM tweets
                     INNER JOIN user_follower
                     on (tweets.user_id = user_follower.follower_id)
@@ -165,7 +165,10 @@ module.exports = dbPoolInstance => {
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) console.log(err);
       else if (result.rows[0] === undefined) {
-        callback(err, "You aren't the creator of this Tweed! Edit not allowed.");
+        callback(
+          err,
+          "You aren't the creator of this Tweed! Edit not allowed."
+        );
       } else {
         callback(err, result.rows[0]);
       }

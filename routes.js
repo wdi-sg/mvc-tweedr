@@ -1,6 +1,4 @@
 module.exports = (app, allModels) => {
-
-
   /*
    *  =========================================
    *  =========================================
@@ -13,8 +11,9 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
+  const tweedrCallbacks = require("./controllers/tweedr")(allModels);
+  app.get("/register", tweedrCallbacks.showRegisterForm);
+  app.post("/register", tweedrCallbacks.registerUser)
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

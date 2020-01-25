@@ -4,6 +4,8 @@ class Layout extends React.Component {
   render() {
     let loggedIn;
     let makeTweed;
+    let following;
+    let followers;
     if (this.props.loggedIn !== undefined) {
       loggedIn = (
         <div>
@@ -15,6 +17,20 @@ class Layout extends React.Component {
         <li className="nav-item active">
           <a className="nav-link" href="/tweed">
             Write Tweed <span className="sr-only">(current)</span>
+          </a>
+        </li>
+      );
+      following = (
+        <li className="nav-item active">
+          <a className="nav-link" href="/following">
+            Following <span className="sr-only">(current)</span>
+          </a>
+        </li>
+      );
+      followers = (
+        <li className="nav-item active">
+          <a className="nav-link" href="/followers">
+            Followers <span className="sr-only">(current)</span>
           </a>
         </li>
       );
@@ -45,7 +61,7 @@ class Layout extends React.Component {
         </head>
         <body>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               Tweedr
             </a>
             <button
@@ -62,16 +78,8 @@ class Layout extends React.Component {
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav mr-auto">
                 {makeTweed}
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Features
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Pricing
-                  </a>
-                </li>
+                {following}
+                {followers}
               </ul>
               <span className="navbar-text">{loggedIn}</span>
             </div>

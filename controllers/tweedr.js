@@ -112,6 +112,61 @@ module.exports = db => {
     });
   };
 
+  const showUser = (request, response) => {
+    const userID = request.params.id;
+    db.tweedr.showUser(userID, (err, result) => {
+      if (result !== undefined) {
+        const user = result;
+        const currentUser = request.cookies.username;
+        const data = {
+          user: user,
+          currentUser: currentUser
+        };
+        response.render("user", data);
+      } else {
+        response.send("User doesn't exist!");
+      }
+    });
+  };
+
+  const followUser = (request, response) => {
+    const userID = request.params.id;
+    const followerID = request.cookies.userID;
+    db.tweedr.followUser(userID, followerID, (err, result) => {
+      if (err) {
+        console.log(err);
+        const data = {
+          errorMessage: "Already following this user!"
+        };
+        response.render("error", data);
+      } else {
+        response.redirect("/");
+      }
+    });
+  };
+
+  const seePostsOfFollowing = (request, response) => {
+    const userID = request.cookies.userID;
+    db.tweedr.seePostsOfFollowing(userID, (err, result) => {
+      const data = {
+        type: "following",
+        followingTweets: result
+      };
+      response.render("following", data);
+    });
+  };
+
+  const seePostsOfFollowers = (request, response) => {
+    const userID = request.cookies.userID;
+    db.tweedr.seePostsOfFollowers(userID, (err, result) => {
+      const data = {
+        type: "followers",
+        followingTweets: result
+      };
+      response.render("following", data);
+    });
+  };
+
   return {
     showHomepage: showHomepage,
     showRegisterForm: showRegisterForm,
@@ -120,6 +175,10 @@ module.exports = db => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     newTweed: newTweed,
-    postTweed: postTweed
+    postTweed: postTweed,
+    showUser: showUser,
+    followUser: followUser,
+    seePostsOfFollowing: seePostsOfFollowing,
+    seePostsOfFollowers: seePostsOfFollowers
   };
 };

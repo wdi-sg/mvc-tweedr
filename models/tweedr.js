@@ -31,7 +31,7 @@ module.exports = dbPoolInstance => {
   const postTweed = (tweed, userID, callback) => {
     const values = [tweed, userID];
     const query =
-      "INSERT INTO tweets (tweets, users_id) VALUES ($1, $2) RETURNING *";
+      "INSERT INTO tweets (tweets, user_id) VALUES ($1, $2) RETURNING *";
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err);
       else {
@@ -42,7 +42,7 @@ module.exports = dbPoolInstance => {
 
   const getTweeds = (userID, callback) => {
     const values = [userID];
-    const query = "SELECT * from tweets where users_id = $1";
+    const query = "SELECT * from tweets where user_id = $1";
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
         callback(err);
@@ -52,10 +52,72 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const showUser = (id, callback) => {
+    const userID = id;
+    const values = [userID];
+    const query = "SELECT * from users where id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
+  const followUser = (userID, followerID, callback) => {
+    const values = [userID, followerID];
+    const query =
+      "INSERT INTO user_follower (user_id, follower_id) VALUES ($1, $2) RETURNING *";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err);
+      else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
+  const seePostsOfFollowing = (userID, callback) => {
+    const values = [userID];
+    const query = `SELECT tweets.tweets, tweets.user_id, users.username as username
+                    FROM tweets
+                    INNER JOIN user_follower
+                    on (tweets.user_id = user_follower.user_id)
+                    INNER JOIN users
+                    on (tweets.user_id = users.id)
+                    where user_follower.follower_id = $1`;
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err);
+      else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
+  const seePostsOfFollowers = (userID, callback) => {
+    const values = [userID];
+    const query = `SELECT tweets.tweets, tweets.user_id, users.username as   username
+                    FROM tweets
+                    INNER JOIN user_follower
+                    on (tweets.user_id = user_follower.follower_id)
+                    INNER JOIN users
+                    on (tweets.user_id = users.id)
+                    where user_follower.user_id = $1`;
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err);
+      else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
   return {
     registerUser: registerUser,
     loginUser: loginUser,
     postTweed: postTweed,
-    getTweeds: getTweeds
+    getTweeds: getTweeds,
+    showUser: showUser,
+    followUser: followUser,
+    seePostsOfFollowing: seePostsOfFollowing,
+    seePostsOfFollowers: seePostsOfFollowers
   };
 };

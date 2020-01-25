@@ -21,5 +21,9 @@ module.exports = (app, allModels) => {
   app.get("/logout", tweedrCallbacks.logoutUser);
   app.get("/tweed", tweedrCallbacks.newTweed);
   app.post("/tweed", tweedrCallbacks.postTweed);
+  app.get("/users/:id", tweedrCallbacks.showUser);
+  app.get("/users/:id/follow", tweedrCallbacks.followUser);
+  app.get("/following", tweedrCallbacks.seePostsOfFollowing);
+  app.get("/followers", tweedrCallbacks.seePostsOfFollowers);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

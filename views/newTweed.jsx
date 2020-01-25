@@ -7,15 +7,15 @@ class Tweed extends React.Component {
       <Layout>
         <div className="container mt-5">
           <form action="/tweed" method="post">
-            <div class="form-group">
+            <div className="form-group">
               <label>Write a Tweed!</label>
               <textarea
-                class="form-control"
+                className="form-control"
                 id="exampleFormControlTextarea1"
                 rows="3"
                 name="tweed"
                 placeholder="200 characters max!"
-                maxlength="200"
+                maxLength="200"
                 required
               ></textarea>
             </div>

@@ -4,7 +4,7 @@ const Layout = require("./layout");
 class Tweed extends React.Component {
   render() {
     const editPath = "/tweeds/" + this.props.tweed.id + "/edit";
-
+    const deletePath = "/tweeds/" + this.props.tweed.id + "/delete";
     return (
       <Layout
         username={this.props.username}
@@ -16,6 +16,9 @@ class Tweed extends React.Component {
           <span className="mr-2">{this.props.tweed.tweets}</span>
           <a href={editPath}>
             <button className="btn btn-warning">Edit</button>
+          </a>
+          <a href={deletePath}>
+            <button className="btn btn-danger">Delete</button>
           </a>
         </div>
       </Layout>

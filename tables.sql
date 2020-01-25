@@ -16,3 +16,4 @@ CREATE TABLE IF NOT EXISTS user_follower (
 	follower_id INTEGER 
 );
 
+

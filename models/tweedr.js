@@ -117,7 +117,7 @@ module.exports = dbPoolInstance => {
     const query = "SELECT * from tweets where id = $1";
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err);
-      else {
+      else if (result.rows[0] !== undefined) {
         const userID = result.rows[0].user_id;
         const values = [userID];
         const userQuery = "SELECT * from users where id = $1";
@@ -130,6 +130,8 @@ module.exports = dbPoolInstance => {
             callback(err, data);
           }
         });
+      } else {
+        callback(err, "No such tweet!")
       }
     });
   };
@@ -177,6 +179,19 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const deleteTweed = (userID, tweedID, callback) => {
+    const values = [userID, tweedID];
+    const query = "DELETE from tweets where id = $2 AND user_id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else if (result.rows[0] === undefined) {
+        callback(err, "You can't delete this Tweed!");
+      } else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
   return {
     registerUser: registerUser,
     loginUser: loginUser,
@@ -189,6 +204,7 @@ module.exports = dbPoolInstance => {
     showTweed: showTweed,
     sortTweedsByDate: sortTweedsByDate,
     getTweedForEdit: getTweedForEdit,
-    editTweed: editTweed
+    editTweed: editTweed,
+    deleteTweed: deleteTweed
   };
 };

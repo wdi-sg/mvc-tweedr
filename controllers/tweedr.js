@@ -161,12 +161,18 @@ module.exports = db => {
 
   const followUser = (request, response) => {
     const userID = request.params.id;
+    const currentUser = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
     const followerID = request.cookies.userID;
     db.tweedr.followUser(userID, followerID, (err, result) => {
       console.log(result);
       if (err) {
         console.log(err);
         const data = {
+          username: username,
+          userID: currentUser,
+          loggedIn: loggedIn,
           errorMessage: "Already following this user!"
         };
         response.render("error", data);
@@ -213,16 +219,33 @@ module.exports = db => {
     const userID = request.cookies.userID;
     const username = request.cookies.username;
     const loggedIn = request.cookies.loggedIn;
-    db.tweedr.showTweed(tweedID, (error, result) => {
+    if (loggedIn !== undefined) {
+      db.tweedr.showTweed(tweedID, (error, result) => {
+        if (result === "No such tweet!") {
+          const data = {
+            errorMessage: result,
+            userID: userID,
+            username: username,
+            loggedIn: loggedIn
+          };
+          response.render("error", data);
+        } else {
+          const data = {
+            tweed: result.tweed,
+            user: result.user,
+            userID: userID,
+            username: username,
+            loggedIn: loggedIn
+          };
+          response.render("tweed", data);
+        }
+      });
+    } else {
       const data = {
-        tweed: result.tweed,
-        user: result.user,
-        userID: userID,
-        username: username,
-        loggedIn: loggedIn
+        errorMessage: "You need to be logged in to view Tweeds!"
       };
-      response.render("tweed", data);
-    });
+      response.render("error", data);
+    }
   };
 
   const sortTweedsByDate = (request, response) => {
@@ -257,8 +280,26 @@ module.exports = db => {
     });
   };
 
+  const showDeleteTweedPage = (request, response) => {
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
+    const tweedID = request.params.id;
+    db.tweedr.getTweedForEdit(tweedID, (err, result) => {
+      const data = {
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn,
+        tweed: result
+      };
+      response.render("deleteTweed", data);
+    });
+  };
+
   const editTweed = (request, response) => {
     const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
     const tweedID = request.params.id;
     const tweed = request.body.tweed;
     db.tweedr.editTweed(userID, tweedID, tweed, (err, result) => {
@@ -268,7 +309,32 @@ module.exports = db => {
         result === "You aren't the creator of this Tweed! Edit not allowed."
       ) {
         const data = {
-          errorMessage: result
+          errorMessage: result,
+          userID: userID,
+          username: username,
+          loggedIn: loggedIn
+        };
+        response.render("error", data);
+      } else {
+        response.redirect("/");
+      }
+    });
+  };
+
+  const deleteTweed = (request, response) => {
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
+    const tweedID = request.params.id;
+
+    db.tweedr.deleteTweed(userID, tweedID, (err, result) => {
+      if (err) console.log(err);
+      else if (result === "You can't delete this Tweed!") {
+        const data = {
+          errorMessage: result,
+          username: username,
+          userID: userID,
+          loggedIn: loggedIn
         };
         response.render("error", data);
       } else {
@@ -293,6 +359,8 @@ module.exports = db => {
     showTweed: showTweed,
     sortTweedsByDate: sortTweedsByDate,
     showEditTweedPage: showEditTweedPage,
-    editTweed: editTweed
+    editTweed: editTweed,
+    showDeleteTweedPage: showDeleteTweedPage,
+    deleteTweed: deleteTweed
   };
 };

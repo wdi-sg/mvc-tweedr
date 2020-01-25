@@ -29,5 +29,7 @@ module.exports = (app, allModels) => {
   app.get("/sort", tweedrCallbacks.sortTweedsByDate);
   app.get("/tweeds/:id/edit", tweedrCallbacks.showEditTweedPage);
   app.put("/tweeds/:id", tweedrCallbacks.editTweed);
+  app.get("/tweeds/:id/delete", tweedrCallbacks.showDeleteTweedPage);
+  app.delete("/tweeds/:id", tweedrCallbacks.deleteTweed);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

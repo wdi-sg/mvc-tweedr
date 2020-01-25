@@ -1,3 +1,5 @@
+const cookieParser = require('cookie-parser');
+
 module.exports = (db) => {
 
   /**
@@ -51,6 +53,19 @@ module.exports = (db) => {
   }
 
 
+  // Check if the user is signed in and return the user ID. (Testing function)
+  const checkIfSignedIn = (request, response) => {
+
+    const logInToken = request.cookies.loginToken;
+
+    const callbackFunction = (id) => {
+      response.render('message', { message: `User ID: ${id}` });
+    }
+
+    db.users.verifyUserSignedIn(logInToken, callbackFunction);
+
+  }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -60,7 +75,8 @@ module.exports = (db) => {
     signInPage: signInPage,
     signIn: signIn,
     registerPage: registerPage,
-    registerAccount: registerAccount
+    registerAccount: registerAccount,
+    checkIfSignedIn: checkIfSignedIn
   };
 
 }

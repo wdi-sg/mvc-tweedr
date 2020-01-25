@@ -18,10 +18,24 @@ module.exports = (dbPoolInstance) => {
 
   // verify if user is signed in, if so, perform the callback.
   const verifyUserSignedIn = (loginToken, callbackFunction) => {
-    console.log('checking if user is signed in');
-  }
+
+    const queryString = 'SELECT * FROM sessions WHERE token = $1;';
+    const queryValues = [loginToken];
+    dbPoolInstance.query(queryString, queryValues, (err, result) => {
+      if (err) {
+        console.log('error with token authentication', err)
+      } else {
+        
+        const authResult = result.rows[0];
+        if (authResult) {
+          callbackFunction(authResult.user_id);
+        }
+      }
+    })
+  };
 
 
+  // Make a token.
   const createLoggedInToken = (id, username, loggedInCallback) => {
     const timeNow = moment();
     const loginToken = sha256(id + timeNow.format() + SALT);
@@ -56,7 +70,7 @@ module.exports = (dbPoolInstance) => {
     const queryString = 'SELECT * FROM users WHERE username = $1;';
     const queryValues = [username];
     dbPoolInstance.query(queryString, queryValues, callback);
-  }
+  };
 
   const registerAccount = (username, password, usernameRegistrationCallback) => {
     console.log('received username: ' + username);
@@ -83,6 +97,7 @@ module.exports = (dbPoolInstance) => {
 
   return {
     signIn,
-    registerAccount
+    registerAccount,
+    verifyUserSignedIn
   };
 };

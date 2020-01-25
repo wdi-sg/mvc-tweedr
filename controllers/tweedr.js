@@ -44,22 +44,16 @@ module.exports = (db) => {
         } else {
           console.log('User could not be created');
         }
-        // redirect to home page after creation
-        // response.redirect('/');
-        // if (error) {
-        //     console.log("Error", error);
-        //     response.status(404).send('error', error);
-        // } else {
-        //     console.log("Done");
-        //     // response.send("You have successfully created an account!");
-        //     let user_id = username.rows[0].id;
-        //     let hashedUser = sha256(user_id+SALT);
-        //     response.cookie('username', username.name);
-        //     response.cookie('loggedIn', hashedUser);
-        //     response.cookie('userId', user_id);
-        //     response.redirect('/');
         });
 };
+
+//for get's ('/register') path
+  let loginFormControllerCallback = (request, response) => {
+    response.render('tweedr/login');
+    // response.send('wana register?');
+  };
+
+
 
 
   /**
@@ -70,7 +64,8 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     registerForm: registerFormControllerCallback,
-    register: registerControllerCallback
+    register: registerControllerCallback,
+    loginForm: loginFormControllerCallback
   };
 
 }

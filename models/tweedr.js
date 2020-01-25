@@ -146,6 +146,34 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const getTweedForEdit = (tweedID, callback) => {
+    const values = [tweedID];
+    const query = "SELECT * from tweets where id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err);
+      else {
+        callback(err, result.rows[0]);
+      }
+    });
+  };
+
+  const editTweed = (userID, tweedID, tweed, callback) => {
+    const values = [userID, tweedID, tweed];
+    const query = `UPDATE tweets
+       SET tweets = $3 
+       WHERE id = $2 AND user_id = $1 RETURNING *`;
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) console.log(err);
+      else if (result.rows[0] === undefined) {
+        callback(err, "You aren't the creator of this Tweed! Edit not allowed.");
+      } else {
+        callback(err, result.rows[0]);
+      }
+      {
+      }
+    });
+  };
+
   return {
     registerUser: registerUser,
     loginUser: loginUser,
@@ -156,6 +184,8 @@ module.exports = dbPoolInstance => {
     seePostsOfFollowing: seePostsOfFollowing,
     seePostsOfFollowers: seePostsOfFollowers,
     showTweed: showTweed,
-    sortTweedsByDate: sortTweedsByDate
+    sortTweedsByDate: sortTweedsByDate,
+    getTweedForEdit: getTweedForEdit,
+    editTweed: editTweed
   };
 };

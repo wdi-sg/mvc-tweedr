@@ -8,7 +8,7 @@ class Following extends React.Component {
     let tweetElement;
     console.log(this.props);
     if (this.props.type === "following") {
-      type = "Tweets from people you're following:";
+      type = "Tweeds from people you're following:";
       const tweets = this.props.followingTweets;
       tweetElement = tweets.map(tweet => {
         const tweetLink = "/tweeds/" + tweet.id;
@@ -22,7 +22,7 @@ class Following extends React.Component {
         );
       });
     } else if (this.props.type === "followers") {
-      type = "Tweets from your followers:";
+      type = "Tweeds from your followers:";
       const tweets = this.props.followingTweets;
       tweetElement = tweets.map(tweet => {
         const tweetLink = "/tweeds/" + tweet.id;

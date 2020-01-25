@@ -187,10 +187,16 @@ module.exports = db => {
 
   const showTweed = (request, response) => {
     const tweedID = request.params.id;
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
     db.tweedr.showTweed(tweedID, (error, result) => {
       const data = {
         tweed: result.tweed,
-        user: result.user
+        user: result.user,
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn
       };
       response.render("tweed", data);
     });
@@ -212,6 +218,42 @@ module.exports = db => {
     });
   };
 
+  const showEditTweedPage = (request, response) => {
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
+    const tweedID = request.params.id;
+    db.tweedr.getTweedForEdit(tweedID, (err, result) => {
+      const data = {
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn,
+        tweed: result
+      };
+      response.render("editTweed", data);
+    });
+  };
+
+  const editTweed = (request, response) => {
+    const userID = request.cookies.userID;
+    const tweedID = request.params.id;
+    const tweed = request.body.tweed;
+    db.tweedr.editTweed(userID, tweedID, tweed, (err, result) => {
+      console.log(err, result);
+      if (err) response.send(err);
+      else if (
+        result === "You aren't the creator of this Tweed! Edit not allowed."
+      ) {
+        const data = {
+          errorMessage: result
+        };
+        response.render("error", data);
+      } else {
+        response.redirect("/");
+      }
+    });
+  };
+
   return {
     showHomepage: showHomepage,
     showRegisterForm: showRegisterForm,
@@ -226,6 +268,8 @@ module.exports = db => {
     seePostsOfFollowing: seePostsOfFollowing,
     seePostsOfFollowers: seePostsOfFollowers,
     showTweed: showTweed,
-    sortTweedsByDate: sortTweedsByDate
+    sortTweedsByDate: sortTweedsByDate,
+    showEditTweedPage: showEditTweedPage,
+    editTweed: editTweed
   };
 };

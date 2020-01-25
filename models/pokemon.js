@@ -55,6 +55,8 @@ module.exports = (dbPoolInstance) => {
 
   let userVerification = (callback,id) => {
 
+    console.log('In database query, id is '+id)
+
     let query = "SELECT * FROM users WHERE id='"+id+"'"
 
      dbPoolInstance.query(query, (error, queryResult) => {
@@ -65,6 +67,8 @@ module.exports = (dbPoolInstance) => {
       }else{
         
         if( queryResult.rows.length > 0 ){
+
+          console.log('Found results')
           callback(null, queryResult.rows);
 
         }else{
@@ -72,11 +76,52 @@ module.exports = (dbPoolInstance) => {
         }
       }
     });
-
   }
+
+  let insertTweet = (callback,tweet,id) => {
+
+    const values = [tweet,id];
+    let query = 'INSERT INTO tweets(tweet,user_id) VALUES ($1,$2) RETURNING *';
+
+
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+
+      if( error ){
+        callback(error, "Error");
+      }else{
+        if( queryResult.rows.length > 0 ){
+          console.log(queryResult.rows)
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, "User not found");
+        }
+      }
+    })
+  }
+
+  let showAllTweets = (callback) => {
+    let query = `SELECT * FROM tweets`
+
+    dbPoolInstance.query(query,(error,queryResult) => {
+      if(error){
+        callback(error,"Query error")
+      } else {
+        if(queryResult.rows.length > 0){
+          //Success
+          callback(null,queryResult.rows)
+        } else {
+          callback(null,"No results found")
+        }
+      }
+    })
+  }
+
+
 
   return {
     checkLogin: checkLogin,
-    userVerification: userVerification
+    userVerification: userVerification,
+    insertTweet: insertTweet,
+    showAllTweets: showAllTweets
   };
 };

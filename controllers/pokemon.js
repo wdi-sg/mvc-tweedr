@@ -1,36 +1,45 @@
 module.exports = (db) => {
 
-var sha256 = require('js-sha256');
   /**
    * ===========================================
    * Controller logic
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
+  var sha256 = require('js-sha256');
+
+  let indexControllerCallback = (request,response) => {
     db.pokemon.getAll((error, allPokemon) => {
       response.render('pokemon/index', { allPokemon });
     });
   };
 
   let displayLogin = (request,response) => {
+    //Display login page
     response.render('pokemon/index')
   };
 
   let submitLogin = (request,response) => {
+    //Extract name and password input into a variable
+
     const name = request.body.name;
     const password = request.body.password;
 
     const callback = (error,result) => {
+      //Check result
+      console.log('Pw in database',result[0].password)
+      console.log('pw typed',password)
+
       if(password == result[0].password){
         //Login successful: 
         const id = result[0].id
+
         //Implement cookies 
         response.cookie('username',name);
         response.cookie('loggedIn',sha256(id.toString()))
         response.cookie('userid',result[0].id)
 
-        // response.send('hey')
+        //Page response
         response.redirect('/login/' + result[0].id)
 
       } else {
@@ -40,27 +49,57 @@ var sha256 = require('js-sha256');
     }
 
     db.pokemon.checkLogin(callback,name,password)   
-  }
+  };
 
   let createTweet = (request,response) => {
 
-    let id = request.params.id
-    
+    //Demand user's cookies
     let loggedInCookie = request.cookies['loggedIn']
-    console.log(loggedInCookie)
-
-    // Using the ID , find the user record
-    // Then locate the password 
-    // loggedIncookie must be equal to sha256(password)
+    
+    //Use id to authenticate it
+    let id = request.params.id
     if(loggedInCookie == sha256(id.toString())) {
-      response.send('createTweet')
+
+      //If cookie has been verified, display createTweet page
+      const callback = (err,result) => {
+        response.render('pokemon/tweet',result[0])
+      }
+
+      //DB query command
+      db.pokemon.userVerification(callback,id)
 
     } else {
+
+      //If cookie verification fail, show this
       response.send("You are not supposed to be here.")
 
     }
-  }
+  };
 
+  let submitTweet = (request,response) => {
+    const tweet = request.body.tweet;
+    const id = request.params.id;
+
+    const callback = (err,result) => {
+      //Check what you have inserted
+      console.log(result[0])
+      //Redirect to see all tweets 
+
+      // Redirect to / to see all tweets
+      response.send("Okay")
+
+    }
+    
+    db.pokemon.insertTweet(callback,tweet,id)
+  };
+
+  let showAllTweets = (request,response) => {
+    const callback = (err,result) => {
+      // Render then loop in jsx file
+      response.send(result)
+    }
+    db.pokemon.showAllTweets(callback)
+  };
 
   /**
    * ===========================================
@@ -71,7 +110,9 @@ var sha256 = require('js-sha256');
     index: indexControllerCallback,
     displayLogin: displayLogin,
     submitLogin: submitLogin,
-    createTweet: createTweet
+    createTweet: createTweet,
+    submitTweet: submitTweet,
+    showAllTweets: showAllTweets
   };
 
 }

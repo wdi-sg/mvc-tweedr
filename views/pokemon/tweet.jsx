@@ -2,24 +2,22 @@ var React = require("react");
 
 class Tweet extends React.Component {
   render() {
-    console.log(this.props.types);
+    
     return (
       <html>
         <head>
         </head>
         <body>
-          <h3>Login</h3>
-          <form action = "/login" method="POST">
-                  <div class="form-group">
-                    <label>Username</label>
-                    <input name="name" type="text" class="form-control" />
+          <h3>Write a Tweet</h3>
+          <form action = {`/login/${this.props.id}/tweet`} method="POST">
+                  <div className="form-group">
+                    <label>{this.props.name}</label>
                   </div>
-                  <div class="form-group">
-                    <label>Text</label>
-                    <input name="text" type="text" class="form-control" placeholder="Password"/>
-                  </div>
-                  
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <div className="form-group">
+                    <label>Tweet</label>
+                    <input name="tweet" type="text" className="form-control"/>
+                  </div>          
+                  <button type="submit" className="btn btn-primary">Submit Tweet</button>
             </form>
         </body>
       </html>

@@ -15,6 +15,7 @@ class Home extends React.Component {
             <select name="song_id">
           {list}
             </select>
+            <a href="/logout">Log out</a>
         </body>
       </html>
     );

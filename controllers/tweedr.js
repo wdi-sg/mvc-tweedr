@@ -85,6 +85,14 @@ module.exports = (db) => {
     });
   };
 
+  let logoutControllerCallback = (request, response) => {
+    response.clearCookie("loggedIn");
+    response.clearCookie("userId");
+    response.clearCookie("username");
+  //TODO response.redirect('/'), can redirect to home page or some other pages
+    response.send('we logged you out')
+};
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -95,7 +103,8 @@ module.exports = (db) => {
     registerForm: registerFormControllerCallback,
     register: registerControllerCallback,
     loginForm: loginFormControllerCallback,
-    login: loginControllerCallback
+    login: loginControllerCallback,
+    logout: logoutControllerCallback
   };
 
 }

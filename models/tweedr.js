@@ -3,10 +3,14 @@
  * Export model functions as a module
  * ===========================================
  */
+ //must npm install js-sha256 and use it here
+var sha256 = require('js-sha256');
+const SALT = "saltprotector";
+
 module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
-
+//suppose to be listing for all users
   let getAll = (callback) => {
 
     let query = 'SELECT * FROM users';
@@ -32,7 +36,19 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let register = (user, callback) => {
+    // set up query
+    //hashing the password
+    let hashedPw = sha256(user.password + SALT);
+    let values = [user.name, hashedPw];
+    let queryString = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
+    // execute query
+    dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            callback(error, queryResult);
+    });
+  };
   return {
-    getAll: getAll
+    getAll: getAll,
+    register: register
   };
 };

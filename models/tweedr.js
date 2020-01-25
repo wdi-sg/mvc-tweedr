@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = 'SELECT * FROM users';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -17,14 +17,14 @@ module.exports = (dbPoolInstance) => {
         // invoke callback function with results after query has executed
         callback(error, null);
 
-      }else{
+      } else {
 
         // invoke callback function with results after query has executed
 
         if( queryResult.rows.length > 0 ){
           callback(null, queryResult.rows);
 
-        }else{
+        } else {
           callback(null, null);
 
         }
@@ -33,6 +33,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    getAll,
+    getAll: getAll
   };
 };

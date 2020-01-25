@@ -21,7 +21,7 @@ class Navbar extends React.Component {
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0" method="POST" action="/">
-                      <input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="user"/>
+                      <input className="form-control mr-sm-2" type="text" placeholder="Username" aria-label="User" name="username"/>
                       <input className="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password" name="password"/>
                       <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Log In</button>
                     </form>

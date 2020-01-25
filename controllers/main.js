@@ -36,6 +36,27 @@ module.exports = (db) => {
         response.render('tweedr/register', data);
     };
 
+    let newTweedForm = (request, response) => {
+        if (request.cookies.userId) {
+            let data = {
+                userId : request.cookies.userId
+            }
+            response.render('tweedr/write', data);
+        }
+    };
+
+    let showTweed = (request, response) => {
+        let messageId = request.params.id;
+        db.main.getTweed(messageId, (error, messageDetails) => {
+            if (messageDetails === null) {
+                response.send("Message does not exist")
+            } else {
+                let data = messageDetails;
+                response.render('tweedr/tweed', data);
+            }
+        })
+    };
+
 
     let register = (request, response) => {
         let username = request.body.username
@@ -60,8 +81,24 @@ module.exports = (db) => {
                     }
                 })
             }
-        })
-    }
+        });
+    };
+
+
+    let addTweed = (request, response) => {
+        let tweed = {
+            message : request.body.message,
+            owner_id : request.body.owner_id
+        };
+        db.main.addTweed(tweed, (error, tweedId) => {
+            if (error) {
+                response.send("SOMETHING IS WRONG IN ADDTWEED");
+            } else {
+                let url = '/tweeds/' + tweedId.id;
+                response.redirect(url);
+            }
+        });
+    };
 
     /**
      * ===========================================
@@ -72,7 +109,10 @@ module.exports = (db) => {
         index,
         login,
         regForm,
-        register
+        register,
+        newTweedForm,
+        addTweed,
+        showTweed
     };
 
 }

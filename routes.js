@@ -35,5 +35,5 @@ module.exports = (app, allModels) => {
     app.post('/users', mainControllerCallbacks.register);
 
     //message post route
-    app.post('/tweeds', mainControllerCallbacks.write);
+    app.post('/tweeds', mainControllerCallbacks.addTweed);
 };

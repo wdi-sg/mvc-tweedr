@@ -103,8 +103,8 @@ module.exports = (dbPoolInstance) => {
     }
 
 
-    let getTweed = (messageId, callbacks => {
-        let query = "SELECT * FROM tweed WHERE id='"+messageId+"';";
+    let getTweed = (messageId, callbacks) => {
+        let query = "SELECT * FROM tweed WHERE id="+messageId+";";
         dbPoolInstance.query(query, (err, queryResult) => {
             if( err ){
                 // invoke callback function with results after query has executed
@@ -119,7 +119,7 @@ module.exports = (dbPoolInstance) => {
                 }
             }
         })
-    })
+    }
 
 
     return {

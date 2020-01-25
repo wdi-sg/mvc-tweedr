@@ -48,7 +48,7 @@ module.exports = (db) => {
     let showTweed = (request, response) => {
         let messageId = request.params.id;
         db.main.getTweed(messageId, (error, messageDetails) => {
-            if (messageDetails === null) {
+            if (error !== null) {
                 response.send("Message does not exist")
             } else {
                 let data = messageDetails;

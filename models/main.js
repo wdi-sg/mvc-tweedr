@@ -64,7 +64,7 @@ module.exports = (dbPoolInstance) => {
 
     //query for adding Users into DB;
     let addUsers = (newUser, callbacks) => {
-        let query = "INSERT INTO users (username, passhash) VALUES ($1, $2);";
+        let query = "INSERT INTO users (username, passhash) VALUES ($1, $2) RETURNING id;";
         let values = [newUser.username, newUser.passhash];
         dbPoolInstance.query(query, values, (err, queryResult) => {
             if( err ){

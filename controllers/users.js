@@ -41,7 +41,7 @@ module.exports = (db) => {
         console.log('error!', err);
         response.status(500).send('error!');
       } else {
-        response.send('successfully registered account.');
+        response.render('message', { message: 'successfully registered account.' });
       }
     }
 

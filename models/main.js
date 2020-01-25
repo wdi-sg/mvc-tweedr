@@ -49,21 +49,44 @@ module.exports = (dbPoolInstance) => {
         dbPoolInstance.query(query, (err, queryResult) => {
             if( err ){
                 // invoke callback function with results after query has executed
-                callback(err, null);
+                callbacks(err, null);
             }else{
                 // invoke callback function with results after query has executed
                 if( queryResult.rows.length > 0 ){
                     /*console.log("Result.rows :", queryResult.rows)*/
-                    callback(null, queryResult.rows[0]);
+                    callbacks(null, queryResult.rows[0]);
                 }else{
-                    callback(null, null);
+                    callbacks(null, null);
                 }
             }
-    }
+        });
+    };
+
+    //query for adding Users into DB;
+    let addUsers = (newUser, callbacks) => {
+        let query = "INSERT INTO users (username, passhash) VALUES ($1, $2);";
+        let values = [newUser.username, newUser.passhash];
+        dbPoolInstance.query(query, values, (err, queryResult) => {
+            if( err ){
+                // invoke callback function with results after query has executed
+                callbacks(err, null);
+            }else{
+                // invoke callback function with results after query has executed
+                if( queryResult.rows.length > 0 ){
+                    /*console.log("Result.rows :", queryResult.rows)*/
+                    callbacks(null, queryResult.rows[0]);
+                }else{
+                    callbacks(null, null);
+                }
+            }
+        });
+    };
+
 
     return {
         getAll,
         login,
-        checkUsers
+        checkUsers,
+        addUsers
     };
 };

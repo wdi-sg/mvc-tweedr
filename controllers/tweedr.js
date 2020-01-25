@@ -53,8 +53,37 @@ module.exports = (db) => {
     // response.send('wana register?');
   };
 
-
-
+//for post's ('login') path
+  let loginControllerCallback = (request, response) => {
+    //the loginName here is same with the queryResult in login's dbPoolInstance
+    db.tweedr.login(request.body, (error, loginName) => {
+        console.log(loginName);
+        if (error) {
+            console.log("Error", error);
+            response.status(404).send('error', error);
+        } else {
+            if (loginName.rowCount.length === 0) {
+                response.send('Empty Result');
+            } else {
+                if (loginName.rowCount[0] === 0) {
+                    response.send('Nothing here!')
+                } else {
+                        let hashedRequestPw = sha256(request.body.password + SALT);
+                        if (loginName.rows[0].password === hashedRequestPw) {
+                            let user_id = loginName.rows[0].id;
+                            let hashedUser = sha256(user_id+SALT);
+                            response.cookie('username', request.body.name);
+                            response.cookie('loggedIn', hashedUser);
+                            response.cookie('userId', user_id);
+                            response.redirect('/');
+                        } else {
+                        response.send('Incorrect Password!');
+                        }
+                }
+            }
+        }
+    });
+  };
 
   /**
    * ===========================================
@@ -65,7 +94,8 @@ module.exports = (db) => {
     index: indexControllerCallback,
     registerForm: registerFormControllerCallback,
     register: registerControllerCallback,
-    loginForm: loginFormControllerCallback
+    loginForm: loginFormControllerCallback,
+    login: loginControllerCallback
   };
 
 }

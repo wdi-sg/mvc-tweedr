@@ -47,8 +47,21 @@ module.exports = (dbPoolInstance) => {
             callback(error, queryResult);
     });
   };
+
+    let login = (user, callback) => {
+    // set up query
+    let hashedPw = sha256(user.password + SALT);
+    let values = [user.name];
+    let queryString = 'SELECT * FROM users WHERE name=$1';
+    // execute query
+    dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            callback(error, queryResult);
+    });
+  };
+
   return {
     getAll: getAll,
-    register: register
+    register: register,
+    login: login
   };
 };

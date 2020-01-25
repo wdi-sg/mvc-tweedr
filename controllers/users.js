@@ -59,6 +59,9 @@ module.exports = (db) => {
     const logInToken = request.cookies.loginToken;
 
     const callbackFunction = (id) => {
+      if (!id) {
+        response.redirect('/signin');
+      }
       response.render('message', { message: `User ID: ${id}` });
     }
 

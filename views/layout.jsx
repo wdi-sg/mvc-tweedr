@@ -6,6 +6,7 @@ class Layout extends React.Component {
     let makeTweed;
     let following;
     let followers;
+    let register;
     if (this.props.loggedIn !== undefined) {
       loggedIn = (
         <div>
@@ -35,7 +36,8 @@ class Layout extends React.Component {
         </li>
       );
     } else {
-      loggedIn = <a href="/login">Login</a>;
+      loggedIn = <a className="mr-2" href="/login">Login</a>;
+      register = <a href="/register">Register</a>;
     }
     return (
       <html lang="en">
@@ -81,7 +83,10 @@ class Layout extends React.Component {
                 {following}
                 {followers}
               </ul>
-              <span className="navbar-text">{loggedIn}</span>
+              <span className="navbar-text">
+                {loggedIn}
+                {register}
+              </span>
             </div>
           </nav>
           {this.props.children}

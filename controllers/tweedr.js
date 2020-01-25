@@ -98,7 +98,15 @@ module.exports = db => {
   };
 
   const newTweed = (request, response) => {
-    response.render("newTweed");
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
+    const data = {
+      userID: userID,
+      username: username,
+      loggedIn: loggedIn
+    };
+    response.render("newTweed", data);
   };
 
   const postTweed = (request, response) => {
@@ -147,10 +155,15 @@ module.exports = db => {
 
   const seePostsOfFollowing = (request, response) => {
     const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
     db.tweedr.seePostsOfFollowing(userID, (err, result) => {
       const data = {
         type: "following",
-        followingTweets: result
+        followingTweets: result,
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn
       };
       response.render("following", data);
     });
@@ -158,12 +171,28 @@ module.exports = db => {
 
   const seePostsOfFollowers = (request, response) => {
     const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
     db.tweedr.seePostsOfFollowers(userID, (err, result) => {
       const data = {
         type: "followers",
-        followingTweets: result
+        followingTweets: result,
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn
       };
       response.render("following", data);
+    });
+  };
+
+  const showTweed = (request, response) => {
+    const tweedID = request.params.id;
+    db.tweedr.showTweed(tweedID, (error, result) => {
+      const data = {
+        tweed: result.tweed,
+        user: result.user
+      };
+      response.render("tweed", result);
     });
   };
 
@@ -179,6 +208,7 @@ module.exports = db => {
     showUser: showUser,
     followUser: followUser,
     seePostsOfFollowing: seePostsOfFollowing,
-    seePostsOfFollowers: seePostsOfFollowers
+    seePostsOfFollowers: seePostsOfFollowers,
+    showTweed: showTweed
   };
 };

@@ -4,7 +4,11 @@ const Layout = require("./layout");
 class Tweed extends React.Component {
   render() {
     return (
-      <Layout>
+      <Layout
+        username={this.props.username}
+        userID={this.props.userID}
+        loggedIn={this.props.loggedIn}
+      >
         <div className="container mt-5">
           <form action="/tweed" method="post">
             <div className="form-group">

@@ -78,7 +78,7 @@ module.exports = dbPoolInstance => {
 
   const seePostsOfFollowing = (userID, callback) => {
     const values = [userID];
-    const query = `SELECT tweets.tweets, tweets.user_id, users.username as username
+    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as username
                     FROM tweets
                     INNER JOIN user_follower
                     on (tweets.user_id = user_follower.user_id)
@@ -95,7 +95,7 @@ module.exports = dbPoolInstance => {
 
   const seePostsOfFollowers = (userID, callback) => {
     const values = [userID];
-    const query = `SELECT tweets.tweets, tweets.user_id, users.username as   username
+    const query = `SELECT tweets.tweets, tweets.id, tweets.user_id, users.username as   username
                     FROM tweets
                     INNER JOIN user_follower
                     on (tweets.user_id = user_follower.follower_id)
@@ -110,6 +110,29 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const showTweed = (tweedID, callback) => {
+    let data = {};
+    const values = [tweedID];
+    const query = "SELECT * from tweets where id = $1";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err);
+      else {
+        const userID = result.rows[0].user_id;
+        const values = [userID];
+        const userQuery = "SELECT * from users where id = $1";
+        data.tweed = result.rows[0];
+        // callback(err, data);
+        dbPoolInstance.query(userQuery, values, (err, result) => {
+          if (err) callback(err);
+          else {
+            data.user = result.rows[0];
+            callback(err, data);
+          }
+        });
+      }
+    });
+  };
+
   return {
     registerUser: registerUser,
     loginUser: loginUser,
@@ -118,6 +141,7 @@ module.exports = dbPoolInstance => {
     showUser: showUser,
     followUser: followUser,
     seePostsOfFollowing: seePostsOfFollowing,
-    seePostsOfFollowers: seePostsOfFollowers
+    seePostsOfFollowers: seePostsOfFollowers,
+    showTweed: showTweed
   };
 };

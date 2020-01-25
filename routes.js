@@ -19,6 +19,8 @@ module.exports = (app, allModels) => {
   app.get('/pokemons', pokemonControllerCallbacks.index);
   app.get('/login', userControllerCallbacks.login);
   app.post('/login', userControllerCallbacks.loggedIn);
+  app.get('/register', userControllerCallbacks.register);
+  app.post('/register', userControllerCallbacks.addUser);
   app.get('/', tweetControllerCallbacks.listTweet);
   app.get('/tweet', tweetControllerCallbacks.makeTweet);
   app.post('/tweet', tweetControllerCallbacks.addTweet);

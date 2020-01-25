@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
+
 /**
  * ===================================
  * Configurations and set up
@@ -63,7 +64,7 @@ setRoutesFunction(app, allModels);
  */
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
+const server = app.listen(PORT, () => console.log('~~~ 🌻🌻🌻 Tweedr Homework => Tuning in to the waves of port '+PORT+' 🌻🌻🌻~~~'));
 
 let onClose = function(){
 

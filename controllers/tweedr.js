@@ -192,7 +192,23 @@ module.exports = db => {
         tweed: result.tweed,
         user: result.user
       };
-      response.render("tweed", result);
+      response.render("tweed", data);
+    });
+  };
+
+  const sortTweedsByDate = (request, response) => {
+    const userID = request.cookies.userID;
+    const username = request.cookies.username;
+    const loggedIn = request.cookies.loggedIn;
+    db.tweedr.sortTweedsByDate(userID, (err, result) => {
+      const data = {
+        userID: userID,
+        username: username,
+        loggedIn: loggedIn,
+        tweeds: result
+      };
+      response.render("index", data);
+      console.log(result);
     });
   };
 
@@ -209,6 +225,7 @@ module.exports = db => {
     followUser: followUser,
     seePostsOfFollowing: seePostsOfFollowing,
     seePostsOfFollowers: seePostsOfFollowers,
-    showTweed: showTweed
+    showTweed: showTweed,
+    sortTweedsByDate: sortTweedsByDate
   };
 };

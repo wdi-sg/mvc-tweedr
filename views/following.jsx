@@ -14,7 +14,7 @@ class Following extends React.Component {
         const tweetLink = "/tweeds/" + tweet.id;
         return (
           <div>
-            <h6>{tweet.username}</h6>
+            <h6>{tweet.username} tweeded:</h6>
             <p>
               <a href={tweetLink}>{tweet.tweets}</a>
             </p>
@@ -28,7 +28,7 @@ class Following extends React.Component {
         const tweetLink = "/tweeds/" + tweet.id;
         return (
           <div>
-            <h6>{tweet.username}</h6>
+            <h6>{tweet.username} tweeded:</h6>
             <p>
               <a href={tweetLink}>{tweet.tweets}</a>
             </p>

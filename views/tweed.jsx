@@ -7,8 +7,8 @@ class Tweed extends React.Component {
     return (
       <Layout>
         <div className="container">
-          <h2>{this.props.user.username}</h2>
-          {this.props.tweed.id}: {this.props.tweed.tweets}
+          <h2>{this.props.user.username} tweeded:</h2>
+          {this.props.tweed.tweets}
         </div>
       </Layout>
     );

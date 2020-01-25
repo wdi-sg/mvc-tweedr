@@ -29,9 +29,10 @@ module.exports = dbPoolInstance => {
   };
 
   const postTweed = (tweed, userID, callback) => {
-    const values = [tweed, userID];
+    const now = new Date();
+    const values = [tweed, userID, now];
     const query =
-      "INSERT INTO tweets (tweets, user_id) VALUES ($1, $2) RETURNING *";
+      "INSERT INTO tweets (tweets, user_id, created_at) VALUES ($1, $2, $3) RETURNING *";
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) callback(err);
       else {
@@ -133,6 +134,18 @@ module.exports = dbPoolInstance => {
     });
   };
 
+  const sortTweedsByDate = (userID, callback) => {
+    const values = [userID];
+    const query =
+      "SELECT * from tweets WHERE user_id = $1 ORDER BY created_at desc";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) callback(err, null);
+      else {
+        callback(err, result.rows);
+      }
+    });
+  };
+
   return {
     registerUser: registerUser,
     loginUser: loginUser,
@@ -142,6 +155,7 @@ module.exports = dbPoolInstance => {
     followUser: followUser,
     seePostsOfFollowing: seePostsOfFollowing,
     seePostsOfFollowers: seePostsOfFollowers,
-    showTweed: showTweed
+    showTweed: showTweed,
+    sortTweedsByDate: sortTweedsByDate
   };
 };

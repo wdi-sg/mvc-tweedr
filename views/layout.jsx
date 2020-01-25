@@ -7,6 +7,7 @@ class Layout extends React.Component {
     let following;
     let followers;
     let register;
+    let sortByDate;
     if (this.props.loggedIn !== undefined) {
       loggedIn = (
         <div>
@@ -35,8 +36,19 @@ class Layout extends React.Component {
           </a>
         </li>
       );
+      sortByDate = (
+        <li className="nav-item active">
+          <a className="nav-link" href="/sort">
+            Sort By Date <span className="sr-only">(current)</span>
+          </a>
+        </li>
+      );
     } else {
-      loggedIn = <a className="mr-2" href="/login">Login</a>;
+      loggedIn = (
+        <a className="mr-2" href="/login">
+          Login
+        </a>
+      );
       register = <a href="/register">Register</a>;
     }
     return (
@@ -82,6 +94,7 @@ class Layout extends React.Component {
                 {makeTweed}
                 {following}
                 {followers}
+                {sortByDate}
               </ul>
               <span className="navbar-text">
                 {loggedIn}

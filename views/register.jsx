@@ -3,10 +3,14 @@ const Layout = require("./layout");
 
 class Register extends React.Component {
   render() {
+    const header = this.props.header;
+    const actionPath = this.props.actionPath;
+    console.log(this.props)
     return (
       <Layout>
         <div className="container">
-          <form action="/register" method="post">
+          <h1>{header}</h1>
+          <form action={actionPath} method="post">
             <div className="form-group">
               <label>Username</label>
               <input
@@ -17,9 +21,6 @@ class Register extends React.Component {
                 name="username"
                 required
               />
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
             </div>
             <div className="form-group">
               <label>Password</label>
@@ -31,7 +32,6 @@ class Register extends React.Component {
                 required
               />
             </div>
-
             <button type="submit" className="btn btn-primary">
               Submit
             </button>

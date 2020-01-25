@@ -10,7 +10,7 @@ minHeight: "50px",
 backgroundColor: "rgba(0,0,255,0.1)"
 };
     const tweetList = tweets.map((tweet)=>{
-        return (<div className="mh-100 mb-2 mt-2" style={style}><p className="p-4">{tweet.message}</p></div>);
+        return (<div className="mh-100 mb-2 mt-2" style={style}><p className="pt-4 pb-3 pl-4 pr-4">{tweet.message}</p></div>);
     });
     return (
         <DefaultLayout title="Tweets">

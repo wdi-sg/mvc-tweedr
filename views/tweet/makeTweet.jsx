@@ -1,10 +1,11 @@
 var React = require("react");
 var DefaultLayout = require('../layouts/default');
-var NavLayout = require('../layouts/navlayout');
+var NavLayout = require('../layouts/navigation');
 class LoginPage extends React.Component {
   render() {
     return (
         <DefaultLayout title="Tweet">
+        <NavLayout></NavLayout>
         <div className="container h-100">
     <div className="row h-100 justify-content-center align-items-center">
         <div className="col-10 col-md-8 col-lg-6">

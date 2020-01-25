@@ -14,6 +14,11 @@ module.exports = (db) => {
       });
   };
 
+  let registerControllerCallback = (request, response) => {
+    response.render('tweedr/register');
+    // response.send('wana register?');
+  };
+
 
   /**
    * ===========================================
@@ -22,6 +27,7 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
+    register: registerControllerCallback
   };
 
 }

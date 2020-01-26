@@ -21,7 +21,7 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.use(express.urlencoded({
-  extended: true
+    extended: true
 }));
 
 // Set react-views to be the default view engine
@@ -63,14 +63,14 @@ setRoutesFunction(app, allModels);
  */
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
+const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port ' + PORT + ' ~~~'));
 
-let onClose = function(){
+let onClose = function () {
 
-  server.close(() => {
-    console.log('Process terminated')
-    allModels.pool.end( () => console.log('Shut down db connection pool'));
-  })
+    server.close(() => {
+        console.log('Process terminated')
+        allModels.pool.end(() => console.log('Shut down db connection pool'));
+    })
 };
 
 process.on('SIGTERM', onClose);

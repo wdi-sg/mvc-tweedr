@@ -7,11 +7,13 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let getAll = (callback) => {
+  let registerNewUser = (callback, data) => {
 
-    let query = 'SELECT * FROM pokemons';
+    const values = [data.name, data.password]
 
-    dbPoolInstance.query(query, (error, queryResult) => {
+    let query = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
+
+    dbPoolInstance.query(query, values, (error, queryResult) => {
       if( error ){
 
         // invoke callback function with results after query has executed
@@ -23,7 +25,6 @@ module.exports = (dbPoolInstance) => {
 
         if( queryResult.rows.length > 0 ){
           callback(null, queryResult.rows);
-
         }else{
           callback(null, null);
 
@@ -33,6 +34,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    getAll,
+    registerNewUser,
   };
 };

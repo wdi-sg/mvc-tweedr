@@ -7,6 +7,7 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
+          Hi {this.props.name}, please log in!
           <form action="/login" method='POST'>
               <input type="text" name="name" placeholder="name"/>
               <input type="text" name="password" placeholder="password"/>

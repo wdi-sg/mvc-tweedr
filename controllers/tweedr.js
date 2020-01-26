@@ -20,8 +20,9 @@ module.exports = (db) => {
     const values = req.body
 
     db.tweedr.registerNewUser((err, result) => {
-      res.render('index', result)
+      res.render('login', result)
     }, values)
+    //END registerUser
   }
 
   let loginPage = (req, res) => {
@@ -33,18 +34,19 @@ module.exports = (db) => {
     const values = req.body
 
     db.tweedr.loginUser((err, result, tweets) => {
+
       if (typeof result === "object"){
         res.cookie("user_id", result.id)
         res.cookie("loggedIn", sha256(SALT+result.id))
         res.render('index', tweets)
+
       } else {
         res.clearCookie("user_id")
         res.clearCookie("loggedIn")
         res.send(result)
       }
-
     }, values)
-
+    //END loginUser
   }
 
   let mainPage = (req, res) => {

@@ -77,7 +77,7 @@ module.exports = (db) => {
         const logInToken = request.cookies.loginToken;
 
         const sendMessageToViewController = (err, result) => {
-            console.log(result);
+
             let signedinstatus = {
                 userID: user_id
             }
@@ -120,7 +120,7 @@ module.exports = (db) => {
 
         const afterValidateLogin = (userID) => {
             user_id = userID;
-            console.log('user ID: ' + user_id);
+
             db.messages.selectIndividualMessage(messageID, sendMessageToViewController);
         }
         db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
@@ -142,9 +142,9 @@ module.exports = (db) => {
             }
         };
 
-        const postMessage = (userID) => {
+        const editTheMessage = (userID) => {
             let user_id = userID;
-            console.log(user_id);
+
             if (userID) {
                 db.messages.editMessage(message, user_id, messageID, displayConfirmation);
             } else {
@@ -152,7 +152,35 @@ module.exports = (db) => {
             };
         };
 
-        db.users.verifyUserSignedIn(logInToken, postMessage);
+        db.users.verifyUserSignedIn(logInToken, editTheMessage);
+    }
+
+    const deleteMessage = (request, response) => {
+        const logInToken = request.cookies.loginToken;
+        const messageURL = `/messages/${request.body.messageID}`;
+        const messageID = request.body.messageID;
+        const submitUserID = request.body.userID;
+        let user_id = 0;
+
+        const displayConfirmation = (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                response.render('message', {message: 'message deleted'});
+            }
+        }
+
+        const deleteTheMessage = (userID) => {
+            let user_id = userID;
+            if (userID == submitUserID) {
+                db.messages.deleteMessage(messageID, user_id, displayConfirmation);
+            } else {
+                console.log('invalid userID');
+            };
+        };
+
+
+        db.users.verifyUserSignedIn(logInToken, deleteTheMessage);
     }
 
     /**
@@ -166,7 +194,8 @@ module.exports = (db) => {
         displayAllMessages: displayAllMessages,
         displayIndividualMessage: displayIndividualMessage,
         editMessageForm: editMessageForm,
-        editMessagePut: editMessagePut
+        editMessagePut: editMessagePut,
+        deleteMessage: deleteMessage
     };
 
 }

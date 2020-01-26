@@ -28,10 +28,8 @@ module.exports = (dbPoolInstance) => {
                 console.log('error with token authentication', err)
             } else {
                 const authResult = result.rows[0];
-                console.log(authResult);
                 if (authResult) {
                     if (moment().isBefore(moment(authResult.expiry))) {
-                        console.log(authResult.user_id);
                         callbackFunction(authResult.user_id);
                         return;
                     }

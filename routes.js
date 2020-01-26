@@ -49,5 +49,5 @@ module.exports = (app, allModels) => {
   app.put('/messages/:id', messageControllerCallbacks.editMessagePut);
 
   // Destroy - DELETE a specific message then redirect.
-  // app.delete('/messages/:id',)
+  app.delete('/messages/:id', messageControllerCallbacks.deleteMessage);
 };

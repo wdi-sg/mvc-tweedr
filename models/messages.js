@@ -33,12 +33,12 @@ module.exports = (dbPoolInstance) => {
                     callbackFunction(null, queryResult.rows);
                 } else {
                     callbackFunction(null, null);
-
                 }
             }
         })
     }
 
+    // return all messages in the database
     const selectAllMessages = callback => {
 
         let query = 'SELECT tweets.message, users.username FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
@@ -85,11 +85,37 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    // Delete a specific message.
+    const deleteMessage = (id, user_id, callback) => {
+        console.log('deleting message');
+        console.log(id);
+        const messageID = id;
+        const queryString = `DELETE FROM tweets WHERE id = $1;`;
+        const queryValues = [messageID];
+        dbPoolInstance.query(queryString, queryValues, (error, queryResult) => {
+            if (error) {
+                // invoke callback function with results after query has executed
+                callback(error, null);
+            } else {
+                // invoke callback function with results after query has executed
+                if (queryResult.rows.length > 0) {
+                    const messageResult = queryResult.rows.find(message => {
+                        return message.id == messageID
+                    });
+                    callback(null, messageResult);
+                } else {
+                    callback(null, null);
+                }
+            }
+        })
+    }
+
 
     return {
         postMessage,
         editMessage,
         selectAllMessages,
-        selectIndividualMessage
+        selectIndividualMessage,
+        deleteMessage
     };
 };

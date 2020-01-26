@@ -10,14 +10,25 @@ class Home extends React.Component {
           <h1>Welcome to Tweedr</h1>
           <h4>What Ya Thinking?</h4>
           <div>
-              <a href="/register">
-              <button>Register</button>
-              </a>
+          <h4>Register</h4>
           </div>
           <div>
-              <a href="/login">
-              <button>Login</button>
-              </a>
+            <form action="/register" method="POST">
+            <p>Name <input name="name" required/></p>
+            <p>Password <input type="password" name="password"/></p>
+            <p><input type="submit"/></p>
+            </form>
+          </div>
+
+          <div>
+          <h4>Login</h4>
+          </div>
+          <div>
+            <form action="/login" method="POST">
+            <p>Name <input name="name" required/></p>
+            <p>Password <input type="password" name="password"/></p>
+            <p><input type="submit"/></p>
+            </form>
           </div>
         </body>
       </html>

@@ -19,34 +19,54 @@ const index = (request, response) => {
 const tweedr = (request, response) => {
     // response.send("Welcome to Tweedr");
     // response.render("index")
-    response.render("register")
+    response.render("login")
 };
+
+
+
+
+
+const login = (request, response) => {
+    let name = request.body.name;
+    let password = sha256( request.body.password + SALT );
+    db.tweedr.login(name, password, (error, result) => {
+    if (err) {
+        response.status(500).send("Choose another password");
+    } else {
+/*    response.redirect('/index');*/
+        response.send(result, "You are now logged into Tweedr");
+    }
+})
+};
+
+
+
+
+
+// THIS WORKS BUT I CAN"T SEEM TO GET BOTH REGISTER AND LOGIN TO SHOW ON THE
+// const register = (request, response) => {
+//     let name = request.body.name;
+//     let password = sha256( request.body.password + SALT );
+//     db.tweedr.register(name, password, (error, result) => {
+//     if (err) {
+//         response.status(500).send("Choose another password");
+//     } else {
+// /*    response.redirect('/index');*/
+//         response.send(result, "You are now registered with Tweedr");
+//     }
+// })
+// };
+
+
 
 
 
 return {
     index: index,
-    tweedr: tweedr
+    tweedr: tweedr,
+    login: login
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

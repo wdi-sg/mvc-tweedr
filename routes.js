@@ -10,7 +10,8 @@ module.exports = (app, allModels) => {
 
   app.get('/tweedr', tweedrControllerCallbacks.tweedr);
   app.post('/tweedr', tweedrControllerCallbacks.tweedr);
-  // app.get('/register', tweedrControllerCallbacks.newUser);
+/*  app.get('/register', tweedrControllerCallbacks.newUser);*/
+  app.post('/login', tweedrControllerCallbacks.login);
   // app.post('/register', tweedrControllerCallbacks.register);
 
 };

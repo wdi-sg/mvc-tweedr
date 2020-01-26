@@ -69,16 +69,15 @@ module.exports = (db) => {
         db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
     }
 
-
     // Show one message with ID.
     const displayIndividualMessage = (request, response) => {
-        console.log('finding individual message');
         let isloggedin = false;
         let user_id = 0;
         let messageID = request.params.id;
         const logInToken = request.cookies.loginToken;
 
         const sendMessageToViewController = (err, result) => {
+            console.log(result);
             let signedinstatus = {
                 userID: user_id
             }
@@ -91,12 +90,69 @@ module.exports = (db) => {
 
         const afterValidateLogin = (userID) => {
             user_id = userID;
+            db.messages.selectIndividualMessage(messageID, sendMessageToViewController);
+        }
+        db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
+    }
+
+    // Show form to edit one message.
+    const editMessageForm = (request, response) => {
+        let isloggedin = false;
+        let user_id = 0;
+        let messageID = request.params.id;
+        const logInToken = request.cookies.loginToken;
+
+        const sendMessageToViewController = (err, result) => {
+            let signedinstatus = {
+                userID: user_id
+            }
+            let data = {
+                message: result,
+                signedin: signedinstatus
+            };
+            if (signedinstatus.userID === result.user_id) {
+                response.render('messages/editmessage', data);
+            } else {
+                response.status(300).redirect('/signin/')
+            }
+
+        };
+
+        const afterValidateLogin = (userID) => {
+            user_id = userID;
             console.log('user ID: ' + user_id);
             db.messages.selectIndividualMessage(messageID, sendMessageToViewController);
         }
-
         db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
+    }
 
+    // When we receive a message, put it out there!
+    const editMessagePut = (request, response) => {
+        // First need to authenticate the user and get their ID.
+        const logInToken = request.cookies.loginToken;
+        const message = request.body.message;
+        const messageURL = `/messages/${request.body.messageID}`;
+        const messageID = request.body.messageID;
+
+        const displayConfirmation = (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                response.redirect(messageURL);
+            }
+        };
+
+        const postMessage = (userID) => {
+            let user_id = userID;
+            console.log(user_id);
+            if (userID) {
+                db.messages.editMessage(message, user_id, messageID, displayConfirmation);
+            } else {
+                console.log('invalid userID');
+            };
+        };
+
+        db.users.verifyUserSignedIn(logInToken, postMessage);
     }
 
     /**
@@ -108,7 +164,9 @@ module.exports = (db) => {
         newMessageForm: newMessageForm,
         postNewMessage: postNewMessage,
         displayAllMessages: displayAllMessages,
-        displayIndividualMessage: displayIndividualMessage
+        displayIndividualMessage: displayIndividualMessage,
+        editMessageForm: editMessageForm,
+        editMessagePut: editMessagePut
     };
 
 }

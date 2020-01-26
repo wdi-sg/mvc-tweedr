@@ -18,6 +18,27 @@ module.exports = (dbPoolInstance) => {
         const queryValues = [message, userID]
         dbPoolInstance.query(queryString, queryValues, callbackFunction);
     };
+
+    // Update message in database
+    const editMessage = (message, userID, messageID, callbackFunction) => {
+        const queryString = 'UPDATE tweets SET message = $1 WHERE id = $3 AND user_id = $2 RETURNING *;';
+        const queryValues = [message, userID, messageID];
+        dbPoolInstance.query(queryString, queryValues, (err, queryResult) => {
+            if (err) {
+                // invoke callback function with results after query has executed
+                callbackFunction(err, null);
+            } else {
+                // invoke callback function with results after query has executed
+                if (queryResult.rows.length > 0) {
+                    callbackFunction(null, queryResult.rows);
+                } else {
+                    callbackFunction(null, null);
+
+                }
+            }
+        })
+    }
+
     const selectAllMessages = callback => {
 
         let query = 'SELECT tweets.message, users.username FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
@@ -44,7 +65,7 @@ module.exports = (dbPoolInstance) => {
     // Return one specific message.
     const selectIndividualMessage = (id, callback) => {
         const messageID = id;
-        let query = 'SELECT tweets.message, users.username, tweets.id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
+        let query = 'SELECT tweets.message, users.username, tweets.id, tweets.user_id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
@@ -67,6 +88,7 @@ module.exports = (dbPoolInstance) => {
 
     return {
         postMessage,
+        editMessage,
         selectAllMessages,
         selectIndividualMessage
     };

@@ -86,12 +86,10 @@ module.exports = (dbPoolInstance) => {
     };
 
     const registerAccount = (username, password, usernameRegistrationCallback) => {
-        console.log('received username: ' + username);
-        console.log('received password: ' + password);
 
         const checkUniqueUserNameCallback = (err, result) => {
             if (err) {
-                console.log('Error whoopsie doopsie', err);
+                console.log('Error', err);
             } else {
                 if (result.rows.length === 0) {
                     const hashedPassword = sha256(password + SALT);

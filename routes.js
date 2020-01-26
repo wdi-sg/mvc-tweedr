@@ -35,22 +35,18 @@ module.exports = (app, allModels) => {
   // Index - list all messages
   app.get('/', messageControllerCallbacks.displayAllMessages);
   app.get('/messages/', messageControllerCallbacks.displayAllMessages);
-
-
   // New - Form to make new message
   app.get('/messages/new', messageControllerCallbacks.newMessageForm);
-
   // Create - POST add new to db then redirect
   app.post('/messages/', messageControllerCallbacks.postNewMessage);
-
   // Show - Show one message
   app.get('/messages/:id', messageControllerCallbacks.displayIndividualMessage);
 
   // Edit - Edit form for one message
-  // app.get('/messages/:id/edit',)
+  app.get('/messages/:id/edit', messageControllerCallbacks.editMessageForm);
 
   // Update - PUT Update a specific message then redirect
-  // app.put('/messages/:id',)
+  app.put('/messages/:id', messageControllerCallbacks.editMessagePut);
 
   // Destroy - DELETE a specific message then redirect.
   // app.delete('/messages/:id',)

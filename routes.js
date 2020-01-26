@@ -13,12 +13,8 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
   const userControllerCallbacks = require('./controllers/users')(allModels);
   const messageControllerCallbacks = require('./controllers/messages')(allModels);
-
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
 
   app.get('/signin', userControllerCallbacks.signInPage);
 
@@ -32,9 +28,30 @@ module.exports = (app, allModels) => {
 
   app.get('/check', userControllerCallbacks.checkIfSignedIn);
 
+  //
+  // Messages RESTful Routes.
+  //
+
+  // Index - list all messages
+  app.get('/', messageControllerCallbacks.displayAllMessages);
+  app.get('/messages/', messageControllerCallbacks.displayAllMessages);
+
+
+  // New - Form to make new message
   app.get('/messages/new', messageControllerCallbacks.newMessageForm);
 
+  // Create - POST add new to db then redirect
   app.post('/messages/', messageControllerCallbacks.postNewMessage);
 
-  app.get('/', messageControllerCallbacks.displayAllMessages);
+  // Show - Show one message
+  app.get('/messages/:id', messageControllerCallbacks.displayIndividualMessage);
+
+  // Edit - Edit form for one message
+  // app.get('/messages/:id/edit',)
+
+  // Update - PUT Update a specific message then redirect
+  // app.put('/messages/:id',)
+
+  // Destroy - DELETE a specific message then redirect.
+  // app.delete('/messages/:id',)
 };

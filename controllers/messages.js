@@ -10,7 +10,6 @@ module.exports = (db) => {
       // First need to authenticate the user and get their ID.
       const logInToken = request.cookies.loginToken;
       const message = request.body.message;
-      // const userID = request.body.userID;
 
       const displayConfirmation = (err, result) => {
         if (err) {
@@ -25,12 +24,12 @@ module.exports = (db) => {
         } else {
           console.log('invalid userID');
         }
-
       }
 
       db.users.verifyUserSignedIn(logInToken, postMessage);
   };
 
+  // Display a new message page if the user is logged in.
   const newMessageForm = (request, response) => {
     const logInToken = request.cookies.loginToken;
 
@@ -39,10 +38,9 @@ module.exports = (db) => {
     }
 
     db.users.verifyUserSignedIn(logInToken, displayNewMessageForm);
-
   }
 
-
+  // Home page, list all messages, show a box to put in a new message if logged in.
   const displayAllMessages = (request, response) => {
 
     let isloggedin = false;
@@ -55,7 +53,6 @@ module.exports = (db) => {
     }
 
     const sendMessagesToViewController = (err, result) => {
-      console.log(result);
       let signedinstatus = {
         userID: user_id
       }
@@ -65,8 +62,37 @@ module.exports = (db) => {
       };
       response.render('messages/allmessages', data);
     }
+    db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
+  }
+
+
+  // Show one message with ID.
+  const displayIndividualMessage = (request, response) => {
+    console.log('finding individual message');
+    let isloggedin = false;
+    let user_id = 0;
+    let messageID = request.params.id;
+    const logInToken = request.cookies.loginToken;
+
+    const sendMessageToViewController = (err, result) => {
+      let signedinstatus = {
+        userID: user_id
+      }
+      data = {
+        message: result,
+        signedin: signedinstatus
+      };
+      response.render('messages/individualmessage', data);
+    };
+
+    const afterValidateLogin = (userID) => {
+      user_id = userID;
+      console.log('user ID: ' + user_id);
+      db.messages.selectIndividualMessage(messageID, sendMessageToViewController);
+    }
 
     db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
+
   }
 
   /**
@@ -77,7 +103,8 @@ module.exports = (db) => {
   return {
     newMessageForm: newMessageForm,
     postNewMessage: postNewMessage,
-    displayAllMessages: displayAllMessages
+    displayAllMessages: displayAllMessages,
+    displayIndividualMessage: displayIndividualMessage
   };
 
 }

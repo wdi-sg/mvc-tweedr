@@ -42,9 +42,31 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  const selectIndividualMessage = (id, callback) => {
+    const messageID = id;
+    let query = 'SELECT tweets.message, users.username, tweets.id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          const messageResult = queryResult.rows.find(message => {return message.id == messageID} );
+          callback(null, messageResult);
+        }else{
+          callback(null, null);
+
+        }
+      }
+    })
+  }
+
 
   return {
     postMessage,
-    selectAllMessages
+    selectAllMessages,
+    selectIndividualMessage
   };
 };

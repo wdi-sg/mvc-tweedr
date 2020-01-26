@@ -56,6 +56,7 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+
   // `dbPoolInstance` is accessible within this function scope
   const signIn = (username, password, callback) => {
     const hashedPassword = sha256(password + SALT);
@@ -75,6 +76,7 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
+  // Check the username is unique.
   const checkUniqueUsername = (username, callback) => {
     const queryString = 'SELECT * FROM users WHERE username = $1;';
     const queryValues = [username];

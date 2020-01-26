@@ -96,10 +96,37 @@ module.exports = (db) => {
   let showAllTweets = (request,response) => {
     const callback = (err,result) => {
       // Render then loop in jsx file
-      response.send(result)
+      const data = {
+        allTweetsArray: result
+      }
+      
+      response.render('allTweets',data)
     }
     db.pokemon.showAllTweets(callback)
   };
+
+  let showUser = (request,response) => {
+
+    let id = request.params.id;
+
+    const callback = (err,result) => {
+
+      const data = {
+        users: result
+      }
+
+      response.render('userPage',data)
+    }
+
+    db.pokemon.showAllUsers(callback,id)
+  };
+
+  let banana = (request,response) => {
+    response.send("pass new")
+  }
+    
+
+
 
   /**
    * ===========================================
@@ -112,7 +139,9 @@ module.exports = (db) => {
     submitLogin: submitLogin,
     createTweet: createTweet,
     submitTweet: submitTweet,
-    showAllTweets: showAllTweets
+    showAllTweets: showAllTweets,
+    showUser: showUser,
+    banana: banana
   };
 
 }

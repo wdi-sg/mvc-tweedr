@@ -100,7 +100,8 @@ module.exports = (dbPoolInstance) => {
   }
 
   let showAllTweets = (callback) => {
-    let query = `SELECT * FROM tweets`
+
+    let query = `SELECT * FROM tweets INNER JOIN users ON users.id = tweets.user_id`
 
     dbPoolInstance.query(query,(error,queryResult) => {
       if(error){
@@ -116,12 +117,27 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
+  let showAllUsers = (callback,id) => {
+      let query = `SELECT * FROM users EXCEPT SELECT * FROM users WHERE id=${id}`
 
+      dbPoolInstance.query(query,(error,queryResult) => {
+        if (error){
+            callback(error, "Query error")
+        } else {
+          if(queryResult.rows.length > 0 ){
+            callback(null,queryResult.rows)
+          } else {
+            callback(null, "Search yields no result")
+          }
+        }
+      })
+  }
 
   return {
     checkLogin: checkLogin,
     userVerification: userVerification,
     insertTweet: insertTweet,
-    showAllTweets: showAllTweets
+    showAllTweets: showAllTweets,
+    showAllUsers: showAllUsers
   };
 };

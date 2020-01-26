@@ -1,4 +1,9 @@
+const sha256 = require('js-sha256')
+const SALT = "mr poopy butt hole"
+
 module.exports = (db) => {
+
+
 
   /**
    * ===========================================
@@ -30,7 +35,7 @@ module.exports = (db) => {
     db.tweedr.loginUser((err, result) => {
       if (typeof result === "object"){
         res.cookie("user_id", result.id)
-        res.cookie("loggedIn", true)
+        res.cookie("loggedIn", sha256(SALT+result.id))
         res.render('index', result)
       } else {
         res.clearCookie("user_id")

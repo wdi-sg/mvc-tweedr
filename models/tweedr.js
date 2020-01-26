@@ -3,13 +3,15 @@
  * Export model functions as a module
  * ===========================================
  */
+const sha256 = require('js-sha256')
+
 module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
   let registerNewUser = (callback, data) => {
 
-    const values = [data.name, data.password]
+    const values = [data.name, sha256(data.password)]
 
     let query = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
 

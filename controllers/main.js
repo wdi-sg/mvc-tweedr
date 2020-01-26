@@ -58,6 +58,16 @@ module.exports = (db) => {
     };
 
 
+        let showTweeds = (request, response) => {
+        db.main.getTweeds((error, messages) => {
+            let data = {
+                messages : messages
+            };
+            response.render('tweedr/tweeds', data);
+        })
+    };
+
+
     let register = (request, response) => {
         let username = request.body.username
         db.main.checkUsers(username, (error, userDetails) => {
@@ -112,7 +122,8 @@ module.exports = (db) => {
         register,
         newTweedForm,
         addTweed,
-        showTweed
+        showTweed,
+        showTweeds
     };
 
 }

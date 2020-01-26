@@ -27,6 +27,9 @@ module.exports = (app, allModels) => {
     //page to display singular tweeds
     app.get('/tweeds/:id', mainControllerCallbacks.showTweed);
 
+    //page to show ALL tweeds
+    app.get('/tweeds', mainControllerCallbacks.showTweeds);
+
     //post stuffs===============================================================================================
     //login post request
     app.post('/', mainControllerCallbacks.login);

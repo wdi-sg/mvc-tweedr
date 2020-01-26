@@ -122,12 +122,32 @@ module.exports = (dbPoolInstance) => {
     }
 
 
+    let getTweeds = (callbacks) => {
+        let query = "SELECT * FROM tweed";
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if( err ){
+                // invoke callback function with results after query has executed
+                callbacks(err, null);
+            }else{
+                // invoke callback function with results after query has executed
+                if( queryResult.rows.length > 0 ){
+                    /*console.log("Result.rows :", queryResult.rows)*/
+                    callbacks(null, queryResult.rows);
+                }else{
+                    callbacks(null, null);
+                }
+            }
+        })
+    }
+
+
     return {
         getAll,
         login,
         checkUsers,
         addUsers,
         addTweed,
-        getTweed
+        getTweed,
+        getTweeds
     };
 };

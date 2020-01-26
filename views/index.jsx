@@ -6,7 +6,7 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello! {this.props.name}</h3>
+          <h3>Hi {this.props.name}!</h3>
         </body>
       </html>
     );

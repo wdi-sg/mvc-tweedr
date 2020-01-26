@@ -26,7 +26,7 @@ module.exports = (dbPoolInstance) => {
         // invoke callback function with results after query has executed
 
         if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
+          callback(null, queryResult.rows[0]);
         }else{
           callback(null, null);
 
@@ -35,7 +35,39 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let loginUser = (callback, data) => {
+
+    const values = [data.name]
+
+    const password = sha256(data.password)
+
+    const query = 'SELECT * FROM users WHERE name=$1'
+
+    dbPoolInstance.query(query, values, (err,result)=> {
+
+      if (err) {
+        callback(err, null)
+      } else {
+
+          if (result.rows.length > 0) {
+            const user = result.rows[0]
+
+            if (user.password === password) {
+              callback(null, user)
+            } else {
+              callback(null, "no match!")
+            }
+
+          }
+        
+
+
+      }
+    })
+  }
+
   return {
     registerNewUser,
+    loginUser
   };
 };

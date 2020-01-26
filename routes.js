@@ -15,6 +15,8 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedr = require('./controllers/tweedr')(allModels);
 
-  app.get('/register', tweedr.showRegister);
-  app.post('/', tweedr.registerUser)
+  app.get('/register', tweedr.registerPage);
+  app.post('/register', tweedr.registerUser)
+  app.get('/login', tweedr.loginPage)
+  app.post('/', tweedr.loginUser)
 };

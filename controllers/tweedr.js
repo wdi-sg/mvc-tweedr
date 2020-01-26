@@ -60,9 +60,25 @@ module.exports = (db) => {
         res.render('index', data)
       })
   }
-  // db.pokemon.registerUser((error, user) => {
-  //   response.render('register', { user });
-  // });
+
+  let newTweet = (req, res) => {
+    const tweet = req.body.text
+    const userId = req.cookies.user_id
+
+    const tweetData = {
+      tweet: tweet,
+      id: userId
+    }
+
+    db.tweedr.newTweet((err, result) => {
+      const data = {
+        tweets: result
+      }
+      res.render('index', data)
+    }, tweetData)
+
+  }
+  
 
   /**
    * ===========================================
@@ -74,7 +90,8 @@ module.exports = (db) => {
     registerUser: registerUser,
     loginPage: loginPage,
     loginUser: loginUser,
-    mainPage: mainPage
+    mainPage: mainPage,
+    newTweet: newTweet
   };
 
 }

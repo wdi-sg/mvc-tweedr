@@ -32,8 +32,9 @@ module.exports = (dbPoolInstance) => {
 
         }
       }
-    });
-  };
+    })
+    //END registerUser
+  }
 
   let loginUser = (callback, data) => {
 
@@ -47,28 +48,26 @@ module.exports = (dbPoolInstance) => {
 
       tweetQuery = 'SELECT * FROM tweets'
 
-      dbPoolInstance.query(tweetQuery, (error, tweetResult)=>{
+      dbPoolInstance.query(tweetQuery, (error, tweetResult) => {
 
         if (err) {
           callback(err, null)
         } else {
-  
+
           if (result.rows.length > 0) {
             const user = result.rows[0]
-  
+
             if (user.password === password) {
               callback(null, user, tweetResult.rows)
             } else {
               callback(null, "no match!")
             }
-  
+
           }
         }
-
       })
-
-      
     })
+    //END loginUser
   }
 
   let showTweets = (callback, data) => {
@@ -87,16 +86,47 @@ module.exports = (dbPoolInstance) => {
           callback(null, tweets)
 
         }
-
       }
-
     })
+    //END showTweets
+  }
 
+  let newTweet = (callback, data) => {
+
+    const values = [data.tweet, data.id]
+
+    const query = 'INSERT INTO tweets (text, user_id) VALUES ($1, $2)'
+
+    dbPoolInstance.query(query, values, (err, result) => {
+
+      if (err) {
+        callback(err, null)
+      } else {
+
+        const tweetQuery = "SELECT * FROM tweets"
+
+        dbPoolInstance.query(tweetQuery, (error, tweetResult) => {
+
+          if (error) {
+            callback(error, null)
+          } else {
+
+            if (tweetResult.rows.length > 0) {
+              const tweets = tweetResult.rows
+              callback(null, tweets)
+
+            }
+          }
+        })
+      }
+    })
+    //END newTweet
   }
 
   return {
     registerNewUser,
     loginUser,
-    showTweets
+    showTweets,
+    newTweet
   };
 };

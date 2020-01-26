@@ -20,5 +20,5 @@ module.exports = (app, allModels) => {
   app.get('/login', tweedr.loginPage)
   app.post('/login', tweedr.loginUser)
   app.get('/', tweedr.mainPage)
-  // app.post('/', tweedr.newTweet)
+  app.post('/', tweedr.newTweet)
 };

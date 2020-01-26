@@ -57,7 +57,7 @@ module.exports = (dbPoolInstance) => {
           callback(null, messageResult);
         }else{
           callback(null, null);
-
+          
         }
       }
     })

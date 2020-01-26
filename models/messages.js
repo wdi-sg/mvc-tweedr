@@ -88,7 +88,6 @@ module.exports = (dbPoolInstance) => {
     // Delete a specific message.
     const deleteMessage = (id, user_id, callback) => {
         console.log('deleting message');
-        console.log(id);
         const messageID = id;
         const queryString = `DELETE FROM tweets WHERE id = $1;`;
         const queryValues = [messageID];

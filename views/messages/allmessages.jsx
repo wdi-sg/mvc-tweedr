@@ -16,7 +16,7 @@ class NewMessage extends React.Component {
 
         return (
           <DefaultLayout title="Sign In">
-            <h3>TWEEDR:</h3>
+            <h3>TWEEDR</h3>
             <h4>What Ya Thinking?</h4>
             <p>
               {postNewMessage}

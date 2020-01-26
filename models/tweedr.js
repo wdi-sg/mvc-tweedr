@@ -24,11 +24,12 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let register = (callback,data) => {
+    let registerUser = (callback) => {
 
-    let query = 'INSERT INTO users (name,password) VALUES (hahaha,hahahah) RETURNING *';
+    let query = "INSERT INTO users (name,password) VALUES ('hahaha','hahahah') RETURNING *";
 
     dbPoolInstance.query(query, (error, queryResult) => {
+        console.log(error);
         if (error) {
             // invoke callback function with results after query has executed
             callback(error, null);
@@ -45,6 +46,6 @@ module.exports = (dbPoolInstance) => {
 
     return {
         getAll: getAll,
-        register: register,
+        registerUser: registerUser,
     };
 };

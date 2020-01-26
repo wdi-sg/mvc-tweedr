@@ -1,6 +1,14 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const pg = require('pg');
+const url = require('url');
+const sha256 = require('js-sha256');
+
+// // get the thing that contains all the routes
+// const setRoutesFunction = require('./routes');
+// // call it and pass in the "app" so that we can set routes on it (also models)
+// setRoutesFunction(app, allModels);
 
 /**
  * ===================================
@@ -8,18 +16,46 @@ const cookieParser = require('cookie-parser');
  * ===================================
  */
 
+var configs;
+
+if( process.env.DATABASE_URL ){
+
+  const params = url.parse(process.env.DATABASE_URL);
+  const auth = params.auth.split(':');
+
+  configs = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split('/')[1],
+    ssl: true
+  };
+
+}else{
+  configs = {
+    user: 'AngelFerreros',
+    host: '127.0.0.1',
+    database: 'tweedr',
+    port: 5432
+  };
+}
+
+
+const pool = new pg.Pool(configs);
+
+pool.on('error', function (err) {
+  console.log('idle client error', err.message, err.stack);
+});
+
 // Init express app
 const app = express();
 
 // Set up middleware
 app.use(methodOverride('_method'));
-
 app.use(cookieParser());
-
 app.use(express.static('public'));
-
 app.use(express.json());
-
 app.use(express.urlencoded({
   extended: true
 }));
@@ -33,9 +69,7 @@ app.engine('jsx', reactEngine);
 
 /**
  * ===================================
- * ===================================
  *                DB
- * ===================================
  * ===================================
  */
 
@@ -44,17 +78,54 @@ const allModels = require('./db');
 
 /**
  * ===================================
- * ===================================
  * Routes
  * ===================================
- * ===================================
  */
+app.get('/register', (req, res)=>{
+  res.render('signpage');
+});
 
-// get the thing that contains all the routes
-const setRoutesFunction = require('./routes');
+app.post('/register', (req,res)=>{
+  let insertQueryText = 'INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *';
+  console.log(req.body.password);
+  let hashedPw = sha256(req.body.password);
+  console.log(hashedPw);
+  const values = [
+    req.body.username,
+    hashedPw
+  ];
 
-// call it and pass in the "app" so that we can set routes on it (also models)
-setRoutesFunction(app, allModels);
+  pool.query(insertQueryText, values, (err, result)=>{
+    if(err){
+      console.log('ERROR:', err);
+      res.send('ERROR')
+    }else{
+      console.log('DONE', result.rows)
+      let hashedUn = sha256(req.body.username);
+      res.cookie('logged_in', true);
+      res.cookie('username', hashedUn);
+      res.redirect('signpage');
+    }
+  });
+});
+
+
+app.get('/login', (req, res) => {
+    res.render('feed');
+});
+
+app.post('/login',(req,res)=>{
+
+});
+
+
+
+
+
+
+
+
+
 
 /**
  * ===================================

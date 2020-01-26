@@ -45,14 +45,28 @@ module.exports = (db) => {
 
   const displayAllMessages = (request, response) => {
 
+    let isloggedin = false;
+    let user_id = 0;
+    const logInToken = request.cookies.loginToken;
+
+    const afterValidateLogin = (userID) => {
+        user_id = userID;
+        db.messages.selectAllMessages(sendMessagesToViewController);
+    }
 
     const sendMessagesToViewController = (err, result) => {
       console.log(result);
-      data = {messages: result};
+      let signedinstatus = {
+        userID: user_id
+      }
+      data = {
+        messages: result,
+        signedin: signedinstatus
+      };
       response.render('messages/allmessages', data);
     }
 
-    db.messages.selectAllMessages(sendMessagesToViewController);
+    db.users.verifyUserSignedIn(logInToken, afterValidateLogin);
   }
 
   /**

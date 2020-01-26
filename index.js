@@ -2,25 +2,18 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
+/*===================================
+ Configurations and set up
+====================================*/
 
-/**
- * ===================================
- * Configurations and set up
- * ===================================
- */
-
-// Init express app
+// Initialize Express App
 const app = express();
 
-// Set up middleware
+// Set up Middleware
 app.use(methodOverride('_method'));
-
 app.use(cookieParser());
-
 app.use(express.static('public'));
-
 app.use(express.json());
-
 app.use(express.urlencoded({
   extended: true
 }));
@@ -64,7 +57,7 @@ setRoutesFunction(app, allModels);
  */
 const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, () => console.log('~~~ 🌻🌻🌻 Tweedr Homework => Tuning in to the waves of port '+PORT+' 🌻🌻🌻~~~'));
+const server = app.listen(PORT, () => console.log('~~~ 🌻🌻🌻🌻🌻 Tweedr Homework => Tuning in to the waves of port '+PORT+' 🌻🌻🌻🌻🌻 ~~~'));
 
 let onClose = function(){
 

@@ -98,7 +98,5 @@ module.exports = {
    */
 
   // users: userModelsObject,
-
-/*  pokemon: pokemonModelsObject*/
   tweedr: tweedrModelsObject
 };

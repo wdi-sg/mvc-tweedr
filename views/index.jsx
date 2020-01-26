@@ -2,6 +2,11 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
+
+    const allTweets = this.props.tweets.map((item)=>{
+      return <li>{item.text}</li>
+    })
+    
     return (
       <html>
         <head />
@@ -10,7 +15,9 @@ class Home extends React.Component {
             <input type="text" name="text" placeholder="Tweet"/>
             <input type="submit"/>
           </form>
-          {this.props.text}
+          <ul>
+            {allTweets}
+          </ul>
         </body>
       </html>
     );

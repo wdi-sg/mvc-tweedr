@@ -36,9 +36,12 @@ module.exports = (db) => {
     db.tweedr.loginUser((err, result, tweets) => {
 
       if (typeof result === "object"){
+        const data = {
+          tweets: tweets
+        }
         res.cookie("user_id", result.id)
         res.cookie("loggedIn", sha256(SALT+result.id))
-        res.render('index', tweets)
+        res.render('index', data)
 
       } else {
         res.clearCookie("user_id")
@@ -51,8 +54,10 @@ module.exports = (db) => {
 
   let mainPage = (req, res) => {
       db.tweedr.showTweets((err, result) => {
-        console.log(result)
-        res.render('index', result)
+        const data = {
+          tweets: result
+        }
+        res.render('index', data)
       })
   }
   // db.pokemon.registerUser((error, user) => {

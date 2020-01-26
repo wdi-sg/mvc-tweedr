@@ -57,7 +57,7 @@ module.exports = (dbPoolInstance) => {
             const user = result.rows[0]
   
             if (user.password === password) {
-              callback(null, user, tweetResult.rows[0])
+              callback(null, user, tweetResult.rows)
             } else {
               callback(null, "no match!")
             }
@@ -82,7 +82,7 @@ module.exports = (dbPoolInstance) => {
       } else {
 
         if (result.rows.length > 0) {
-          const tweets = result.rows[0]
+          const tweets = result.rows
 
           callback(null, tweets)
 

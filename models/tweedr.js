@@ -45,21 +45,29 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, values, (err, result) => {
 
-      if (err) {
-        callback(err, null)
-      } else {
+      tweetQuery = 'SELECT * FROM tweets'
 
-        if (result.rows.length > 0) {
-          const user = result.rows[0]
+      dbPoolInstance.query(tweetQuery, (error, tweetResult)=>{
 
-          if (user.password === password) {
-            callback(null, user)
-          } else {
-            callback(null, "no match!")
+        if (err) {
+          callback(err, null)
+        } else {
+  
+          if (result.rows.length > 0) {
+            const user = result.rows[0]
+  
+            if (user.password === password) {
+              callback(null, user, tweetResult.rows[0])
+            } else {
+              callback(null, "no match!")
+            }
+  
           }
-
         }
-      }
+
+      })
+
+      
     })
   }
 

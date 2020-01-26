@@ -6,7 +6,11 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hi {this.props.name}!</h3>
+          <form action="/" method="POST">
+            <input type="text" name="text" placeholder="Tweet"/>
+            <input type="submit"/>
+          </form>
+          {this.props.text}
         </body>
       </html>
     );

@@ -46,6 +46,13 @@ module.exports = (db) => {
     }, values)
 
   }
+
+  let mainPage = (req, res) => {
+      db.tweedr.showTweets((err, result) => {
+        console.log(result)
+        res.render('index', result)
+      })
+  }
   // db.pokemon.registerUser((error, user) => {
   //   response.render('register', { user });
   // });
@@ -59,7 +66,8 @@ module.exports = (db) => {
     registerPage: registerPage,
     registerUser: registerUser,
     loginPage: loginPage,
-    loginUser: loginUser
+    loginUser: loginUser,
+    mainPage: mainPage
   };
 
 }

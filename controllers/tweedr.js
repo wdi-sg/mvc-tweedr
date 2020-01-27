@@ -53,12 +53,17 @@ module.exports = (db) => {
   }
 
   let mainPage = (req, res) => {
+    
+    if (!req.cookies.loggedIn) {
+      res.send('<a href="/login">Please log in!</a>')
+    } else {
       db.tweedr.showTweets((err, result) => {
         const data = {
           tweets: result
         }
         res.render('index', data)
       })
+    }
   }
 
   let newTweet = (req, res) => {

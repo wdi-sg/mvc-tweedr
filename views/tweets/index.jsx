@@ -8,7 +8,6 @@ class Home extends React.Component {
         // to  tweet
         <li>
           {tweet.tweet}
-          &nbsp;by&nbsp;
           {tweet.name}
         </li>
       );
@@ -41,8 +40,8 @@ class Home extends React.Component {
           <form method="GET" action={display.formActionReg}>
             <input type="submit" value={display.buttonReg} />
           </form>
-          <form method="GET" action={display.formActionIn}>
-            <input type="submit" value={display.buttonIn} />
+          <form method="GET" action={display.formActionLog}>
+            <input type="submit" value={display.buttonLog} />
           </form>
           <ul>{tweets}</ul>
         </body>

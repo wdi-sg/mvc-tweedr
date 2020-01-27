@@ -2,9 +2,9 @@ var React = require("react");
 
 class Tweet extends React.Component {
   render() {
-    console.log(this.props.tweed);
-    let display = this.props.tweed;
-    if (display.tweed) {
+    console.log(this.props.tweet);
+    let display = this.props.tweet;
+    if (display.tweet) {
       console.log("edit tweet!");
     } else {
       console.log("new tweet!");
@@ -34,7 +34,7 @@ class Tweet extends React.Component {
         <body>
           <h3>{display.title}</h3>
           <form method="POST" action={display.formAction}>
-            Tweed: <input type="text" name="tweed" required />
+            Tweed: <input type="text" name="tweet" required />
             <br />
             <input type="submit" value="Submit" />
           </form>

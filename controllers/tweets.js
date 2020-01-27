@@ -6,13 +6,17 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  const getNewTweet = (request, response) => {
+  let getNewTweet = (request, response) => {
     // check if user is logged in
     let user = request.cookies.name;
+    let data = {
+      user: user
+    }
+    console.log(user)
     if (user === undefined) {
       // redirect to login
       db.users.currentUser((error, account) => {
-        response.render('users/account', { account });
+        response.render('users/account', data);
       });
     } else {
       //check if password correct
@@ -22,7 +26,7 @@ module.exports = (db) => {
           // respond with HTML page with form to add new Tweet
           let tweet = {}
           tweet.title = "New Tweet";
-          tweet.formActionhome = "/";
+          tweet.formAction = "/";
           tweet.tweet = 0
           response.render('tweets/tweets', { tweet });
         } else {
@@ -36,14 +40,14 @@ module.exports = (db) => {
   };
 };
 
-const postNewTweet = (request, response) => {
+let postNewTweet = (request, response) => {
   // get user id
   let user = request.cookies.name;
   db.users.checkUserName(user, (error, result) => {
     // POST tweet
     let tweet = {}
-    tweet.tweet = request.body.tweet;
     tweet.user_id = result[0].id;
+    tweet.tweet = request.body.tweet;
     db.tweets.postNewTweet(tweet, (error, result) => {
       // redirect to homepage
       response.redirect('/');
@@ -51,29 +55,31 @@ const postNewTweet = (request, response) => {
   });
 };
 
-const getTweets = (request, response) => {
+let allTweets = (request, response) => {
   // respond with HTML page of all tweets
-  db.tweets.getTweets((error, result) => {
+  db.tweets.allTweets((error, result) => {
     console.log(result);
-    let display = {};
+    let data = {
+
+    };
     display.result = result;
     // check if user is logged in
     let user = request.cookies.name;
     if (user === undefined) {
       display.formActionReg = "/register";
-      display.button1 = "Register";
-      display.formActionIn = "/login";
-      display.buttonIn = "Login";
+      display.buttonReg = "Register";
+      display.formActionLog = "/login";
+      display.buttonLog = "Login";
     } else {
       display.user = user;
       display.formActionReg = "/user/" + user;
       display.buttonReg = "Profile";
-      display.formActionIn = "/new";
-      display.buttonIn = "Tweet";
+      display.formActionLog = "/new";
+      display.buttonLog = "Tweet";
     }
-    response.render('tweets/index', display);
+    response.render('tweets/index', data);
   });
-};
+}
 
 /**
  * ===========================================
@@ -81,8 +87,8 @@ const getTweets = (request, response) => {
  * ===========================================
  */
 return {
-  getNewTweet: getnewTweet,
-  postNewTweet: postNewTweet,
-  getTweets: getTweets
+  getnewTweet: getNewTweet,
+  registerTweet: postNewTweet,
+  allTweets: allTweets
 };
 

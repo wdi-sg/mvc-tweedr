@@ -8,8 +8,8 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
   let registerTweet = (newTweet, callback) => {
-    let input = [newTweet.tweet, newTweet.user_id];
-    let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2) RETURNING *';
+    let input = [newTweet.user_id, newTweet.tweet];
+    let query = 'INSERT INTO tweets (user_id,tweet ) VALUES ($1, $2) RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if (error) {
@@ -26,7 +26,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let allTweets = (callback) => {
-    let query = 'SELECT tweets.id, tweets.tweet, tweets.user_id, users.name ' +
+    let query = 'SELECT tweets.id, tweets.user_id, tweets.tweet, users.name ' +
       'FROM tweets JOIN users ON tweets.user_id=users.id '
 
     dbPoolInstance.query(query, (error, queryResult) => {

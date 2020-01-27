@@ -9,7 +9,6 @@ module.exports = (db) => {
      */
 
     let getNewUser = (request, response) => {
-        // respond with HTML page with form to register
         db.users.newUser((error, account) => {
             response.render('users/account', { account });
         });
@@ -23,10 +22,10 @@ module.exports = (db) => {
             if (result !== null) {
                 let account = {};
                 account.title = "Register Account";
-                account.message = "Name already taken, please choose another name.";
+                account.message = "Name taken, please choose another name.";
                 account.formAction = "/register";
                 account.user = 0;
-                response.render('user/account', { account });
+                response.render('users/account', { account });
             } else {
                 // INSERT new user into user db
                 newUser.password = sha256(newUser.password + SALT);
@@ -49,11 +48,11 @@ module.exports = (db) => {
     };
 
     let postUser = (request, response) => {
-        // check user login
+        // check user log in
         let user = request.body;
         // check if name is correct
         db.users.checkUserName(user.name, (error, result) => {
-            // if name match
+            // if name matches
             if (result !== null) {
                 // check password
                 user.password = sha256(user.password + SALT);
@@ -64,7 +63,7 @@ module.exports = (db) => {
                     // redirect to homepage
                     response.redirect('/');
                 } else {
-                    // inform incorrect password
+                    // inform of incorrect password
                     db.users.wrongPassword((error, account) => {
                         response.render('users/account', { account });
                     });
@@ -72,7 +71,7 @@ module.exports = (db) => {
             } else {
                 // inform incorrect name
                 db.users.wrongName((error, account) => {
-                    response.send('Please re-enter username.');
+                    response.render('users/account', { account });
                 });
             }
         });

@@ -5,8 +5,6 @@
  */
 module.exports = (dbPoolInstance) => {
 
-    // `dbPoolInstance` is accessible within this function scope
-
     let newUser = (callback) => {
         let account = {};
         account.title = "Register Account";
@@ -23,7 +21,7 @@ module.exports = (dbPoolInstance) => {
             if (error) {
                 callback(error, null);
             }
-            // invoke callback function with results after query has executed
+            // invoke callback function with results after query runs
             if (queryResult.rows.length > 0) {
                 callback(null, queryResult.rows);
             } else {

@@ -4,9 +4,9 @@ class User extends React.Component {
   render() {
     let display = this.props.account;
     if (display.user) {
-      console.log("login!");
+      console.log("Login");
     } else {
-      console.log("register!");
+      console.log("Register");
     }
     return (
       <html>

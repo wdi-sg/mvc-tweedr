@@ -3,6 +3,7 @@
  * Modules required
  * ===========================================
  */
+const moment = require('moment');
 
 
 /**
@@ -41,7 +42,8 @@ module.exports = (dbPoolInstance) => {
     // return all messages in the database
     const selectAllMessages = callback => {
 
-        let query = 'SELECT tweets.message, users.username, tweets.user_id, tweets.id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
+        // Select message details from tweets, join the user name, order by newest first.
+        let query = 'SELECT tweets.message, users.username, tweets.user_id, tweets.id, tweets.date_created FROM tweets INNER JOIN users ON tweets.user_id = users.id ORDER BY tweets.date_created DESC;';
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
@@ -50,7 +52,9 @@ module.exports = (dbPoolInstance) => {
             } else {
                 // invoke callback function with results after query has executed
                 if (queryResult.rows.length > 0) {
-
+                    for (const message of queryResult.rows) {
+                      message.date_formatted = moment(message.date_created).fromNow();
+                    }
                     callback(null, queryResult.rows);
 
                 } else {
@@ -65,7 +69,7 @@ module.exports = (dbPoolInstance) => {
     // Return one specific message.
     const selectIndividualMessage = (id, callback) => {
         const messageID = id;
-        let query = 'SELECT tweets.message, users.username, tweets.id, tweets.user_id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
+        let query = 'SELECT tweets.message, users.username, tweets.id, tweets.user_id, tweets.date_created FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {
@@ -77,6 +81,7 @@ module.exports = (dbPoolInstance) => {
                     const messageResult = queryResult.rows.find(message => {
                         return message.id == messageID
                     });
+                    messageResult.date_formatted = moment(messageResult.date_created).fromNow();
                     callback(null, messageResult);
                 } else {
                     callback(null, null);

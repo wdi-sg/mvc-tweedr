@@ -16,4 +16,10 @@ CREATE TABLE IF NOT EXISTS sessions (
   token TEXT NOT NULL UNIQUE,
   user_id INTEGER,
   expiry TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+  id SERIAL PRIMARY KEY,
+  followed_user_id INTEGER NOT NULL,
+  follower_user_id INTEGER NOT NULL
 )

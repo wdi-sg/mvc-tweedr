@@ -44,8 +44,8 @@ module.exports = (db) => {
     }
 
 
-    // CREATE NEW MESSAGE
-    const createMessage = (request, response) => {
+    // CREATE NEW MESSAGE ==> messages do not get saved. Need to review this.
+/*    const createMessage = (request, response) => {
             response.render("message");
         }
 
@@ -60,18 +60,19 @@ module.exports = (db) => {
             }
         });
     }
-
+*/
 
 
 return {
-    registerUser: registerUser,
-    register: register,
 
-    loginUser: loginUser,
-    register: register,
+    registerUser,
+    register,
 
-    createMessage: createMessage,
-    newMessage: newMessage
+    loginUser,
+    login
+
+/*    createMessage,
+    newMessage*/
   };
 }
 

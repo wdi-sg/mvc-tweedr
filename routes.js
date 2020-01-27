@@ -14,10 +14,7 @@ module.exports = (app, allModels) => {
   app.get('/login', tweedrControllerCallbacks.loginUser);
   app.post('/login', tweedrControllerCallbacks.register);
 
-  app.get('/message', tweedrControllerCallbacks.createMessage);
-  app.post('/message', tweedrControllerCallbacks.newMessage);
-
-
-
+/*  app.get('/message', tweedrControllerCallbacks.createMessage);
+  app.post('/message', tweedrControllerCallbacks.newMessage);*/
 
 };

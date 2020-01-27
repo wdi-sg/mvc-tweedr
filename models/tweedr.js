@@ -33,7 +33,7 @@ module.exports = dbPoolInstance => {
   };
 
 // CREATE A NEW MESSAGE
-  let createMessage = (message, user_id, callback) => {
+/*  let createMessage = (message, user_id, callback) => {
     const values = [message, user_id];
     const query =
       "INSERT INTO tweets (message, user_id) VALUES ($1, $2) RETURNING *";
@@ -44,14 +44,14 @@ module.exports = dbPoolInstance => {
         console.log(result.rows);
       }
     });
-  };
+  };*/
 
 
 
 
   return {
     register: register,
-    login: login,
-    createMessage: createMessage
+    login: login
+/*    createMessage: createMessage*/
   };
 };

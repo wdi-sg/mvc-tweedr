@@ -5,7 +5,10 @@ class Registerlogin extends React.Component {
     console.log(this.props.types);
     return (
       <html>
-        <head />
+      <head>
+      <title>Register / Login</title>
+      </head>
+
         <body>
           <h1>Welcome to Tweedr</h1>
           <h4>What Ya Thinking?</h4>

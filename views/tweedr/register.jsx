@@ -7,6 +7,7 @@ class Register extends React.Component {
       <html>
         <head/>
         <body>
+        <h1>Register User!</h1>
         <form method="POST" action="/register">
           Username:
           <input type="text" name="username"/>

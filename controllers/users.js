@@ -106,8 +106,25 @@ module.exports = (db) => {
         } else {
           sendViewData.username = result.username;
           sendViewData.clientUserID = clientUserID;
-          db.users.getUsersWhoFollow(userID, executeAfterFindingUsersWhoFollow)
+          db.users.getUsersFollowedBy(userID, findWhoThisUserFollows);
         }
+      }
+
+      const findWhoThisUserFollows = (err, result) => {
+        if (err) {
+          console.log(err);
+          const messageString = "Error!"
+          const data = { message: messageString }
+          response.render('message', data)
+          return;
+        } else {
+          if (result == null) {
+            sendViewData.followedBy = [];
+          } else {
+            sendViewData.followedBy = result;
+          }
+        }
+        db.users.getUsersWhoFollow(userID, executeAfterFindingUsersWhoFollow)
       }
 
       const executeAfterFindingUsersWhoFollow = (err, result) => {
@@ -135,12 +152,12 @@ module.exports = (db) => {
     }
 
 
-
     const listAllUsers = (request, response) => {
       const data = { message: 'You are pretty nosy wanting a list of all the users.' };
       response.render('message', data);
     }
 
+    // Command to follow a user
     const followUser = (request, response) => {
       const followedUserID = request.body.followedUserID;
       const followerUserID = request.body.followerUserID;

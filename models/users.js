@@ -136,6 +136,24 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+
+    const getUsersFollowedBy = (id, callback) => {
+        const userID = id
+        const queryString = `SELECT users.username, users.id FROM users INNER JOIN followers ON users.id = followers.followed_user_id WHERE followers.follower_user_id = $1`
+        const queryValues = [userID]
+        dbPoolInstance.query(queryString, queryValues, (err, result) => {
+          if (err) {
+            console.log('error!', err)
+            callback(err,null);
+          } else if (result.rows.length > 0) {
+            callback(null, result.rows);
+          } else {
+            callback(null, null);
+          }
+        })
+    }
+
+
     const haveUserAFollowUserB = (followerUserID, followedUserID, callback) => {
       const followerUser = followerUserID
       const followedUser = followedUserID
@@ -161,6 +179,7 @@ module.exports = (dbPoolInstance) => {
         verifyUserSignedIn,
         retrieveUserName,
         getUsersWhoFollow,
+        getUsersFollowedBy,
         haveUserAFollowUserB
     };
 };

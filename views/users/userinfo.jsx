@@ -5,8 +5,9 @@ class UserInfo extends React.Component {
     render() {
 
       const allFollowers = this.props.followers.map( (follower, index) => {
-          console.log('INDIVIDUAL FOLLOWER:')
-          console.log(follower);
+          return ( <li>{follower.username}</li>)})
+
+      const allFollowedBy = this.props.followedBy.map( (follower, index) => {
           return ( <li>{follower.username}</li>)})
 
       const actionURL = `/users/${this.props.userID}/follow`
@@ -34,6 +35,7 @@ class UserInfo extends React.Component {
                   Following:
                 </h3>
                 <ul>
+                  {allFollowedBy}
                 </ul>
               </div>
             </div>

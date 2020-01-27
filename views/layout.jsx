@@ -1,16 +1,21 @@
 const React = require("react");
 const Footer = require("./footer");
+const Navbar = require("./nav");
 
 class Layout extends React.Component {
     render() {
         return (
             <html>
                 <head>
-                    <title>Tunr</title>
+                    <title>{this.props.pagetitle}</title>
                     <link rel="stylesheet" href="/style.css"/>
-                    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700&display=swap" rel="stylesheet" />
                 </head>
                 <body>
+                    <div class="container">
+                        <div class="nav">
+                            <Navbar />
+                        </div>
+                    </div>
                     <div class="container">
                         {this.props.children}
                     </div>

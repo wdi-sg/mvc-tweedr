@@ -28,6 +28,7 @@ app.use(express.urlencoded({
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
 
+app.set('public', __dirname + '/public');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
@@ -56,27 +57,6 @@ const setRoutesFunction = require('./routes');
 
 // call it and pass in the "app" so that we can set routes on it (also models)
 setRoutesFunction(app, allModels); 
-
-app.get('/', (request,response) => {
-  response.render(index);
-});
-
-app.get('/register', (request,response) => {
-  response.render(registerForm);
-});
-
-app.post('register', (request,response) => {
-  let queryText = "INSERT into users (username, password) VALUES ($1, $2) RETURNING *";
-  let secretPassword = sha256(request.body.password + SALT);
-  const values = [request.body.name, secretPassword];
-  pool.query(queryText, values, (err, result) => {
-    if (err) {
-      response.send(404);
-    } else {
-      response.send('Registered');
-    }
-  });
-});
 
 /**
  * ===================================

@@ -76,12 +76,14 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+
     // Check the username is unique.
     const checkUniqueUsername = (username, callback) => {
         const queryString = 'SELECT * FROM users WHERE username = $1;';
         const queryValues = [username];
         dbPoolInstance.query(queryString, queryValues, callback);
     };
+
 
     const registerAccount = (username, password, usernameRegistrationCallback) => {
 
@@ -119,6 +121,7 @@ module.exports = (dbPoolInstance) => {
         }
       })
     }
+
 
     const getUsersWhoFollow = (id, callback) => {
         const userID = id
@@ -172,6 +175,7 @@ module.exports = (dbPoolInstance) => {
         }
       })
     }
+
 
     return {
         signIn,

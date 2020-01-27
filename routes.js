@@ -25,7 +25,12 @@ module.exports = (app, allModels) => {
   // Action to check if you're logged in.
   app.get('/check', userControllerCallbacks.checkIfSignedIn);
 
-  // Users REST Routes.
+  app.get('/follows', messageControllerCallbacks.displayFollowedMessages);
+
+  ////////////////////////
+  // Users REST Routes. //
+  ////////////////////////
+
   // Index - list all users.
   // app.get('/users/', userControllerCallbacks.listAllUsers);
   // New - Form to create a new account.
@@ -44,9 +49,11 @@ module.exports = (app, allModels) => {
 
   // Follow - POST that I want to follow a user.
   app.post('/users/:id/follow', userControllerCallbacks.followUser);
-  //
-  // Messages RESTful Routes.
-  // 
+
+  //////////////////////////////
+  // Messages RESTful Routes. //
+  //////////////////////////////
+
   // Index - list all messages
   app.get('/', messageControllerCallbacks.displayAllMessages);
   app.get('/messages/', messageControllerCallbacks.displayAllMessages);
@@ -56,13 +63,10 @@ module.exports = (app, allModels) => {
   app.post('/messages/', messageControllerCallbacks.postNewMessage);
   // Show - Show one message
   app.get('/messages/:id', messageControllerCallbacks.displayIndividualMessage);
-
   // Edit - Edit form for one message
   app.get('/messages/:id/edit', messageControllerCallbacks.editMessageForm);
-
   // Update - PUT Update a specific message then redirect
   app.put('/messages/:id', messageControllerCallbacks.editMessagePut);
-
   // Destroy - DELETE a specific message then redirect.
   app.delete('/messages/:id', messageControllerCallbacks.deleteMessage);
 };

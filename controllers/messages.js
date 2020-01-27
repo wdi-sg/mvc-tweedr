@@ -62,7 +62,8 @@ module.exports = (db) => {
             }
             data = {
                 messages: result,
-                signedin: signedinstatus
+                signedin: signedinstatus,
+                title: 'All Tweeds by everyone in the whole world'
             };
             response.render('messages/allmessages', data);
         }
@@ -183,6 +184,60 @@ module.exports = (db) => {
         db.users.verifyUserSignedIn(logInToken, deleteTheMessage);
     }
 
+
+
+    const displayFollowedMessages = (request, response) => {
+        const logInToken = request.cookies.loginToken;
+        let followedUsers = []
+        let filteredMessages = []
+        let viewModelData = {}
+        let userID = 0
+
+        const isByAFollowedUser = (message) => {
+          for (const user of followedUsers) {
+            if (user.id === message.user_id) {
+              return true;
+            }
+          }
+          return false;
+        }
+
+        const getFollowedAccounts = (id) => {
+          userID = id;
+          console.log(userID);
+          db.users.getUsersFollowedBy(userID, selectAllMessages);
+        }
+
+        const selectAllMessages = (err, result) => {
+          console.log(result);
+          if (err) {
+            console.log('error!', err)
+            return;
+          } else {
+            followedUsers = result
+          }
+          db.messages.selectAllMessages(filterMessages);
+        }
+
+        const filterMessages = (err, result) => {
+          if (err) {
+            console.log('error!', err)
+            return;
+          } else {
+            filteredMessages = result.filter(isByAFollowedUser);
+            console.log(filteredMessages);
+            viewModelData.messages = filteredMessages;
+            viewModelData.signedin = {}
+            viewModelData.signedin.userID = userID;
+            viewModelData.title = "All Tweeds by users you follow.";
+
+            response.render('messages/allmessages', viewModelData);
+          }
+        }
+
+        db.users.verifyUserSignedIn(logInToken, getFollowedAccounts);
+    }
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -195,7 +250,8 @@ module.exports = (db) => {
         displayIndividualMessage: displayIndividualMessage,
         editMessageForm: editMessageForm,
         editMessagePut: editMessagePut,
-        deleteMessage: deleteMessage
+        deleteMessage: deleteMessage,
+        displayFollowedMessages: displayFollowedMessages
     };
 
 }

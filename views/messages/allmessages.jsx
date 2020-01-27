@@ -26,7 +26,8 @@ class NewMessage extends React.Component {
       })
 
         return (
-          <DefaultLayout title="Sign In">
+          <DefaultLayout title={this.props.title}>
+            <h1>{this.props.title}</h1>
             <p>
               {postNewMessage}
             </p>

@@ -146,6 +146,19 @@ module.exports = (db) => {
                             response.render('tweedr/user', data)
                         }
                     })
+                } else {
+                    //this is where you're logged on but not viewing your own profile
+                    db.main.getProfile(profileId, (error, userProfile) => {
+                    if (error) {
+                        response.send("Error retrieving profile at showUser");
+                    } else {
+                        let data = {
+                            profile : userProfile,
+                            edit : false
+                        }
+                        response.render('tweedr/user', data)
+                    }
+                    })
                 }
             } else {
                 response.send("Get Thee Behind me Haxor. Or maybe I just made an error somewhere. woops!")

@@ -7,7 +7,7 @@ class User extends React.Component {
     let editButton;
     if (this.props.edit === true) {
         let hrefStr = "/users/" + this.props.profile.id + "/edit";
-        editButton = <button><a href={hrefStr}>Edit</a></button>
+        editButton = <button><a href={hrefStr}>Edit Profile</a></button>
     }
     return (
       <html>
@@ -16,10 +16,10 @@ class User extends React.Component {
             <div className="container">
                 <Navbar />
                 <h2>{this.props.profile.name}</h2>
-                {editButton}
                 {/*<img src={this.props.profile.photo}/>*/}
                 <label>Description :</label>
                 <p>{this.props.profile.description}</p>
+                {editButton}
             </div>
         </body>
       </html>

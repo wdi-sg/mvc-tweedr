@@ -2,12 +2,12 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-    console.log(this.props.types);
+    console.log(this.props.username, "jsx file");
     return (
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>Welcome back, {this.props.username}</h3>
         </body>
       </html>
     );

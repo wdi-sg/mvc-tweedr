@@ -6,7 +6,9 @@ class Navbar extends React.Component {
     const year = "2020";
     return (
       <navbar>
-          <a href="#">Register</a> | <a href="#">Login</a>
+          <li>Home</li>
+          <li>Explore</li>
+          <button class="button">Tweedr</button>
       </navbar>
     );
   }

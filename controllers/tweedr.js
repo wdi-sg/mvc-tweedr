@@ -1,3 +1,5 @@
+const sha256 = require("js-sha256");
+
 module.exports = (db) => {
 
     /**
@@ -7,21 +9,29 @@ module.exports = (db) => {
      */
 
     let registerUsers = (request, response) => {
-        const values = request.body;
-        const whenLoad = (err, values) => {
+        const whenLoad = (err) => {
             console.log("send reg info yo")
-            response.render('./register');
+            response.render('register');
         }
         db.tweedr.getUsers(whenLoad);
     };
 
     let registerUsersPost = (request, response) => {
-        const values = request.body;
-        const whenLoad = (err, values) => {
-            console.log("send reg info yo")
-            response.send("Register form here", values);
-        }
-        db.tweedr.getUsers(whenLoad);
+        let name = request.body.name;
+        let password = request.body.password;
+        let hashedPassword = sha256(password);
+        let data = {
+            username: name,
+            password: hashedPassword
+        };
+        db.tweedr.register((err, data, result) => {
+            if (err) {
+                response.send("404");   
+            } else {
+                response.render('index', data)
+                // response.redirect("/");
+            }
+        }, data)
     }
   
     /**

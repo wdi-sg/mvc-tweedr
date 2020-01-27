@@ -11,13 +11,13 @@ class Layout extends React.Component {
                     <link rel="stylesheet" href="/style.css"/>
                 </head>
                 <body>
-                    <div class="container">
+                    <div class="container main">
                         <div class="nav">
                             <Navbar />
                         </div>
-                    </div>
-                    <div class="container">
-                        {this.props.children}
+                        <div class="content">
+                            {this.props.children}
+                        </div>
                     </div>
                     <div class="container">
                         <Footer />

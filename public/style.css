@@ -1,4 +1,124 @@
+@font-face {
+    font-family: 'BentonModDisp BD';
+    src: url('fonts/BentonModDisp-Bold.woff2') format('woff2'),
+        url('fonts/BentonModDisp-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BentonModDisp RG I';
+    src: url('fonts/BentonModDisp-RegularItalic.woff2') format('woff2'),
+        url('fonts/BentonModDisp-RegularItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'BentonModDisp RG';
+    src: url('fonts/BentonModDisp-Regular.woff2') format('woff2'),
+        url('fonts/BentonModDisp-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: ModBentonDisplay;
+    font-family: 'BentonModDisp RG';
+    font-size: 20px;
+    line-height: 26px;
     color: #222222;
+}
+
+h1 {
+    font-family: 'BentonModDisp BD';
+}
+
+.container {
+    max-width: 768px;
+    width: 100%;
+    padding: 20px 30px;
+    margin: 0 auto;
+}
+
+.main {
+    display: flex;
+}
+
+.nav {
+    width: 25%;
+}
+
+navbar {
+    list-style: none;
+    font-size: 25px;
+    line-height: 35px;
+    font-family: 'BentonModDisp BD';
+}
+
+navbar li {
+    margin-bottom: 10px;
+}
+
+.content {
+    width: 75%;
+}
+
+a {
+    color: #20909d;
+}
+
+a:hover {
+    border-bottom: 2px solid #20909d;
+    text-decoration: none;
+}
+
+.form-row {
+    margin: 25px 0;
+}
+
+.label-username,
+.label-password {
+    font-family: 'BentonModDisp BD';
+}
+
+input[type="text"] {
+    margin-top: 8px;
+    padding: 5px 10px;
+    min-width: 80%;
+    border-radius: 5px;
+    text-align: center;
+    min-height: 30px;
+    font-size: 18px;
+    border: 1px solid #20909d;
+}
+
+.input-text:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.button-submit {
+    padding: 5px 10px;
+    min-width: 80%;
+    min-height: 40px;
+}
+
+.button,
+.button-submit {
+    background: #20909d;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #ffffff;
+    font-family: 'BentonModDisp BD';
+}
+
+.button:hover,
+.button-submit:hover {
+    background: #000000;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
 }

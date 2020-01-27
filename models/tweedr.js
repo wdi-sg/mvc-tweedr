@@ -68,12 +68,24 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(queryString, values, (error, queryResult) => {
             callback(error, queryResult);
     });
-  }
+  };
+
+    let show = (user, callback) => {
+    // set up query
+    let hashedPw = sha256(user.password + SALT);
+    let values = [user];
+    let queryString = 'SELECT * FROM tweets WHERE user_id=$1';
+    // execute query
+    dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            callback(error, queryResult);
+    });
+  };
 
   return {
     getAll: getAll,
     register: register,
     newTweet: newTweet,
-    login: login
+    login: login,
+    show: show
   };
 };

@@ -1,14 +1,11 @@
 var React = require("react");
 
-class Index extends React.Component {
+class Show extends React.Component {
   render() {
-    //     let namesArray = this.props.allTweedr;
-    //     const list = namesArray.map(username => {
-    //     return <option value={username.id}>{username.name}</option>
-    // });
-    // console.log(this.props.name);
-    //TODO: find a way to do {this.props.allTweedr[i].name} to print out the user's name because {this.props.allTweedr[0].name prints out the first name from users' table}
-
+        let tweetsArray = this.props.allTweetsOfSelectedUser;
+        const list = tweetsArray.map(tweets => {
+        return <option value={tweets.user_id}>{tweets.message}</option>
+    });
     return (
       <html>
         <head />
@@ -23,10 +20,14 @@ class Index extends React.Component {
             <p></p>
             <p></p>
             <h3>To see all your previous tweets, click here</h3>
-                <a href='/'>Show all tweets</a>
-            <p></p>
-            <p></p>
-            <p></p>
+                <div>
+                        <select name="tweets_id">
+                        {list}
+                        </select>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
             <h3>Tired of tweeting? Logout from below</h3>
             <a href="/logout">Log out</a>
         </body>
@@ -35,4 +36,4 @@ class Index extends React.Component {
   }
 }
 
-module.exports = Index;
+module.exports = Show;

@@ -136,6 +136,20 @@ module.exports = (db) => {
       });
   };
 
+  //not showing all tweets~ need SELECT * FROM TWEETS where user =$1?
+  let showControllerCallback = (request, response) => {
+    let user_id = request.cookies.userId;
+      db.tweedr.show(user_id,(error, allTweetsOfSelectedUser) => {
+        console.log(user_id);
+        console.log(allTweetsOfSelectedUser);
+        let data = {
+            allTweetsOfSelectedUser: allTweetsOfSelectedUser.rows
+        }
+        response.render('tweedr/show', data);
+      });
+  };
+
+
   let logoutControllerCallback = (request, response) => {
     response.clearCookie("loggedIn");
     response.clearCookie("userId");
@@ -143,6 +157,7 @@ module.exports = (db) => {
   //TODO response.redirect('/'), can redirect to home page or some other pages
     response.render('tweedr/logout');
 };
+
 
   /**
    * ===========================================
@@ -158,6 +173,7 @@ module.exports = (db) => {
     login: loginControllerCallback,
     newForm: newFormControllerCallback,
     new: newControllerCallback,
+    show: showControllerCallback,
     logout: logoutControllerCallback
   };
 

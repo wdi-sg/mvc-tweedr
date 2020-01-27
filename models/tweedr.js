@@ -2,9 +2,6 @@
  Export model functions as a module
  ===========================================*/
 
-
-
-
 module.exports = dbPoolInstance => {
 
 // REGISTER USER
@@ -21,8 +18,6 @@ module.exports = dbPoolInstance => {
     });
   };
 
-
-
 // USER LOGIN
   let login = (name, password, callback) => {
     const values = [name, password];
@@ -37,15 +32,26 @@ module.exports = dbPoolInstance => {
     });
   };
 
-
-
+// CREATE A NEW MESSAGE
+  let createMessage = (message, user_id, callback) => {
+    const values = [message, user_id];
+    const query =
+      "INSERT INTO tweets (message, user_id) VALUES ($1, $2) RETURNING *";
+    dbPoolInstance.query(query, values, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result.rows);
+      }
+    });
+  };
 
 
 
 
   return {
     register: register,
-    login: login
+    login: login,
+    createMessage: createMessage
   };
 };
-

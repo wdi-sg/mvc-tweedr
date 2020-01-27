@@ -34,14 +34,33 @@ module.exports = (db) => {
     const login = (request, response) => {
         let name = request.body.name;
         let password = sha256( request.body.password + SALT );
-        db.tweedr.register(name, password, (error, result) => {
+        db.tweedr.login(name, password, (error, result) => {
         if (err) {
             response.status(500).send("Choose another password");
         } else {
-                response.send(result, "You are now registered with Tweedr");
+                response.send(result, "You are now logged inr");
             }
         });
     }
+
+
+    // CREATE NEW MESSAGE
+    const createMessage = (request, response) => {
+            response.render("message");
+        }
+
+    const newMessage = (request, response) => {
+        let message = request.body.message;
+        let user_id = request.body.user_id;
+        db.tweedr.newMessage(name, password, (error, result) => {
+        if (err) {
+            response.status(500).send("Try again");
+        } else {
+                response.send(result, "You have created a new tweet");
+            }
+        });
+    }
+
 
 
 return {
@@ -49,9 +68,10 @@ return {
     register: register,
 
     loginUser: loginUser,
-    register: register
+    register: register,
 
-
+    createMessage: createMessage,
+    newMessage: newMessage
   };
 }
 

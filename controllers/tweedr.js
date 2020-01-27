@@ -13,6 +13,14 @@ module.exports = (db) => {
         });
     }
 
+    let registerForm = (request,response) => {
+        response.render('tweedr/register');
+    }
+
+    let loginForm = (request,response) => {
+        response.render('tweedr/login');
+    }
+
     let register = (request,response) => {
 
         let data = {
@@ -20,15 +28,26 @@ module.exports = (db) => {
             password: request.body.password
         }
         
-        var callBack = (error, registeredUser) => {
+        let callBack = (error, registeredUser) => {
+            console.log("this is register error: ",error);
             response.send(registeredUser)
         }
 
         db.tweedr.registerUser(callBack, data)
     }
 
-    let registerForm = (request,response) => {
-        response.render('tweedr/register');
+    let login = (request,response) => {
+        let data = {
+            name: request.body.username,
+            password: request.body.password
+        }
+
+        let callBack = (error, loginUser) => {
+            console.log("this is login error: ",error);
+            response.send(loginUser);
+        }
+
+        db.tweedr.loginUser(callBack,data);
     }
 
     /**
@@ -40,6 +59,8 @@ module.exports = (db) => {
         test: test,
         register: register,
         registerForm: registerForm,
+        loginForm: loginForm,
+        login: login
     };
 
 }

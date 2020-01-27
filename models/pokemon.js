@@ -118,9 +118,14 @@ module.exports = (dbPoolInstance) => {
   }
 
   let showAllUsers = (callback,id) => {
-      let query = `SELECT * FROM users EXCEPT SELECT * FROM users WHERE id=${id}`
+      //* Template Literals sometimes causes an error.
 
-      dbPoolInstance.query(query,(error,queryResult) => {
+      let query = `SELECT * FROM users EXCEPT SELECT * FROM users WHERE id=$1`
+      const values = [id]
+
+      dbPoolInstance.query(query,values,(error,queryResult) => {
+        console.log("showAllUsers queryResult: " + queryResult)
+
         if (error){
             callback(error, "Query error")
         } else {
@@ -133,11 +138,42 @@ module.exports = (dbPoolInstance) => {
       })
   }
 
+  let displayTweetsOfUsersYouAreFollowing = (callback,arrayOfUsersYouAreFollowing) => {
+
+    let query = ''
+
+    for(let i = 0; i <arrayOfUsersYouAreFollowing.length; i++){
+      if(i == 0){
+        query += 'SELECT * FROM tweets INNER JOIN users ON users.id = tweets.user_id WHERE user_id='+parseInt(arrayOfUsersYouAreFollowing[i])
+      } else {
+        query += ' OR user_id='+parseInt(arrayOfUsersYouAreFollowing[i])
+      }
+    }
+
+    console.log(query)
+  
+    dbPoolInstance.query(query,(error,queryResult) => {
+      if(error){
+        callback(error,"Query error")
+      } else {
+        if(queryResult.rows.length > 0){
+          // Success
+          callback(null,queryResult.rows)
+          
+        } else {
+          callback(null,"No results found")
+        }
+      }
+    })
+
+  }
+
   return {
     checkLogin: checkLogin,
     userVerification: userVerification,
     insertTweet: insertTweet,
     showAllTweets: showAllTweets,
-    showAllUsers: showAllUsers
+    showAllUsers: showAllUsers,
+    displayTweetsOfUsersYouAreFollowing: displayTweetsOfUsersYouAreFollowing
   };
 };

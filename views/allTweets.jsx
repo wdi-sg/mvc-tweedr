@@ -1,7 +1,9 @@
 var React = require("react");
 
 class AllTweets extends React.Component {
+
   render() {
+      console.log(this.props.allTweetsArray)
       var list = this.props.allTweetsArray.map(el => {
           return <li> {el.tweet} by {el.name}</li>
       })
@@ -14,6 +16,7 @@ class AllTweets extends React.Component {
           <ul>
               {list}
           </ul>
+          {this.props.children}
         </body>
       </html>
     );

@@ -108,21 +108,34 @@ module.exports = (db) => {
   let showUser = (request,response) => {
 
     let id = request.params.id;
+    console.log("Request params id is"+id)
 
     const callback = (err,result) => {
-
       const data = {
         users: result
       }
 
+      console.log("result is : "+data.users)
       response.render('userPage',data)
     }
-
     db.pokemon.showAllUsers(callback,id)
   };
 
   let banana = (request,response) => {
-    response.send("pass new")
+    //request.body is an array 
+    let arrayOfUsersYouAreFollowing = request.body.options
+
+     const callback = (err,result) => {
+
+      const data = {
+        allTweetsArray: result
+      }
+
+      response.render('allTweets',data)
+    }
+
+    db.pokemon.displayTweetsOfUsersYouAreFollowing(callback,arrayOfUsersYouAreFollowing)
+    
   }
     
 

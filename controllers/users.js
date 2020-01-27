@@ -76,6 +76,22 @@ module.exports = (db) => {
 
     }
 
+    const viewUserDetails = (request, response) => {
+      const userID = request.params.id;
+      const messageString = 'This is where we would get a list of the details for user ID ' + userID
+      const data = { message: messageString }
+      response.render('message', data)
+      // Get username & info.
+
+      // Get list of who they follow.
+      // Get list of who follows them.
+    }
+
+    const listAllUsers = (request, response) => {
+      const data = { message: 'You are pretty nosy wanting a list of all the users.' };
+      response.render('message', data);
+    }
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -86,7 +102,8 @@ module.exports = (db) => {
         signIn: signIn,
         registerPage: registerPage,
         registerAccount: registerAccount,
-        checkIfSignedIn: checkIfSignedIn
+        checkIfSignedIn: checkIfSignedIn,
+        viewUserDetails: viewUserDetails
     };
 
 }

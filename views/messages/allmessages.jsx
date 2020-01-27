@@ -7,23 +7,35 @@ class NewMessage extends React.Component {
       let postNewMessage = `Sign in to post whatever you like.`
 
       if (this.props.signedin.userID) {
-         postNewMessage = <form action="/messages" method="POST"><input type="hidden" name="userID" value={this.props.signedin.userID}/><p><input type="text" className="form-control" id="MessageContent" name="message"/></p><input type="submit" className="btn btn-primary"/></form>
+         postNewMessage = <div className="card mb-3"><div className="card-body"><form action="/messages" method="POST"><input type="hidden" name="userID" value={this.props.signedin.userID}/><p><input type="text" className="form-control" id="MessageContent" name="message" defaultValue="What ya Thinking?"/></p><input type="submit" className="btn btn-primary"/></form></div></div>
       }
 
       const allMessages = this.props.messages.map( (message, index) => {
+        const userLink = `/users/${message.user_id}`
+        const messageLink = `/messages/${message.id}`
+        return( <div className="card mb-2">
+                  <div className="card-body">
+                    <p className="card-text">
+                      <a href={messageLink} className="text-body">{message.message}</a>
+                    </p>
+                    <p className="card-text text-muted">
+                      Posted by <a href={userLink}>{message.username}</a> on some Date.
+                    </p>
+                </div>
+                </div>)
+
+
         return <li key={index}>{message.username} - {message.message}</li>
       })
 
         return (
           <DefaultLayout title="Sign In">
-            <h3>TWEEDR</h3>
-            <h4>What Ya Thinking?</h4>
             <p>
               {postNewMessage}
             </p>
-            <ul>
+            <div>
               {allMessages}
-            </ul>
+            </div>
           </DefaultLayout>
                 )
   }

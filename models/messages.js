@@ -41,7 +41,7 @@ module.exports = (dbPoolInstance) => {
     // return all messages in the database
     const selectAllMessages = callback => {
 
-        let query = 'SELECT tweets.message, users.username FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
+        let query = 'SELECT tweets.message, users.username, tweets.user_id, tweets.id FROM tweets INNER JOIN users ON tweets.user_id = users.id;';
 
         dbPoolInstance.query(query, (error, queryResult) => {
             if (error) {

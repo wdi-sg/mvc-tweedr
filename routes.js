@@ -16,22 +16,35 @@ module.exports = (app, allModels) => {
   const userControllerCallbacks = require('./controllers/users')(allModels);
   const messageControllerCallbacks = require('./controllers/messages')(allModels);
 
+  // Sign in page.
   app.get('/signin', userControllerCallbacks.signInPage);
-
+  app.get('/login', userControllerCallbacks.signInPage);
+  // Action of submitting the sign in page
   app.post('/signin', userControllerCallbacks.signIn);
 
-  app.get('/login', userControllerCallbacks.signInPage);
-
-  app.get('/register', userControllerCallbacks.registerPage);
-
-  app.post('/register', userControllerCallbacks.registerAccount);
-
+  // Action to check if you're logged in.
   app.get('/check', userControllerCallbacks.checkIfSignedIn);
+
+  // Users REST Routes.
+  // Index - list all users.
+  // app.get('/users/', userControllerCallbacks.listAllUsers);
+  // New - Form to create a new account.
+  app.get('/users/new', userControllerCallbacks.registerPage);
+  app.get('/register', userControllerCallbacks.registerPage);
+  //Create - POST add new user to db then redirect.
+  app.post('/register', userControllerCallbacks.registerAccount);
+  app.post('/users/', userControllerCallbacks.registerAccount);
+  // Show - show one user
+  app.get('/users/:id', userControllerCallbacks.viewUserDetails);
+  // Edit - edit my user details (none to edit so far?)
+
+  // Update - PUT the Update for the user details (add or remove followers I guess)
+
+  // Destroy - DELETE a specific user account then redirect.
 
   //
   // Messages RESTful Routes.
   //
-
   // Index - list all messages
   app.get('/', messageControllerCallbacks.displayAllMessages);
   app.get('/messages/', messageControllerCallbacks.displayAllMessages);

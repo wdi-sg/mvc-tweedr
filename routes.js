@@ -8,10 +8,11 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
 
-  app.get('/tweedr', tweedrControllerCallbacks.tweedr);
-  app.post('/tweedr', tweedrControllerCallbacks.tweedr);
-/*  app.get('/register', tweedrControllerCallbacks.newUser);*/
-  app.post('/login', tweedrControllerCallbacks.login);
-  // app.post('/register', tweedrControllerCallbacks.register);
+  app.get('/register', tweedrControllerCallbacks.registerUser);
+  app.post('/register', tweedrControllerCallbacks.register);
+
+  app.get('/login', tweedrControllerCallbacks.loginUser);
+  app.post('/login', tweedrControllerCallbacks.register);
+
 
 };

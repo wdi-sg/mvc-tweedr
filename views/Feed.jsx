@@ -12,11 +12,16 @@ class Feed extends React.Component {
         </head>
         <Header/>
         <body>
-
-            <div>
-                Welcome,{profileName}!
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-8" style = {{backgroundColor: "#6FB7A3"}}>
+                    <form method = "POST" action = "/tweet">
+                        <p> What's on your mind,{profileName}? <input type = "text" name= "tweet" style= {{height: "100px", maxLength:"200"}}/> </p>
+                        <p><input type = "submit" value = "Submit"/></p>
+                    </form>
+                    </div>
+                </div>
             </div>
-
         </body>
       </html>
     );

@@ -2,13 +2,16 @@ var React = require("react");
 
 class Header extends React.Component {
   render() {
+    let inputType = `text`;
     let btnValue = `Log In`;
     const userState = () => {
       if(this.props.cookie === true){
         btnValue = `Log Out`
+        inputType = `"hidden"`
       }
       else if (this.props.cookie === false){
         btnValue = `Log In`
+        inputType = `"text"`
       }
     };
     return (
@@ -44,8 +47,8 @@ class Header extends React.Component {
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <li className="nav-item">
                <form method = "POST"  action = '/login' >
-                  <span> Username: <input type = "text" name = "username"/> </span>
-                  <span> Password: <input type = "text" name = "password"/> </span>
+                  <span id = "name"> Username: <input type = {inputType} name = "username"/> </span>
+                  <span id = "password"> Password: <input type = {inputType} name = "password"/> </span>
                   <input onClick = {userState} type= "submit" id = "logged" value = {btnValue}/>
                 </form>
               </li>

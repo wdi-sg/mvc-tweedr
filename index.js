@@ -140,9 +140,10 @@ app.post('/login',(req,res)=>{
         let hashedUn = sha256(resName);
         res.cookie('logged_in', true);
         res.cookie('username', hashedUn);
+        console.log(req.cookies.logged_in);
           let data = {
             username: resName,
-            cookie: true
+            cookie: req.cookies.logged_in
           }
           res.render('feed',data);
       }
@@ -150,7 +151,18 @@ app.post('/login',(req,res)=>{
   });
 });
 
+app.post('/tweet',(req,res)=>{
+  console.log(req.body.tweet);
 
+  let selectQuery = `SELECT id FROM users WHERE name = `
+
+  let insertQuery = `INSERT INTO tweets (tweets) VALUES ($1)`;
+  let values = [req.body.tweet];
+    pool.query(insertQuery, (err, result)=>{
+
+    });
+
+});
 
 
 

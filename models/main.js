@@ -160,6 +160,24 @@ module.exports = (dbPoolInstance) => {
     }
 
 
+    let getProfile = (profileId, callbacks) => {
+        let query = "SELECT * FROM users_profile WHERE id='" + profileId + "';";
+        dbPoolInstance.query(query, (err, queryResult) => {
+            if (err) {
+                callbacks(err, null);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callbacks(null, queryResult.rows[0]);
+                } else {
+                    callbacks(null, null);
+                }
+            }
+        })
+    }
+
+    let editProfile;
+
+
     return {
         login,
         checkUsers,
@@ -169,7 +187,7 @@ module.exports = (dbPoolInstance) => {
         getTweed,
         getTweeds,
         getUsers,
-        getUser,
-        editUser
+        getProfile,
+        editProfile
     };
 };

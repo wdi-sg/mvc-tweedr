@@ -128,24 +128,48 @@ module.exports = (db) => {
     }
 
 
-    let showUser = (request, response) => {
+    let showProfile = (request, response) => {
         let profileId = request.params.id;
         if (request.cookies.userId) {
             if (request.cookies.logSess !== sha256(request.cookies.userId+SALT)) {
                 // This should happen you're logged into an account
                 if (request.cookies.userId === profileId) {
                     //this shld happen if you're logged in and are viewing your own profile pic
-
+                    db.main.getProfile(profileId, (error, userProfile) => {
+                        if (error) {
+                            response.send("Error retrieving profile at showUser");
+                        } else {
+                            let data = {
+                                profile : userProfile,
+                                edit : true
+                            }
+                            response.render('tweedr/user', data)
+                        }
+                    })
                 }
             } else {
                 response.send("Get Thee Behind me Haxor. Or maybe I just made an error somewhere. woops!")
             } //else statement for if userId doesn't match logSess
         } else {
                 //this part should be if you're trying to view a profile without logging in
-
+                db.main.getProfile(profileId, (error, userProfile) => {
+                    if (error) {
+                        response.send("Error retrieving profile at showUser");
+                    } else {
+                        let data = {
+                            profile : userProfile,
+                            edit : false
+                        }
+                        response.render('tweedr/user', data)
+                    }
+                })
         }
     }
 
+
+let editProfile = (request, response) => {
+    response.send("Not done yet")
+}
 
 
 
@@ -164,7 +188,8 @@ module.exports = (db) => {
         showTweed,
         showTweeds,
         showAllUsers,
-        showUser
+        showProfile,
+        editProfile
     };
 
 }

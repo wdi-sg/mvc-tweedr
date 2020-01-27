@@ -36,9 +36,9 @@ module.exports = (app, allModels) => {
     //page to show ALL tweeds
     app.get('/tweeds', mainControllerCallbacks.showTweeds);
     //page to get the form to edit your own profile
-    app.get('/users/:id/edit', mainControllerCallbacks.editUser);
+    app.get('/users/:id/edit', mainControllerCallbacks.editProfile);
     //page to show users their profile
-    app.get('/users/:id', mainControllerCallbacks.showUser);
+    app.get('/users/:id', mainControllerCallbacks.showProfile);
     //new user form page
     app.get('/users/new', mainControllerCallbacks.regForm);
     //page to show ALL users

@@ -5,7 +5,14 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE (username)
 );
 
-CREATE TABLE IF NOT EXISTS tweed (
+CREATE TABLE IF NOT EXISTS users_profile (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    photo TEXT,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweeds (
     id SERIAL PRIMARY KEY,
     message TEXT,
     created_at TIMESTAMPTZ DEFAULT now(),
@@ -16,12 +23,4 @@ CREATE TABLE IF NOT EXISTS followers (
     id SERIAL PRIMARY KEY,
     followed_id INTEGER,
     follower_id INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS users_profile (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    photo TEXT,
-    description TEXT,
-    address TEXT
 );

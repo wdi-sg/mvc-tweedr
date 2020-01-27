@@ -30,6 +30,15 @@ module.exports = (app, allModels) => {
     //page to show ALL tweeds
     app.get('/tweeds', mainControllerCallbacks.showTweeds);
 
+    //page to show ALL users
+    app.get('/users', mainControllerCallbacks.showAllUsers);
+
+    //page to just view individual profiles
+    app.get('/users/:id/view')
+
+    //page to show users their profile
+    app.get('/users/:id', mainControllerCallbacks.showUser);
+
     //post stuffs===============================================================================================
     //login post request
     app.post('/', mainControllerCallbacks.login);

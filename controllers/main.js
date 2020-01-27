@@ -81,6 +81,11 @@ module.exports = (db) => {
                     username : username,
                     passhash : sha256(request.body.password + SALT)
                 };
+                db.main.addUserProfile(newUser.username, (error, userId) => {
+                    if(error !== null) {
+                        response.send("Adding userProfile went wrong");
+                    }
+                })
                 db.main.addUsers(newUser, (error, userId) => {
                     if (error !== null) {
                         response.send("SOMETHING WENT WRONG!");
@@ -110,6 +115,41 @@ module.exports = (db) => {
         });
     };
 
+
+    let showAllUsers = (request, response) => {
+        db.main.getUsers((error, users) => {
+            if (error) {
+                response.send("got an error at showAllUsers");
+            } else {
+                let data = {
+                    users : users
+                }
+                response.render('tweedr/users', data);
+            }
+        })
+    }
+
+
+    let showUser = (request, response) => {
+        let profileId = request.params.id;
+        if (request.cookies.userId) {
+            if (request.cookies.logSess !== sha256(request.cookies.userId+SALT)) {
+                // This should happen you're logged into an account
+                if (request.cookies.userId === profileId) {
+                    //this shld happen if you're logged in and are viewing your own profile pic
+                }
+            } else {
+                response.send("Get Thee Behind me Haxor. Or maybe I just made an error somewhere. woops!")
+            } //else statement for if userId doesn't match logSess
+        } else {
+                //this part should be if you're trying to view a profile without logging in
+
+        }
+    }
+
+
+
+
     /**
      * ===========================================
      * Export controller functions as a module
@@ -123,7 +163,9 @@ module.exports = (db) => {
         newTweedForm,
         addTweed,
         showTweed,
-        showTweeds
+        showTweeds,
+        showAllUsers,
+        showUser
     };
 
 }

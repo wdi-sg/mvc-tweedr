@@ -6,6 +6,8 @@ class Register extends React.Component {
     return (
       <Header>
         <div className="container">
+        
+        <h1 className="text-success text-center mt-3">Registration</h1>
         <form action="/register" method='POST' className="w-50">
   <div className="form-group">
     <label htmlFor="exampleInputEmail1">Name</label>

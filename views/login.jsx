@@ -6,8 +6,8 @@ class Login extends React.Component {
     return (
       <Header>
         <div className="container forms">
-        <div className="text-center mt-2">{this.props.name} please log in!</div>
-
+        <div className="text-center mt-2">{this.props.success}</div>
+        <h1 className="text-success text-center mt-3">Login</h1>
         <form action="/login" method='POST' className="w-50">
   <div className="form-group">
     <label htmlFor="exampleInputEmail1">Name</label>

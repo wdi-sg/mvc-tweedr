@@ -46,7 +46,7 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, values, (err, result) => {
 
-      tweetQuery = 'SELECT * FROM tweets'
+      const tweetQuery = "SELECT users.name, tweets.text FROM users INNER JOIN tweets ON (tweets.user_id = users.id)"
 
       dbPoolInstance.query(tweetQuery, (error, tweetResult) => {
 
@@ -107,7 +107,7 @@ module.exports = (dbPoolInstance) => {
         callback(err, null)
       } else {
 
-        const tweetQuery = "SELECT * FROM tweets"
+        const tweetQuery = "SELECT users.name, tweets.text FROM users INNER JOIN tweets ON (tweets.user_id = users.id)"
 
         dbPoolInstance.query(tweetQuery, (error, tweetResult) => {
 

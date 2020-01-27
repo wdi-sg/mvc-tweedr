@@ -20,7 +20,10 @@ module.exports = (db) => {
     const values = req.body
 
     db.tweedr.registerNewUser((err, result) => {
-      res.render('login', result)
+      const data = {
+        success: "Successfully registered!"
+      }
+      res.render('login', data)
     }, values)
     //END registerUser
   }
@@ -57,11 +60,11 @@ module.exports = (db) => {
     if (!req.cookies.loggedIn) {
       res.send('<a href="/login">Please log in!</a>')
     } else {
-      db.tweedr.showTweets((err, allTweets, tweetUsers) => {
+      db.tweedr.showTweets((err, allTweets) => {
         const data = {
           tweets: allTweets
         }
-        
+
         res.render('index', data)
       })
     }

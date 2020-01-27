@@ -2,7 +2,6 @@ var React = require("react");
 
 class Header extends React.Component {
 render() {
-    console.log(this.props.types);
     return (
     <html>
         <head>

@@ -15,6 +15,7 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
 
+  app.get('/landing', tweedrControllerCallbacks.landing);
   app.get('/', tweedrControllerCallbacks.index);
   app.get('/register', tweedrControllerCallbacks.registerForm);
   app.post('/register', tweedrControllerCallbacks.register);

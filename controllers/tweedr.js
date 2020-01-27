@@ -9,6 +9,12 @@ module.exports = (db) => {
    * Controller logic
    * ===========================================
    */
+
+//for ('/home') path and getting info from getAll in models
+  let landingControllerCallback = (request, response) => {
+        response.render('tweedr/landing');
+  };
+
 //for ('/') path and getting info from getAll in models
   let indexControllerCallback = (request, response) => {
     //db.tweedr de tweedr comes from db.js de line 98's key
@@ -90,7 +96,7 @@ module.exports = (db) => {
     response.clearCookie("userId");
     response.clearCookie("username");
   //TODO response.redirect('/'), can redirect to home page or some other pages
-    response.send('we logged you out')
+    response.render('tweedr/logout');
 };
 
   /**
@@ -99,6 +105,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
+    landing: landingControllerCallback,
     index: indexControllerCallback,
     registerForm: registerFormControllerCallback,
     register: registerControllerCallback,

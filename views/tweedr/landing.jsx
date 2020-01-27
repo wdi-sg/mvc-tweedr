@@ -5,6 +5,9 @@ class Landing extends React.Component {
     return (
       <html>
         <head />
+        <title>
+            Tweedr
+        </title>
         <body>
             <h3>Hello, wana send tweets? Register for a tweedr account</h3>
             <a href="/register">Register</a>

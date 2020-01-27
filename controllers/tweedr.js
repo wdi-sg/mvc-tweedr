@@ -16,8 +16,16 @@ module.exports = (db) => {
   };
 
 //for ('/index') path
+  // let indexControllerCallback = (request, response) => {
+  //       response.render('tweedr/index');
+  // };
+
   let indexControllerCallback = (request, response) => {
-        response.render('tweedr/index');
+    let username = request.cookies.username;
+        let data = {
+            selectedUser: username
+        }
+        response.render('tweedr/index', data);
   };
 
 //for get's ('/register') path
@@ -128,15 +136,9 @@ module.exports = (db) => {
                 console.log('Message could not be created');
                 response.render('tweedr/new');
             };
-        // redirect to home page after creation
-            // let data = {
-            // newTweet: queryResult.rows
-            // };
-            // response.render('/tweedr/newTweet', data);
       });
   };
 
-  //not showing all tweets~ need SELECT * FROM TWEETS where user =$1?
   let showControllerCallback = (request, response) => {
     let user_id = request.cookies.userId;
       db.tweedr.show(user_id,(error, allTweetsOfSelectedUser) => {

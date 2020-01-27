@@ -5,6 +5,9 @@ class Logout extends React.Component {
     return (
       <html>
         <head />
+        <title>
+            Log out
+        </title>
         <body>
             <h3>You have successfully log out from this account.</h3>
             <p></p>

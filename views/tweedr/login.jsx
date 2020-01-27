@@ -7,12 +7,13 @@ class Login extends React.Component {
       <html>
         <head/>
         <body>
-        <form method="POST" action="/register">
+        <h1>Login page</h1>
+        <form method="POST" action="/login">
           Username:
           <input type="text" name="username"/>
           Password:
           <input type="password" name="password"/>
-          <button type="submit">Submit!</button>
+          <button type="submit">Login!</button>
         </form>
         </body>
       </html>

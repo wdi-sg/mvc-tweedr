@@ -14,17 +14,17 @@ module.exports = (db) => {
     }
 
     let register = (request,response) => {
-        
+
         let data = {
             name: request.body.username,
             password: request.body.password
         }
         
         var callBack = (error, registeredUser) => {
-            response.send('SUCCESS!!!!')
+            response.send(registeredUser)
         }
 
-        db.tweedr.register(callBack, data)
+        db.tweedr.registerUser(callBack, data)
     }
 
     let registerForm = (request,response) => {

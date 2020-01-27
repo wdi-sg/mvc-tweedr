@@ -92,7 +92,6 @@ module.exports = (dbPoolInstance) => {
 
     // Delete a specific message.
     const deleteMessage = (id, user_id, callback) => {
-        console.log('deleting message');
         const messageID = id;
         const queryString = `DELETE FROM tweets WHERE id = $1;`;
         const queryValues = [messageID];
@@ -113,6 +112,9 @@ module.exports = (dbPoolInstance) => {
             }
         })
     }
+
+
+
 
 
     return {

@@ -76,20 +76,98 @@ module.exports = (db) => {
 
     }
 
+
     const viewUserDetails = (request, response) => {
+      // This is the profile page of who we are looking at.
       const userID = request.params.id;
-      const messageString = 'This is where we would get a list of the details for user ID ' + userID
-      const data = { message: messageString }
-      response.render('message', data)
+      const logInToken = request.cookies.loginToken;
+      // This is who is logged in (0 = not logged in);
+      let clientUserID = 0;
       // Get username & info.
+      let sendViewData = {};
+
+      // Verify our user is logged in.
+      const callbackFunction = (id) => {
+          if (!id) {
+              clientUserID = 0;
+          } else {
+            clientUserID = id;
+          }
+          db.users.retrieveUserName(userID, executeAfterFindingUsername);
+        };
+
+      const executeAfterFindingUsername = (err, result) => {
+        if (err) {
+          console.log(err);
+          const messageString = "Error!"
+          const data = { message: messageString }
+          response.render('message', data)
+          return;
+        } else {
+          sendViewData.username = result.username;
+          sendViewData.clientUserID = clientUserID;
+          db.users.getUsersWhoFollow(userID, executeAfterFindingUsersWhoFollow)
+        }
+      }
+
+      const executeAfterFindingUsersWhoFollow = (err, result) => {
+        if (err) {
+          console.log(err);
+          const messageString = "Error!"
+          const data = { message: messageString }
+          response.render('message', data)
+          return;
+        } else {
+          if (result == null) {
+            sendViewData.followers = [];
+          } else {
+            sendViewData.followers = result;
+          }
+          sendViewData.userID = userID;
+          console.log(sendViewData);
+          response.render('users/userinfo', sendViewData)
+        }
+      }
 
       // Get list of who they follow.
       // Get list of who follows them.
+      db.users.verifyUserSignedIn(logInToken, callbackFunction);
     }
+
+
 
     const listAllUsers = (request, response) => {
       const data = { message: 'You are pretty nosy wanting a list of all the users.' };
       response.render('message', data);
+    }
+
+    const followUser = (request, response) => {
+      const followedUserID = request.body.followedUserID;
+      const followerUserID = request.body.followerUserID;
+      const logInToken = request.cookies.loginToken;
+      console.log('followUser begin:');
+      console.log(followedUserID, followerUserID);
+
+      const putFollowerInformationInDB = (id) => {
+        if (!id) {
+          response.redirect('/signin/')
+          return
+        }
+        console.log('about to execute haveUsrAFollowUserB');
+        console.log(followedUserID, followerUserID);
+        db.users.haveUserAFollowUserB(followerUserID, followedUserID, viewControllerCallback);
+      }
+
+      const viewControllerCallback = (err, result) => {
+        if (err) {
+          console.log('Error', err);
+        } else {
+          const redirectURL = `/users/${followerUserID}`;
+          response.redirect(redirectURL);
+        }
+      }
+
+      db.users.verifyUserSignedIn(logInToken, putFollowerInformationInDB);
     }
 
     /**
@@ -103,7 +181,8 @@ module.exports = (db) => {
         registerPage: registerPage,
         registerAccount: registerAccount,
         checkIfSignedIn: checkIfSignedIn,
-        viewUserDetails: viewUserDetails
+        viewUserDetails: viewUserDetails,
+        followUser: followUser
     };
 
 }

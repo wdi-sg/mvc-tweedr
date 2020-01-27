@@ -42,9 +42,11 @@ module.exports = (app, allModels) => {
 
   // Destroy - DELETE a specific user account then redirect.
 
+  // Follow - POST that I want to follow a user.
+  app.post('/users/:id/follow', userControllerCallbacks.followUser);
   //
   // Messages RESTful Routes.
-  //
+  // 
   // Index - list all messages
   app.get('/', messageControllerCallbacks.displayAllMessages);
   app.get('/messages/', messageControllerCallbacks.displayAllMessages);

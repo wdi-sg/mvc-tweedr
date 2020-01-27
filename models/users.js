@@ -104,9 +104,63 @@ module.exports = (dbPoolInstance) => {
 
     }
 
+
+    const retrieveUserName = (userID, callback) => {
+      const queryString = 'SELECT * FROM users WHERE id=$1';
+      const queryValues = [userID];
+      dbPoolInstance.query(queryString, queryValues, (err, result) => {
+        if (err) {
+          console.log('error!', err)
+          callback(err,null);
+        } else if (result.rows.length > 0) {
+          callback(null, result.rows[0]);
+        } else {
+          callback(null, null);
+        }
+      })
+    }
+
+    const getUsersWhoFollow = (id, callback) => {
+        const userID = id
+        const queryString = `SELECT users.username, users.id FROM users INNER JOIN followers ON users.id = followers.follower_user_id WHERE followers.followed_user_id = $1`
+        const queryValues = [userID]
+        dbPoolInstance.query(queryString, queryValues, (err, result) => {
+          if (err) {
+            console.log('error!', err)
+            callback(err,null);
+          } else if (result.rows.length > 0) {
+            callback(null, result.rows);
+          } else {
+            callback(null, null);
+          }
+        })
+    }
+
+    const haveUserAFollowUserB = (followerUserID, followedUserID, callback) => {
+      const followerUser = followerUserID
+      const followedUser = followedUserID
+      console.log('The followers')
+      console.log(followerUser, followedUser);
+      const queryString = `INSERT INTO followers (followed_user_id, follower_user_id) VALUES ($1, $2);`
+      const queryValues = [followedUser, followerUser];
+      dbPoolInstance.query(queryString, queryValues, (err, result) => {
+        if (err) {
+          console.log('error!', err)
+          callback(err,null);
+        } else if (result.rows.length > 0) {
+          callback(null, result.rows);
+        } else {
+          callback(null, null);
+        }
+      })
+    }
+
     return {
         signIn,
         registerAccount,
-        verifyUserSignedIn
+        verifyUserSignedIn,
+        retrieveUserName,
+        getUsersWhoFollow,
+        haveUserAFollowUserB
     };
 };

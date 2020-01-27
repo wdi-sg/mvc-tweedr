@@ -172,11 +172,13 @@ module.exports = (db) => {
         }
 
         const deleteTheMessage = (userID) => {
-            let user_id = userID;
+            user_id = userID;
+            console.log(submitUserID);
+            console.log(userID);
             if (userID == submitUserID) {
                 db.messages.deleteMessage(messageID, user_id, displayConfirmation);
             } else {
-                console.log('invalid userID');
+                response.render('message', {message: 'You do not have permission to delete this Tweed.'})
             };
         };
 

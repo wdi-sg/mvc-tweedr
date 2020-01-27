@@ -101,21 +101,53 @@ app.post('/register', (req,res)=>{
       res.send('ERROR')
     }else{
       console.log('DONE', result.rows)
-      let hashedUn = sha256(req.body.username);
-      res.cookie('logged_in', true);
       res.cookie('username', hashedUn);
-      res.redirect('signpage');
+      let data = {
+        cookie: false
+      }
+      res.redirect('signpage',data);
     }
   });
 });
 
-
-app.get('/login', (req, res) => {
-    res.render('feed');
+app.get('/login', (req, res)=>{
+  res.render('signpage');
 });
 
 app.post('/login',(req,res)=>{
 
+  let user = req.body.username;
+  console.log("RES NAME:",user);
+  let pw = req.body.password;
+  console.log(pw);
+  let hashedPw = sha256(pw);
+  console.log(hashedPw);
+
+  let queryText = `SELECT * from users WHERE name ='`+user+ `'`;
+  console.log(`QUERY:`, queryText);
+  pool.query(queryText, (err, result)=>{
+    console.log("RESULT:", result.rows);
+     let resName = result.rows[0].name;
+      console.log("NAME:", resName);
+      let resPw = result.rows[0].password;
+      console.log(`PW:`, resPw);
+    if(resName === undefined){
+      console.log('ERROR:', err);
+      res.status('404').send('ERROR: Cannot find user. Please register first.')
+    }
+    else{
+      if(hashedPw === sha256(result.rows[0].password)){
+        let hashedUn = sha256(resName);
+        res.cookie('logged_in', true);
+        res.cookie('username', hashedUn);
+          let data = {
+            username: resName,
+            cookie: true
+          }
+          res.render('feed',data);
+      }
+    }
+  });
 });
 
 

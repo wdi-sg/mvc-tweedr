@@ -7,11 +7,10 @@ class SignPage extends React.Component {
     return (
       <html>
       <head>
-      <link rel="stylesheet" href="style.css" type = "text/css" />
+          <link rel="stylesheet" href="style.css" type = "text/css" />
+          <title>Sign Up/Log In</title>
       </head>
-        <Header>
-        <title>Sign Up/Log In</title>
-        </Header>
+        <Header/>
         <body>
             <div className ="container-fluid">
                 <div className ="row">

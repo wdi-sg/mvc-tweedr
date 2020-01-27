@@ -2,11 +2,14 @@ var React = require("react");
 
 class Header extends React.Component {
   render() {
-    let url;
-    var btnValue = `Log In`;
+    let btnValue = `Log In`;
     const userState = () => {
-    let loggedIn = false;
-      loggedIn ? (btnValue = `Log In`, url = `/profile`) : (loggedIn = true, btnValue = `Log Out`, url = `/signpage`)
+      if(this.props.cookie === true){
+        btnValue = `Log Out`
+      }
+      else if (this.props.cookie === false){
+        btnValue = `Log In`
+      }
     };
     return (
       <html>
@@ -40,7 +43,7 @@ class Header extends React.Component {
               </li>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <li className="nav-item">
-               <form method = "POST"  action = {url} >
+               <form method = "POST"  action = '/login' >
                   <span> Username: <input type = "text" name = "username"/> </span>
                   <span> Password: <input type = "text" name = "password"/> </span>
                   <input onClick = {userState} type= "submit" id = "logged" value = {btnValue}/>

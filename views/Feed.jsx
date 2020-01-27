@@ -3,25 +3,20 @@ const Header = require("./header");
 
 class Feed extends React.Component {
   render() {
-
+    let profileName = this.props.username;
+    console.log(profileName);
     return (
       <html>
-        <Header>
-        <title>Sign Up/ Log In</title>
-        </Header>
+        <head>
+        <title> Home </title>
+        </head>
+        <Header/>
         <body>
-            <div className ="container">
-                <div className ="row">
-                    <div className ="col">
-                      <img src ="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/mdFUMX-w0Fu.png"/>
-                    </div>
-                    <div className="col">
-                      <form method = "POST" action = {url}>
 
-                      </form>
-                    </div>
-                </div>
+            <div>
+                Welcome,{profileName}!
             </div>
+
         </body>
       </html>
     );

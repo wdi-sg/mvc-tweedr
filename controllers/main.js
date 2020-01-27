@@ -10,9 +10,7 @@ module.exports = (db) => {
      */
 
     let index = (request, response) => {
-        db.main.getAll("users", (error, allUsers) => {
-            response.render('tweedr/home', {allUsers});
-        });
+        response.render('tweedr/home');
     };
 
     let login = (request, response) => {
@@ -137,6 +135,7 @@ module.exports = (db) => {
                 // This should happen you're logged into an account
                 if (request.cookies.userId === profileId) {
                     //this shld happen if you're logged in and are viewing your own profile pic
+
                 }
             } else {
                 response.send("Get Thee Behind me Haxor. Or maybe I just made an error somewhere. woops!")

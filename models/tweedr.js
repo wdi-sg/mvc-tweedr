@@ -59,9 +59,21 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let newTweet = (tweet, callback) => {
+    let queryString = 'INSERT INTO tweets (message, user_id) VALUES ($1, $2) RETURNING *';
+    console.log(tweet);
+    //values comes from request.body's de name's values
+    let values = [tweet.message, tweet.userId];
+    // execute query
+    dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            callback(error, queryResult);
+    });
+  }
+
   return {
     getAll: getAll,
     register: register,
+    newTweet: newTweet,
     login: login
   };
 };

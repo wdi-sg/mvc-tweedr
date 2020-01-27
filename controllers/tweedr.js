@@ -15,13 +15,9 @@ module.exports = (db) => {
         response.render('tweedr/landing');
   };
 
-//for ('/') path and getting info from getAll in models
+//for ('/index') path
   let indexControllerCallback = (request, response) => {
-    //db.tweedr de tweedr comes from db.js de line 98's key
-      db.tweedr.getAll((error, allTweedr) => {
-        // response.send(allTweedr.name);
-        response.render('tweedr/index', { allTweedr });
-      });
+        response.render('tweedr/index');
   };
 
 //for get's ('/register') path
@@ -46,14 +42,14 @@ module.exports = (db) => {
             response.cookie('username', username.rows[0].name);
             response.cookie('loggedIn', hashedUser);
             response.cookie('userId', user_id);
-            response.redirect('/');
+            response.redirect('/index');
         } else {
           console.log('User could not be created');
         }
         });
 };
 
-//for get's ('/register') path
+//for get's ('/login') path
   let loginFormControllerCallback = (request, response) => {
     response.render('tweedr/login');
     // response.send('wana register?');
@@ -75,13 +71,16 @@ module.exports = (db) => {
                     response.send('Nothing here!')
                 } else {
                         let hashedRequestPw = sha256(request.body.password + SALT);
+                        //TODO: ensure correct username and password are being type
+                        // let username = request.body.name;
+                        // console.log(username);
                         if (loginName.rows[0].password === hashedRequestPw) {
                             let user_id = loginName.rows[0].id;
                             let hashedUser = sha256(user_id+SALT);
                             response.cookie('username', request.body.name);
                             response.cookie('loggedIn', hashedUser);
                             response.cookie('userId', user_id);
-                            response.redirect('/');
+                            response.redirect('/index');
                         } else {
                         response.send('Incorrect Password!');
                         }
@@ -93,8 +92,48 @@ module.exports = (db) => {
 
   //for get's ('/new') path
   let newFormControllerCallback = (request, response) => {
-    response.render('tweedr/new');
-    // response.send('wana register?');
+  // check to see if a user is logged in
+    let user_id = request.cookies.userId;
+    let hashedCookie = sha256(user_id + SALT);
+    let data = {
+        user_id: user_id
+    }
+
+    if( request.cookies.loggedIn === hashedCookie){
+        // SELECT about user based on id
+        response.render('tweedr/new', data);
+    } else {
+    response.send('wrong');
+    }
+  };
+
+  const newControllerCallback = (request, response) => {
+      // use newTweet model method `create` to create new tweet entry in db
+      db.tweedr.newTweet(request.body, (error, queryResult) => {
+        // (console log it to see for yourself)
+        if (error) {
+          console.error('error getting message:', error);
+          response.sendStatus(500);
+        }
+            if (queryResult.rowCount >= 1) {
+                console.log('Message created successfully');
+                // redirect to home page after creation
+                console.log(request.body);
+                //curious as to why it could not print out from queryResult instead? but using request.body, it successfully printed out, probable did smth wrong
+                let data = {
+                newTweet: request.body.message
+                };
+                response.render('tweedr/newTweet', data);
+            } else {
+                console.log('Message could not be created');
+                response.render('tweedr/new');
+            };
+        // redirect to home page after creation
+            // let data = {
+            // newTweet: queryResult.rows
+            // };
+            // response.render('/tweedr/newTweet', data);
+      });
   };
 
   let logoutControllerCallback = (request, response) => {
@@ -118,6 +157,7 @@ module.exports = (db) => {
     loginForm: loginFormControllerCallback,
     login: loginControllerCallback,
     newForm: newFormControllerCallback,
+    new: newControllerCallback,
     logout: logoutControllerCallback
   };
 

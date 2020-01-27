@@ -13,7 +13,7 @@ class Index extends React.Component {
       <html>
         <head />
         <body>
-            <h3>Hello {this.props.allTweedr.name}</h3>
+            <h3>Hello</h3>
             <p></p>
             <p></p>
             <p></p>

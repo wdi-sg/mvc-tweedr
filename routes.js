@@ -22,4 +22,7 @@ module.exports = (app, allModels) => {
   app.get('/login', tweedrControllerCallbacks.loginForm);
   app.post('/login', tweedrControllerCallbacks.login);
   app.get('/logout', tweedrControllerCallbacks.logout);
+  app.get('/new', tweedrControllerCallbacks.newForm);
+  // app.post('/new', tweedrControllerCallbacks.new);
+  // app.get('/show', tweedrControllerCallbacks.show);
 };

@@ -91,6 +91,12 @@ module.exports = (db) => {
     });
   };
 
+  //for get's ('/new') path
+  let newFormControllerCallback = (request, response) => {
+    response.render('tweedr/new');
+    // response.send('wana register?');
+  };
+
   let logoutControllerCallback = (request, response) => {
     response.clearCookie("loggedIn");
     response.clearCookie("userId");
@@ -111,6 +117,7 @@ module.exports = (db) => {
     register: registerControllerCallback,
     loginForm: loginFormControllerCallback,
     login: loginControllerCallback,
+    newForm: newFormControllerCallback,
     logout: logoutControllerCallback
   };
 

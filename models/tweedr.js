@@ -72,9 +72,14 @@ module.exports = (dbPoolInstance) => {
 
   let showTweets = (callback, data) => {
 
-    const query = "SELECT * FROM tweets"
+    // const query = "SELECT * FROM tweets"
+
+    const query = "SELECT users.name, tweets.text FROM users INNER JOIN tweets ON (tweets.user_id = users.id)"
 
     dbPoolInstance.query(query, (err, result) => {
+
+
+
 
       if (err) {
         callback(err, null)
@@ -82,8 +87,7 @@ module.exports = (dbPoolInstance) => {
 
         if (result.rows.length > 0) {
           const tweets = result.rows
-
-          callback(null, tweets)
+          callback(null, tweets, null)
 
         }
       }

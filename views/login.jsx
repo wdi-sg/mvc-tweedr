@@ -1,22 +1,30 @@
 var React = require("react");
+const Header = require("./header")
 
-class Home extends React.Component {
+class Login extends React.Component {
   render() {
     console.log(this.props.types);
     return (
-      <html>
-        <head />
-        <body>
-          Hi {this.props.name}, please log in!
-          <form action="/login" method='POST'>
-              <input type="text" name="name" placeholder="name"/>
-              <input type="text" name="password" placeholder="password"/>
-              <input type="submit"/>
-          </form>
-        </body>
-      </html>
+      <Header>
+        <div className="container loging">
+        <div className="text-center mt-2">{this.props.name} please log in!</div>
+
+        <form action="/login" method='POST' className="w-50">
+  <div className="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter name" name="name"/>
+  </div>
+  <div className="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" aria-describedby="emailHelp" name="password"/>
+    <small id="emailHelp" className="form-text text-muted">We'll never share your password with anyone else.</small>
+  </div>
+  <button type="submit" className="btn btn-primary">Submit</button>
+</form>
+        </div>
+      </Header>
     );
   }
 }
 
-module.exports = Home;
+module.exports = Login;

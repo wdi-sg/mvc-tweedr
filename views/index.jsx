@@ -1,4 +1,5 @@
 var React = require("react");
+const Header = require("./header")
 
 class Home extends React.Component {
   render() {
@@ -6,25 +7,20 @@ class Home extends React.Component {
     this.props.tweets.reverse()
     
     const allTweets = this.props.tweets.map((item)=>{
-      return <div key={item.id} className="tweet">{item.user_id}{item.text}</div>
+      return <div key={item.name} className="tweet">{item.name}: {item.text}</div>
     })
 
     return (
-      <html>
-          <head>
-            <link rel="stylesheet" href="../css/style.css"/>
-          </head>
-        <body>
+      <Header>
           
           <div className="tweet-list">
           <form action="/" method="POST">
-            <input type="text" name="text" placeholder="Tweet" className="tweet-input" maxLength="140"/>
+            <input type="text" name="text" placeholder="Tweed" className="tweet-input" maxLength="140"/>
             <input type="submit"/>
           </form>
             {allTweets}
           </div>
-        </body>
-      </html>
+      </Header>
     );
   }
 }

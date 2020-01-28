@@ -58,19 +58,40 @@ module.exports = (dbPoolInstance) => {
                 console.log("this is loginUser error: ", error);
             } else {
                 if (queryResult.rows.length > 0) {
-                    console.log(queryResult.rows);
-                    callback(null, queryResult.rows);
+                    callback(null,queryResult.rows);
                 } else {
                     console.log(queryResult.rows);
-                    callback(null, null);
+                    callback(null,null);
                     }
                 } 
+        });
+    }
+
+    let postTweets = (callback,data) => {
+
+        let values = [data.userID,data.tweet];
+        console.log(values);
+
+        let query = "INSERT INTO tweets (user_id,content) VALUES ($1,$2) RETURNING *"
+
+        dbPoolInstance.query(query,values,(error,queryResult)=> {
+            if (error) {
+                console.log("this is postTweets error: ", error);
+            } else {
+                if (queryResult.rows.length > 0) {
+                    callback(null,queryResult.rows);
+                } else {
+                    console.log(queryResult.rows);
+                    callback(null,null);
+                }
+            }
         });
     }
 
     return {
         getAll: getAll,
         registerUser: registerUser,
-        loginUser: loginUser
+        loginUser: loginUser,
+        postTweets: postTweets
     };
 };

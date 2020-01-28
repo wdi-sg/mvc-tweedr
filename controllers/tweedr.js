@@ -21,6 +21,10 @@ module.exports = (db) => {
         response.render('tweedr/login');
     }
 
+    let postForm = (request,response) => {
+        response.render('tweedr/post');
+    }
+
     let register = (request,response) => {
 
         let data = {
@@ -43,12 +47,46 @@ module.exports = (db) => {
         }
 
         let callBack = (error, loginUser) => {
-            console.log("this is login error: ",error);
-            response.send(loginUser);
+            console.log("this is login error: ", error);
+
+            if (loginUser === null){
+                response.send("does not exist");
+            } else {
+                let userID = loginUser[0].id;
+                let username = loginUser[0].name;
+                let loggedIn = true;
+
+                response.cookie("userID", userID);
+                response.cookie("username", username);
+                response.cookie("loggedIn", loggedIn);
+    
+                response.send(loginUser);
+            }
         }
 
         db.tweedr.loginUser(callBack,data);
     }
+
+    let post = (request,response) => {
+
+        let data = {
+            tweet: request.body.tweet,
+            userID : request.cookies.userID,
+            username : request.cookies.username,
+            loggedIn : request.cookies.loggedIn
+        };
+
+        console.log("this is data", data.userID);
+
+        let callBack = (error, postTweet) => {
+            console.log("this is post error: ", error);
+                response.send(postTweet[0].content);
+        }
+
+        db.tweedr.postTweets(callBack,data);
+    }
+
+
 
     /**
      * ===========================================
@@ -60,7 +98,9 @@ module.exports = (db) => {
         register: register,
         registerForm: registerForm,
         loginForm: loginForm,
-        login: login
+        login: login,
+        post: post,
+        postForm: postForm
     };
 
 }

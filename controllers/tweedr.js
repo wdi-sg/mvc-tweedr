@@ -1,3 +1,6 @@
+var sha256 = require('js-sha256');
+const SALT = "bananas are delicious";
+
 module.exports = (db) => {
 
   /**
@@ -21,7 +24,12 @@ module.exports = (db) => {
 
 
   let registerCompleteControllerCallback = (request, response) => {
-    db.tweedr.registerProcess((error, tweedr) => {
+    let nameInput = request.body.name;
+    let passwordInput = sha256(request.body.password + SALT);
+    const values = [nameInput, passwordInput];
+
+    db.tweedr.registerProcess(values, (error, tweedr) => {
+
         response.render('options');
     });
   };

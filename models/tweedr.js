@@ -43,14 +43,9 @@ module.exports = (registerInputInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  let registerProcess = (callback) => {
+  let registerProcess = (values, callback) => {
 
-    let query = ('INSERT TO users (name, password) VALUES ($1, $2) RETURNING *');
-
-    let nameInput = request.body.name;
-        console.log('entered');
-    let passwordInput = sha256(request.body.password + SALT);
-    const values = [nameInput, passwordInput];
+    let query = ('INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *');
 
     registerInputInstance.query(query, values, (error, queryResult) => {
       if( error ){
@@ -74,6 +69,6 @@ module.exports = (registerInputInstance) => {
   };
 
   return {
-    registerProcess,
+    registerProcess: registerProcess
   };
 };

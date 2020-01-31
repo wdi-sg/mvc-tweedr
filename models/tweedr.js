@@ -13,7 +13,7 @@ module.exports = (dbPoolInstance) => {
 //suppose to be listing for all users
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM users';
+    let query = 'SELECT id, name FROM users';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){

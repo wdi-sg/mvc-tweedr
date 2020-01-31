@@ -25,5 +25,8 @@ module.exports = (app, allModels) => {
   app.get('/new', tweedrControllerCallbacks.newForm);
   app.post('/new', tweedrControllerCallbacks.new);
   app.get('/', tweedrControllerCallbacks.show);
+  app.get('/addfollower', tweedrControllerCallbacks.followerForm);
+  // app.post('/addfollower', tweedrControllerCallbacks.follower);
+
   // app.get('/show', tweedrControllerCallbacks.show);
 };

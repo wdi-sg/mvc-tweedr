@@ -13,7 +13,6 @@ class Show extends React.Component {
             Show tweets
             </title>
         <body>
-            <h3>Hello</h3>
             <p></p>
             <p></p>
             <p></p>

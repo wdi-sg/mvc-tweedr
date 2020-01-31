@@ -15,11 +15,6 @@ module.exports = (db) => {
         response.render('tweedr/landing');
   };
 
-//for ('/index') path
-  // let indexControllerCallback = (request, response) => {
-  //       response.render('tweedr/index');
-  // };
-
   let indexControllerCallback = (request, response) => {
     let username = request.cookies.username;
         let data = {
@@ -115,7 +110,8 @@ module.exports = (db) => {
     }
   };
 
-  const newControllerCallback = (request, response) => {
+//for app.post's('/new') path
+  let newControllerCallback = (request, response) => {
       // use newTweet model method `create` to create new tweet entry in db
       db.tweedr.newTweet(request.body, (error, queryResult) => {
         // (console log it to see for yourself)
@@ -139,6 +135,7 @@ module.exports = (db) => {
       });
   };
 
+//for app.get's ('/') path
   let showControllerCallback = (request, response) => {
     let user_id = request.cookies.userId;
       db.tweedr.show(user_id,(error, allTweetsOfSelectedUser) => {
@@ -151,7 +148,33 @@ module.exports = (db) => {
       });
   };
 
+//for ('/follower') path to that will lead user to a page where they can select which user to follow
+  let followerFormControllerCallback = (request, response) => {
+      db.tweedr.getAll((error, allUsers) => {
+        //allUsers is array of objects [
+//   { id: 1, name: 'nick' },
+//   { id: 2, name: 'joe' },
+//   { id: 3, name: 'mel' },
+//   { id: 4, name: 'fay' },
+//   { id: 5, name: 'alex' },
+//   { id: 6, name: 'mich' }
+// ]. How to convert it into an object?
+//https://stackoverflow.com/questions/50674289/converting-array-of-objects-into-a-single-object
+        console.log(allUsers);
+        // const input = allUsers;
+        //     const output = input.reduce((a, obj) => {
+        //         a[obj.id] = obj;
+        //         return a;
+        //         }, {});
+        //     console.log(output);
+        //     let data = {
+        //     allUsers: output
+        //     }
+        response.render('tweedr/newFollowerForm', {allUsers: allUsers});
+      });
+  };
 
+//for ('/logout') path
   let logoutControllerCallback = (request, response) => {
     response.clearCookie("loggedIn");
     response.clearCookie("userId");
@@ -176,7 +199,8 @@ module.exports = (db) => {
     newForm: newFormControllerCallback,
     new: newControllerCallback,
     show: showControllerCallback,
+    followerForm: followerFormControllerCallback,
     logout: logoutControllerCallback
   };
 
-}
+};

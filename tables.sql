@@ -14,5 +14,6 @@ CREATE TABLE IF NOT EXISTS tweets (
 CREATE TABLE IF NOT EXISTS followers (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    follower_user_id INTEGER
+    follower_user_id INTEGER,
+    UNIQUE (user_id,follower_id)
 );

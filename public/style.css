@@ -39,3 +39,15 @@ h3 {
     margin: 10px auto;
 }
 
+ul {
+    test-align: left;
+    padding: 5px;
+}
+
+ul li {
+    list-style: none;
+    border: 1px solid grey;
+    margin: 5px;
+    padding: 3px;
+    text-align: left;
+}

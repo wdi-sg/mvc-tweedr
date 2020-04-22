@@ -48,29 +48,46 @@ module.exports = (db) => {
                 console.log("logged in!")
                 res.cookie('user', reqUser);
                 res.cookie('logged in', 'true');
-                res.redirect('/tweed');
+                res.redirect('/all');
             } else {
                 console.log("password doesn't match");
                 res.redirect('/')
             };
-        }
+        };
       });
+  };
+
+  let tweedMessage = (req, res) => {
+    if (req.cookies['logged in'] === 'true'){
+        let values = [req.body.message];
+        db.tweed.messageQ(values, (error, result) => {
+            res.redirect('/all');
+        })
+    } else {
+        res.status(403);
+        res.redirect('/');
+    };
   };
 
   let tweedPage = (req, res) => {
     if (req.cookies['logged in'] === 'true'){
-        res.render('tweed/tweedr');
+        db.tweed.allTweedsQ((error, result) => {
+            cookies = req.cookies
+            res.render('tweed/tweedr', {cookies, result});
+        })
     } else {
         res.status(403);
         res.redirect('/');
-    }
-  }
+    };
+  };
+
+
 
   let logout = (req, res) => {
     res.clearCookie('logged in');
     res.clearCookie('user');
     res.redirect('/');
-  }
+  };
 
 
 
@@ -95,6 +112,8 @@ module.exports = (db) => {
     loginForm,
     loginCheck,
     tweedPage,
+    tweedMessage,
     logout,
+
   };
 };

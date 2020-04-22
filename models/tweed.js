@@ -51,10 +51,41 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let messageQ = (values, call) => {
+    let query = "INSERT INTO tweeds (message) values ($1);";
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+        if ( error ) {
+          call(error, null);
+        } else {
+          if( queryResult.rows.length > 0 ){
+              call(null, queryResult.rows);
+          }else{
+              call(null, null);
+          };
+        };
+      });
+  };
+
+  let allTweedsQ = (call) => {
+    let query = "SELECT * FROM tweeds order by id ASC;";
+    dbPoolInstance.query(query, (error, queryResult) => {
+        if ( error ) {
+          call(error, null);
+        } else {
+          if( queryResult.rows.length > 0 ){
+              call(null, queryResult.rows);
+          }else{
+              call(null, null);
+          };
+        };
+    });
+  }
 
     return {
         checkUserQ,
         addNewUserQ,
         loginCheckQ,
+        allTweedsQ,
+        messageQ,
     };
 };

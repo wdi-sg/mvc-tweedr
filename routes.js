@@ -13,11 +13,12 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedCtrl = require('./controllers/tweed')(allModels);
 
-  app.get('/', tweedCtrl.tweedModHome);
+  app.post('/all', tweedCtrl.tweedMessage);
+  app.get('/all', tweedCtrl.tweedPage);
   app.get('/register', tweedCtrl.registerForm);
   app.post('/register', tweedCtrl.addNewUser);
   app.get('/login', tweedCtrl.loginForm);
   app.post('/login', tweedCtrl.loginCheck);
   app.delete('/logout', tweedCtrl.logout);
-  app.get('/tweed', tweedCtrl.tweedPage);
+  app.get('/', tweedCtrl.tweedModHome);
 };

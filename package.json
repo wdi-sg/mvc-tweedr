@@ -17,5 +17,15 @@
     "pg": "^7.4.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
-  }
+  },
+  "description": "Let's make a cool new app called TWEEDR!! Not Twitter, geez...",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenneththesheep/mvc-tweedr.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/kenneththesheep/mvc-tweedr/issues"
+  },
+  "homepage": "https://github.com/kenneththesheep/mvc-tweedr#readme"
 }

@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS tweets (
 	id serial PRIMARY KEY,
 	user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 	content VARCHAR NOT NULL,
-	img_link VARCHAR
+	img_link VARCHAR DEFAULT NULL
 );

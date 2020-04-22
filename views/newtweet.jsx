@@ -13,7 +13,7 @@ class Newtweet extends React.Component {
             <div>
               <form method="POST" action="/tweet">
                 <div>
-                  Name:
+                  Tweet:
                   <input type="text" name="message"></input>
                 </div>
                 <div>

@@ -79,10 +79,32 @@ module.exports = (pool) => {
     });
   };
 
+  let submitTweet = (request, response, callback) => {
+    let queryString = "INSERT INTO tweets (user_id, message) VALUES ($1, $2)";
+    let values = [request.cookies['userid'], request.body.message];
+    pool.query(queryString, values, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else {
+        queryString = "SELECT * FROM tweets WHERE user_id = " + request.cookies['userid'];
+        pool.query(queryString, (error, result) => {
+          if(error) {
+            callback(error, null);
+          }else if(result.rows.length > 0) {
+            callback(null, result);
+          }else {
+            callback(null, null);
+          }
+        })
+      }
+    });
+  }
+
   return {
     getAll: getAll,
     registerAccount: registerAccount,
     viewHome: viewHome,
-    loginAccount: loginAccount
+    loginAccount: loginAccount,
+    submitTweet: submitTweet
   };
 };

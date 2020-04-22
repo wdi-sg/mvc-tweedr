@@ -33,8 +33,13 @@ module.exports = (db) => {
       if(error) {
         console.log('Query error', error.message);
         response.send("query error");
-      }else{
-        response.render('home', result);
+      }else if(result === null){
+        response.render('home');
+      }else {
+        let data = {
+          "tweets": result.rows
+        }
+        response.render('home', data);
       }
     });
   };
@@ -45,11 +50,11 @@ module.exports = (db) => {
         console.log('Query error:', error.message);
         response.send("query error");
       }else {
-        if(result.rows[0].username === request.body.username){
+        if(result === null){
+          response.redirect('/login');
+        }else {
           response.cookie("userid", result.rows[0].id);
           response.redirect('/');
-        }else {
-          response.redirect('/login');
         }
       }
     });
@@ -61,6 +66,20 @@ module.exports = (db) => {
 
   let viewLoginControllerCallback = (request, response) => {
     response.render('login');
+  };
+
+  let submitTweetControllerCallback = (request, response) => {
+    db.pokemon.submitTweet(request, response, (error, result) => {
+      if(error) {
+        console.log('Query error: ', error.message);
+        response.send("query error");
+      }else {
+        let data = {
+          "tweets": result.rows
+        }
+        response.render('home', data);
+      }
+    });
   };
 
   /**
@@ -75,7 +94,8 @@ module.exports = (db) => {
     viewHome: viewHomeControllerCallback,
     newTweet: newTweetControllerCallback,
     viewLogin: viewLoginControllerCallback,
-    loginAccount: loginAccountControllerCallback
+    loginAccount: loginAccountControllerCallback,
+    submitTweet: submitTweetControllerCallback
   };
 
 }

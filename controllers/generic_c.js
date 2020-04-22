@@ -11,14 +11,14 @@ module.exports = (db) => {
         console.log(error);
         response.send(error);
       } else {
-        response.render('viewmodule', { results });
+        response.render('viewmodule1', { results });
       }
     };
 
     db.model.getAll(updateView);
   };
 
-  // generic route function, no params
+  // generic route function, with params
   const view = (request, response) => {
     let params = [request.params];
     const updateView = (error, results) => {
@@ -26,7 +26,7 @@ module.exports = (db) => {
         console.log(error);
         response.send(error);
       } else {
-        response.render('viewmodule', { results });
+        response.render('viewmodule2', { results });
       }
     };
 

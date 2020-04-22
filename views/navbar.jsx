@@ -23,6 +23,16 @@ class Navbar extends React.Component {
                 Home
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tweets">
+                All Tweets
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tweets/new">
+                New Tweet
+              </a>
+            </li>
             
             <li class="nav-item dropdown">
               <a

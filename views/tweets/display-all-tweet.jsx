@@ -13,9 +13,9 @@ class DisplayAllTweets extends React.Component {
       let link2 = "/tweets/" + element.id;
       return (
         <tr>
-          <td width="20%">{element.username}</td>
-          <td width="40%"><a href={link2}>{element.content}</a></td>
-          <td width="40%">{timestamp}</td>
+          <td className="text-center" width="20%">{element.username}</td>
+          <td className="text-center" width="40%"><a href={link2}>{element.content}</a></td>
+          <td className="text-center" width="40%">{timestamp}</td>
         </tr>
       );
     });
@@ -31,14 +31,6 @@ class DisplayAllTweets extends React.Component {
               <br></br>
 
               <table class="table table-striped">
-                {/* <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                  </tr>
-                </thead> */}
                 <tbody>
                   {tweetArrHtml}
                 </tbody>

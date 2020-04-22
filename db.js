@@ -1,53 +1,36 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
+//CONFIGURATION
 
-
-
-const pg = require('pg');
-const url = require('url');
+const pg = require("pg");
+const url = require("url");
 
 var configs;
 
-if( process.env.DATABASE_URL ){
-
+if (process.env.DATABASE_URL) {
   const params = url.parse(process.env.DATABASE_URL);
-  const auth = params.auth.split(':');
+  const auth = params.auth.split(":");
 
   configs = {
     user: auth[0],
     password: auth[1],
     host: params.hostname,
     port: params.port,
-    database: params.pathname.split('/')[1],
-    ssl: true
+    database: params.pathname.split("/")[1],
+    ssl: true,
   };
-
-}else{
+} else {
   configs = {
-    user: 'akira',
-    host: '127.0.0.1',
-    database: 'testdb',
-    port: 5432
+    user: "postgres",
+    host: "127.0.0.1",
+    database: "tweedr",
+    port: 5432,
   };
 }
 
-
 const pool = new pg.Pool(configs);
 
-pool.on('error', function (err) {
-  console.log('idle client error', err.message, err.stack);
+pool.on("error", function (err) {
+  console.log("idle client error", err.message, err.stack);
 });
-
-
 
 /*
  * ===================================================
@@ -61,12 +44,11 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
+const allUserModelsFunction = require("./models/users");
+const allTweetModelsFunction = require("./models/tweets");
 
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
+const UserModelsObject = allUserModelsFunction(pool);
+const TweetModelsObject = allTweetModelsFunction(pool);
 
 /*
  * ===================================================
@@ -80,7 +62,6 @@ const pokemonModelsObject = allPokemonModelsFunction( pool );
  * ===================================================
  */
 
-
 module.exports = {
   //make queries directly from here
   queryInterface: (text, params, callback) => {
@@ -88,12 +69,13 @@ module.exports = {
   },
 
   // get a reference to end the connection pool at server end
-  pool:pool,
+  pool: pool,
 
   /*
    * ADD APP MODELS HERE
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  tweets: TweetModelsObject,
+  users: UserModelsObject,
 };

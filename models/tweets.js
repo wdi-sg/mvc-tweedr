@@ -51,8 +51,34 @@ module.exports = (dbPoolInstance) => {
         });
   };
 
+    let login = (enteredUserId, enteredPassword, callback) => {
+        let query = 'SELECT * FROM users WHERE user_id = $1';
+        const values = [enteredUserId];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+            }else{
+
+                // invoke callback function with results after query has executed
+
+                if( queryResult.rows.length > 0 ){
+                  callback(null, queryResult.rows[0].password);
+
+                }else{
+                  callback(null, null);
+                  console.log('You have entered the wrong user name!');
+
+                }
+            }
+        });
+  };
+
   return {
     getAll: getAll,
     register: register,
+    login: login,
   };
 };

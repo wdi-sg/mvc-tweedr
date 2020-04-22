@@ -22,12 +22,35 @@ module.exports = (db) => {
   };
 
     let registerFormControllerCallback = (request, response) => {
-        let enteredUserId = 'Hwee Meng';
-        let enteredPassword = sha256('handsome');
-        console.log('**********');
+        let enteredUserId = request.body.userId;
+        let enteredPassword = sha256(request.body.password);
+        console.log('===============entered user name===============');
+        console.log(enteredUserId);
+        console.log('===============entered parsed password===============');
         console.log(enteredPassword);
-      db.tweets.register(enteredUserId,enteredPassword,(error, registerUser) => {
-        respnose.send('Successfully registered');
+        db.tweets.register(enteredUserId,enteredPassword,(error, registerUser) => {
+        response.cookie('loggedin', true)
+        response.send('Successfully registered');
+        // response.render('/tweets/register', { registerUser });
+      });
+  };
+
+    let loginPageControllerCallback = (request, response) => {
+        response.render('tweets/login')
+  };
+
+    let loginControllerCallback = (request, response) => {
+        let enteredUserId = request.body.userId;
+        let enteredPassword = sha256(request.body.password);
+        db.tweets.login(enteredUserId,enteredPassword,(error, userLogin) => {
+            console.log('********see here!!! ********')
+            console.log(userLogin);
+            if(userLogin === enteredPassword){
+                response.cookie('loggedin', true)
+                response.send('You have successfully Logged in!');
+            }else {
+                response.send('Please enter an incorrect password and try again');
+            }
         // response.render('/tweets/register', { registerUser });
       });
   };
@@ -39,7 +62,9 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     register: registerControllerCallback,
-    registerForm: registerFormControllerCallback
+    registerForm: registerFormControllerCallback,
+    loginPage: loginPageControllerCallback,
+    login: loginControllerCallback,
   };
 
 }

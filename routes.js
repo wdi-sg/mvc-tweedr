@@ -22,4 +22,8 @@ module.exports = (app, allModels) => {
 
     app.post('/register', tweetsControllerCallbacks.registerForm);
 
+    app.get('/login', tweetsControllerCallbacks.loginPage);
+
+    app.post('/login', tweetsControllerCallbacks.login);
+
 };

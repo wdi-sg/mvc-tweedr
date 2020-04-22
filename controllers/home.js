@@ -7,8 +7,12 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
+    //response.send("hello");
+     db.home.getTweet((error, tweets) => {
+        const data = {}
+        data.tweets=tweets;
+        //response.send(data);
+        response.render("pokemon/index", data);
       });
   };
 

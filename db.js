@@ -66,7 +66,9 @@ const allPokemonModelsFunction = require('./models/pokemon');
 
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 
+const allHomeModelsFunction = require('./models/home');
 
+const homeModelsObject = allHomeModelsFunction( pool );
 
 /*
  * ===================================================
@@ -95,5 +97,6 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  pokemon: pokemonModelsObject,
+  home: homeModelsObject
 };

@@ -51,6 +51,7 @@ module.exports = (db) => {
             const data = {
                 username: userDetails.username
             }
+            response.cookie('username', userDetails.username)
             response.render('home', data);
         } else {
             response.send('Incorrect username/ password.');
@@ -58,6 +59,28 @@ module.exports = (db) => {
     })
   }
 
+  ////////////////////
+  ////   TWEET   ////
+  //////////////////
+  let tweetControllerCallback = (request, response) => {
+        const tweet = request.body.tweet;
+
+        db.pokemon.insertTweet((err, tweet) => {
+            response.render(request.body)
+        })
+  }
+
+  /////////////////////////
+  ////   All TWEETS   ////
+  ///////////////////////
+  let allTweetsControllerCallback = (request, response) => {
+    db.pokemon.getAllTweets((err, allTweets) => {
+        const data = {
+            allTweets: allTweets,
+        }
+    response.render('all_tweets', data)
+    })
+  }
 
   /**
    * ===========================================
@@ -68,7 +91,9 @@ module.exports = (db) => {
     index: indexControllerCallback,
     main: mainControllerCallback,
     login: loginControllerCallback,
-    loginCheck: loginCheckControllerCallback
+    loginCheck: loginCheckControllerCallback,
+    tweet: tweetControllerCallback,
+    allTweets: allTweetsControllerCallback
   };
 
 }

@@ -2,9 +2,13 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-    const loginForm = <a href="/login">Login</a>
-
-    const register = <a href="/register">Don't have an account?</a>
+    const loginForm = (
+            <form action="/authenticating" method="get">
+                <input type="text" name="username" placeholder="username"></input>
+                <input type="text" name="password" placeholder="password"></input>
+                <input type="submit" value="login"></input>
+            </form>
+        )
 
     return (
       <html>
@@ -15,7 +19,6 @@ class Home extends React.Component {
             </div>
             <div>
                 {loginForm}
-                {register}
             </div>
         </body>
       </html>

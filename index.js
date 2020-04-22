@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
+
 /**
  * ===================================
  * Configurations and set up
@@ -75,3 +76,4 @@ let onClose = function(){
 
 process.on('SIGTERM', onClose);
 process.on('SIGINT', onClose);
+© 2020 GitHub,

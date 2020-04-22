@@ -1,24 +1,10 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-
+// postgres module and connection pool config
 const pg = require('pg');
 const url = require('url');
 
 var configs;
 
-if( process.env.DATABASE_URL ){
-
+if (process.env.DATABASE_URL) {
   const params = url.parse(process.env.DATABASE_URL);
   const auth = params.auth.split(':');
 
@@ -30,70 +16,40 @@ if( process.env.DATABASE_URL ){
     database: params.pathname.split('/')[1],
     ssl: true
   };
-
-}else{
+} else {
   configs = {
-    user: 'akira',
+    user: 'dwu',
     host: '127.0.0.1',
     database: 'testdb',
     port: 5432
   };
 }
 
-
 const pool = new pg.Pool(configs);
 
 pool.on('error', function (err) {
-  console.log('idle client error', err.message, err.stack);
+  console.log('client pool error', err.message, err.stack);
 });
 
+// model files
+// grab each model function then pass it the pool object
+// so all models use the same connection pool
+// const modelFunc = require('./models/modelname');
+// const model = modelFunc(pool);
 
+// create a query interface for models to use
+// and have it return a promise
+const queryP = async (queryString, values) => {
+  return await pool.query(queryString, values);
+};
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
+// exports (variables don't need
+// cos they magically become `varname: varvalue`)
+// query interface
+// pool object so main app can close it
+// model objects with pool passed to them
 module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
-
-  // get a reference to end the connection pool at server end
-  pool:pool,
-
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  queryP,
+  pool,
+  // model
 };

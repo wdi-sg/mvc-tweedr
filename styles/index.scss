@@ -1,2 +1,17 @@
 @charset "utf-8";
 @import "~bulma/bulma";
+
+
+.is-fixed-height-box {
+  height: 60vh;
+}
+
+.hero .title {
+  margin-bottom:20px;
+}
+
+.hero .subtitle {
+  font-style: italic;
+  color:darkgray;
+  margin:20px 0;
+}

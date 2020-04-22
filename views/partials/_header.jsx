@@ -1,7 +1,7 @@
 import React from 'react'
-import '../styles/index.scss'
+import '../../styles/index.scss'
 
-const Header = (props) => {
+const _header = (props) => {
 
   const handleRegisterBtnClicked = e => {
     console.log('register button clicked')
@@ -64,4 +64,4 @@ const Header = (props) => {
 
 }
 
-export default Header
+export default _header

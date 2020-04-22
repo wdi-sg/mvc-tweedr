@@ -35,14 +35,14 @@ class RegisterForm extends React.Component {
                     </div>
                     <main>
                         <div className="form__wrapper">
-                            <form method="POST" action={`/auth/register`} className="add-form">
+                            <form method="POST" action={`/auth/register`} className="auth-form">
                                 {displayInvalidMsg()}
-                                <h2 className="add-form__header">Sign Up</h2>
+                                <h2 className="auth-form__header"></h2>
                                 <label htmlFor="email">Email</label>
                                 <input type="email" name="email" placeholder="email"></input>
                                 <label htmlFor="password">Password</label>
                                 <input type="password" name="password" placeholder="password"></input>
-                                <button className="add-form__submit-btn login-btn" type="submit">Register</button>
+                                <button className="auth-form__submit-btn login-btn" type="submit">Register</button>
                             </form>
                         </div>
                     </main>

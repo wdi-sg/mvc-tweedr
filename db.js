@@ -61,6 +61,11 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
+// Home Page files
+const allIndexModelsFunction = require('./models/index');
+
+const indexModelsObject = allIndexModelsFunction(pool);
+
 // Registration files
 const allRegistrationModelsFunction = require('./models/registration');
 
@@ -99,5 +104,6 @@ module.exports = {
 
   // users: userModelsObject,
   registration: registrationModelsObject,
-  login: loginModelsObject
+  login: loginModelsObject,
+  index: indexModelsObject
 };

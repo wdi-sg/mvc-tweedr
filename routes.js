@@ -17,6 +17,8 @@ module.exports = (app, allModels) => {
 
   app.get('/', homePage.index);
 
+  app.post('/tweet/:id', homePage.tweet);
+
 
   // Login page
   const loginPage = require('./controllers/login')(allModels);

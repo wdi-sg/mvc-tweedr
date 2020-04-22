@@ -22,6 +22,15 @@ module.exports = (db) => {
 
     };
 
+    let writeTweet = (request, response) => {
+        const userID = request.params.id;
+        const tweet = request.body.tweet;
+
+        // Add tweet into database
+        db.index.addTweet(tweet, userID);
+        response.redirect('/');
+    }
+
    /**
    * ===========================================
    * Export controller functions as a module
@@ -30,5 +39,6 @@ module.exports = (db) => {
 
    return{
     index: homePageControllerCallback,
+    tweet: writeTweet
    }
 }

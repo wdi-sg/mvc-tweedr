@@ -1,3 +1,5 @@
+const sha256 = require('js-sha256');
+
 module.exports = (db) => {
 
   /**
@@ -18,6 +20,17 @@ module.exports = (db) => {
       //   response.render('/tweets/register', { allTweets });
       // });
   };
+
+    let registerFormControllerCallback = (request, response) => {
+        let enteredUserId = 'Hwee Meng';
+        let enteredPassword = sha256('handsome');
+        console.log('**********');
+        console.log(enteredPassword);
+      db.tweets.register(enteredUserId,enteredPassword,(error, registerUser) => {
+        respnose.send('Successfully registered');
+        // response.render('/tweets/register', { registerUser });
+      });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -26,6 +39,7 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     register: registerControllerCallback,
+    registerForm: registerFormControllerCallback
   };
 
 }

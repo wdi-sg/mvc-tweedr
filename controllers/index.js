@@ -7,28 +7,40 @@ module.exports = (db) => {
 
     let homePageControllerCallback = (request, response) => {
         const loggedIn = request.cookies.loggedIn;
+        const userID = request.cookies.userID;
+        const username = request.cookies.username;
+
+        let data;
 
         if (loggedIn === 'true'){
-            const username = request.cookies.username;
-            const userID = request.cookies.userID;
-
-            const data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
-            response.render('home', data);
+            data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
         }
         else{
-            const data = {'loggedIn': loggedIn}
+            data = {'loggedIn': loggedIn}
+        }
+
+        const whenQueryDone = (tweets) => {
+            data['tweets'] = tweets;
+            // response.render('home', data);
             response.render('home', data);
         }
 
+        // Get all tweets from database
+        db.index.showTweet(userID, whenQueryDone)
+
     };
+
 
     let writeTweet = (request, response) => {
         const userID = request.params.id;
         const tweet = request.body.tweet;
 
+        const whenQueryDone = () => {
+            response.redirect('/');
+        }
+
         // Add tweet into database
-        db.index.addTweet(tweet, userID);
-        response.redirect('/');
+        db.index.addTweet(tweet, userID, whenQueryDone);
     }
 
    /**

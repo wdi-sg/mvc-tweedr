@@ -29,6 +29,17 @@ class Home extends React.Component {
             )
     }
 
+    const allTweets = this.props.tweets;
+    console.log(allTweets);
+
+    const showAllTweets = allTweets.map(el => {
+        return(
+            <div className="all-tweets">
+                <p>{el.tweet}</p>
+            </div>
+            )
+    })
+
     return (
       <html>
         <head />
@@ -39,7 +50,7 @@ class Home extends React.Component {
             </div>
                 {tweet}
             <div>
-
+                {showAllTweets}
             </div>
         </body>
       </html>

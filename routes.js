@@ -17,11 +17,15 @@ module.exports = (app, allModels) => {
 const homeControllerCallbacks = require('./controllers/home')(allModels);
 const loginControllerCallbacks = require('./controllers/login')(allModels);
 const registerControllerCallbacks = require('./controllers/register')(allModels);
+const userControllerCallbacks = require('./controllers/user')(allModels);
+const followControllerCallbacks = require('./controllers/follow')(allModels);
 
     app.get('/', homeControllerCallbacks.index);
     app.get('/login/',loginControllerCallbacks.login);
     app.post('/login/',loginControllerCallbacks.process);
     app.get('/register/', registerControllerCallbacks.register);
     app.post('/register/', registerControllerCallbacks.processRegister);
+    app.get('/user/',userControllerCallbacks.userAll);
+    app.post('/follow/', followControllerCallbacks.follow);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

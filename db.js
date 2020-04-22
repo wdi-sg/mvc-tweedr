@@ -78,6 +78,14 @@ const allRegisterModelsFunction = require('./models/register');
 
 const registerModelsObject = allRegisterModelsFunction( pool );
 
+const allUserModelsFunction = require('./models/user');
+
+const userModelsObject = allUserModelsFunction( pool );
+
+const allfollowModelsFunction = require('./models/follow');
+
+const followModelsObject = allfollowModelsFunction( pool );
+
 /*
  * ===================================================
  * ===================================================
@@ -109,4 +117,6 @@ module.exports = {
   home: homeModelsObject,
   login: loginModelsObject,
   register: registerModelsObject,
+  user: userModelsObject,
+  follow: followModelsObject,
 };

@@ -11,11 +11,6 @@ module.exports = (db) => {
     let userid = parseInt(request.cookies.userid);
     let timestamp = Date.now();
     let cbDisplayNewTweet = (err, result) => {
-      // console.log(result.rows);
-      // let obj = {
-      //   tweet: result.rows[0]
-      // };
-      // response.render("./tweets/display-one-tweet", obj);
       let link = "/tweets/" + result.rows[0].id;
       response.redirect(link);
     };
@@ -34,9 +29,21 @@ module.exports = (db) => {
     db.tweets.getOneTweet(id, cbDisplayOneTweet);
   };
 
+  let showAllTweets = (request, response) => {
+    let cbGetAllTweets = (err, result) => {
+      let obj = {
+        tweetArr: result.rows
+      };
+      console.log(obj);
+      response.render("./tweets/display-all-tweet", obj);
+    }
+    db.tweets.getAllTweets(cbGetAllTweets);
+  };
+
   return {
     displayNewTweetForm: displayNewTweetForm,
     submitNewTweet: submitNewTweet,
     showOneTweet: showOneTweet,
+    showAllTweets: showAllTweets
   };
 };

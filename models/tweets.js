@@ -10,8 +10,14 @@ module.exports = (pool) => {
     pool.query(queryText, cb);
   };
 
+  let getAllTweets = (cb) => {
+    let queryText = "select tweets.content, tweets.timestamp, tweets.id, users.username from tweets join users on (users.id = tweets.user_id)";
+    pool.query(queryText, cb);
+  }
+
   return {
     writeNewTweet: writeNewTweet,
     getOneTweet: getOneTweet,
+    getAllTweets: getAllTweets
   };
 };

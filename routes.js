@@ -16,10 +16,14 @@ module.exports = (app, allModels) => {
 
   app.get("/logout", usersController.logout);
 
+  app.get("/tweets", tweetsController.showAllTweets);
+
   app.get("/tweets/new", tweetsController.displayNewTweetForm);
 
   app.post("/tweets/new", tweetsController.submitNewTweet);
 
   app.get("/tweets/:id", tweetsController.showOneTweet);
+
+
 
 };

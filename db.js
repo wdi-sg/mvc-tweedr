@@ -20,7 +20,7 @@ if (process.env.DATABASE_URL) {
   configs = {
     user: 'dwu',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -36,6 +36,7 @@ pool.on('error', function (err) {
 // so all models use the same connection pool
 // const modelFunc = require('./models/modelname');
 // const model = modelFunc(pool);
+const tweets = require('./models/tweets')(pool);
 
 // create a query interface for models to use
 // and have it return a promise
@@ -51,5 +52,5 @@ const queryP = async (queryString, values) => {
 module.exports = {
   queryP,
   pool,
-  // model
+  tweets
 };

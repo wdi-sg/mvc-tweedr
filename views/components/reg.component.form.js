@@ -3,7 +3,7 @@ import React from 'react'
 const RegistrationForm = (props) => {
 
   return (
-    <form action="" className='has-text-centered'>
+    <form action="/register" method="post" className='has-text-centered'>
       <section className="hero is-medium is-bold">
         <div className="hero-body">
 
@@ -39,7 +39,7 @@ const RegistrationForm = (props) => {
               <div className="control has-icons-left has-icons-right">
                 <input className="input" type="text" name="password" placeholder="password"/>
                 <span className="icon is-small is-left">
-                  <i className="fas fa-user"></i>
+                  <i className="fas fa-password"></i>
                  </span>
 
                 <span className="icon is-small is-right">
@@ -48,12 +48,13 @@ const RegistrationForm = (props) => {
 
               </div>
               {/*<p className="help is-success">This username is available</p>*/}
+              {/*<p className="help is-danger">This email is invalid</p>*/}
             </div>
 
             <div className="field">
               <p className="control">
-                <button className="button is-success">
-                  Login
+                <button className="button is-primary">
+                  Sign up
                 </button>
               </p>
             </div>

@@ -13,8 +13,25 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  // const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+
+  const tweedRegister = require('./controllers/register.js')(allModels);
+  const tweedLogin = require('./controllers/login.js')(allModels);
+
+
+//app.get('/', tweed.tweed);
+app.get('/', (req, res) => {
+    res.render('home');
+})
+app.get('/login', tweedLogin.displayLogin);
+app.get('/register', tweedRegister.register);
+
+app.post('/userLogin', tweedLogin.login);
+app.post('/registerUser', tweedRegister.registerUser);
+
+
+
+ // app.get('/pokemons', pokemonControllerCallbacks.index);
+
 };

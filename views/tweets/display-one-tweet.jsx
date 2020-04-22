@@ -18,6 +18,7 @@ class DisplayOneTweet extends React.Component {
               <h3>
                 <u>Tweet</u>
               </h3>
+              <br></br>
               <ul>
                 <li>Id: {tweet.id}</li>
                 <li>{tweet.content}</li>

@@ -15,6 +15,7 @@
 const pg = require('pg');
 const url = require('url');
 
+
 var configs;
 
 if( process.env.DATABASE_URL ){
@@ -47,8 +48,6 @@ pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
-
-
 /*
  * ===================================================
  * ===================================================
@@ -60,11 +59,8 @@ pool.on('error', function (err) {
  * ===================================================
  * ===================================================
  */
-
-
-const homeModelsFunction = require('./models/home');
-const homeModelsObject = homeModelsFunction( pool );
-
+const tweedModFxn = require('./models/tweed');
+const tweed = tweedModFxn( pool );
 
 
 /*
@@ -78,21 +74,16 @@ const homeModelsObject = homeModelsFunction( pool );
  * ===================================================
  * ===================================================
  */
-
-
 module.exports = {
   //make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
-
   // get a reference to end the connection pool at server end
   pool:pool,
-
   /*
    * ADD APP MODELS HERE
    */
-
   // users: userModelsObject,
-  home: homeModelsObject
+  tweed,
 };

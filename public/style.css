@@ -1,0 +1,29 @@
+.registration-box {
+    background-color: lightgrey;
+    height: 100px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container {
+    text-align: center;
+    margin: 10px auto;
+}
+
+.tweed-input {
+    width: 530px;
+}
+
+.tweed-btn {
+    width: 60px;
+}
+
+.chat-box {
+    background-color: lightgrey;
+    height: 600px;
+    width: 600px;
+    margin: 10px auto;
+}
+

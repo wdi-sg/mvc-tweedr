@@ -1,20 +1,23 @@
 module.exports = (app, allModels) => {
-
-
   /*
    *  =========================================
    *  =========================================
    *  =========================================
    *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
+   *    ALL ROUTES FOR TWEED CONTROLLER
    *  =========================================
    *  =========================================
    *  =========================================
    */
 
   // require the controller
-  const homeControllerCallback = require('./controllers/home')(allModels);
+  const tweedCtrl = require('./controllers/tweed')(allModels);
 
-  app.get('/', homeControllerCallback.homeModelCallback);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  app.get('/', tweedCtrl.tweedModHome);
+  app.get('/register', tweedCtrl.registerForm);
+  app.post('/register', tweedCtrl.addNewUser);
+  app.get('/login', tweedCtrl.loginForm);
+  app.post('/login', tweedCtrl.loginCheck);
+  app.delete('/logout', tweedCtrl.logout);
+  app.get('/tweed', tweedCtrl.tweedPage);
 };

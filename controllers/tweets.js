@@ -45,8 +45,35 @@ module.exports = (db) => {
         db.tweets.login(enteredUserId,enteredPassword,(error, userLogin) => {
             console.log('********see here!!! ********')
             console.log(userLogin);
-            if(userLogin === enteredPassword){
+            if(userLogin[0] === enteredPassword){
                 response.cookie('loggedin', true)
+                response.cookie('userId', userLogin[1])
+                response.send('You have successfully Logged in!');
+            }else {
+                response.send('Please enter an incorrect password and try again');
+            }
+        // response.render('/tweets/register', { registerUser });
+      });
+  };
+
+      let newtweetPageControllerCallback = (request, response) => {
+        var isLogged = request.cookies['loggedin'];
+        if (isLogged === 'true'){
+            response.render('tweets/newtweet')
+        }else {
+            response.redirect('/login');
+        }
+  };
+
+    let newtweetControllerCallback = (request, response) => {
+        let enteredUserId = request.body.userId;
+        let enteredPassword = sha256(request.body.password);
+        db.tweets.login(enteredUserId,enteredPassword,(error, userLogin) => {
+            console.log('********see here!!! ********')
+            console.log(userLogin);
+            if(userLogin[0] === enteredPassword){
+                response.cookie('loggedin', true)
+                response.cookie('userId', userLogin[1])
                 response.send('You have successfully Logged in!');
             }else {
                 response.send('Please enter an incorrect password and try again');
@@ -65,6 +92,8 @@ module.exports = (db) => {
     registerForm: registerFormControllerCallback,
     loginPage: loginPageControllerCallback,
     login: loginControllerCallback,
+    newtweetPage: newtweetPageControllerCallback,
+    newtweet: newtweetControllerCallback,
   };
 
 }

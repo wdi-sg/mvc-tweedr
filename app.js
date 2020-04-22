@@ -105,7 +105,7 @@ const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of
 
 let onClose = function() {
 
-    server.close(() => {
+    server.close(async () => {
         await db.poolEnd();
         console.log('Process terminated')
     })

@@ -34,33 +34,34 @@ module.exports.postLogin = async (req, res) => {
         res.redirect('./login');
     }
 
-    const queryT1 = `SELECT * FROM users WHERE email ='${email}'`
-    const { rows } = await db.query(queryT1);
 
-    if (!rows[0]) {
+    const loggedInUser = await User.getByEmail(email)
+
+    console.log(`Logged in User:\n${loggedInUser.email}`);
+
+    if (!loggedInUser[0]) {
 
         req.session.invalidMsg = 'Email is not registered'
 
         res.redirect('./login');
 
-    } else if (rows[0].password !== sha256(password)) {
+    } else if (loggedInUser[0].password !== sha256(password)) {
 
         req.session.invalidMsg = 'Wrong password'
 
         res.redirect('./login');
 
-    } else if (rows[0]['email'] == email && rows[0]['password'] == sha256(password)) {
+    } else if (loggedInUser[0]['email'] == email && loggedInUser[0]['password'] == sha256(password)) {
 
         if (req.cookies.userId && req.cookies.visits) {
-            const queryT2 = `UPDATE users SET visits=${req.cookies.visits} WHERE id=${req.cookies.userId}`
-            await db.query(queryT2);
+
+            User.updateVisits(req.cookies.userId, req.cookies.visits);
         }
 
-        req.session.userId = rows[0].id;
+        req.session.userId = loggedInUser[0].id;
         req.session.invalidMsg = "";
         res.clearCookie('visits');
         res.clearCookie('userId');
-        console.log(req.session.userId);
         res.redirect('/');
     }
 }
@@ -76,27 +77,23 @@ module.exports.postRegister = async (req, res) => {
         res.redirect('./register');
     }
 
-    const queryT1 = `SELECT * FROM users`
-    const { rows } = await db.query(queryT1);
-
+    const users = await User.getAll();
 
     if (email && password) {
-        const userExists = rows.some(
+        const userExists = users.some(
             usr => usr['email'] == email
         )
 
         if (!userExists) {
             const newUser = new User(email, sha256(password));
 
-            const queryT2 = `INSERT INTO users (email, password) VALUES($1, $2)`;
-            const queryV2 = [newUser.email, newUser.password];
+            await User.register(newUser);
 
-            await db.query(queryT2, queryV2);
+            const rows = await User.getByEmail(newUser.email);
+            console.log(rows);
+            newlyRegUserId = rows[0].id
 
-            const queryT3 = `SELECT * FROM users WHERE email='${newUser.email}'`;
-            const resultThree = await db.query(queryT3);
-
-            req.session.userId = resultThree.rows[0].id;
+            req.session.userId = newlyRegUserId;
 
             res.redirect('/');
 
@@ -113,13 +110,8 @@ module.exports.postRegister = async (req, res) => {
 
 module.exports.postLogout = async (req, res) => {
 
-    if (req.cookies.userId && req.cookies.visits) {
-
-        const queryT = `UPDATE users SET visits=${req.cookies.visits} WHERE id=${req.cookies.userId}`;
-
-        await db.query(queryT);
-
-    }
+    if (req.cookies.userId && req.cookies.visits)
+        await User.updateVisits(req.cookies.userId, req.cookies.visits);
 
     req.session.destroy();
     res.clearCookie('userId');
@@ -131,9 +123,7 @@ module.exports.postLogout = async (req, res) => {
 
 module.exports.getUserInfo = async (userId) => {
 
-    const queryT = `SELECT * FROM users WHERE id=${userId}`;
-
-    const { rows } = await db.query(queryT);
+    const rows = await User.getById(userId)
 
     console.log(`Currently Logged In as ${rows[0].email}`)
 
@@ -148,11 +138,9 @@ module.exports.visitsCookieCounter = async (req, res) => {
 
         if (req.cookies['userId']) {
 
-            const queryT = `SELECT id, visits FROM users WHERE id=${req.cookies['userId']}`;
+            const sessionUser = await User.getVisitsById(req.cookies['userId']);
 
-            const { rows } = await db.query(queryT);
-
-            visits = parseInt(rows[0]['visits']) + 1;
+            visits = parseInt(sessionUser[0]['visits']) + 1;
 
         } else {
 

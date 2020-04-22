@@ -1,10 +1,7 @@
 module.exports = (db) => {
 
-  /**
-   * ===========================================
-   * Controller logic
-   * ===========================================
-   */
+  //Controller logic
+
 
   let indexControllerCallback = (request, response) => {
       db.pokemon.getAll((error, allPokemon) => {
@@ -12,12 +9,8 @@ module.exports = (db) => {
       });
   };
 
+// Export controller functions as a module
 
-  /**
-   * ===========================================
-   * Export controller functions as a module
-   * ===========================================
-   */
   return {
     index: indexControllerCallback,
   };

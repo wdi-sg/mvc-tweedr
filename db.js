@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'rachelik',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr_db',
     port: 5432
   };
 }
@@ -62,9 +62,8 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const homeModelsFunction = require('./models/home');
+const homeModelsObject = homeModelsFunction( pool );
 
 
 
@@ -95,5 +94,5 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  home: homeModelsObject
 };

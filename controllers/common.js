@@ -1,5 +1,5 @@
 module.exports = {
-  someFunc: () => {
+  funcName: (request, response) => {
     
   }
 }

@@ -1,4 +1,5 @@
 const sha256 = require("js-sha256");
+const common = require("./common");
 
 module.exports = (db) => {
   let displayLoginPage = (request, response) => {

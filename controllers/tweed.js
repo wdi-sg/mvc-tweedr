@@ -59,10 +59,14 @@ module.exports = (db) => {
 
   let tweedMessage = (req, res) => {
     if (req.cookies['logged in'] === 'true'){
-        let values = [req.body.message];
-        db.tweed.messageQ(values, (error, result) => {
-            res.redirect('/all');
-        })
+        let username = req.cookies.user;
+        db.tweed.userIdQ(username, (error, userIdResult) => {
+            let userId = userIdResult[0].id;
+            let values = [req.body.message, userId];
+            db.tweed.messageQ(values, (error, result) => {
+                res.redirect('/all');
+            })
+        });
     } else {
         res.status(403);
         res.redirect('/');
@@ -72,8 +76,7 @@ module.exports = (db) => {
   let tweedPage = (req, res) => {
     if (req.cookies['logged in'] === 'true'){
         db.tweed.allTweedsQ((error, result) => {
-            cookies = req.cookies
-            res.render('tweed/tweedr', {cookies, result});
+            res.render('tweed/tweedr', {result});
         })
     } else {
         res.status(403);

@@ -2,12 +2,11 @@ var React = require("react");
 
 class Tweedr extends React.Component {
   render() {
-    let user = this.props.cookies.user;
 
     let tweeds = this.props.result;
 
     let allMessage = tweeds.map((tweed) => {
-        return <li key={tweed.id}>{user}: {tweed.message}</li>
+        return <li key={tweed.id}>{tweed.user_id}: {tweed.message}</li>
     })
 
 
@@ -26,12 +25,18 @@ class Tweedr extends React.Component {
                         <input type="submit" value="tweed" className="tweed-btn" />
                     </form>
 
+
                     <div className="chat-box">
                         <ul>{allMessage}</ul>
                     </div>
                     <br/>
                     <br/>
 
+                    <div>
+                        <form action="/logout?_method=delete" method="POST">
+                            <input type="submit" value="log-out"/>
+                        </form>
+                    </div>
 
                     <br/>
                 </div>

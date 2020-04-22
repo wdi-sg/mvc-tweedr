@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tweeds (
     id SERIAL PRIMARY KEY,
     message TEXT,
-    message_date TIMESTAMPTZ default now()
+    message_date TIMESTAMPTZ default now(),
+    user_id INTEGER
 );

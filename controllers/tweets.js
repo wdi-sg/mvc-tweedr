@@ -9,8 +9,9 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.tweets.getAll((error, allTweets) => {
-        response.render('tweets/index', { allTweets });
+        var userTableId = request.cookies['userId'];
+        db.tweets.getAll(userTableId, (error, allTweets) => {
+        response.render('tweets/index', { tweeteds: allTweets });
       });
   };
 

@@ -1,3 +1,12 @@
+body {
+    background-color: #a2c4c9;
+    font-family: sans-serif;
+}
+
+h3 {
+    text-transform: uppercase;
+}
+
 .registration-box {
     background-color: lightgrey;
     height: 100px;
@@ -14,10 +23,13 @@
 
 .tweed-input {
     width: 530px;
+    height: 18px;
+    font-size: 14px;
 }
 
 .tweed-btn {
     width: 60px;
+    font-size: 18px;
 }
 
 .chat-box {

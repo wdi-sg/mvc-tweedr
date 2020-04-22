@@ -1,0 +1,204 @@
+.outer-container {
+	background-color: #0084b4;
+	color: white;
+	font-family: 'Karla', sans-serif;
+}
+
+*:focus {
+	outline: none;
+}
+
+.sidebar-tweedr-header a {
+	font-size: 2.5rem;
+}
+
+.sidebar a {
+	color: white;
+
+}
+
+.sidebar-tweedr-header a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.sidebar {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.sidebar-dp {
+	width: 50%;
+	margin: 20px auto;
+}
+
+.sidebar-dp img {
+	width: 100%;
+	border-radius: 100%;
+	border: 4px solid white;
+}
+
+#sidebar-displayname {
+	font-size: 1.5rem;
+}
+
+.sidebar-follows {
+	margin: 20px 0
+}
+
+
+.right-display {
+	background-color: #2b2d2f;
+}
+
+#new-tweet-greeting {
+	font-size: 1.4rem;
+	letter-spacing: 1px;
+
+}
+
+.new-tweet {
+	padding: 30px;
+	color: white;
+}
+
+.new-tweet-top {
+	width: 100%;
+}
+
+.new-tweet-bottom {
+	width: 100%;
+}
+
+.general-container {
+	padding: 20px 30px;
+}
+
+.feed-top {
+	width: 100%;
+	padding: 0 30px;
+}
+
+.feed-tweets {
+	width: 100%;
+	padding: 30px;
+}
+
+#feed-header {
+	font-weight: bolder;
+	font-size: 2rem;
+}
+
+.select-sort {
+	margin-left: 0.8rem;
+}
+
+
+.tweet {
+	padding: 20px 30px;
+	border-radius: 20px;
+	width: 100%;
+	color: white;
+	border: 1px solid white;
+	font-size: 1.2rem;
+	display: flex;
+	margin-bottom: 10px;
+
+}
+
+.tweet-dp {
+	padding-right: 8px;
+	flex: 1;
+}
+
+
+.tweet-dp img {
+	max-width: 80px;
+	max-height: 80px;
+	border-radius: 100%;
+}
+
+.tweet-body {
+	flex: 12
+}
+
+.tweet-body-top {
+	margin-bottom: 1rem;
+}
+
+.tweet-body-img {
+	margin: 20px 0;
+}
+
+.tweet-body-img img {
+	border-radius: 20px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+form {
+	width: 100%
+}
+
+.user-card button {
+	margin-right: 10px;
+}
+
+.user-card form {
+	display: inline
+}
+
+textarea {
+	max-width: 100%;
+	height: 5rem;
+	background-color: rgba(255, 255, 255, 0.5);
+	color: black;
+	padding: 20px;
+	border-radius: 20px;
+	margin: 20px 0 30px 0;
+}
+
+
+@media only screen and (max-width: 992px) {
+
+	.sidebar {
+		flex-direction: row;
+		line-height: 2.5rem;
+	}
+
+	.sidebar * {
+		margin-right: 1rem;
+	}
+
+	#sidebar-displayname {
+		display: none;
+	}
+
+	.sidebar-follows {
+		margin: 0;
+		float: right;
+	}
+
+	.sidebar-follows div {
+		display: inline;
+	}
+
+	.sidebar-dp {
+		display: none;
+	}
+
+	.tweet {
+		font-size: 1rem;
+	}
+
+	.tweet-dp {
+		flex: 1;
+	}
+
+	.tweet-body {
+		flex: 5;
+	}
+
+}

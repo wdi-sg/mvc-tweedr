@@ -36,16 +36,30 @@ module.exports = (pool) => {
     let queryString = "INSERT INTO users (username, password) VALUES ($1, $2)";
     let values = [request.body.username, request.body.password];
     pool.query(queryString, values, (error, result) => {
-        if(error) {
-            callback(error, null);
-        }else {
-            callback(null, null);
-        }
+      if(error) {
+          callback(error, null);
+      }else {
+          queryString = "SELECT * FROM users WHERE username = '" + request.body.username + "'";
+          pool.query(queryString, (error, result) => {
+            if(error) {
+              callback(error, null);
+            }else if(result.rows.length > 0) {
+              callback(null, result);
+            }else {
+              callback(null, null);
+            }
+          });
+      }
     });
+  };
+
+  let viewHome = (callback) => {
+    let queryString = "SELECT * FROM tweets WHERE ";
   };
 
   return {
     getAll: getAll,
-    registerAccount: registerAccount
+    registerAccount: registerAccount,
+    viewHome: viewHome
   };
 };

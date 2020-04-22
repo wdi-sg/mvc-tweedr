@@ -10,6 +10,8 @@ const tweetsController = require('../controllers/tweets-controller.js');
 
 router.use('/:route', express.static(path.join(__dirname, '..', '/public/')));
 
+router.get('/new', tweetsController.getAddTweetForm);
+
 router.get('/:id', tweetsController.getTweet);
 
 router.get('/', tweetsController.getAllTweets);

@@ -3,7 +3,7 @@ const React = require('react');
 const header = () => {
     return (
         <div className="header">
-            <p className="header__heading">tweedr.</p>
+            <p className="header__heading"><a href="/">tweedr.</a></p>
         </div>
     )
 }

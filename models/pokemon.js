@@ -66,9 +66,23 @@ module.exports = (pool) => {
     });
   };
 
+  let loginAccount = (request, response, callback) => {
+    let queryString = "SELECT * FROM users WHERE username = '" + request.body.username + "' AND password = '" + request.body.password + "'";
+    pool.query(queryString, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else if(result.rows.length > 0) {
+        callback(null, result);
+      }else {
+        callback(null, null);
+      }
+    });
+  };
+
   return {
     getAll: getAll,
     registerAccount: registerAccount,
-    viewHome: viewHome
+    viewHome: viewHome,
+    loginAccount: loginAccount
   };
 };

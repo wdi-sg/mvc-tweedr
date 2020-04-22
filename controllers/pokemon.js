@@ -33,14 +33,27 @@ module.exports = (db) => {
       if(error) {
         console.log('Query error', error.message);
         response.send("query error");
-      }else {
-        let data = {
-          "tweets": result.rows
-        }
-        response.render('/', data);
+      }else{
+        response.render('home', result);
       }
     });
-  }
+  };
+
+  let loginAccountControllerCallback = (request, response) => {
+    db.pokemon.loginAccount(request, response, (error, result) => {
+      if(error) {
+        console.log('Query error:', error.message);
+        response.send("query error");
+      }else {
+        if(result.rows[0].username === request.body.username){
+          response.cookie("userid", result.rows[0].id);
+          response.redirect('/');
+        }else {
+          response.redirect('/login');
+        }
+      }
+    });
+  };
 
   let newTweetControllerCallback = (request, response) => {
     response.render('newtweet');
@@ -61,7 +74,8 @@ module.exports = (db) => {
     registerAccount: registerAccountControllerCallback,
     viewHome: viewHomeControllerCallback,
     newTweet: newTweetControllerCallback,
-    viewLogin: viewLoginControllerCallback
+    viewLogin: viewLoginControllerCallback,
+    loginAccount: loginAccountControllerCallback
   };
 
 }

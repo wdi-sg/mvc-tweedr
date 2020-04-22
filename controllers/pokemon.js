@@ -29,15 +29,26 @@ module.exports = (db) => {
   };
 
   let viewHomeControllerCallback = (request, response) => {
-    db.pokemon.viewHome((error, result) => {
+    db.pokemon.viewHome(request, response, (error, result) => {
       if(error) {
         console.log('Query error', error.message);
         response.send("query error");
       }else {
-
+        let data = {
+          "tweets": result.rows
+        }
+        response.render('/', data);
       }
     });
   }
+
+  let newTweetControllerCallback = (request, response) => {
+    response.render('newtweet');
+  };
+
+  let viewLoginControllerCallback = (request, response) => {
+    response.render('login');
+  };
 
   /**
    * ===========================================
@@ -48,7 +59,9 @@ module.exports = (db) => {
     index: indexControllerCallback,
     viewRegister: viewRegisterControllerCallback,
     registerAccount: registerAccountControllerCallback,
-    viewHome: viewHomeControllerCallback
+    viewHome: viewHomeControllerCallback,
+    newTweet: newTweetControllerCallback,
+    viewLogin: viewLoginControllerCallback
   };
 
 }

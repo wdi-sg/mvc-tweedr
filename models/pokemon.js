@@ -53,8 +53,17 @@ module.exports = (pool) => {
     });
   };
 
-  let viewHome = (callback) => {
-    let queryString = "SELECT * FROM tweets WHERE ";
+  let viewHome = (request, response, callback) => {
+    let queryString = "SELECT * FROM tweets WHERE user_id = " + request.cookies['userid'];
+    pool.query(queryString, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else if(result.rows.length > 0) {
+        callback(null, result);
+      }else {
+        callback(null, null);
+      }
+    });
   };
 
   return {

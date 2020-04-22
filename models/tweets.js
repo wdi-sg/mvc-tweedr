@@ -76,9 +76,26 @@ module.exports = (dbPoolInstance) => {
         });
   };
 
+    let tweet = (tweetmsg, userTableId, callback) => {
+        let query = 'INSERT INTO tweets (users_id, tweet) VALUES ($1,$2)';
+        const values = [userTableId, tweetmsg];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+              if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+              }else{
+                // response.redirect('/')
+                callback(null, queryResult.rows[0]);
+              }
+        });
+  };
+
   return {
     getAll: getAll,
     register: register,
     login: login,
+    tweet: tweet,
   };
 };

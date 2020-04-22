@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let getAll = (callback) => {
 
-    let query = 'SELECT * FROM pokemons';
+    let query = 'SELECT * FROM tweets';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -33,6 +33,6 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    getAll,
+    getAll:getAll,
   };
 };

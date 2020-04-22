@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const path = require('path');
 
 /**
  * ===================================
@@ -25,6 +26,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.use(express.static(path.join(__dirname, './public/')));
+
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
 
@@ -47,6 +50,9 @@ app.use(session({
 const db = require('./db');
 const authController = require('./controllers/auth-controller');
 const authRoutes = require('./routes/auth-routes');
+const tweetsRoutes = require('./routes/tweets-routes');
+
+app.use('/tweets', tweetsRoutes);
 
 app.use('/auth', authRoutes);
 

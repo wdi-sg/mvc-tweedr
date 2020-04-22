@@ -19,7 +19,7 @@ body {
 		background-color: #01345B;
 }
 
-.overlay {
+/*.overlay {
 		position: fixed;
 		width: 100%;
 		height: 100%;
@@ -27,7 +27,7 @@ body {
 		left: 0;
 		background: transparent;
 		z-index: -1;
-}
+}*/
 
 .header {
 		width: 100%;
@@ -52,6 +52,47 @@ main {
 		align-items: center;
 }
 
+.nav {
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		background-color: rgba(1, 1, 1, 0.2);
+}
+
+.nav__link {
+		width: auto;
+		min-width: 25%;
+		height: 80px;
+		text-decoration: none;
+		text-align: center;
+		margin: 0 5px;
+		font-weight: 500;
+		font-size: 1rem;
+		letter-spacing: 0.9rem;
+		color: white;
+		line-height: 200%;
+		text-transform: uppercase;
+		box-sizing: border-box;
+		opacity: 0.8;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+}
+
+.nav__link>p {
+		width: 100%;
+}
+
+
+.nav__link:hover {
+		color: white;
+		transition: all .2s linear;
+}
+
 .login-register__wrapper {
 		display: flex;
 		width: 50%;
@@ -59,6 +100,7 @@ main {
 		align-items: center;
 }
 
+.home-link,
 .login-link,
 .register-link {
 		text-decoration: none;
@@ -106,7 +148,8 @@ main {
 		font-size: 1.6rem;
 }
 
-.auth-form button {
+.auth-form button,
+.log-out-btn {
 		border: none;
 		font-size: inherit;
 		color: white;
@@ -160,4 +203,42 @@ main {
 		text-align: center;
 		outline: none;
 		background-color: white;
+}
+
+.login-register__wrapper.home {
+		flex-direction: column;
+}
+
+.login-register__wrapper>.user__wrapper {
+		width: 100%;
+		height: auto;
+		padding: 12px 0;
+		display: flex;
+		justify-content: center;
+}
+
+.user__wrapper>p {
+		width: 100%;
+		font-size: 0.8rem;
+		text-align: center;
+		color: white;
+}
+
+.login-register__wrapper>a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		height: 100%;
+		padding: 2%;
+		width: 30%;
+		text-decoration: none;
+		color: rgba(1, 1, 1, 0.6);
+		letter-spacing: 0.1rem;
+		font-weight: 500;
+		/*background-color: rgba(1, 1, 1, 0.1);*/
+		text-align: center;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		border: 2px solid lightgrey;
 }

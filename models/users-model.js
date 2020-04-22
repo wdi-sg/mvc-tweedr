@@ -41,9 +41,9 @@ module.exports = class User {
 
         return rows;
 
-        //        // const sessionUser = await User.getVisitsById(req.cookies['userId']);
+        const sessionUser = await User.getVisitsById(req.cookies['userId']);
 
-        // console.log(sessionUser);
+        console.log(sessionUser);
 
     }
 

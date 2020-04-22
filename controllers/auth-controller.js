@@ -32,37 +32,38 @@ module.exports.postLogin = async (req, res) => {
         req.session.invalidMsg = 'Please enter user email and password';
 
         res.redirect('./login');
-    }
 
+    } else {
 
-    const loggedInUser = await User.getByEmail(email)
+        const loggedInUser = await User.getByEmail(email)
 
-    console.log(`Logged in User:\n${loggedInUser.email}`);
+        console.log(`Logged in User:\n${loggedInUser.email}`);
 
-    if (!loggedInUser[0]) {
+        if (!loggedInUser[0]) {
 
-        req.session.invalidMsg = 'Email is not registered'
+            req.session.invalidMsg = 'Email is not registered';
 
-        res.redirect('./login');
+            res.redirect('./login');
 
-    } else if (loggedInUser[0].password !== sha256(password)) {
+        } else if (loggedInUser[0].password !== sha256(password)) {
 
-        req.session.invalidMsg = 'Wrong password'
+            req.session.invalidMsg = 'Wrong password';
 
-        res.redirect('./login');
+            res.redirect('./login');
 
-    } else if (loggedInUser[0]['email'] == email && loggedInUser[0]['password'] == sha256(password)) {
+        } else if (loggedInUser[0]['email'] == email && loggedInUser[0]['password'] == sha256(password)) {
 
-        if (req.cookies.userId && req.cookies.visits) {
+            if (req.cookies.userId && req.cookies.visits) {
 
-            User.updateVisits(req.cookies.userId, req.cookies.visits);
+                await User.updateVisits(req.cookies.userId, req.cookies.visits);
+            }
+
+            req.session.userId = loggedInUser[0].id;
+            req.session.invalidMsg = "";
+            res.clearCookie('visits');
+            res.clearCookie('userId');
+            res.redirect('/');
         }
-
-        req.session.userId = loggedInUser[0].id;
-        req.session.invalidMsg = "";
-        res.clearCookie('visits');
-        res.clearCookie('userId');
-        res.redirect('/');
     }
 }
 

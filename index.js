@@ -1,77 +1,48 @@
+// express app
 const express = require('express');
-const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
-
-/**
- * ===================================
- * Configurations and set up
- * ===================================
- */
-
-// Init express app
 const app = express();
 
-// Set up middleware
+// middleware
+const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
+const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-app.use(express.static('public'));
-
 app.use(express.json());
-
 app.use(express.urlencoded({
   extended: true
 }));
 
-// Set react-views to be the default view engine
-const reactEngine = require('express-react-views').createEngine();
+app.use(express.static('public'));
 
+// view engine
+const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
-/**
- * ===================================
- * ===================================
- *                DB
- * ===================================
- * ===================================
- */
+// model
+// contains database config
+// and model objects
+const db = require('./db');
 
-// db contains *ALL* of our models
-const allModels = require('./db');
+// controller - routes
+const setRoutes = require('./routes');
 
-/**
- * ===================================
- * ===================================
- * Routes
- * ===================================
- * ===================================
- */
+// passs app and db objects to controller
+setRoutes(app, db);
 
-// get the thing that contains all the routes
-const setRoutesFunction = require('./routes');
-
-// call it and pass in the "app" so that we can set routes on it (also models)
-setRoutesFunction(app, allModels);
-
-/**
- * ===================================
- * Listen to requests on port 3000
- * ===================================
- */
+// start server listen
 const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));
-
-let onClose = function(){
-
+let shutdown = function(){
   server.close(() => {
-    console.log('Process terminated')
-    allModels.pool.end( () => console.log('Shut down db connection pool'));
-  })
+    console.log('Process terminated');
+    db.pool.end( () => console.log('Shut down db connection pool'));
+  });
 };
 
-process.on('SIGTERM', onClose);
-process.on('SIGINT', onClose);
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);

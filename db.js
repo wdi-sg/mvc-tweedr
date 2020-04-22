@@ -61,10 +61,11 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
+const SALT = "bananas are delicious";
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const allTweedrModelsFunction = require('./models/tweedr');
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const tweedrModelsObject = allTweedrModelsFunction( pool );
 
 
 
@@ -90,10 +91,11 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool:pool,
 
+
   /*
    * ADD APP MODELS HERE
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  tweedr: tweedrModelsObject
 };

@@ -1,13 +1,14 @@
 var React = require("react");
+const Layout = require("./layout");
 
 class Home extends React.Component {
   render() {
-    console.log(this.props.types);
+    // console.log(this.props.types);
     return (
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+            <Layout/>
         </body>
       </html>
     );

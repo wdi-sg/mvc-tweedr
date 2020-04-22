@@ -3,10 +3,10 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
 /**
- * ===================================
- * Configurations and set up
- * ===================================
- */
+* ===================================
+* Configurations and set up
+* ===================================
+*/
 
 // Init express app
 const app = express();
@@ -32,23 +32,23 @@ app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
 /**
- * ===================================
- * ===================================
- *                DB
- * ===================================
- * ===================================
- */
+* ===================================
+* ===================================
+*                DB
+* ===================================
+* ===================================
+*/
 
 // db contains *ALL* of our models
 const allModels = require('./db');
 
 /**
- * ===================================
- * ===================================
- * Routes
- * ===================================
- * ===================================
- */
+* ===================================
+* ===================================
+* Routes
+* ===================================
+* ===================================
+*/
 
 // get the thing that contains all the routes
 const setRoutesFunction = require('./routes');
@@ -57,10 +57,11 @@ const setRoutesFunction = require('./routes');
 setRoutesFunction(app, allModels);
 
 /**
- * ===================================
- * Listen to requests on port 3000
- * ===================================
- */
+* ===================================
+* Listen to requests on port 3000
+* ===================================
+*/
+
 const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => console.log('~~~ Tuning in to the waves of port '+PORT+' ~~~'));

@@ -20,7 +20,7 @@ module.exports = (dbPoolInstance) => {
 
   // generic query function, with params
   const getSome = (param, callback) => {
-    let query = 'SELECT * FROM table';
+    let query = 'SELECT * FROM table WHERE column = $1';
     let values = [param];
     dbPoolInstance.query(query, values, (error, queryResult) => {
       if (error) {

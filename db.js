@@ -40,7 +40,7 @@ if( process.env.DATABASE_URL ){
   };
 }
 
-
+const sha256 = require('js-sha256');
 const pool = new pg.Pool(configs);
 
 pool.on('error', function (err) {
@@ -70,6 +70,14 @@ const allHomeModelsFunction = require('./models/home');
 
 const homeModelsObject = allHomeModelsFunction( pool );
 
+const allLoginModelsFunction = require('./models/login');
+
+const loginModelsObject = allLoginModelsFunction( pool );
+
+const allRegisterModelsFunction = require('./models/register');
+
+const registerModelsObject = allRegisterModelsFunction( pool );
+
 /*
  * ===================================================
  * ===================================================
@@ -98,5 +106,7 @@ module.exports = {
 
   // users: userModelsObject,
   pokemon: pokemonModelsObject,
-  home: homeModelsObject
+  home: homeModelsObject,
+  login: loginModelsObject,
+  register: registerModelsObject,
 };

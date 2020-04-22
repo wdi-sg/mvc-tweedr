@@ -12,6 +12,15 @@ module.exports = (db) => {
         const data = {}
         data.tweets=tweets;
         //response.send(data);
+        let username= request.cookies.username;
+        if(username===undefined)
+        {
+            data.name="guest";
+        }
+        else
+        {
+            data.name= username;
+        }
         response.render("pokemon/index", data);
       });
   };

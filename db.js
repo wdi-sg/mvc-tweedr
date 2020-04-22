@@ -23,7 +23,7 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'jessica',
+    user: 'apple',
     host: '127.0.0.1',
     database: 'tweedr_db',
     port: 5432

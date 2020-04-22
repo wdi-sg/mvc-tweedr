@@ -19,4 +19,7 @@ module.exports = (app, allModels) => {
   app.get("/tweets/new", tweetsController.displayNewTweetForm);
 
   app.post("/tweets/new", tweetsController.submitNewTweet);
+
+  app.get("/tweets/:id", tweetsController.showOneTweet);
+
 };

@@ -18,9 +18,22 @@ module.exports = (db) => {
     db.tweets.writeNewTweet(content, userid, timestamp, cbDisplayNewTweet);
   }
 
+  let showOneTweet = (request, response) => {
+    let id = parseInt(request.params.id);
+    let cbDisplayOneTweet = (err, result) => {
+      let obj = {
+        tweet: result.rows[0]
+      }
+      console.log("obj:", obj);
+      response.render("./tweets/display-one-tweet", obj);
+    }
+    db.tweets.getOneTweet(id, cbDisplayOneTweet);
+  };
+
   return {
     displayNewTweetForm: displayNewTweetForm,
-    submitNewTweet: submitNewTweet
+    submitNewTweet: submitNewTweet,
+    showOneTweet: showOneTweet
   };
 
 }

@@ -1,13 +1,13 @@
+const sha256 = require("js-sha256");
+
 module.exports = (db) => {
   let displayLoginPage = (request, response) => {
     response.render("./auth/login");
   };
 
-
   let displayRegistration = (request, response) => {
     response.render("./auth/register");
   };
-
 
   let submitRegistration = (request, response) => {
     // console.log(request.body);
@@ -21,7 +21,7 @@ module.exports = (db) => {
     };
 
     let cbCheckUsernameAndDp = (err, result) => {
-      //Check dp_url is valid 
+      //Check dp_url is valid
       let dpState = db.users.checkDpUrl(request.body.dp_url);
       let usernameState = true;
       if (result.rows.length === 0 || err) {
@@ -49,9 +49,44 @@ module.exports = (db) => {
     );
   };
 
+  let submitLogin = (request, response) => {
+    console.log(request.body);
+    let loginUsername = request.body.username;
+    let loginpw = sha256(request.body.password);
+    let cbVerifyUser = (err, result) => {
+      console.log("result:", result);
+      if (result.length > 0) {
+        let id = result[0].id;
+        let name = result[0].username;
+        response.cookie("userid", id);
+        response.cookie("username", name);
+        response.cookie("loggedin", sha256("true"));
+        response.render("home");
+      } else {
+        let obj = {
+          comments: "User not found. Please try again."
+        };
+        response.render("./auth/login", obj);
+      }
+    };
+    db.users.verifyUser(loginUsername, loginpw, cbVerifyUser);
+  };
+
+  let logout = (request, response) => {
+    let obj = {
+      comments: "Logout success!",
+    };
+    response.clearCookie("userid");
+    response.clearCookie("username");
+    response.clearCookie("loggedin");
+    response.render("./auth/logout", obj);
+  };
+
   return {
     displayLoginPage: displayLoginPage,
     displayRegistration: displayRegistration,
     submitRegistration: submitRegistration,
+    submitLogin: submitLogin,
+    logout: logout
   };
 };

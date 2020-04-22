@@ -21,9 +21,18 @@ module.exports = (pool) => {
     pool.query(queryText, cb);
   };
 
+  let verifyUser = (name, pw, cb) => {
+    let queryText = `select * from users where username ='${name}' and pw = '${pw}'`;
+    pool.query(queryText, (err, result) => {
+      cb(err, result.rows);
+    });
+  }
+
+
   return {
     writeNewUser: writeNewUser,
     checkUsernameDuplicate: checkUsernameDuplicate,
-    checkDpUrl: checkDpUrl
+    checkDpUrl: checkDpUrl,
+    verifyUser: verifyUser
   };
 };

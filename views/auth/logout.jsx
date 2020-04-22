@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Login extends React.Component {
+class Logout extends React.Component {
   render() {
     return (
       <html>
@@ -16,45 +16,10 @@ class Login extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col mt-5">
-                <h3>
-                  <u>TWEEDR: Authentication</u>
-                </h3>
+              
+                <h4 className="text-success"><em>{this.props.comments}</em></h4>
                 <br></br>
-                <p className="text-danger">
-                  <em>{this.props.comments}</em>
-                </p>
-                <br></br>
-                <h5 className="mb-3">NEW USERS:</h5>
-                <a href="/register" className="btn btn-info">
-                  Register Here!
-                </a>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <form method="POST" action="/home">
-                  <h5 className="mb-3">EXISTING USERS:</h5>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    type="text"
-                    name="password"
-                    placeholder="Password"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Login"
-                  />
-                  <br></br>
-                </form>
+                <a href="/" className="btn btn-primary">Back To Login Page</a>
               </div>
             </div>
           </div>
@@ -79,4 +44,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = Logout;

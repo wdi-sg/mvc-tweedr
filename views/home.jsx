@@ -7,7 +7,7 @@ class Home extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col mt-5">
-            <h1><u>TWEEDR</u></h1>
+            <h1>Welcome To Tweedr!</h1>
             <br></br>
           </div>
         </div>

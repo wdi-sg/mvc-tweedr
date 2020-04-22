@@ -3,19 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": "10.0.0"
-  },
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
+    "@react-ssr/core": "latest",
+    "@react-ssr/express": "latest",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.3",
+    "express": "^4.17.1",
     "express-react-views": "^0.10.5",
     "method-override": "^2.3.10",
-    "pg": "^7.4.3",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }

@@ -1,3 +1,5 @@
+// Hash
+var sha256 = require('js-sha256');
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
@@ -41,6 +43,7 @@ app.engine('jsx', reactEngine);
 
 // db contains *ALL* of our models
 const allModels = require('./db');
+
 
 /**
  * ===================================

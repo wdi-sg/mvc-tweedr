@@ -32,13 +32,14 @@ module.exports = (pool) => {
     });
   };
 
-  let registerAccount = () => {
+  let registerAccount = (request, response, callback) => {
     let queryString = "INSERT INTO users (username, password) VALUES ($1, $2)";
     let values = [request.body.username, request.body.password];
     pool.query(queryString, values, (error, result) => {
         if(error) {
-            console.log('Query error:', error.stack);
-            response.send('query error');
+            callback(error, null);
+        }else {
+            callback(null, null);
         }
     });
   };

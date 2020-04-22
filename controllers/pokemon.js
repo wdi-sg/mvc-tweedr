@@ -17,7 +17,10 @@ module.exports = (db) => {
   }
 
   let registerAccountControllerCallback = (request, response) => {
-    db.pokemon.registerAccount;
+    db.pokemon.registerAccount(request, response, (error) => {
+      response.cookie('username', request.body.username);
+      response.redirect('/');
+    });
   };
 
   /**
@@ -27,7 +30,8 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
-    viewRegister: viewRegisterControllerCallback
+    viewRegister: viewRegisterControllerCallback,
+    registerAccount: registerAccountControllerCallback
   };
 
 }

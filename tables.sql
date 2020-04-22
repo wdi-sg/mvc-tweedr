@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS userDb(
+userid SERIAL PRIMARY KEY,
+username TEXT UNIQUE,
+password TEXT,
+profilePic TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweetDb(
+tweetid SERIAL PRIMARY KEY,
+tweetbody TEXT,
+userid INTEGER,
+postdate TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS followDb(
+followid SERIAL PRIMARY KEY,
+user_a INTEGER,
+user_b INTEGER
+);

@@ -7,8 +7,8 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
+      db.tweedr.getAll((error, allTweets) => {
+        response.render('tweedr/index', { allTweets });
       });
   };
 

@@ -10,6 +10,6 @@ module.exports = (app, allModels) => {
 
   app.get('/register', usersController.displayRegistration);
 
-  app.post('/', usersController.submitRegistration);
+  app.post('/register', usersController.submitRegistration);
 
 };

@@ -1,7 +1,8 @@
 create table if not exists users (
   id serial primary key,
   username text, 
-  pw text
+  pw text,
+  dp text
 );
 
 create table if not exists tweets (

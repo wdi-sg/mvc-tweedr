@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Register extends React.Component {
+class RegisterSuccess extends React.Component {
   render() {
     return (
       <html>
@@ -16,40 +16,13 @@ class Register extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col mt-5">
-                <h3>
-                  <u>New User Registration</u>
-                </h3>
+                <h4 className="text-success">
+                  <em>{this.props.comments}</em>
+                </h4>
                 <br></br>
-                <p className="text-danger"><em>{this.props.comments}</em></p>
-                <form method="POST" action="/register">
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    type="text"
-                    name="password"
-                    placeholder="Password"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    type="text"
-                    name="dp_url"
-                    placeholder="Display Picture URL"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Submit"
-                  />
-                  <br></br>
-                </form>
+                <a href="/" className="btn btn-primary">
+                  Proceed To Login
+                </a>
               </div>
             </div>
           </div>
@@ -74,4 +47,4 @@ class Register extends React.Component {
   }
 }
 
-module.exports = Register;
+module.exports = RegisterSuccess;

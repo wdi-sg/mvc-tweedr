@@ -1,23 +1,15 @@
 /*
  * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
+ * CONFIGURATION 
  * ===================================================
  */
-
-
 
 const pg = require('pg');
 const url = require('url');
 
 var configs;
 
-if( process.env.DATABASE_URL ){
+if (process.env.DATABASE_URL) {
 
   const params = url.parse(process.env.DATABASE_URL);
   const auth = params.auth.split(':');
@@ -31,11 +23,11 @@ if( process.env.DATABASE_URL ){
     ssl: true
   };
 
-}else{
+} else {
   configs = {
-    user: 'akira',
+    user: 'joyce',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -51,49 +43,35 @@ pool.on('error', function (err) {
 
 /*
  * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
+ *  REQUIRE MODEL FILES 
  * ===================================================
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const userModelsFunction = require('./models/users');
+const userModelsObject = userModelsFunction(pool);
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
+const tweetModelsFunction = require('./models/tweets');
+const tweetModelsObject = tweetModelsFunction(pool);
 
 
 /*
  * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
+ *  MODULE EXPORTS 
  * ===================================================
  */
 
 
 module.exports = {
-  //make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
-
-  // get a reference to end the connection pool at server end
-  pool:pool,
+  pool: pool,
 
   /*
    * ADD APP MODELS HERE
    */
 
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  users: userModelsObject,
+  tweets: tweetModelsObject
 };

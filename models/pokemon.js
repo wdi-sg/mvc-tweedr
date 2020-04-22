@@ -3,7 +3,7 @@
  * Export model functions as a module
  * ===========================================
  */
-module.exports = (dbPoolInstance) => {
+module.exports = (pool) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
@@ -32,7 +32,19 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let registerAccount = () => {
+    let queryString = "INSERT INTO users (username, password) VALUES ($1, $2)";
+    let values = [request.body.username, request.body.password];
+    pool.query(queryString, values, (error, result) => {
+        if(error) {
+            console.log('Query error:', error.stack);
+            response.send('query error');
+        }
+    });
+  };
+
   return {
-    getAll,
+    getAll: getAll,
+    registerAccount: registerAccount
   };
 };

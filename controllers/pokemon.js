@@ -12,6 +12,13 @@ module.exports = (db) => {
       });
   };
 
+  let viewRegisterControllerCallback = (request, response) => {
+    response.render('register');
+  }
+
+  let registerAccountControllerCallback = (request, response) => {
+    db.pokemon.registerAccount;
+  };
 
   /**
    * ===========================================
@@ -20,6 +27,7 @@ module.exports = (db) => {
    */
   return {
     index: indexControllerCallback,
+    viewRegister: viewRegisterControllerCallback
   };
 
 }

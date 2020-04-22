@@ -1,20 +1,10 @@
-module.exports = (app, allModels) => {
+// routes all need access to the app and db
 
+module.exports = (app, db) => {
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+  // require the controller which has a functon for each route
+  const controller = require('./controllers/generic_c')(db);
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
-
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  app.get('/', controller.index);
+  app.get('/:id', controller.view);
 };

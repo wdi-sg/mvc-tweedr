@@ -89,6 +89,27 @@ module.exports = (db) => {
 
       });
   };
+
+      let newhashPageControllerCallback = (request, response) => {
+        var isLogged = request.cookies['loggedin'];
+        if (isLogged === 'true'){
+                response.render('tweets/addhashtags');
+        }else {
+            response.redirect('/login');
+        }
+  };
+
+
+      let newhashControllerCallback = (request, response) => {
+        var isLogged = request.cookies['loggedin'];
+        if (isLogged === 'true'){
+                response.render('tweets/addhashtags');
+        }else {
+            response.redirect('/login');
+        }
+  };
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -102,6 +123,8 @@ module.exports = (db) => {
     login: loginControllerCallback,
     newtweetPage: newtweetPageControllerCallback,
     newtweet: newtweetControllerCallback,
+    newhashPage: newhashPageControllerCallback,
+    newhash: newhashControllerCallback,
   };
 
 }

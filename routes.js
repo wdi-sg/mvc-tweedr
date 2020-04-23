@@ -30,4 +30,8 @@ module.exports = (app, allModels) => {
 
     app.post('/newtweet', tweetsControllerCallbacks.newtweet);
 
+    app.get('/newhash', tweetsControllerCallbacks.newhashPage);
+
+    app.post('/newhash', tweetsControllerCallbacks.newhash);
+
 };

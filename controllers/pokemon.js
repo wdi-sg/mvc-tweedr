@@ -82,6 +82,10 @@ module.exports = (db) => {
     });
   };
 
+  let viewNewHashTagControllerCallback = (request, response) => {
+    response.render('newhashtag');
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -95,7 +99,8 @@ module.exports = (db) => {
     newTweet: newTweetControllerCallback,
     viewLogin: viewLoginControllerCallback,
     loginAccount: loginAccountControllerCallback,
-    submitTweet: submitTweetControllerCallback
+    submitTweet: submitTweetControllerCallback,
+    viewNewHashTag: viewNewHashTagControllerCallback
   };
 
 }

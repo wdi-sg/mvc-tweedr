@@ -24,6 +24,7 @@ class Home extends React.Component {
                 <div className="form-group">
                     <label htmlFor="hashtagid">Hash Tag</label>
                     <select className="form-control" id="hashtagid" name="hashtagid">
+                      <option value="" selected disabled hidden>Optional Hashtag</option>
                       {hashtagOptionElements}
                     </select>
                 </div>

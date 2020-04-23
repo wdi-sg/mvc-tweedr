@@ -16,14 +16,18 @@ module.exports = (dbPoolInstance) => {
         if (err){
             console.log("query error")
         } else {
-            let values2 = [hashtagid, queryResult.rows[0].id]
-            let queryString2 = "INSERT INTO hashtags_tweets (hashtag_id, tweet_id) VALUES ($1, $2)"
-            dbPoolInstance.query(queryString2, values2, (err2, queryResult2) => {
-                if (err2) {
-                    console.log("query error")
-                }
+            if (hashtagid){
+                let values2 = [hashtagid, queryResult.rows[0].id]
+                let queryString2 = "INSERT INTO hashtags_tweets (hashtag_id, tweet_id) VALUES ($1, $2)"
+                dbPoolInstance.query(queryString2, values2, (err2, queryResult2) => {
+                    if (err2) {
+                        console.log("query error")
+                    }
+                    callback(err, queryResult.rows[0])
+                })
+            } else {
                 callback(err, queryResult.rows[0])
-            })
+            }
         }
     })
   };

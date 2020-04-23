@@ -74,10 +74,19 @@ module.exports = (db) => {
 
     let newtweetControllerCallback = (request, response) => {
         let tweetmsg = request.body.tweet;
+        let hashSelector = request.body.hashtagName;
         var userTableId = request.cookies['userId'];
         db.tweets.tweet(tweetmsg, userTableId, (error, tweeted) => {
-            response.send('You have successfully tweeted!~:' + tweeted);
-        // response.render('/tweets/register', { registerUser });
+            if (hashSelector === 'none'){
+            response.send('You have successfully tweeted!~:' + tweeted.tweet);
+            } else {
+                let newId = tweeted.id
+                db.tweets.addHashtag(newId, hashSelector, (error, addHash)=> {
+                    response.send('You have successfully tweeted!~' + tweeted.tweet);
+                })
+
+            }
+
       });
   };
   /**

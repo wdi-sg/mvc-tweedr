@@ -20,7 +20,7 @@ class Newtweet extends React.Component {
                         <p>
                             Please select a hashtag!
                         </p>
-                            <select>
+                            <select name ='hashtagName'>
                                 <option value = 'none'>none</option>
                                 {hashTags}
                             </select>

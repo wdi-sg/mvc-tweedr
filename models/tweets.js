@@ -111,7 +111,7 @@ module.exports = (dbPoolInstance) => {
   };
 
     let tweet = (tweetmsg, userTableId, callback) => {
-        let query = 'INSERT INTO tweets (users_id, tweet) VALUES ($1,$2)';
+        let query = 'INSERT INTO tweets (users_id, tweet) VALUES ($1,$2) RETURNING *';
         const values = [userTableId, tweetmsg];
         dbPoolInstance.query(query, values, (error, queryResult) => {
               if( error ){
@@ -121,7 +121,25 @@ module.exports = (dbPoolInstance) => {
 
               }else{
                 // response.redirect('/')
+                console.log('SEE HERE FOR THE RETURN RESULT AFTER ADDING')
+                console.log (queryResult.rows[0]);
                 callback(null, queryResult.rows[0]);
+              }
+        });
+  };
+
+    let addHashtag = (newId, hashSelector, callback) => {
+        let query = 'INSERT INTO hashtags_tweets (tweets_id, hashtag_id) VALUES ($1,$2)';
+        const values = [newId, parseInt(hashSelector)];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+              if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+              }else{
+                // response.redirect('/')
+                callback(null, queryResult.rows);
               }
         });
   };
@@ -132,5 +150,6 @@ module.exports = (dbPoolInstance) => {
     login: login,
     tweet: tweet,
     getHashtags: getHashtags,
+    addHashtag: addHashtag,
   };
 };

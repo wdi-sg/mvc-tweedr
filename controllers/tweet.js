@@ -7,7 +7,7 @@ module.exports = (db) => {
    */
 
   let tweetAddControllerCallback = (request, response) => {
-    response.send(request.body);
+    //response.send(request.body);
     let user=request.body;
          db.tweet.tweet(user,(error, users) => {
   /*      const data = {}
@@ -15,6 +15,7 @@ module.exports = (db) => {
         console.log(data);
         //response.send(data);
             response.redirect("/");*/
+            response.redirect("/");
         //response.send("Success ");
         //response.render("user/allusers", data);
       });

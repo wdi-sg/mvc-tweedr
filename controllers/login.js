@@ -37,6 +37,7 @@ let processLogin = (request, response)=>{
 
         response.cookie('username',username);
         response.cookie('password', password);
+        response.cookie('isLogin',true);
         response.redirect("/");
         //response.render("pokemon/index", data);
       });

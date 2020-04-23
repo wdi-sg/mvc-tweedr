@@ -12,6 +12,7 @@ module.exports = (db) => {
     const data = {};
     data.follower_id = request.body.follower_id;
     data.username=request.cookies.username;
+
     console.log(data);
      db.follow.follow(data,(error, follow) => {
         const data = {}

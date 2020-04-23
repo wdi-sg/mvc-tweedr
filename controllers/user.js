@@ -34,6 +34,12 @@ module.exports = (db) => {
     //response.send("hello from user profile");
     console.log(request.params.username);
         let username=request.cookies.username;
+        if(username===undefined)
+         {
+            console.log("There is no user name");
+            response.send("Error Please Log In")
+            return;
+         }
          db.user.userProfile(username,(error, users) => {
         const data = {}
         data.users=users;

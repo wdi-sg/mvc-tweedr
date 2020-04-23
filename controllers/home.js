@@ -21,6 +21,7 @@ module.exports = (db) => {
         {
             data.name= username;
         }
+        data.isLogin=request.cookies.isLogin
         response.render("pokemon/index", data);
       });
   };

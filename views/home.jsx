@@ -16,7 +16,7 @@ class Home extends React.Component {
             </div>
             <br/>
             <div className='row justify-content-center'>
-                <form method='POST' action='/user/tweet'>
+                <form method='POST' action='/home/tweet'>
                     <h5 className='text-center'>Write a Tweet</h5>
                     <input type='text' name='tweet'/>
                     <input type='submit' value='Submit'/>

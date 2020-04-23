@@ -60,14 +60,21 @@ module.exports = (db) => {
   }
 
   ////////////////////
+  ////   HOME   ////
+  //////////////////
+  let homeControllerCallback = (request, response) => {
+    response.render('home');
+  }
+
+  ////////////////////
   ////   TWEET   ////
   //////////////////
   let tweetControllerCallback = (request, response) => {
         const tweet = request.body.tweet;
+        const userId = request.cookie['userId'];
 
-        db.pokemon.insertTweet((err, tweet) => {
-            response.render(request.body)
-        })
+        db.pokemon.insertTweet(tweet, user_id);
+        response.send('tweet added')
   }
 
   /////////////////////////
@@ -92,6 +99,7 @@ module.exports = (db) => {
     main: mainControllerCallback,
     login: loginControllerCallback,
     loginCheck: loginCheckControllerCallback,
+    home: homeControllerCallback,
     tweet: tweetControllerCallback,
     allTweets: allTweetsControllerCallback
   };

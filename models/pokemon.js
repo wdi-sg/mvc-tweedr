@@ -43,8 +43,16 @@ module.exports = (dbPoolInstance) => {
   }
 
   let insertTweet = (callback) => {
-    let values = []
-    let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)';
+    let values = [tweet, user_id]
+    let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2) RETURNING *';
+
+    dbPoolInstance.query(query, values, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result.rows)
+        }
+    })
   }
 
   let getAllTweets = (callback) => {

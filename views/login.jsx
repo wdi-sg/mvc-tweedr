@@ -13,7 +13,7 @@ class Login extends React.Component {
                 <h3 className='text-center'>Login</h3>
                 <br/>
                 <div className='row justify-content-center'>
-                    <form method='POST' action='/login'>
+                    <form method='POST' action='/home'>
                         Username: <input type='text' name='username'/>
                         Password: <input type='password' name='password'/>
                         <input type='submit' value='Submit'/>

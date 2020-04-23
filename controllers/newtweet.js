@@ -9,9 +9,9 @@ module.exports = (db) => {
     const whenDoneInModel = (error, result) => {
       console.log("FFFRROOOMMM CONTROLLER");
       console.log(result);
-      if (result.rows[0].name === request.body.username) {
+      if (result[0].name === request.body.username) {
         let reqPassword = request.body.password;
-        if (reqPassword === result.rows[0].password) {
+        if (reqPassword === result[0].password) {
           response.cookie("LoginCookie", true);
           response.send("HEEELLLOOOO");
         } else {

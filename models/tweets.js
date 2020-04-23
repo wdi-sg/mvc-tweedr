@@ -32,7 +32,7 @@ module.exports = (dbPoolInstance) => {
 
     let getTweetsFromFollowing = (currentUserId, callback) => {
 
-        let query = `SELECT tweets.tweet_id, tweets.body, users.handle, users.dp_url, users.display_name, tweets.created_at, tweets.updated_at FROM tweets INNER JOIN users_followers ON users_followers.leader_id = tweets.tweeted_by INNER JOIN users ON users_followers.leader_id = users.user_id WHERE follower_id = ${currentUserId} ORDER BY created_at DESC`
+        let query = `SELECT tweets.tweet_id, users.user_id, tweets.body, users.handle, users.dp_url, users.display_name, tweets.created_at, tweets.updated_at FROM tweets INNER JOIN users_followers ON users_followers.leader_id = tweets.tweeted_by INNER JOIN users ON users_followers.leader_id = users.user_id WHERE follower_id = ${currentUserId} ORDER BY created_at DESC`
         dbPoolInstance.query(query, (err, result) => {
             callback(err, result.rows)
         });

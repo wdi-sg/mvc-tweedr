@@ -105,7 +105,10 @@
 	font-size: 1.2rem;
 	display: flex;
 	margin-bottom: 10px;
+}
 
+.tweet form {
+	display: inline;
 }
 
 .tweet-dp {
@@ -118,6 +121,10 @@
 	max-width: 80px;
 	max-height: 80px;
 	border-radius: 100%;
+}
+
+.tweet-handle {
+	margin-left: 1rem;
 }
 
 .tweet-body {
@@ -166,9 +173,10 @@ textarea {
 	.sidebar {
 		flex-direction: row;
 		line-height: 2.5rem;
+		flex-wrap: wrap;
 	}
 
-	.sidebar * {
+	.sidebar div {
 		margin-right: 1rem;
 	}
 
@@ -186,11 +194,14 @@ textarea {
 	}
 
 	.sidebar-dp {
-		display: none;
+		width: 50px;
+		height: 2.5rem;
+		margin: auto 20px auto 0;
 	}
 
 	.tweet {
 		font-size: 1rem;
+		flex-direction: column
 	}
 
 	.tweet-dp {
@@ -198,7 +209,7 @@ textarea {
 	}
 
 	.tweet-body {
-		flex: 5;
+		flex: 6;
 	}
 
 }

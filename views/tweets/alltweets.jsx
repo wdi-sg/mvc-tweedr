@@ -8,35 +8,53 @@ class Home extends React.Component {
 
     const user = this.props.currentUser
 
+
+
       const tweets = this.props.tweets;
       const tweetsList = tweets.map (tweet => {
+
             return (
-                           <div key={tweet.tweet_id} className="tweet">
-                            <div className="tweet-dp">
-                                <img src={tweet.dp_url} />
-                            </div>
+              <div key={tweet.tweet_id} className="tweet">
+                <div className="tweet-dp">
+                  <img src={tweet.dp_url} />
+                </div>
 
-                            <div className="tweet-body">
-                                <div className="tweet-body-top clearfix">
-                                    <div className="tweet-body-user float-left">
-                                        {tweet.display_name} <span className="text-secondary">@{tweet.handle}</span>
-                                    </div>
-                                    <div className="timestamp text-secondary float-right">
-                                        on 14 Mar
-                                    </div>
+                <div className="tweet-body">
+                  <div className="tweet-body-top clearfix">
+                    <div className="tweet-body-user float-left">
+                      <a
+                        className="text-light"
+                        href={`/users/${tweet.user_id}`}
+                      >
+                        {tweet.display_name}
+                      </a>
+                      <span className="tweet-handle text-secondary">
+                        @{tweet.handle}
+                      </span>
+                    </div>
+                    <div className="timestamp text-secondary float-right">
+                      on 14 Mar
+                    </div>
+                  </div>
+                  <div className="tweet-body-content">{tweet.body}</div>
+                  <div className="tweet-body-bottom">
+                    <div className="tweet-options float-right">
+                        <a href={`/tweets/${tweet.tweet_id}/edit`}>
+                          <button className="btn btn-outline-warning btn-sm">
+                            ✎
+                          </button>
+                        </a>
 
-                                </div>
-                                <div className="tweet-body-content">
-                                    {tweet.body}
-                                </div>
-                                <div className="tweet-body-bottom">
-                                    <div className="tweet-options float-right">
-                                        🖋 ❌
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-              )
+                        <form action={`/tweets/${tweet.tweet_id}`}>
+                          <button className="btn btn-outline-danger btn-sm">
+                            ╳
+                          </button>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
       })
 
     return (

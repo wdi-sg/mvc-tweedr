@@ -16,10 +16,9 @@ module.exports = (db) => {
 
     let currentUserId = req.cookies.currentUserId;
     let d = new Date();
-    let hour = d.getHours;
+    let hour = d.getHours();
 
     let greeting;
-
     if (hour > 18) {
       greeting = `Evening`
     } else if (hour > 12) {

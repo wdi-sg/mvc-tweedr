@@ -12,15 +12,17 @@ class Home extends React.Component {
         </head>
         <body>
             <div className='container'>
-                <h2 className='text-center'>Welcome {username}</h2>
+                <br/>
+                <h2 className='text-center'>Welcome {username}!</h2>
             </div>
             <br/>
             <div className='row justify-content-center'>
-                <form method='POST' action='/home/tweet'>
-                    <h5 className='text-center'>Write a Tweet</h5>
-                    <input type='text' name='tweet'/>
-                    <input type='submit' value='Submit'/>
-                </form>
+                <div className='col-3 d-flex justify-content-center'>
+                    <button className='btn btn-primary'><a href='/home/tweet/new'className='text-white text-decoration-none'>New Tweet</a></button>
+                </div>
+                <div className='col-3 d-flex justify-content-center'>
+                    <button className='btn btn-info'><a href='/home/tweets' className='text-white text-decoration-none'>See all Tweets</a></button>
+                </div>
             </div>
         </body>
       </html>

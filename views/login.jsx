@@ -10,13 +10,21 @@ class Login extends React.Component {
         </head>
         <body>
             <div className='container'>
+                <br/>
                 <h3 className='text-center'>Login</h3>
                 <br/>
                 <div className='row justify-content-center'>
                     <form method='POST' action='/home'>
-                        Username: <input type='text' name='username'/>
-                        Password: <input type='password' name='password'/>
-                        <input type='submit' value='Submit'/>
+                        <div className='row justify-content-center'>
+                            <p>Username: <input type='text' name='username'/></p>
+                        </div>
+                        <div className='row justify-content-center'>
+                            <p>Password:  <input type='password' name='password'/></p>
+                        </div>
+                        <br/>
+                        <div className='row justify-content-center'>
+                            <input type='submit' value='Submit' className='btn btn-primary'/>
+                        </div>
                     </form>
                 </div>
             </div>

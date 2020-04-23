@@ -10,7 +10,9 @@ class Main extends React.Component {
         </head>
         <body>
             <div className='container'>
+                <br/>
                 <h3 className='text-center'>Welcome to Tweedr</h3>
+                <br/>
                 <div className='row justify-content-center'>
                     <button className='btn btn-primary'><a href='/login/' className='text-white text-decoration-none'>Login</a></button>
                 </div>

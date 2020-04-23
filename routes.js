@@ -1,33 +1,27 @@
 module.exports = (app, allModels) => {
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+ // =========================================
+ //    ALL ROUTES FOR CONTROLLER
+ // =========================================
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+    // require the controller
+    const controllers = require('./controllers/controller')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+    // ==== Main Page ====
+    app.get('/', controllers.main);
 
-//--------------------------------------
-    app.get('/', pokemonControllerCallbacks.main)
+    // ==== Login Page ====
+    app.get('/login/', controllers.login);
+    app.post('/home/', controllers.verifyLogin);
 
-    app.get('/login/', pokemonControllerCallbacks.login)
+    // ==== Home Page ====
+    app.get('/home/', controllers.home);
 
-    app.get('/home', pokemonControllerCallbacks.home)
+    // ==== Make a Tweet ====
+    app.get('/home/tweet/new', controllers.newTweet)
+    app.post('/home/tweet', controllers.showTweet);
 
-    app.post('/home', pokemonControllerCallbacks.loginCheck)
-
-    app.post('/home/tweet', pokemonControllerCallbacks.tweet)
-
-    app.get('/tweets', pokemonControllerCallbacks.allTweets)
+    // ==== List of all Tweets ====
+    app.get('/home/tweets', controllers.allTweets);
 
 };

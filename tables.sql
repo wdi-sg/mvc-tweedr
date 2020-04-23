@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS users (
+	id SERIAL PRIMARY KEY,
+	name TEXT,
+	password TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweeds (
+	id SERIAL PRIMARY KEY,
+	content TEXT,
+	user_id INTEGER REFERENCES users
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+	id SERIAL PRIMARY KEY,
+	user_1_id INTEGER REFERENCES users,
+	user_2_id INTEGER REFERENCES users
+);
+

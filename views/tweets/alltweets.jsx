@@ -8,6 +8,7 @@ class Home extends React.Component {
 
     const user = this.props.currentUser
 
+
     const tweetOptions = (tweetId) => {
       return (
         <div className="tweet-body-bottom">
@@ -24,7 +25,8 @@ class Home extends React.Component {
       );
     }
 
-
+          const moment = require("moment");
+          moment().format();
 
       const tweets = this.props.tweets;
       const tweetsList = tweets.map (tweet => {
@@ -49,7 +51,7 @@ class Home extends React.Component {
                       </span>
                     </div>
                     <div className="timestamp text-secondary float-right">
-                      on 14 Mar
+                      {moment(tweet.created_at).format("DD MMM YY LTS")}
                     </div>
                   </div>
                   <div className="tweet-body-content">{tweet.body}</div>
@@ -76,18 +78,18 @@ class Home extends React.Component {
                 </div>
 
                 <div id="sidebar-displayname">
-                  <a href="/user/me">{user.display_name}</a>
+                  <a href="/users/me">{user.display_name}</a>
                 </div>
                 <div id="sidebar-handle">
-                  <a href="/user/me">@{user.handle}</a>
+                  <a href="/users/me">@{user.handle}</a>
                 </div>
 
                 <div className="sidebar-follows">
                   <div id="sidebar-following">
-                    <a href="/user/following">Following</a>
+                    <a href="/users/following">Following</a>
                   </div>
                   <div id="sidebar-following">
-                    <a href="/user/followers">Followers</a>
+                    <a href="/users/followers">Followers</a>
                   </div>
                 </div>
               </div>
@@ -105,7 +107,7 @@ class Home extends React.Component {
 
                   <form action="/tweets" method="post">
                     <textarea name="tweetbody" rows="3" cols="190">
-                      Write your tweet here!
+                      
                     </textarea>
                     <div className="new-tweet-bottom">
                       <button

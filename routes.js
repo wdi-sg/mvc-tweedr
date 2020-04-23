@@ -21,10 +21,13 @@ module.exports = (app, allModels) => {
   app.get("/register", userControllerCallbacks.getRegisterForm);
   app.post("/register", userControllerCallbacks.addUser);
   app.get("/logout", userControllerCallbacks.logout)
-  app.get(`/users/:id`, userControllerCallbacks.getOneUser);
+  app.put(`/users/me`, userControllerCallbacks.updateUser);
+  app.get(`/users/me/edit`, userControllerCallbacks.getEditUserForm);
 
-  app.get(`/users`, userControllerCallbacks.getAllUsers);
+  app.get(`/users/me`, userControllerCallbacks.getCurrentUser);
   app.post(`/users/following`, userControllerCallbacks.followUser);
+  app.get(`/users/:id`, userControllerCallbacks.getOneUser);
+  app.get(`/users`, userControllerCallbacks.getAllUsers);
 
 
 

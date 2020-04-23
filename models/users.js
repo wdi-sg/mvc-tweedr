@@ -38,6 +38,22 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, values, (err, result)=> {
       callback(err, result.rows[0]);
+
+      let result1 = result.rows[0];
+
+      let newUserId = result.rows[0].user_id
+
+      //Users will always start off following themselves.
+      let query2 = `INSERT INTO users_followers(leader_id, follower_id) VALUES (${newUserId}, ${newUserId}) RETURNING *`
+      console.log(query2)
+
+      dbPoolInstance.query(query2, (err2, result) => {
+        if (err2) {
+          console.log(`Error when following self!`, err);
+        } else {
+          console.log(`Successfully followed self`);
+        }
+      });
     })
   };
 
@@ -77,10 +93,23 @@ module.exports = (dbPoolInstance) => {
 
   const getOneUser = (id, callback) => {
 
+    
+
     let query = `SELECT * FROM users WHERE user_id = ${id}`
+
+    console.log(query)
 
     dbPoolInstance.query(query, (err, result)=> {
         callback(err, result.rows[0])
+    })
+  }
+
+  const updateUser = (currentUserId, handle, displayName, dpUrl, hashedPw, callback) => {
+
+    let query = `UPDATE users SET handle = '${handle}', display_name = '${displayName}',dp_url = '${dpUrl}', hashed_pw = '${hashedPw}' WHERE id=${currentUserId} RETURNING *`;
+
+    dbPoolInstance.query(query, (err, result)=> {
+      callback(err, result.rows[0])
     })
   }
 
@@ -90,6 +119,7 @@ module.exports = (dbPoolInstance) => {
     getUserLogin: getUserLogin,
     getCurrentUserDetails: getCurrentUserDetails,
     followUser: followUser,
-    getOneUser: getOneUser
+    getOneUser: getOneUser,
+    updateUser: updateUser
   };
 };

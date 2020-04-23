@@ -28,11 +28,10 @@ module.exports = (db) => {
 
             let d = new Date();
             let hour = d.getHours();
-
             let greeting;
-            if (hour > 18) {
+            if (hour >= 18) {
                 greeting = `Evening`
-            } else if (hour > 12) {
+            } else if (hour => 12) {
                 greeting = `Afternoon`
             } else if (hour > 3) {
                 greeting = `Morning`
@@ -55,7 +54,7 @@ module.exports = (db) => {
                         res.render(`tweets/alltweets`, data);
                     }
                 };
-                
+
                 db.tweets.getTweetsFromFollowing(currentUserId, whenModelIsDone);
 
             });

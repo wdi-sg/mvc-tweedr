@@ -28,7 +28,7 @@ class Login extends React.Component {
               </div>
 
               <input
-                type="text"
+                type="password"
                 class="form-control mb-2 mr-sm-2"
                 name="password"
                 placeholder="Password"

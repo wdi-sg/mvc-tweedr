@@ -7,7 +7,7 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  const authenticateLogin = (username, password, callback) => {
+  const authenticateLogin = (username, password) => {
     let queryString = `select * from users where username='${username}' and password='${password}'`;
 
     let userID;
@@ -18,11 +18,13 @@ module.exports = (dbPoolInstance) => {
       }
       else{
         userID = results.rows[0].id
-        callback(userID);
+        // callback(userID);
       }
     })
 
-  }
+    .then(() => {return userID});
+
+    }
 
   return {
     authenticateLogin

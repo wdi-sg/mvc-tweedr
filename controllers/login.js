@@ -20,20 +20,21 @@ module.exports = (db) => {
         const username = request.query.username;
         const password = request.query.password;
 
-        const whenQueryDone = (userID) => {
-          // Set cookies
-          response.cookie('loggedIn', 'true');
-          response.cookie('username', username);
-          response.cookie('userID', userID);
+        // const whenQueryDone = (userID) => {
+        //   // Set cookies
+        //   response.cookie('loggedIn', 'true');
+        //   response.cookie('username', username);
+        //   response.cookie('userID', userID);
 
-          response.redirect('/');
-        }
+        //   response.redirect('/');
+        // }
 
         // Check username and password
         // Hash password
         const hashPassword = sha256(password);
 
-        db.login.authenticateLogin(username, hashPassword, whenQueryDone);
+        const userID = db.login.authenticateLogin(username, hashPassword);
+        console.log(userID);
     }
 
 

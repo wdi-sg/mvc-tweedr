@@ -93,10 +93,43 @@ module.exports = (dbPoolInstance) => {
           }
         }
       });
-  }
+
+      
+  };
+
+  let makePost = (dataIn, callback) => {
+    var userid = dataIn.userid;
+    var tweetbody = dataIn.message;
+    
+      let query = 'INSERT INTO tweetDb (userid, tweetbody, postdate) VALUES ($1,$2, current_timestamp)';
+      const values = [userid,tweetbody];
+      dbPoolInstance.query(query, values, (error, queryResult) => {
+        if (error) {
+
+          // invoke callback function with results after query has executed
+          callback(error, null);
+
+        } else {
+
+          // invoke callback function with results after query has executed
+          if (queryResult.rows.length > 0) {
+              callback(null, queryResult.rows);
+            
+            // console.log(queryResult.rows);
+
+          } else {
+            callback(null, null);
+
+          }
+        }
+      });
+
+      
+  };
   return {
     getAll,
     signup,
-    login
+    login,
+    makePost
   };
 };

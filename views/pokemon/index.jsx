@@ -2,7 +2,9 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-    console.log(this.props.types);
+    console.log("========================");
+    console.log(123456);
+    console.log("========================");
     return (
       <html>
         <head />

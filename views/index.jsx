@@ -3,7 +3,6 @@ var React = require("react");
 class Home extends React.Component {
   render() {
     const isLoggedIn = this.props.loggedIn ?'loggedIn':'loggedOut'
-    console.log(this.props.result)
     const allTweets = this.props.result;
     const tweets = allTweets.map(tweet =>{
       return<p>{tweet.name}<br/>{tweet.content}</p>
@@ -13,6 +12,7 @@ class Home extends React.Component {
         <head />
         <body>
           <h1>Tweedr</h1>
+          <a href = '/newTweet'>New Tweet</a>
           <p>{isLoggedIn}</p>
           {tweets}
         </body>

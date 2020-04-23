@@ -44,6 +44,69 @@ INSERT INTO tweets
 VALUES
 ('Hello Six');
 
+INSERT INTO hash
+(hashText)
+VALUES
+('#Hello');
+
+INSERT INTO hash
+(hashText)
+VALUES
+('#Greeting');
+
+INSERT INTO hash
+(hashText)
+VALUES
+('#Number');
+
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 1);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 2);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 3);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 4);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 5);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(1, 6);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(2, 1);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(2, 2);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(2, 3);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(3, 4);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(3, 5);
+INSERT INTO hash_tweets
+(hash_id, tweets_id)
+VALUES
+(3, 6);
 
 INSERT INTO users_followers
 (user_id, follower_id)

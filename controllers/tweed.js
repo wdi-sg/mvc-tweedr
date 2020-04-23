@@ -20,10 +20,9 @@ module.exports = (db) => {
   let addNewUser = (req, res) => {
     let newUserName = req.body.name;
     db.tweed.checkUserQ(newUserName, (error, result) => {
-        console.log("addNewuser controller "+result);
         if(result === null) {
-            let hash = sha256(req.body.password);
-            let values = [req.body.name, hash];
+            let reqHPassword = sha256(req.body.password);
+            let values = [req.body.name, reqHPassword];
             db.tweed.addNewUserQ(values, (err, result) => {
                 res.redirect('/');
             });
@@ -40,18 +39,20 @@ module.exports = (db) => {
 
   let loginCheck = (req, res) => {
     let reqUser = req.body.name;
-    let password = sha256(req.body.password);
+    let hashPassword = sha256(req.body.password);
       db.tweed.loginCheckQ(reqUser, (error, result) => {
         if(result === null) {
             console.log("user not found");
             res.redirect('/');
         } else {
-            if (result[0].password === password) {
+            if (result[0].password === hashPassword) {
+                console.log(hashPassword)
+                console.log(result[0].password)
                 let user_id = result[0].id;
                 console.log(user_id);
                 let hashLog = sha256(SALT+user_id);
                 console.log("logged in!")
-                res.cookie('user', user_id);
+                res.cookie('user_id', user_id);
                 res.cookie('logged in', hashLog);
                 res.redirect('/all');
             } else {
@@ -61,6 +62,20 @@ module.exports = (db) => {
         };
       });
   };
+
+  let tweedPage = (req, res) => {
+    let user_id = req.cookies['user_id'];
+    let hashLog = sha256(SALT + user_id);
+    if (req.cookies['logged in'] === hashLog){
+        db.tweed.allTweedsQ((error, result) => {
+            res.render('tweed/tweedr', {result});
+        })
+    } else {
+        res.status(403);
+        res.redirect('/');
+    };
+  };
+
 
   let tweedMessage = (req, res) => {
     let user_id = req.cookies['user_id'];
@@ -80,18 +95,6 @@ module.exports = (db) => {
     };
   };
 
-  let tweedPage = (req, res) => {
-    let user_id = req.cookies['user_id'];
-    let hashLog = sha256(SALT + user_id);
-    if (req.cookies['logged in'] === hashLog){
-        db.tweed.allTweedsQ((error, result) => {
-            res.render('tweed/tweedr', {result});
-        })
-    } else {
-        res.status(403);
-        res.redirect('/');
-    };
-  };
 
 
 

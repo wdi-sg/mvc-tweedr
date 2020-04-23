@@ -3,6 +3,10 @@ var React = require("react");
 class Login extends React.Component {
   render() {
         // console.log('register.jsx')
+        let message = ""
+        if (this.props.login === "failed") {
+            message = "Name/Password doesn't match. Please try again. Name/Password is case-sensitive."
+        }
 
     return (
       <html>
@@ -20,6 +24,9 @@ class Login extends React.Component {
                 <p>Password: <input name="password" required/></p>
                 <p><input type="submit" /></p>
             </form>
+            <div>
+                <p>{message}</p>
+            </div>
         </body>
       </html>
     );

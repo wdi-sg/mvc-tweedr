@@ -41,22 +41,18 @@ module.exports = (db) => {
     let hashPassword = sha256(req.body.password);
       db.tweed.loginCheckQ(reqUser, (error, result) => {
         if(result === null) {
-            console.log("user not found");
-            res.redirect('/');
+            res.render('tweed/login', { login: "failed"});
         } else {
             if (result[0].password === hashPassword) {
-                console.log(hashPassword)
-                console.log(result[0].password)
                 let user_id = result[0].id;
-                console.log(user_id);
                 let hashLog = sha256(SALT+user_id);
-                console.log("logged in!")
+                // console.log("logged in!")
                 res.cookie('user_id', user_id);
                 res.cookie('logged in', hashLog);
                 res.redirect('/all');
             } else {
-                console.log("password doesn't match");
-                res.redirect('/')
+                // console.log("password doesn't match");
+                res.render('tweed/login', { login: "failed"});
             };
         };
       });

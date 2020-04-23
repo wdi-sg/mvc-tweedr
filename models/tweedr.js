@@ -41,7 +41,7 @@ module.exports = (dbPoolInstance) => {
         }
         checkUsername(name, checkQueryResult);
     };
-    let login = (name,password,callback) => {
+    let login = (name, password, callback) => {
         checkQueryResult = (error, checkNameResult) => {
             if (checkNameResult) {
                 let query = 'select password from users where password = $1;'
@@ -61,7 +61,7 @@ module.exports = (dbPoolInstance) => {
                 });
             } else {
                 Response.send('Invalid username.')
-            } 
+            }
         };
         checkUsername(name, checkQueryResult);
     };
@@ -86,10 +86,10 @@ module.exports = (dbPoolInstance) => {
             }
         });
     };
-    let newTweet = (content,callback) => {
+    let newTweet = (content, callback) => {
         let query = 'insert into tweets (content,user_id) values($1,$2) returning content ;'
-        values = [content,1];
-        dbPoolInstance.query(query,values, (error, queryResult) => {
+        values = [content, 1];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
             if (error) {
                 // invoke callback function with results after query has executed
                 callback(error, null);

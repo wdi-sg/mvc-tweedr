@@ -12,7 +12,9 @@ class Home extends React.Component {
         <head />
         <body>
           <h1>Tweedr</h1>
-          <a href = '/newTweet'>New Tweet</a>
+          <p><a href = '/register'>Register</a></p>
+          <p><a href = '/login'>Log In</a></p>
+          <p id = 'tweet'><a href = '/newTweet'>New Tweet</a></p>
           <p>{isLoggedIn}</p>
           {tweets}
         </body>

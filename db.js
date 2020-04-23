@@ -86,6 +86,9 @@ const allfollowModelsFunction = require('./models/follow');
 
 const followModelsObject = allfollowModelsFunction( pool );
 
+const alltweetModelsFunction = require('./models/tweet');
+
+const tweetModelsObject = alltweetModelsFunction( pool );
 /*
  * ===================================================
  * ===================================================
@@ -119,4 +122,6 @@ module.exports = {
   register: registerModelsObject,
   user: userModelsObject,
   follow: followModelsObject,
+  tweet: tweetModelsObject,
+
 };

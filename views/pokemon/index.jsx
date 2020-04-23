@@ -34,6 +34,21 @@ class Home extends React.Component {
             </div>
             </div>
             {tweet}
+                       <div class={"row"}>
+                <div class = {"col-12"}>
+                    <form method="POST" action="/tweet"  style={{textAlign: "Center"}}>
+                    <span>Enter Tweet: </span>
+                    <input  id= "tweet" type="text" name="tweet" placeholder="Enter Tweet" required
+                            oninvalid="this.setCustomValidity('Enter Tweet Here')"
+                            oninput="this.setCustomValidity('')" ></input>
+                    <br></br><br></br>
+                    <input  id= "tweet" type="text" name="username" placeholder="Enter Tweet" required
+                            oninvalid="this.setCustomValidity('Enter Tweet Here')"
+                            oninput="this.setCustomValidity('')" value={name} style={{display:"none"}}></input>
+                    <input type="submit" value="Submit"></input>
+                </form>
+                </div>
+            </div>
           </div>
         </body>
       </html>

@@ -24,5 +24,6 @@ module.exports = (app, allModels) => {
   //Tweet Controller and Routes
   const tweetController = require('./controllers/tweets')(allModels);
   app.post('/addtweet', tweetController.addTweet);
-  app.get('/', tweetController.displayTweets)
+  app.get('/', tweetController.displayTweetsAndHashtags);
+  app.post('/addhashtag', tweetController.addHashtag)
 };

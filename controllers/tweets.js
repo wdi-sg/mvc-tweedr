@@ -60,7 +60,13 @@ module.exports = (db) => {
       let newtweetPageControllerCallback = (request, response) => {
         var isLogged = request.cookies['loggedin'];
         if (isLogged === 'true'){
-            response.render('tweets/newtweet')
+            db.tweets.getHashtags((error, hashTags)=>{
+                let hashtagData = {hashTags};
+                console.log('*************** hashtag data coming from models*******');
+                console.log(hashtagData);
+                response.render('tweets/newtweet', hashtagData)
+            });
+
         }else {
             response.redirect('/login');
         }

@@ -80,6 +80,36 @@ module.exports = (dbPoolInstance) => {
         });
   };
 
+    let getHashtags = (callback) => {
+
+    let query = 'SELECT * FROM hashtags';
+
+    dbPoolInstance.query(query, (error, queryResult) => {
+        console.log('*******');
+        console.log(queryResult.rows.length);
+      if( error ){
+
+        // invoke callback function with results after query has executed
+        console.log('error 1');
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+          console.log('query results inside of the model look here ******************: ' + queryResult.rows)
+
+        }else{
+          callback(null, null);
+          console.log('no person name that you have serached');
+
+        }
+      }
+    });
+  };
+
     let tweet = (tweetmsg, userTableId, callback) => {
         let query = 'INSERT INTO tweets (users_id, tweet) VALUES ($1,$2)';
         const values = [userTableId, tweetmsg];
@@ -101,5 +131,6 @@ module.exports = (dbPoolInstance) => {
     register: register,
     login: login,
     tweet: tweet,
+    getHashtags: getHashtags,
   };
 };

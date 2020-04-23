@@ -24,4 +24,6 @@ module.exports = (app, allModels) => {
     // ==== List of all Tweets ====
     app.get('/home/tweets', controllers.allTweets);
 
+    // ==== List of all users ====
+    app.get('/home/users', controllers.allUsers)
 };

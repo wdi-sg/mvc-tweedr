@@ -95,6 +95,17 @@ const sha256 = require('js-sha256');
     })
     }
 
+    // ==== List of all Users ====
+    let allUsersController = (request, response) => {
+        db.model.getAllUsers((err, allUsers) => {
+            const data = {
+                allUsers: allUsers,
+                currentUserId: request.cookies['userId']
+            }
+        response.render('all_users', data)
+        })
+    }
+
     /**
     * ===========================================
     * Export controller functions as a module
@@ -107,7 +118,8 @@ const sha256 = require('js-sha256');
     home: homeController,
     newTweet: newTweetController,
     showTweet: showTweetController,
-    allTweets: allTweetsController
+    allTweets: allTweetsController,
+    allUsers: allUsersController
     };
 
 }

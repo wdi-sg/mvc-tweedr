@@ -24,7 +24,12 @@ module.exports = (dbPoolInstance) => {
   };
 
   const showTweet = (userID, callback) => {
-    let queryString = `select * from tweets`;
+    let queryString = `
+                    select tweet, users_id, username
+                    from tweets
+                    inner join users
+                    on (tweets.users_id = users.id)
+                    `;
 
     dbPoolInstance.query(queryString, (err, results) => {
       if(err){

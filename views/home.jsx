@@ -34,22 +34,25 @@ class Home extends React.Component {
 
     const showAllTweets = allTweets.map(el => {
         return(
-            <div className="all-tweets">
-                <p>{el.tweet}</p>
+            <div className="tweet-body">
+                <p className='tweet-content'>{el.tweet}</p>
+                <p className='tweet-user'>-{el.username}</p>
             </div>
             )
     })
 
     return (
       <html>
-        <head />
+        <head>
+            <link rel="stylesheet" type="text/css" href="./css/home.css" />
+        </head>
         <body>
             <div>
                 <h1>TWEEDR</h1>
                 {header}
             </div>
                 {tweet}
-            <div>
+            <div className="all-tweet-body">
                 {showAllTweets}
             </div>
         </body>

@@ -17,7 +17,6 @@ class Home extends React.Component {
 
     // Tweet body
     const showAllTweets = allTweets.map(el => {
-        console.log(el)
         return(
             <div className="tweet-body">
                 <p className='tweet-content'>{el.tweet}</p>
@@ -25,12 +24,25 @@ class Home extends React.Component {
             )
     })
 
-    const followForm = (
-                    <form>
-                        <input type="hidden" name="userProfileName" value={userProfileID}></input>
-                        <input type="submit" value="follow"></input>
-                    </form>
-                    )
+    let followForm;
+
+    if(this.props.followingRelationship){
+        followForm = (
+                <form action='/unfollow/?_method=delete' method='post'>
+                    <input type="hidden" name="userProfileID" value={userProfileID}></input>
+                    <input type="hidden" name="userProfileName" value={userProfileName}></input>
+                    <input type="submit" value="unfollow"></input>
+                </form>
+                )
+    }else{
+        followForm = (
+                <form action='/follow' method='post'>
+                    <input type="hidden" name="userProfileID" value={userProfileID}></input>
+                    <input type="hidden" name="userProfileName" value={userProfileName}></input>
+                    <input type="submit" value="follow"></input>
+                </form>
+                )
+    }
 
     return (
       <html>

@@ -41,4 +41,6 @@ module.exports = (app, allModels) => {
 
   app.get('/profile/:id/:user', profilePage.profile);
 
+  app.post('/follow', profilePage.follow);
+
 };

@@ -17,15 +17,70 @@ module.exports = (db) => {
       const userID = request.cookies.userID;
       const loggedIn = request.cookies.loggedIn;
 
-      // Get user profile
-      db.profile.getProfile(userProfileID)
+      let userProfileTweets;
+
+      let followingRelationship;
+
+      let promise1 = new Promise((resolve, reject) => {
+        // Get user profile
+        db.profile.getProfile(userProfileID)
+          .then(results => {
+            userProfileTweets = results.rows
+            resolve();
+          })
+          .catch(err => {
+            console.error(err.stack);
+          });
+      })
+
+      let promise2 = new Promise((resolve, reject) => {
+        // Get following relationship
+        db.profile.getFollower(userProfileID, userID)
+          .then(results => {
+            followingRelationship = results.rows;
+            console.log(followingRelationship)
+            resolve();
+          })
+          .catch(err => {
+            console.error(err.stack);
+          });
+
+      })
+
+      Promise.all([promise1, promise2]).then(() => {
+        if(followingRelationship.length === 0){
+          followingRelationship = false;
+        }
+        else{
+          followingRelationship.forEach(el => {
+            if(el.follower_id == userID){
+              followingRelationship = true;
+            }
+            else{
+              followingRelationship = false;
+            }
+          })
+        }
+
+        console.log("following relationship: " + followingRelationship)
+
+        data = {"userProfileTweets" : userProfileTweets, "userProfileName" : userProfileName, "username" : username, "userID" : userID, "loggedIn" : loggedIn, "followingRelationship" : followingRelationship};
+
+        response.render('profile', data);
+      })
+
+   }
+
+   let followProfileController = (request, response) => {
+      const followeeID = request.body.userProfileID;
+      const followerID = request.cookies.userID;
+
+      const userProfileName = request.body.userProfileName;
+
+      db.profile.followProfile(followerID, followeeID)
         .then(results => {
-          const userProfileTweets = results.rows
-          data = {"userProfileTweets" : userProfileTweets, "userProfileName" : userProfileName, "username" : username, "userID" : userID, "loggedIn" : loggedIn};
-          response.render('profile', data);
-        })
-        .catch(err => {
-          console.error(err.stack);
+          console.log(results.rows)
+          response.redirect(`/profile/${followeeID}/${userProfileName}`);
         })
    }
 
@@ -36,6 +91,7 @@ module.exports = (db) => {
    */
 
    return{
-    profile: profilePageController
+    profile: profilePageController,
+    follow: followProfileController
    }
 }

@@ -32,4 +32,8 @@ module.exports = (app, allModels) => {
   app.post('/register', pokemonControllerCallbacks.registerAccount);
 
   app.get('/hashtag/new', pokemonControllerCallbacks.viewNewHashTag);
+
+  app.get('/hashtag', pokemonControllerCallbacks.viewHashTag);
+
+  app.post('/hashtag', pokemonControllerCallbacks.submitNewHashTag);
 };

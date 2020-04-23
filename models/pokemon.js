@@ -100,11 +100,47 @@ module.exports = (pool) => {
     });
   }
 
+  let submitNewHashTag = (request, response, callback) => {
+    let queryString = "INSERT INTO hashtags (hashtag) VALUES ($1)";
+    let values = [request.body.hashtag];
+    pool.query(queryString, values, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else {
+        queryString = "SELECT * FROM hashtags";
+        pool.query(queryString, (error, result) => {
+          if(error) {
+            callback(error, null);
+          }else if(result.rows.length > 0) {
+            callback(null, result);
+          }else {
+            callback(null, null);
+          }
+        })
+      }
+    });
+  }
+
+  let viewHashTag = (request, response, callback) => {
+    let queryString = "SELECT * FROM hashtags";
+    pool.query(queryString, (error, result) => {
+      if(error) {
+        callback(error, null);
+      }else if(result.rows.length > 0) {
+        callback(null, result);
+      }else {
+        callback(null, null);
+      }
+    });
+  };
+
   return {
     getAll: getAll,
     registerAccount: registerAccount,
     viewHome: viewHome,
     loginAccount: loginAccount,
-    submitTweet: submitTweet
+    submitTweet: submitTweet,
+    submitNewHashTag: submitNewHashTag,
+    viewHashTag: viewHashTag
   };
 };

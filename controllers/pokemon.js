@@ -86,6 +86,36 @@ module.exports = (db) => {
     response.render('newhashtag');
   };
 
+  let viewHashTagControllerCallback = (request, response) => {
+    db.pokemon.viewHashTag(request, response, (error, result) => {
+      if(error) {
+        console.log('Query error', error.message);
+        response.send("query error");
+      }else if(result === null){
+        response.render('home');
+      }else {
+        let data = {
+          "hashtags": result.rows
+        }
+        response.render('hashtag', data);
+      }
+    });
+  };
+
+  let submitNewHashTagControllerCallback = (request, response) => {
+    db.pokemon.submitNewHashTag(request, response, (error, result) => {
+      if(error) {
+        console.log('Query error: ', error.message);
+        response.send("query error");
+      }else {
+        let data = {
+          "hashtags": result.rows
+        };
+        response.render('hashtag', data);
+      }
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -100,7 +130,9 @@ module.exports = (db) => {
     viewLogin: viewLoginControllerCallback,
     loginAccount: loginAccountControllerCallback,
     submitTweet: submitTweetControllerCallback,
-    viewNewHashTag: viewNewHashTagControllerCallback
+    viewNewHashTag: viewNewHashTagControllerCallback,
+    submitNewHashTag: submitNewHashTagControllerCallback,
+    viewHashTag: viewHashTagControllerCallback
   };
 
 }

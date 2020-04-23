@@ -32,7 +32,7 @@ h3 {
     font-size: 18px;
 }
 
-.chat-box {
+.chat-box, .hashtag-box {
     background-color: lightgrey;
     height: 600px;
     width: 600px;
@@ -40,16 +40,37 @@ h3 {
     overflow: auto;
 }
 
-ul {
+.chat, .hashtag {
     test-align: left;
     padding: 5px;
 }
 
-ul li {
+.chat li {
     list-style: none;
     border: 1px solid grey;
     margin: 5px;
     padding: 3px;
     text-align: left;
     overflow: wrap;
+}
+
+.hashtag-box {
+    background-color: lightgrey;
+    height: 600px;
+    width: 600px;
+    margin: 10px auto;
+    overflow: auto;
+}
+
+.hashtag {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hashtag li {
+    list-style: none;
+    padding: 3px 10px;
+    text-align: left;
 }

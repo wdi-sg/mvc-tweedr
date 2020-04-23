@@ -10,3 +10,9 @@ CREATE TABLE IF NOT EXISTS tweeds (
     message_date TIMESTAMPTZ default now(),
     user_id INTEGER
 );
+
+
+CREATE TABLE IF NOT EXISTS hashtags (
+    id SERIAL PRIMARY KEY,
+    hashtag TEXT
+);

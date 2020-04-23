@@ -50,21 +50,6 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-  // let userIdQ = (username, call) => {
-  //   let query = "SELECT * FROM users WHERE name =" +"'"+username+"'";
-  //   dbPoolInstance.query(query, (error, queryResult) => {
-  //       if ( error ) {
-  //         call(error, null);
-  //       } else {
-  //         if( queryResult.rows.length > 0 ){
-  //             call(null, queryResult.rows);
-  //         }else{
-  //             call(null, null);
-  //         };
-  //       };
-  //   });
-  // }
-
   let messageQ = (values, call) => {
     let query = "INSERT INTO tweeds (message, user_id) values ($1, $2);";
     dbPoolInstance.query(query, values, (error, queryResult) => {
@@ -81,7 +66,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let allTweedsQ = (call) => {
-    let query = "SELECT * FROM tweeds ORDER BY id ASC;";
+    let query = "SELECT * FROM tweeds ORDER BY id DESC;";
     dbPoolInstance.query(query, (error, queryResult) => {
         if ( error ) {
           call(error, null);
@@ -95,11 +80,43 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  let hashtagsQ = (call) => {
+    let query = "SELECT * FROM hashtags ORDER BY hashtag ASC;";
+    dbPoolInstance.query(query, (error, queryResult) => {
+        if ( error ) {
+          call(error, null);
+        } else {
+          if( queryResult.rows.length > 0 ){
+              call(null, queryResult.rows);
+          }else{
+              call(null, null);
+          };
+        };
+    });
+  };
+
+  let addHashtagQ = (values, call) => {
+    let query = "INSERT INTO hashtags (hashtag) values ($1);";
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+        if ( error ) {
+          call(error, null);
+        } else {
+          if( queryResult.rows.length > 0 ){
+              call(null, queryResult.rows);
+          }else{
+              call(null, null);
+          };
+        };
+    });
+  };
+
     return {
         checkUserQ,
         addNewUserQ,
         loginCheckQ,
         allTweedsQ,
         messageQ,
+        hashtagsQ,
+        addHashtagQ,
     };
 };

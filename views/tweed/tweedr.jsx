@@ -27,7 +27,7 @@ class Tweedr extends React.Component {
 
 
                     <div className="chat-box">
-                        <ul>{allMessage}</ul>
+                        <ul className="chat">{allMessage}</ul>
                     </div>
                     <br/>
                     <br/>

@@ -22,6 +22,7 @@ module.exports = (app, allModels) => {
   app.delete('/logout', tweedCtrl.logout);
   app.get('/all', tweedCtrl.tweedPage);
   app.post('/all', tweedCtrl.tweedMessage);
+  app.get('/hashtag', tweedCtrl.hashtagForm);
+  app.post('/hashtag', tweedCtrl.addHashtag);
   app.get('/', tweedCtrl.tweedModHome);
-
 };

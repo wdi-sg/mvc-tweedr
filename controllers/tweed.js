@@ -91,14 +91,20 @@ module.exports = (db) => {
     res.redirect('/');
   };
 
+  let hashtagForm = (req, res) => {
+    db.tweed.hashtagsQ((error, result) => {
+        console.log(result)
+        res.render('tweed/new-hashtag', {result});
+    });
+  };
 
-
-
-  // let tweedModCall = (request, response) => {
-  //     db.tweed.getHomeQ((error, homeQResult) => {
-  //       response.render('tweed/index', { homeQResult });
-  //     });
-  // };
+  let addHashtag = (req, res) => {
+    let hashtag = "#"+req.body.hashtag;
+    let values = [hashtag];
+    db.tweed.addHashtagQ(values, (error, result) => {
+        res.redirect('/hashtag');
+    });
+  };
 
 
 
@@ -116,5 +122,7 @@ module.exports = (db) => {
     tweedMessage,
     tweedPage,
     logout,
+    hashtagForm,
+    addHashtag,
   };
 };

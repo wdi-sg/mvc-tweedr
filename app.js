@@ -49,9 +49,20 @@ app.use(session({
 
 const db = require('./db');
 const authController = require('./controllers/auth-controller');
+const hashtagsController = require('./controllers/hashtags-controller');
 const authRoutes = require('./routes/auth-routes');
 const tweetsRoutes = require('./routes/tweets-routes');
 const hashtagsRoutes = require('./routes/hashtags-routes');
+
+// app.use('/', async (req, res, next) => {
+
+//     const query = `SELECT * FROM hashtags`;
+//     const { rows } = await db.query(query);
+
+//     req.hashtags = rows;
+
+//     next();
+// })
 
 app.use('/tweets', tweetsRoutes);
 

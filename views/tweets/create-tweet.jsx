@@ -23,6 +23,8 @@ class CreateTweetForm extends React.Component {
 
         }
 
+        const hashtagOptions = this.props.allHashtags.map(hashtag => <option value={hashtag.name} hashtag-id={hashtag.id}>{hashtag.name}</option>)
+
         return (
             <html>
                 <div className="overlay"></div>
@@ -37,6 +39,9 @@ class CreateTweetForm extends React.Component {
                                 <h2 className="add-form__header">TWEET</h2>
                                 <input type="text" name="content" placeholder="Tweet goes here" maxlength="100"/>
                                 <input type="text" name="img" placeholder="Upload Image Link" />
+                                <select id="hashtags-select" name="hashtag">
+                                    {hashtagOptions}
+                                </select>
                                 <button className="add-form__submit-btn" type="submit">Add</button>
                             </form>
                         </div>

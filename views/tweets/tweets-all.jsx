@@ -18,12 +18,24 @@ class AllTweets extends React.Component {
             }
         }
 
+        const makeListOfHashtags = (tweetId) => {
+            this.props.allHashtags.reduce((list, hashtag) => {
+                if (hashtag['tweet_id'] == tweetId) {
+                    list.push(
+                        <li className="single-tweet__hashtag">hashtag.name</li>
+                    )
+                    return list;
+                }
+            }, [])
+        }
+
         const tweetInfo = this.props.allTweets.map(tweet =>
 
             <div className="single-tweet__container" key={tweet.id}>
                 {displayTweetImg(tweet.img)}
                 <a href={`./${tweet.id}`} className="single-tweet__id">{`Tweet: ${tweet.id}`}</a>
                 <p className="single-tweet__content">{tweet.content}</p>
+                <ul className="single-tweet__hashtag-list">{makeListOfHashtags(tweet.id)}</ul>
             </div>
         )
 

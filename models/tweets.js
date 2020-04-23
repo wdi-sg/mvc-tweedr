@@ -33,18 +33,17 @@ module.exports = (pool) => {
       "select tweets.content, tweets.timestamp, tweets.id, users.username from tweets join users on (users.id = tweets.user_id)";
     // console.log(queryText);
     let tweetsArr;
-    await pool.query(queryText).then(async result => {
+    await pool.query(queryText).then(async (result) => {
       // console.log("tweetArr:", result.rows);
       tweetsArr = result.rows;
-      for (let i=0; i<tweetsArr.length; i++) {
+      for (let i = 0; i < tweetsArr.length; i++) {
         queryText = `select tweet_hashtag.ht_id, hashtags.tag, tweet_hashtag.tweet_id from hashtags join tweet_hashtag on (hashtags.id = tweet_hashtag.ht_id) where tweet_id = ${tweetsArr[i].id}`;
-        await pool.query(queryText).then(result => {
+        await pool.query(queryText).then((result) => {
           // console.log(result.rows);
           let htArr = result.rows;
           if (htArr.length > 0) {
             tweetsArr[i].htArr = htArr;
-          }
-          else {
+          } else {
             tweetsArr[i].htArr = [];
           }
         });
@@ -55,18 +54,16 @@ module.exports = (pool) => {
   };
 
   let tweetsWithHashtagId = (htid, cb) => {
-    let queryText =
-      `select tweets.content, tweets.timestamp, tweets.id, users.username, tweet_hashtag.ht_id from tweets join users on (users.id = tweets.user_id) join tweet_hashtag on (tweets.id = tweet_hashtag.tweet_id) where tweet_hashtag.ht_id = ${htid}`;
-      console.log(queryText);
-      pool.query(queryText, cb);
+    let queryText = `select tweets.content, tweets.timestamp, tweets.id, users.username, tweet_hashtag.ht_id, hashtags.tag from tweets join users on (users.id = tweets.user_id) join tweet_hashtag on (tweets.id = tweet_hashtag.tweet_id) join hashtags on (hashtags.id = tweet_hashtag.ht_id) where tweet_hashtag.ht_id = ${htid}`;
+    console.log(queryText);
+    pool.query(queryText, cb);
   };
-  
 
   return {
     writeNewTweet: writeNewTweet,
     getOneTweet: getOneTweet,
     getAllTweets: getAllTweets,
     writeTweetAndHt: writeTweetAndHt,
-    tweetsWithHashtagId: tweetsWithHashtagId
+    tweetsWithHashtagId: tweetsWithHashtagId,
   };
 };

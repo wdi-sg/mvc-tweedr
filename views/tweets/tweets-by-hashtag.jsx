@@ -6,10 +6,13 @@ class TweetsByHashtag extends React.Component {
     let tweetArr = this.props.tweetsArr;
     let tweetArrHtml;
     let link = "/hashtags/" + this.props.htId;
-    console.log('before if block',tweetArr);
+    let tag; 
+    // console.log('before if block',tweetArr);
     if (tweetArr.length === 0) {
-    tweetArrHtml = (<p>There are no tweets for this hashtag yet.</p>);
+    tweetArrHtml = <p>There are no tweets for this hashtag yet.</p>;
+    tag = "";
     } else {
+      tag = ": " + tweetArr[0].tag;
       tweetArrHtml = tweetArr.map((element) => {
         let obj = { dateStyle: "full", timeStyle: "medium" };
         let timestampInt = parseInt(element.timestamp);
@@ -45,7 +48,7 @@ class TweetsByHashtag extends React.Component {
           <div className="col mt-5">
             <form method="GET" action={link}>
               <h3>
-                <u>Filter Tweets By Hashtag</u>
+                <u>Filter Tweets By Hashtag{tag}</u>
               </h3>
               <br></br>
               {tweetArrHtml}

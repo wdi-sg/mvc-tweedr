@@ -11,7 +11,7 @@ class Login extends React.Component {
         <Head />
         <body style={{backgroundColor: "#2b2d2f"}}>
           <Nav />
-          <div className="jumbotron">
+          <div className="jumbotron bg-dark">
             <h1>Register for Tweedr</h1>
 
             <form action="/register" method="post" className="form-inline">

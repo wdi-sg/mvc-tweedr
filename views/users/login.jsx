@@ -11,7 +11,7 @@ class Login extends React.Component {
         <Head />
         <body>
           <Nav />
-          <div className="jumbotron">
+          <div className="jumbotron bg-dark">
             <h1>Login to Tweedr</h1>
 
             <form class="form-inline" action="/login" method="POST">

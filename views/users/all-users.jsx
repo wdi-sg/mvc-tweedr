@@ -10,24 +10,24 @@ class AllUsers extends React.Component {
 
       const usersList = users.map ( user => {
             return (
-              <div class="user-card card col-lg-4 col-md-6 col-sm-12">
+              <div className="bg-dark user-card card col-lg-4 col-md-6 col-sm-12">
                 <img
-                  class="card-img-top"
+                  className="card-img-top"
                   src={user.dp_url}
                   alt="Card image cap"
                 />
-                <div class="card-body">
-                  <h5 class="card-title">{user.display_name}</h5>
+                <div className="card-body">
+                  <h5 className="card-title">{user.display_name}</h5>
                   <a href={`/users/${user.user_id}`}>
-                    <button
-                      class="btn btn-primary"
-                    >
-                      @{user.handle}
-                    </button>
+                    <button className="btn btn-outline-light">@{user.handle}</button>
                   </a>
                   <form action={`/users/following`} method="post">
-                    <input type="hidden" name="userToFollow" value={user.user_id} />
-                    <button type="submit" class="btn btn-success">
+                    <input
+                      type="hidden"
+                      name="userToFollow"
+                      value={user.user_id}
+                    />
+                    <button type="submit" className="btn btn-success">
                       Follow
                     </button>
                   </form>

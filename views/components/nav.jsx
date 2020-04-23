@@ -3,9 +3,9 @@ import React from "react";
 class Nav extends React.Component {
       render() {
             return (
-              <nav className="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top ">
+              <nav className="navbar navbar-expand-md navbar-dark bg-dark navbar-static-top ">
                 <a className="navbar-brand" href="/">
-                  tweedr
+                  tweedr ☾
                 </a>
                 <button
                   className="navbar-toggler"
@@ -22,7 +22,7 @@ class Nav extends React.Component {
                   className="collapse navbar-collapse"
                   id="navbarNavDropdown"
                 >
-                  <ul className="navbar-nav">
+                  <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                       <a className="nav-link" href="/register">
                         Register

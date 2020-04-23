@@ -68,37 +68,36 @@ class Home extends React.Component {
           <Nav />
           <div className="outer-container container-fluid">
             <div className="row">
-              <div className="sidebar col-lg-2 col-sm-12">
-                <div className="sidebar-tweedr-header">
-                  <a href="/">Tweedr</a>
-                </div>
+              <div className="sidebar col-md-2 col-sm-12">
 
-                <div className="sidebar-dp">
-                  <img src={user.dp_url} />
-                </div>
 
-                <div id="sidebar-displayname">
-                  <a href="/users/me">{user.display_name}</a>
-                </div>
-                <div id="sidebar-handle">
-                  <a href="/users/me">@{user.handle}</a>
-                </div>
-
-                <div className="sidebar-follows">
-                  <div id="sidebar-following">
-                    <a href="/users/following">Following</a>
+                  <div className="sidebar-dp">
+                    <img src={user.dp_url} />
                   </div>
-                  <div id="sidebar-following">
-                    <a href="/users/followers">Followers</a>
+
+                  <div id="sidebar-displayname">
+                    <a href="/users/me">{user.display_name}</a>
                   </div>
+                  <div id="sidebar-handle">
+                    <a href="/users/me">@{user.handle}</a>
+                  </div>
+
+                  <div className="sidebar-follows">
+                    <div id="sidebar-following">
+                      <a href="/users/following">Following</a>
+                    </div>
+                    <div id="sidebar-following">
+                      <a href="/users/followers">Followers</a>
+                    </div>
                 </div>
               </div>
 
-              <div className="right-display col-lg-10 col-sm-12">
+              <div className="right-display col-md-10 col-sm-12">
                 <div className="new-tweet row">
                   <div className="new-tweet-top clearfix">
                     <div id="new-tweet-greeting" className="float-left">
-                      {this.props.tweetGreeting}, {user.display_name}. What's going on?
+                      {this.props.tweetGreeting}, {user.display_name}. What's
+                      going on?
                     </div>
                     <div id="character-counter" className="float-right">
                       0/140
@@ -106,21 +105,20 @@ class Home extends React.Component {
                   </div>
 
                   <form action="/tweets" method="post">
-                    <textarea name="tweetbody" rows="3" cols="190">
-                      
-                    </textarea>
+                    <textarea name="tweetbody" rows="3" cols="190"></textarea>
                     <div className="new-tweet-bottom">
-                      <button
+                      {/* <button
                         id="new-tweet-photo"
                         className="btn btn-outline-light btn-lg float-left"
+                        href="#"
                       >
                         Add Photo
-                      </button>
+                      </button> */}
                       <button
                         type="submit"
-                        className="btn btn-primary btn-lg float-right"
+                        className="btn btn-outline-primary btn-lg float-right"
                       >
-                        Tweed It!
+                        Tweed
                       </button>
                     </div>
                   </form>

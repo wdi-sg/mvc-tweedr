@@ -144,6 +144,24 @@ module.exports = (dbPoolInstance) => {
         });
   };
 
+    let addNewHashtag = (enteredHashtag, callback) => {
+        let query = 'INSERT INTO hashtags (hashtag) VALUES ($1) RETURNING *';
+        const values = [enteredHashtag];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+              if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+              }else{
+                // response.redirect('/')
+                callback(null, queryResult.rows);
+                console.log('resulted adding hashtag');
+                console.log(queryResult.rows);
+              }
+        });
+  };
+
   return {
     getAll: getAll,
     register: register,
@@ -151,5 +169,6 @@ module.exports = (dbPoolInstance) => {
     tweet: tweet,
     getHashtags: getHashtags,
     addHashtag: addHashtag,
+    addNewHashtag:addNewHashtag,
   };
 };

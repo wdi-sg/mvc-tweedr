@@ -15,7 +15,7 @@ class addhashtags extends React.Component {
                         </p>
                         <br></br>
 
-                        <input type="submit" value="Tweet!!"></input>
+                        <input type="submit" value="Add Hashtag!!"></input>
                     </form>
                 </div>
             </div>

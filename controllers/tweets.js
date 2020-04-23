@@ -101,13 +101,14 @@ module.exports = (db) => {
 
 
       let newhashControllerCallback = (request, response) => {
-        var isLogged = request.cookies['loggedin'];
-        if (isLogged === 'true'){
-                response.render('tweets/addhashtags');
-        }else {
-            response.redirect('/login');
-        }
-  };
+        let enteredHashtag = "#" + request.body.hashtag;
+        db.tweets.addNewHashtag(enteredHashtag, (error, hashed) => {
+
+              response.send('You have successfully added in a new hashtag!~:' + hashed[0].hashtag);
+
+        })
+
+      }
 
 
   /**

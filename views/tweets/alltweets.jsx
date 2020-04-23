@@ -8,6 +8,22 @@ class Home extends React.Component {
 
     const user = this.props.currentUser
 
+    const tweetOptions = (tweetId) => {
+      return (
+        <div className="tweet-body-bottom">
+          <div className="tweet-options float-right">
+            <a href={`/tweets/${tweetId}/edit`}>
+              <button className="btn btn-outline-warning btn-sm">✎</button>
+            </a>
+
+            <form action={`/tweets/${tweetId}`}>
+              <button className="btn btn-outline-danger btn-sm">╳</button>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
 
 
       const tweets = this.props.tweets;
@@ -37,21 +53,7 @@ class Home extends React.Component {
                     </div>
                   </div>
                   <div className="tweet-body-content">{tweet.body}</div>
-                  <div className="tweet-body-bottom">
-                    <div className="tweet-options float-right">
-                        <a href={`/tweets/${tweet.tweet_id}/edit`}>
-                          <button className="btn btn-outline-warning btn-sm">
-                            ✎
-                          </button>
-                        </a>
-
-                        <form action={`/tweets/${tweet.tweet_id}`}>
-                          <button className="btn btn-outline-danger btn-sm">
-                            ╳
-                          </button>
-                        </form>
-                    </div>
-                  </div>
+                  {tweet.user_id===user.user_id && tweetOptions(tweet.tweet_id)}
                 </div>
               </div>
             );

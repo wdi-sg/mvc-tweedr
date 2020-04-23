@@ -32,6 +32,6 @@ module.exports = (app, allModels) => {
     app.post("/tweets", tweetsControllerCallbacks.createTweet);
 
 
-  app.get("/", tweetsControllerCallbacks.getTweets);
+  app.get("/", tweetsControllerCallbacks.index);
 
 };

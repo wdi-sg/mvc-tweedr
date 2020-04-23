@@ -1,83 +1,95 @@
 module.exports = (db) => {
 
-  /**
-   * ===========================================
-   * Controller logic
-   * ===========================================
-   */
+    /**
+     * ===========================================
+     * Controller logic
+     * ===========================================
+     */
 
-  let indexControllerCallback = (request, response) => {
-      db.tweets.getAll((error, allTweets) => {
-        response.render("tweets/tweets_index", { tweets: allTweets });
-      });
-  };
+    let indexControllerCallback = (req, res) => {
+        let isLoggedIn = req.cookies.isLoggedIn;
 
-  let getTweetsControllerCallback = (req,res)=> {
-
-    let currentUserId = req.cookies.currentUserId;
-    let d = new Date();
-    let hour = d.getHours();
-
-    let greeting;
-    if (hour > 18) {
-      greeting = `Evening`
-    } else if (hour > 12) {
-      greeting = `Afternoon`
-    } else if (hour > 3) {
-      greeting = `Morning`
-    } else {
-      greeting = `Evening`
+        if (isLoggedIn === "false") {
+            return res.redirect(`/login`);
+        } else {
+            res.redirect(`/tweets`);
+        }
     }
 
-    db.users.getCurrentUserDetails(currentUserId, (err, result)=> {
+    let getTweetsControllerCallback = (req, res) => {
 
-      const data = {
-        currentUser: result,
-        tweetGreeting: greeting
-      }
 
-          const whenModelIsDone = (err, result2) => {
-            if (err) {
-              console.log(`Query error!`, err);
+        let isLoggedIn = req.cookies.isLoggedIn
+
+        if (isLoggedIn === 'false' || !isLoggedIn) {
+            return res.redirect(`/login`);
+        } else {
+
+
+            let d = new Date();
+            let hour = d.getHours();
+
+            let greeting;
+            if (hour > 18) {
+                greeting = `Evening`
+            } else if (hour > 12) {
+                greeting = `Afternoon`
+            } else if (hour > 3) {
+                greeting = `Morning`
             } else {
-              data.tweets = result2
-              res.render(`tweets/alltweets`, data);
+                greeting = `Evening`
             }
-          };
+            let currentUserId = req.cookies.currentUserId;
 
-          db.tweets.getTweetsFromFollowing(currentUserId, whenModelIsDone);
 
-    });
-  }
+            db.users.getCurrentUserDetails(currentUserId, (err, result) => {
+                const data = {
+                    currentUser: result,
+                    tweetGreeting: greeting
+                }
+                const whenModelIsDone = (err, result2) => {
+                    if (err) {
+                        console.log(`Query error!`, err);
+                    } else {
+                        data.tweets = result2
+                        res.render(`tweets/alltweets`, data);
+                    }
+                };
+                
+                db.tweets.getTweetsFromFollowing(currentUserId, whenModelIsDone);
 
-  let createTweetControllerCallBack = (req,res) => {
+            });
+        }
+    }
 
-    let tweetContent = req.body.tweetbody;
-    let currentUser = req.cookies.currentUserId;
+    let createTweetControllerCallBack = (req, res) => {
 
-    const whenModelIsDone = (err, result)=> {
+        let tweetContent = req.body.tweetbody;
+        let currentUser = req.cookies.currentUserId;
 
-      if (err) {
-        console.log(`Query error!`, err)
-      } else {
-        res.redirect(`/tweets`)
-      }
+        const whenModelIsDone = (err, result) => {
+
+            if (err) {
+                console.log(`Query error!`, err)
+            } else {
+                res.redirect(`/tweets`)
+            }
+
+        }
+        db.tweets.createTweet(tweetContent, currentUser, whenModelIsDone)
 
     }
-    db.tweets.createTweet(tweetContent, currentUser, whenModelIsDone)
-
-  }
 
 
-  /**
-   * ===========================================
-   * Export controller functions as a module
-   * ===========================================
-   */
-  return {
-    index: indexControllerCallback,
-    getTweets: getTweetsControllerCallback,
-    createTweet: createTweetControllerCallBack
-  };
+    /**
+     * ===========================================
+     * Export controller functions as a module
+     * ===========================================
+     */
+    return {
+        index: indexControllerCallback,
+        getTweets: getTweetsControllerCallback,
+        createTweet: createTweetControllerCallBack
+    };
 
 }

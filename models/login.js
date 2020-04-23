@@ -13,11 +13,11 @@ const userLogin = (login, callback) => {
     console.log("SELECTING QUERY");
     console.log(login);
 
-    let queryString = "SELECT * FROM users WHERE name = ($1) AND password = ($2)";
+    let queryString = "SELECT * FROM users WHERE user_name = ($1) AND password = ($2)";
 
     let requestedHashedPassword = sha256(login.password);
 
-    let values = [login.name, requestedHashedPassword];
+    let values = [login.username, requestedHashedPassword];
 
 dbPoolInstance.query(queryString, values, (error, queryResult) => {
     if(error) {
@@ -43,7 +43,29 @@ dbPoolInstance.query(queryString, values, (error, queryResult) => {
 });
 }
 
+const getName = (id, callback) => {
+
+    const getQueryUser = "SELECT name FROM users WHERE id="+ id;
+
+    dbPoolInstance.query(getQueryUser, (error, queryResult) => {
+    if(error) {
+        console.log("ERRRRROROROROROROR AT LOGIN QUERY");
+        console.log(error);
+        callback(error, null);
+        return;
+    }
+        // invoke callback function with results after query has executed
+
+        if(queryResult.rows.length > 0) {
+            console.log("RETRIEVING NAME");
+            console.log(queryResult.rows);
+            callback(null, queryResult.rows);
+        }
+    });
+ }
+
   return {
-    userLogin: userLogin
+    userLogin: userLogin,
+    getName: getName
   };
 };

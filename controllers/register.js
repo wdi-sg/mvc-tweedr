@@ -15,15 +15,11 @@ const sha256 = require('js-sha256');
     console.log(req.body);
     console.log("####### Input #######");
     db.register.register(req.body, (error, info) => {
+        console.log("########## NULL? ###########")
         console.log(info);
         res.redirect(302, '/');
     })
   }
-  // let indexControllerCallback = (request, response) => {
-  //     db.pokemon.getAll((error, allPokemon) => {
-  //       response.render('pokemon/index', { allPokemon });
-  //     });
-  // };
 
 
   /**

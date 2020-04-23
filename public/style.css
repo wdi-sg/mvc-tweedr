@@ -1,0 +1,79 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Lato", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.7;
+	color: #777;
+}
+
+.jumbotron {
+	text-align: center;
+	position: relative;
+}
+
+.home-nav {
+	height: 50px;
+	width: 120px;
+	font-size: 30px;
+	margin: 10px;
+}
+
+.register-container {
+	text-align: center;
+}
+
+.register-nav, .login-nav {
+	margin: 30px;
+}
+
+button.logout {
+	position: absolute;
+	font-size: 20px;
+	left: 30px
+}
+
+.tweed-container {
+	max-width: 1200px;
+	margin: 30px;
+}
+
+.tweed-header-input {
+	background-color: #7ebdb4;
+	width: 700px;
+	height: 500px;
+	margin: 0 auto;
+	border-radius: 8px;
+}
+
+.tweed-head {
+	padding: 20px;
+	font-size: 40px;
+}
+
+.tweed-username {
+	margin-left: 59px;
+}
+
+.text-field {
+	background-color: white;
+	padding: 5px;
+	height: 100px;
+
+}
+
+.tweed-insert {
+width: 610px;
+border-radius: 10px;
+padding: 5px;
+margin-left: 8px;
+}
+
+button.tweed-button {
+	border-radius: 10px;
+}

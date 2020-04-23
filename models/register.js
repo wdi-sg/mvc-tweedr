@@ -11,19 +11,22 @@ module.exports = (dbPoolInstance) => {
 
   let register = (name, callback) => {
 
-    let queryString = "INSERT INTO users(name, user_name, email, password) VALUES($1, $2, $3, $4)";
+    let queryString = "INSERT INTO users(name, user_name, password) VALUES($1, $2, $3) RETURNING *";
 
     let hashedPassword = sha256(name.password);
-    let input = [name.name, name.user_name, name.email, hashedPassword];
+
+    let input = [name.name, name.user_name, hashedPassword];
 
     dbPoolInstance.query(queryString, input, (error, queryResult) => {
-      if( error ){
+
+      if( error ) {
         console.log("ERRRRROR WHEN INSERTING USER DATA");
         console.log(error);
         // invoke callback function with results after query has executed
         callback(error, null);
-
-      }else{
+      }
+      console.log("###################")
+      console.log(queryResult.rows);
 
         // invoke callback function with results after query has executed
 
@@ -38,11 +41,11 @@ module.exports = (dbPoolInstance) => {
           callback(null, null);
 
         }
-      }
-    });
-  };
+      });
+    };
+
 
   return {
-    register: register
+    register: register,
   };
-};
+}

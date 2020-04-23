@@ -14,7 +14,7 @@
 
 const pg = require('pg');
 const url = require('url');
-
+const SALT = 'apple pie';
 var configs;
 
 if( process.env.DATABASE_URL ){
@@ -66,6 +66,7 @@ pool.on('error', function (err) {
 // ################# Tweedr Model ###################
 const registerTweedAccount = require('./models/register.js')(pool);
 const loginTweedAccount = require('./models/login.js')(pool);
+const insertTweed = require('./models/tweeds.js')(pool);
 
 
 // ################# Pokemon Model ###################
@@ -103,5 +104,6 @@ module.exports = {
   // users: userModelsObject,
   pokemon: pokemonModelsObject,
   register: registerTweedAccount,
-  login: loginTweedAccount
+  login: loginTweedAccount,
+  makeTweed: insertTweed
 };

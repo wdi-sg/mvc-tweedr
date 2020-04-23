@@ -3,6 +3,7 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const sha256 = require('js-sha256');
 
+
 /**
  * ===================================
  * Configurations and set up
@@ -14,7 +15,7 @@ const app = express();
 
 // Set up middleware
 app.use(methodOverride('_method'));
-
+app.use(express.static(__dirname+'/public/'));
 app.use(cookieParser());
 
 app.use(express.static('public'));

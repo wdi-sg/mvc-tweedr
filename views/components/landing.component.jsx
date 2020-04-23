@@ -1,17 +1,13 @@
-import React,{ useState } from 'react';
+import React from 'react'
 import RegistrationForm from './reg.component.form'
-
+import LoginForm from './login.component.form'
 
 const Landing = (props) => {
 
-  const switchForm = (whichForm)=> {
-    if (whichForm === 0) {
-      return (
-        <RegistrationForm/>
-      )
-    }
-    return null
-  }
+  // reg form = 0; login form = 1
+  const switchForm = (whichForm) => whichForm ?
+    (<LoginForm/>) : (<RegistrationForm/>)
+
   return (
     <React.Fragment>
 
@@ -19,9 +15,9 @@ const Landing = (props) => {
 
         <div className="columns is-gapless is-vcentered">
           <div className="column">
-              <section className="hero is-medium is-bold">
-                <div className="hero-body">
-                  <div className="container">
+            <section className="hero is-medium is-bold">
+              <div className="hero-body">
+                <div className="container">
                     <h1 className="title">
                       Follow your friends.
                     </h1>
@@ -33,9 +29,7 @@ const Landing = (props) => {
                 </div>
               </section>
           </div>
-          <div className="column has-background-grey-dark is-fixed-height-box">
             {switchForm(props.displayForm)}
-          </div>
         </div>
       </section>
 

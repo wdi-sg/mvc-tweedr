@@ -3,17 +3,19 @@ import React from 'react'
 const RegistrationForm = (props) => {
 
   return (
-    <form action="/register" method="post" className='has-text-centered'>
-      <section className="hero is-medium is-bold">
-        <div className="hero-body">
 
-          <div className="container">
-            <h1 className="title has-text-white">
-              See whats happening in the world right now
-            </h1>
-            <h2 className="subtitle">
-              Join tweedr today!
-            </h2>
+    <div className="column has-background-grey-dark is-fixed-height-box">
+      <form action="/register" method="post" className='has-text-centered'>
+        <section className="hero is-medium is-bold">
+          <div className="hero-body">
+
+            <div className="container">
+              <h1 className="title has-text-white">
+                See whats happening in the world right now
+              </h1>
+              <h2 className="subtitle">
+                Join tweedr today!
+              </h2>
 
             <div className="field">
 
@@ -59,10 +61,11 @@ const RegistrationForm = (props) => {
               </p>
             </div>
 
+            </div>
           </div>
-        </div>
-      </section>
-    </form>
+        </section>
+      </form>
+    </div>
   )
 
 }

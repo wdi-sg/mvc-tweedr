@@ -1,7 +1,10 @@
-import React from 'react'
+import React , {useState} from 'react'
 import '../../styles/index.scss'
 
 const _header = (props) => {
+
+
+  const [isMenuShown, showMenu] = useState(false)
 
   const handleRegisterBtnClicked = e => {
     props.loginSignUpClick(e)
@@ -11,6 +14,14 @@ const _header = (props) => {
     props.loginSignUpClick(e)
   }
 
+  const handleHamburgerClicked = e => {
+    if (isMenuShown) {
+      showMenu(false)
+    }else{
+      showMenu(true)
+    }
+  }
+
   return (
     <section className="section">
 
@@ -18,14 +29,14 @@ const _header = (props) => {
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
             <em className="navbar-item has-text-primary ">Tweedr</em>
-            <a role="button" className="navbar-burger" aria-label="menu"
-               aria-expanded="false">
+            <a role="button" className={`navbar-burger${isMenuShown?" is-active":""}`} aria-label="menu"
+               aria-expanded="false"  onClick = {handleHamburgerClicked}>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
             </a>
           </div>
-          <div className="navbar-menu">
+          <div className={`navbar-menu${isMenuShown?" is-active": ""}`}>
 
             <div className="navbar-start">
 

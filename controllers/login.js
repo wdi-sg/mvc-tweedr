@@ -33,8 +33,23 @@ module.exports = (db) => {
         // Hash password
         const hashPassword = sha256(password);
 
-        const userID = db.login.authenticateLogin(username, hashPassword);
-        console.log(userID);
+        let userID;
+
+        db.login.authenticateLogin(username, hashPassword)
+            .then((result) => {
+                const userID = result.rows[0].id;
+
+                response.cookie('loggedIn', 'true');
+                response.cookie('username', username);
+                response.cookie('userID', userID);
+
+                response.redirect('/');
+            })
+            .catch((err) => {
+                console.error(err.stack);
+            })
+
+
     }
 
 

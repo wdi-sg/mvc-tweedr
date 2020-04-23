@@ -19,6 +19,7 @@ class Home extends React.Component {
             </div>
             <div>
                 {loginForm}
+                <a href="/register">Don't have an account?</a>
             </div>
         </body>
       </html>

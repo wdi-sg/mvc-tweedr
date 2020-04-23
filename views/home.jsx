@@ -20,14 +20,6 @@ class Home extends React.Component {
             </form>
                 )
     }
-    else{
-        header = (
-                <div>
-                    <a href="/login">Login</a>
-                    <a href="/register">Don't have an account?</a>
-                </div>
-            )
-    }
 
     const allTweets = this.props.tweets;
     console.log(allTweets);

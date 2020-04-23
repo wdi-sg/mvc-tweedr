@@ -1,5 +1,13 @@
+body{
+	background: rgb(29, 202, 255);
+}
+
+h1{
+	color: white;
+}
+
 .tweet-body{
-	background-color: red
+	background-color: white;
 }
 
 .tweet-user{

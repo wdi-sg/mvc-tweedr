@@ -9,3 +9,14 @@ CREATE TABLE IF NOT EXISTS tweets (
 	user_id INTEGER,
 	message TEXT
 );
+
+CREATE TABLE IF NOT EXISTS tweets_hashtags (
+	id SERIAL PRIMARY KEY,
+	tweet_id INTEGER,
+	hashtag_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS hashtags (
+	id SERIAL PRIMARY KEY,
+	hashtag TEXT
+);

@@ -12,9 +12,18 @@ module.exports = (app, allModels) => {
    *  =========================================
    */
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+    // require the controller
+    const tweedrControllerCallbacks = require('./controllers/home')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+    const home = require('./controllers/home')(allModels);
+    app.get('/', home.index);
+    //app.get('/pokemons/:id', pokemons.getPokemon);
+
+    app.get('/login',home.getLogin)
+
+    app.post('/login',home.postLogin)
+
+    app.get('/register',home.getRegister)
+
+    app.post('/register',home.postRegister)
 };

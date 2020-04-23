@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'kwansing',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -61,12 +61,8 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
-
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
+const allTweedrModelsFunction = require('./models/tweedr');
+const tweedrModelsObject = allTweedrModelsFunction( pool );
 
 /*
  * ===================================================
@@ -80,20 +76,11 @@ const pokemonModelsObject = allPokemonModelsFunction( pool );
  * ===================================================
  */
 
-
 module.exports = {
   //make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
-
-  // get a reference to end the connection pool at server end
   pool:pool,
-
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  tweedr: tweedrModelsObject
 };

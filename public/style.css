@@ -37,6 +37,7 @@ h3 {
     height: 600px;
     width: 600px;
     margin: 10px auto;
+    overflow: auto;
 }
 
 ul {
@@ -50,4 +51,5 @@ ul li {
     margin: 5px;
     padding: 3px;
     text-align: left;
+    overflow: wrap;
 }

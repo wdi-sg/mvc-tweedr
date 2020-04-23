@@ -43,7 +43,7 @@ class Home extends React.Component {
             
           </nav>
           </div>
-          <div className = "container-fluid bg-dark w-75 h-100 border border-secondary mt-3 rounded-lg">
+          <div className = "container-fluid bg-dark w-50 h-100 border border-secondary mt-3 rounded-lg">
             <form method="POST" action="/post">
             <div className="form-group text-left">
     <label htmlFor="tweet" className="text-light">Hey {this.props.username}, what's on your mind?:</label>

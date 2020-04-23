@@ -29,6 +29,22 @@ module.exports = (db) => {
   };
 
 
+//////////// Individual ID
+  let userProfileControllerCallback = (request, response) => {
+    //response.send("hello from user profile");
+    console.log(request.params.username);
+        let username=request.cookies.username;
+         db.user.userProfile(username,(error, users) => {
+        const data = {}
+        data.users=users;
+        response.send(data);
+
+        //response.send(data);
+        //response.render("user/allusers", data);
+      });
+
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -36,6 +52,7 @@ module.exports = (db) => {
    */
   return {
     userAll: userAllControllerCallback,
+    userProfile: userProfileControllerCallback,
   };
 
 }

@@ -29,5 +29,6 @@ const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
     app.get('/user/',userControllerCallbacks.userAll);
     app.post('/follow/', followControllerCallbacks.follow);
     app.post('/tweet/', tweetControllerCallbacks.tweetAdd);
+    app.get('/user/:username',userControllerCallbacks.userProfile);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

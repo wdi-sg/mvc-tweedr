@@ -37,10 +37,8 @@ module.exports = (db) => {
          db.user.userProfile(username,(error, users) => {
         const data = {}
         data.users=users;
-        response.send(data);
-
         //response.send(data);
-        //response.render("user/allusers", data);
+        response.render("user/profile", data);
       });
 
   };

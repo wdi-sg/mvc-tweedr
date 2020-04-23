@@ -1,7 +1,17 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import RegistrationForm from './reg.component.form'
 
+
 const Landing = (props) => {
+
+  const switchForm = (whichForm)=> {
+    if (whichForm === 0) {
+      return (
+        <RegistrationForm/>
+      )
+    }
+    return null
+  }
   return (
     <React.Fragment>
 
@@ -24,7 +34,7 @@ const Landing = (props) => {
               </section>
           </div>
           <div className="column has-background-grey-dark is-fixed-height-box">
-            <RegistrationForm/>
+            {switchForm(props.displayForm)}
           </div>
         </div>
       </section>

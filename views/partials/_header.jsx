@@ -4,11 +4,11 @@ import '../../styles/index.scss'
 const _header = (props) => {
 
   const handleRegisterBtnClicked = e => {
-    console.log('register button clicked')
+    props.loginSignUpClick(e)
   }
 
   const handleLoginBtnClicked = e => {
-    console.log('login button clicked')
+    props.loginSignUpClick(e)
   }
 
   return (
@@ -42,11 +42,11 @@ const _header = (props) => {
             <div className="navbar-end">
               <div className="navbar-item">
                 <div className="buttons">
-                  <a className="button is-primary"
-                     onClick={handleRegisterBtnClicked}>
-                    <strong>Sign up</strong>
+                  <a className="button is-primary has-text-weight-bold"
+                     onClick={handleRegisterBtnClicked} id='navSignUpBtn'>
+                    Sign up
                   </a>
-                  <a className="button is-light" onClick={handleLoginBtnClicked}>
+                  <a className="button is-light" onClick={handleLoginBtnClicked} id='navLoginBtn'>
                     Log in
                   </a>
                 </div>

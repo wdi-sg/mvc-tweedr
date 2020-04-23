@@ -13,7 +13,20 @@ module.exports = (db) => {
   //////////////////////////
 
   const indexGetController = (req, res) => {
-    res.render('index');
+    const name = req.cookies['username'];
+    console.log('running indexGetController')
+
+    //show all tweets 
+    db.tweedrModels.getAllTweed(name, (err, queryResult) => {
+      if (err) {
+        console.error('query error:', err.stack);
+        res.send('query error');
+      } else {
+        console.log('testet', queryResult)
+        const data = {'tweeds': queryResult}
+        res.render('index', data);
+      }
+    })
   }
 
   const registerGetController = (req, res) => {
@@ -83,22 +96,8 @@ module.exports = (db) => {
         console.error('query error:', err.stack);
         res.send('query error');
       } else {
-        data = {'content': queryResult[0].content}
-        res.render('index', data);
-      }
-    })
-  }
-
-  const getAllPostController = (req, res) => {
-    const name = req.cookies['username'];
-
-    db.tweedrModels.getAllTweed(name, (err, queryResult) => {
-      if (err) {
-        console.error('query error:', err.stack);
-        res.send('query error');
-      } else {
-        console.log(queryResult)
-        res.render('index');
+        console.log('redirecting to /')
+        res.redirect('/')
       }
     })
   }
@@ -118,8 +117,7 @@ module.exports = (db) => {
     //POST request callbacks
     registerPost: registerPostController,
     loginPost: loginPostController,
-    createPost: createPostController,
-    getAllPost: getAllPostController
+    createPost: createPostController
 
   };
 

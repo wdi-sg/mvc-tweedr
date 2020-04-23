@@ -59,9 +59,9 @@ module.exports = (dbPoolInstance) => {
     })   
   }
 
-  const getAllTweedModel = (name, content, callbackFunc) => {
-    const query = 'INSERT INTO tweeds (content, user_id) SELECT $2, users.id FROM users WHERE users.name =$1 RETURNING content;'
-    const values = [name, content];
+  const getAllTweedModel = (name, callbackFunc) => {
+    const query = 'SELECT content FROM tweeds INNER JOIN users ON tweeds.user_id = users.id WHERE users.name = $1;'
+    const values = [name];
 
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {

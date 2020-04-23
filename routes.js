@@ -13,13 +13,12 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  const tweedrControllerCallbacks = require('./controllers/tweedr')(allModels);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
-
-  app.get('/register',pokemonControllerCallbacks.register);
-
-  app.get('/login',pokemonControllerCallbacks.login);
+  app.get('/register',tweedrControllerCallbacks.registerPage);
+  app.get('/login',tweedrControllerCallbacks.loginPage);
+  app.get('/home',tweedrControllerCallbacks.home);
+  app.post('/register',tweedrControllerCallbacks.register);
+  app.post('/login',tweedrControllerCallbacks.login)
 };
 

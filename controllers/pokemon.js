@@ -21,6 +21,11 @@ let loginControllerCallback = (request, response) => {
     response.render('pokemon/login', { allPokemon });
   });
 };
+let homeControllerCallback = (request, response) => {
+  db.pokemon.login((error, allPokemon) => {
+    response.render('pokemon/home', { allPokemon });
+  });
+};
 
 
   /**
@@ -31,7 +36,8 @@ let loginControllerCallback = (request, response) => {
   return {
     index: indexControllerCallback,
     register: registerControllerCallback,
-    login: loginControllerCallback
+    login: loginControllerCallback,
+    home:homeControllerCallback
   };
 
 }

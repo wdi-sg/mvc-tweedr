@@ -33,4 +33,6 @@ module.exports = (app, allModels) => {
 
   app.get("/hashtags", hashtagsController.displayAllHashtags);
 
+  app.get("/hashtags/:id", tweetsController.getTweetsWithHashtag);
+
 };

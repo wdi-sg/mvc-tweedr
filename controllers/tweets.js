@@ -13,7 +13,7 @@ module.exports = (db) => {
   };
 
   let submitNewTweet = (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     let content = request.body.content;
     let userid = parseInt(request.cookies.userid);
     let timestamp = Date.now();
@@ -32,7 +32,7 @@ module.exports = (db) => {
   let showOneTweet = (request, response) => {
     let id = parseInt(request.params.id);
     let cbDisplayOneTweet = (err, result) => {
-      console.log(result.rows);
+      // console.log(result.rows);
       let obj = {
         tweetArr: result.rows
       };
@@ -43,7 +43,7 @@ module.exports = (db) => {
 
   let showAllTweets = (request, response) => {
     let cbGetAllTweets = (arr) => {
-      console.log("final final:", arr);
+      // console.log("final final:", arr);
       let obj = {
         tweetsArr: arr
       };
@@ -52,10 +52,26 @@ module.exports = (db) => {
     db.tweets.getAllTweets(cbGetAllTweets);
   };
 
+  let getTweetsWithHashtag = (request, response) => {
+    let htId = parseInt(request.params.id);
+    console.log(htId);
+    let cbTweetsWithHashtagId = (err, result) => {
+      console.log(result.rows);
+      let obj = {
+        tweetsArr: result.rows,
+        htId: htId
+      };
+      response.render("./tweets/tweets-by-hashtag",obj);
+    }
+
+    db.tweets.tweetsWithHashtagId(htId, cbTweetsWithHashtagId);
+  };
+
   return {
     displayNewTweetForm: displayNewTweetForm,
     submitNewTweet: submitNewTweet,
     showOneTweet: showOneTweet,
     showAllTweets: showAllTweets,
+    getTweetsWithHashtag: getTweetsWithHashtag
   };
 };

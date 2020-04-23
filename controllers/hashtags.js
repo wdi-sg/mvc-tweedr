@@ -17,7 +17,7 @@ module.exports = (db) => {
   }
 
   let submitNewHashtag = (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     let tag = request.body.tag;
     let cbWriteNewHashtag = (err, result) => {
       console.log(result.rows);
@@ -29,7 +29,6 @@ module.exports = (db) => {
   return {
     displayNewHashtagForm: displayNewHashtagForm,
     submitNewHashtag: submitNewHashtag,
-    displayAllHashtags: displayAllHashtags
-   
+    displayAllHashtags: displayAllHashtags,
   };
 };

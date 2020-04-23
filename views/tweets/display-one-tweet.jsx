@@ -10,12 +10,15 @@ class DisplayOneTweet extends React.Component {
     let timestamp = new Date(timestampInt).toLocaleString("en-US", obj);
 
     let htArrHtml = tweetArr.map((ele) => {
-      let link2 = "/hashtags" + ele.ht_id;
-      return (
-        <li>
-          <a href={link2}>{ele.tag}</a>
-        </li>
-      );
+      console.log(ele.ht_id);
+      if (ele.ht_id !== undefined) {
+        let link2 = "/hashtags" + ele.ht_id;
+        return (
+          <li>
+            <a href={link2}>{ele.tag}</a>
+          </li>
+        );
+      }
     });
 
     const displayOneTweet = (

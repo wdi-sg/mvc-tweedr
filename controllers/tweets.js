@@ -25,7 +25,8 @@ module.exports = (db) => {
     let cbDisplayNewTweet = (err, result) => {
       tweetId = result.rows[0].id;
       db.tweets.writeTweetAndHt(hashtagArr, tweetId, cbDoNth);
-      // response.redirect();
+      let link = "/tweets/" + tweetId;
+      response.redirect(link);
     };
     db.tweets.writeNewTweet(content, userid, timestamp, cbDisplayNewTweet);
   };
@@ -43,11 +44,11 @@ module.exports = (db) => {
   };
 
   let showAllTweets = (request, response) => {
-    let cbGetAllTweets = (err, result) => {
+    let cbGetAllTweets = (arr) => {
+      console.log("final final:", arr);
       let obj = {
-        tweetArr: result.rows,
+        tweetsArr: arr
       };
-      console.log(obj);
       response.render("./tweets/display-all-tweet", obj);
     };
     db.tweets.getAllTweets(cbGetAllTweets);

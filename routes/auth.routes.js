@@ -12,7 +12,7 @@ router.post('/register', validateAuth([
     .trim()
 ]), registerUser)
 
-router.post('/register', validateAuth([
+router.post('/login', validateAuth([
   body('username').not().isEmpty()
     .withMessage('Username is required.')
     .trim(),

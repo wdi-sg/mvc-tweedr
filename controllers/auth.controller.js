@@ -1,8 +1,9 @@
 const User = require('../models/user.model')
 const util = require('util')
-const {genSalt, hash} = require('bcryptjs')
+const {genSalt, hash, compare} = require('bcryptjs')
 const genSaltPromise = util.promisify(genSalt)
 const hashPromise = util.promisify(hash)
+const comparePromise = util.promisify(compare)
 
 // @param raw password string
 // returns bluefish cipher
@@ -19,7 +20,15 @@ const registerUser =(async (req, res)=> {
 })
 
 const loginUser = (async (req, res)=> {
-  console.log('hello')
+  const {username:user_name, password} = req.body
+  const where = {user_name}
+  const [user] = await User.select('*', where)
+  const userPasswd = user.password
+  const isMatch = await comparePromise(password, userPasswd)
+  if (isMatch) {
+    return res.render('dashboard')
+  }
+  return res.send('failed')
 })
 
 

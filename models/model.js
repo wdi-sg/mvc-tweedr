@@ -26,6 +26,17 @@ class Model {
     this._data = data
   }
 
+  static async select (fieldsToSelect, whereParams,
+    tableName = this.name.toLowerCase()) {
+    let data, values
+    const statement = prepareSelectStmt(tableName, fieldsToSelect, whereParams)
+    if (whereParams) {
+      values = Object.values(whereParams)
+    }
+    data = await db.execute(statement, values)
+    return this.deSerialize(data.rows)
+  }
+
   static deSerialize (data) {
     return data.map(item => {
       const newObj = new this()

@@ -10,7 +10,7 @@ const LoginForm = (props) => {
 
             <div className="container">
               <h1 className="title has-text-white">
-                The world is one login again
+                The world is one click away
               </h1>
               <h2 className="subtitle has-text-white">
                 See the world right now
@@ -54,7 +54,7 @@ const LoginForm = (props) => {
 
               <div className="field">
                 <p className="control">
-                  <button className="button">
+                  <button className="button is-light is-inverted">
                     Login
                   </button>
                 </p>

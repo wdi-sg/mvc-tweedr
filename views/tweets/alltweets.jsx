@@ -17,7 +17,8 @@ class Home extends React.Component {
               <button className="btn btn-outline-warning btn-sm">✎</button>
             </a>
 
-            <form action={`/tweets/${tweetId}`}>
+            <form action={`/tweets/${tweetId}?_method=delete`} method="post">
+            <input name="tweetId" value={tweetId} type="hidden"/>
               <button className="btn btn-outline-danger btn-sm">╳</button>
             </form>
           </div>

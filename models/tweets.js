@@ -48,10 +48,44 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+
+    let deleteTweet = (tweetId, callback) => {
+
+        let query = `DELETE FROM tweets WHERE tweet_id = ${tweetId}`
+
+        dbPoolInstance.query(query, (err, result)=> {
+            callback(err, result);
+        })
+    }
+
+    let updateTweet = (tweetId, body, callback) => {
+
+        let query = `UPDATE tweets SET body = '${body}' WHERE tweet_id = ${tweetId} RETURNING *`;
+uu
+        dbPoolInstance.query(query, (err, result)=> {
+            callback(err, result.rows[0])
+
+        })
+
+    }
+
+    let getTweet = (tweetId, callback)=> {
+
+        let query = `SELECT * FROM tweets WHERE tweet_id = ${tweetId}`;
+
+        dbPoolInstance.query(query, (err,result)=> {
+            callback(err, result.rows[0]);
+        })
+
+    }
+
     return {
-        getAll: getAll,
-        getTweetsFromFollowing: getTweetsFromFollowing,
-        createTweet: createTweet
+      getAll: getAll,
+      getTweetsFromFollowing: getTweetsFromFollowing,
+      createTweet: createTweet,
+      deleteTweet: deleteTweet,
+      updateTweet: updateTweet,
+      getTweet: getTweet,
     };
 
 

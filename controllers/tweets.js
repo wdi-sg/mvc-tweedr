@@ -79,6 +79,62 @@ module.exports = (db) => {
 
     }
 
+    let deleteTweetControllerCallback = (req, res) => {
+
+        let targetId = req.body.tweetId
+
+        const whenModelIsDone = (err, result) => {
+            err && console.log(`Error!`, err);
+            !err && res.redirect(`/tweets`);
+        }
+
+        db.tweets.deleteTweet(targetId, whenModelIsDone)
+
+    };
+
+
+    let updateTweetControllerCallback = (req, res) => {
+
+        let targetId = req.params.id;
+        let content = req.body.tweetBody
+
+        const whenModelIsDone = (err, result) => {
+            err && console.log(`Error!`, err);
+            !err && res.redirect(`/tweets`);
+        };
+
+        db.tweets.updateTweet(targetId, content, whenModelIsDone);
+
+    }
+
+    let getEditTweetFormControllerCallback = (req, res) => {
+
+        let targetId = parseInt(req.params.id);
+        let currentUserId = req.cookies.currentUserId
+
+        const whenModelIsDone = (err, result) => {
+
+            const tweetedBy = parseInt(result.tweeted_by)
+
+            if (err) {
+                console.log(`Error!`, err);
+            } else {
+                if (tweetedBy == currentUserId) {
+                  res.render(`tweets/edit-tweet`, {
+                    tweetData: result,
+                  });
+                } else {
+                  res.render(`error`, {
+                    errorMsg: `You are not allowed to edit this tweet.`,
+                  });
+                }
+            }
+        }
+
+        db.tweets.getTweet(targetId, whenModelIsDone);
+
+    }
+
 
     /**
      * ===========================================
@@ -88,7 +144,10 @@ module.exports = (db) => {
     return {
         index: indexControllerCallback,
         getTweets: getTweetsControllerCallback,
-        createTweet: createTweetControllerCallBack
+        createTweet: createTweetControllerCallBack,
+        deleteTweet: deleteTweetControllerCallback,
+        updateTweet: updateTweetControllerCallback,
+        getEditTweetForm: getEditTweetFormControllerCallback,
     };
 
 }

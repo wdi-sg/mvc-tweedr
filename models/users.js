@@ -97,8 +97,6 @@ module.exports = (dbPoolInstance) => {
 
     let query = `SELECT * FROM users WHERE user_id = ${id}`
 
-    console.log(query)
-
     dbPoolInstance.query(query, (err, result)=> {
         callback(err, result.rows[0])
     })

@@ -10,23 +10,26 @@ module.exports = (db) => {
         const userID = request.cookies.userID;
         const username = request.cookies.username;
 
-        let data;
-
-        if (loggedIn === 'true'){
-            data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
-        }
-        else{
-            data = {'loggedIn': loggedIn}
-        }
-
         const whenQueryDone = (tweets) => {
             data['tweets'] = tweets;
             // response.render('home', data);
             response.render('home', data);
         }
 
-        // Get all tweets from database
-        db.index.showTweet(userID, whenQueryDone)
+        let data;
+
+        if (loggedIn === 'true'){
+            data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
+
+            // Get all tweets from database
+            db.index.showTweet(userID, whenQueryDone)
+        }
+        else{
+            // Not sure why when i remove this data part the code doesn't work
+            // data = {'hello' : 'hello'}
+
+            response.redirect('/login');
+        }
 
     };
 

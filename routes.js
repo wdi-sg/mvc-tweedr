@@ -11,6 +11,13 @@ module.exports = (app, allModels) => {
    *  =========================================
    *  =========================================
    */
+  // Login page
+  const loginPage = require('./controllers/login')(allModels);
+
+  app.get('/login', loginPage.loginPage);
+
+  app.get('/authenticating', loginPage.login);
+
 
   // Home page
   const homePage = require('./controllers/index')(allModels);
@@ -18,14 +25,6 @@ module.exports = (app, allModels) => {
   app.get('/', homePage.index);
 
   app.post('/tweet/:id', homePage.tweet);
-
-
-  // Login page
-  const loginPage = require('./controllers/login')(allModels);
-
-  app.get('/login', loginPage.loginPage);
-
-  app.get('/authenticating', loginPage.login);
 
 
   // Registration page

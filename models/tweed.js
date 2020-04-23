@@ -11,7 +11,6 @@ module.exports = (dbPoolInstance) => {
       if ( error ) {
         call(error, null);
       } else {
-        console.log("checkuserqmodel "+queryResult.rows.name);
         if( queryResult.rows.length > 0 ){
             call(null, queryResult.rows);
         }else{
@@ -37,7 +36,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let loginCheckQ = (reqUser, call) => {
-    let query = "SELECT password from users where name="+"'"+reqUser+"'" ;
+    let query = "SELECT * from users where name="+"'"+reqUser+"'" ;
     dbPoolInstance.query(query, (error, queryResult) => {
       if ( error ) {
         call(error, null);

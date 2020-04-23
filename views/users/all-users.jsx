@@ -44,7 +44,7 @@ class AllUsers extends React.Component {
           <Nav />
 
           <div className="general-container">
-            <h1>Showing All Users</h1>
+            <h1>Showing: {this.props.dataType}</h1>
 
             <div className="container">
             <div className="row">

@@ -29,18 +29,18 @@ module.exports = (db) => {
             let d = new Date();
             let hour = d.getHours();
             let greeting;
-            if (hour >= 18) {
-                greeting = `Evening`
-            } else if (hour => 12) {
-                greeting = `Afternoon`
-            } else if (hour > 3) {
-                greeting = `Morning`
-            } else {
-                greeting = `Evening`
+            //Between 6pm to 3:59am
+            if (hour >= 18 || hour < 4) {
+                greeting = `Good evening`
+            //Between 4:00am to 11:59am
+            } else if (hour > 4 || hour < 12) {
+                greeting = `Good morning`;
+            //Between 12pm to 5:59pm
+            } else if (hour => 12 || hour < 18) {
+                greeting = `Good afternoon`
             }
+
             let currentUserId = req.cookies.currentUserId;
-
-
             db.users.getCurrentUserDetails(currentUserId, (err, result) => {
                 const data = {
                     currentUser: result,
@@ -120,13 +120,13 @@ module.exports = (db) => {
                 console.log(`Error!`, err);
             } else {
                 if (tweetedBy == currentUserId) {
-                  res.render(`tweets/edit-tweet`, {
-                    tweetData: result,
-                  });
+                    res.render(`tweets/edit-tweet`, {
+                        tweetData: result,
+                    });
                 } else {
-                  res.render(`error`, {
-                    errorMsg: `You are not allowed to edit this tweet.`,
-                  });
+                    res.render(`error`, {
+                        errorMsg: `You are not allowed to edit this tweet.`,
+                    });
                 }
             }
         }

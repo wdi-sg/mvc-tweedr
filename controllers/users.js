@@ -72,7 +72,8 @@ module.exports = (db) => {
                     console.log(`Query Error!`, err);
                 } else {
                     const data = {
-                        users: result
+                        users: result,
+                        dataType: `All Users`
                     }
                     res.render(`users/all-users`, data);
                 };
@@ -173,13 +174,44 @@ module.exports = (db) => {
         let dpUrlInput = req.body.dp_url;
         let hashedPw = req.body.password;
         db.users.updateUser(
-          currentUserId,
-          handleInput,
-          displayNameInput,
-          dpUrlInput,
-          hashedPw,
-          whenModelDone
+            currentUserId,
+            handleInput,
+            displayNameInput,
+            dpUrlInput,
+            hashedPw,
+            whenModelDone
         );
+    }
+
+    let showFollowersControllerCallback = (req, res) => {
+
+        let currentUserId = req.cookies.currentUserId
+
+        const whenModelDone = (err, result) => {
+
+            res.render(`users/all-users`, {
+                users: result,
+                dataType: `Your Followers`
+            })
+
+        }
+
+        db.users.getFollowers(currentUserId, whenModelDone);
+
+    }
+
+    let showFollowingControllerCallback = (req, res) => {
+
+        let currentUserId = req.cookies.currentUserId;
+
+        const whenModelDone = (err, result) => {
+            res.render(`users/all-users`, {
+                users: result,
+                dataType: `Who You're Following`,
+            });
+        };
+
+        db.users.getFollowing(currentUserId, whenModelDone);
     }
 
     /**
@@ -198,7 +230,9 @@ module.exports = (db) => {
         getOneUser: getOneUserControllerCallback,
         getCurrentUser: getCurrentUserControllerCallback,
         getEditUserForm: getEditUserFormControllerCallback,
-        updateUser: updateUserControllerCallback
+        updateUser: updateUserControllerCallback,
+        showFollowers: showFollowersControllerCallback,
+        showFollowing: showFollowingControllerCallback
     };
 
 }

@@ -38,19 +38,14 @@ pool.on('error', function (err) {
 // const model = modelFunc(pool);
 const tweets = require('./models/tweets')(pool);
 
-// create a query interface for models to use
-// and have it return a promise
-const queryP = async (queryString, values) => {
-  return await pool.query(queryString, values);
-};
+// not exporting a query interface because we handle the promise
+// so we don't need to define a specific callback here
 
-// exports (variables don't need
+// exports (variables don't need :
 // cos they magically become `varname: varvalue`)
-// query interface
 // pool object so main app can close it
 // model objects with pool passed to them
 module.exports = {
-  queryP,
   pool,
   tweets
 };

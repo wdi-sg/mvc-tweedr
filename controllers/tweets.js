@@ -3,7 +3,7 @@
 // db gets passed in here
 module.exports = (db) => {
 
-  const index = (req, res) => {
+  const all = (req, res) => {
     const updateView = (results) => {
       res.send(results.rows);
     };
@@ -16,7 +16,7 @@ module.exports = (db) => {
       });
   };
 
-  const view = (req, res) => {
+  const one = (req, res) => {
     const updateView = (results) => {
       res.send(results.rows);
     };
@@ -31,7 +31,7 @@ module.exports = (db) => {
   };
 
   return {
-    index,
-    view
+    all,
+    one
   };
 };

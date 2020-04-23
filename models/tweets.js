@@ -3,22 +3,22 @@
 module.exports = (dbPoolInstance) => {
 
   const getAll = async () => {
-    let query = 'SELECT tweets.id, content, username ' +
+    let tweetQuery = 'SELECT tweets.id, content, username ' +
         'FROM tweets ' +
         'INNER JOIN users ' +
         'ON (tweets.user_id = users.id)';
-    return await dbPoolInstance.query(query);
+    return await dbPoolInstance.query(tweetQuery);
   };
 
   const getOne = async (id) => {
-    let query =
+    let tweetQuery =
         'SELECT tweets.id, content, username ' +
         'FROM tweets ' +
         'INNER JOIN users ' +
         'ON (tweets.user_id = users.id) ' +
         'WHERE tweets.id = $1';
     let values = [id];
-    return await dbPoolInstance.query(query, values);
+    return await dbPoolInstance.query(tweetQuery, values);
   };
 
   return {

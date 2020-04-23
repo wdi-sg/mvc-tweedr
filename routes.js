@@ -5,6 +5,6 @@ module.exports = (app, db) => {
   // require the controller which has a functon for each route
   const tweets = require('./controllers/tweets')(db);
 
-  app.get('/', tweets.index);
-  app.get('/:id', tweets.view);
+  app.get('/', tweets.all);
+  app.get('/tweets/:id', tweets.one);
 };

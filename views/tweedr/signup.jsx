@@ -1,23 +1,14 @@
 var React = require("react");
-const cookieParser = require('cookie-parser');
-const sha256 = require('js-sha256');
 
-class Home extends React.Component {
+class Signup extends React.Component {
   render() {
-    var showLogin = 'd-inline';
-    var showLogout = 'd-none';
     // console.log(this.props.types);
-    var loginCheck = this.props.loggedin;
-    
-    if (loginCheck == sha256('true')){
-      showLogin = 'd-none'
-      showLogout = 'd-inline';
-    }
-    else{
-      showLogin = 'd-inline'
-      showLogout = 'd-none';
-    }
-    
+    var loggedIn = 'invisible'
+    const logo = {
+      height: '70px',
+      width:'70px',
+      backgroundColor: 'transparent'
+    };
     return (
       <html>
         <head>
@@ -33,18 +24,24 @@ class Home extends React.Component {
                 </img>
                 &emsp;Tweedr
             </a>
-            <div className={showLogin}>
+            <div className={loggedIn}>
             <a className="btn btn-outline-primary rounded-pill mr-3 pl-4 pr-4 pt-1 pb-1" href="/login">Log In</a>
             <a className="btn btn-primary rounded-pill pl-4 pr-4 pt-1 pb-1" href="/signup">Sign Up</a>
             </div>
-            <div className={showLogout}>
-            <a className="btn btn-outline-primary rounded-pill  pl-4 pr-4 pt-1 pb-1" href="/logout">Log Out</a>
-            </div>
-            
           </nav>
           </div>
-          <div className = "container bg-dark w-75 border border-light rounded-lg">
-            <h3 className = "text-light">Test</h3>
+          <div className = "mt-0 container-fluid bg-dark w-50 d-flex flex-column text-center p-3 border border-secondary rounded-lg">
+          <img src="/Tweedr White.png" className="img-thumbnail border-0 ml-auto mr-auto " style={logo}></img>
+
+            <h4 className = "text-light">Sign up for Tweedr</h4>
+
+            <form className = "d-flex flex-column w-75 ml-auto mr-auto" method="POST" action={'/signup'}>
+              <input className= "mt-5 pl-2 pt-2 pb-2"type="text" name="username" placeholder= "Name"/>
+              <input className= "mt-3 pl-2 pt-2 pb-2" type="password" name="password" placeholder= "Password"/>
+              <input className= "mt-3 pl-2 pt-2 pb-2" type="password" name="confirm" placeholder= "Confirm Password"/>
+              <input className= "btn btn-primary rounded-pill mt-3 mb-3 pt-2 pb-2"type="submit" value="Sign Up"/>
+              <a href="/login">Have an account? Log in here</a>
+            </form>
           </div>
           
           <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossOrigin="anonymous"></script>
@@ -56,4 +53,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Signup;

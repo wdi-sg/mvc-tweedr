@@ -9,6 +9,13 @@ class Home extends React.Component {
     // console.log(this.props.types);
     var loginCheck = this.props.loggedin;
     
+      // Function to format date time value
+      function formatDateTime(date) {
+        var formatDate = date.toLocaleDateString();
+        var formatTime = date.toLocaleTimeString();
+        return `${formatDate} ${formatTime}`;
+      }
+      
     if (loginCheck == sha256('true')){
       showLogin = 'd-none'
       showLogout = 'd-inline';
@@ -16,6 +23,27 @@ class Home extends React.Component {
     else{
       showLogin = 'd-inline'
       showLogout = 'd-none';
+    }
+    var tweets = this.props.tweets;
+    if (tweets == null) {
+      tweets = <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">No tweets to display</div>
+    }
+    else {
+      tweets = tweets.map(element => {
+        var date = formatDateTime(element.postdate);
+        return <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">
+          <div className="col-1">
+            <img src="https://sociology.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" className="w-100 bg-dark rounded-circle" alt="" />
+          </div>
+          <div>
+            <strong>@{element.username}</strong>
+            <br />{element.tweetbody}
+            <br/>
+            <br /><small>{date}</small>
+          </div>
+        </div>
+
+      });
     }
     
     return (
@@ -43,8 +71,9 @@ class Home extends React.Component {
             
           </nav>
           </div>
-          <div className = "container bg-dark w-75 border border-light rounded-lg">
-            <h3 className = "text-light">Test</h3>
+          <div className = "container bg-dark w-75 border border-secondary pt-3 pb-3 mt-3 mb-3 rounded-lg">
+            <h3 className = "text-light">Feed</h3>
+            {tweets}
           </div>
           
           <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossOrigin="anonymous"></script>

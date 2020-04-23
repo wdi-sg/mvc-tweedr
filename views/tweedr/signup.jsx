@@ -18,14 +18,14 @@ class Signup extends React.Component {
         </head>
         <body className="bg-dark">
           <div className = "bg-dark border-bottom border-secondary">
-          <nav className="navbar navbar-dark bg-dark w-75 ml-auto mr-auto">
+          <nav className="navbar navbar-dark bg-dark w-75 ml-auto mr-auto pl-0 pr-0">
             <a className="navbar-brand" href="/">
               <img src="/Tweedr White.png" width="30" height="30" className="d-inline-block align-top" alt="">
                 </img>
                 &emsp;Tweedr
             </a>
             <div className={loggedIn}>
-            <a className="btn btn-outline-primary rounded-pill mr-3 pl-4 pr-4 pt-1 pb-1" href="/login">Log In</a>
+            <a className="btn btn-outline-primary rounded-pill mr-3 pl-2 pr-2 pt-1 pb-1" href="/login">Log In</a>
             <a className="btn btn-primary rounded-pill pl-4 pr-4 pt-1 pb-1" href="/signup">Sign Up</a>
             </div>
           </nav>

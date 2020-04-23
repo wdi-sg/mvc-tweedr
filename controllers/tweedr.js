@@ -7,17 +7,24 @@ module.exports = (db) => {
    */
 
   let loadIndex = (request, response) => {
-    
+
     // db.tweedr.getAll((error, allTweets) => {
     //   response.render('tweedr/index', { allTweets });
     // });
 
     var loggedIn = request.cookies['loggedIn'];
-    if (loggedIn == sha256('true')){
+    if (loggedIn == sha256('true')) {
       response.redirect('/main');
-    }else if(loggedIn == ""){
-      response.render('tweedr/index')    }
-    
+    } else if (loggedIn == "") {
+      db.tweedr.getTweets((error, result) => {
+        var allTweets = result;
+        console.log(allTweets);
+        var output = {};
+        output.tweets = allTweets;
+        response.render('tweedr/index', output);
+      });
+    }
+
   };
   let login = (request, response) => {
 
@@ -55,21 +62,21 @@ module.exports = (db) => {
 
   let loadMain = (request, response) => {
     var loggedIn = request.cookies['loggedIn'];
-    if (loggedIn == ""){
+    if (loggedIn == "") {
       response.redirect('/');
     }
-    else{
-    // var dataIn = request.body;
-    // db.tweedr.login(dataIn, (error, result) => {
-    //   response.cookie('username', result.username);
-    //   response.cookie('userid', result.userid);
-    //   response.cookie('loggedIn', sha256('true'));
-    //});
+    else {
+      // var dataIn = request.body;
       var username = request.cookies['username'];
       var userid = request.cookies['userid'];
       var loggedIn = request.cookies['loggedIn'];
-      var output = {'loggedIn':loggedIn, 'username': username, 'userid': userid}
-      response.render('tweedr/main',output);
+      var output = { 'loggedIn': loggedIn, 'username': username, 'userid': userid }
+      db.tweedr.getTweets((error, result) => {
+        var allTweets = result;
+        console.log(allTweets);
+        output.tweets = allTweets;
+        response.render('tweedr/main', output);
+      });
     }
   };
 
@@ -80,27 +87,27 @@ module.exports = (db) => {
     //   response.cookie('userid', result.userid);
     //   response.cookie('loggedIn', sha256('true'));
     //});
-      response.cookie('username', "");
-      response.cookie('userid', "");
-      response.cookie('loggedIn', "");
-      response.redirect('/');
-    
+    response.cookie('username', "");
+    response.cookie('userid', "");
+    response.cookie('loggedIn', "");
+    response.redirect('/');
+
   };
 
   let makePost = (request, response) => {
     var userid = request.cookies['userid'];
-    console.log(userid);
-    
+    // console.log(userid);
+
     var dataIn = request.body;
     dataIn.userid = userid;
-    console.log(dataIn);
-    
+    // console.log(dataIn);
+
     db.tweedr.makePost(dataIn, (error, result) => {
-      
+
       response.redirect('/main');
     });
-   
-    
+
+
   };
 
 
@@ -116,7 +123,7 @@ module.exports = (db) => {
     signupPost: signupPost,
     loginPost: loginPost,
     loadMain: loadMain,
-    logout:logout,
+    logout: logout,
     makePost: makePost
   };
 

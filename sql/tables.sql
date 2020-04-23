@@ -17,3 +17,18 @@ CREATE TABLE IF NOT EXISTS tweets (
 	content VARCHAR NOT NULL,
 	img_link VARCHAR DEFAULT NULL
 );
+
+--
+
+CREATE TABLE IF NOT EXISTS hashtags (
+	id serial PRIMARY KEY,
+	name VARCHAR (255) NOT NULL
+);
+
+--
+
+CREATE TABLE IF NOT EXISTS hashtags_tweets (
+	id serial PRIMARY KEY,
+	hashtag_id INTEGER REFERENCES hashtags(id) ON DELETE CASCADE,
+	tweet_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE
+);

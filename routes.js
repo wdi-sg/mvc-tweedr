@@ -15,6 +15,8 @@ module.exports = (app, allModels) => {
 
   app.post("/home", usersController.submitLogin);
 
+  app.get("/home", usersController.displayHomePage);
+
   app.get("/logout", usersController.logout);
 
   app.get("/tweets", tweetsController.showAllTweets);

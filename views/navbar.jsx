@@ -19,21 +19,21 @@ class Navbar extends React.Component {
         <div class="collapse navbar-collapse" id="navbarsExample02">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="/home">
                 Home
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/tweets">
-                All Tweets
+                Tweets
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/tweets/new">
-                New Tweet
+              <a class="nav-link" href="/hashtags">
+                Hashtags
               </a>
             </li>
-            
+      
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -43,20 +43,17 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Dropdown
+                Add New
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="">
-                  Sample 1
+                <a class="dropdown-item" href="/tweets/new">
+                  Tweet
                 </a>
-                <a class="dropdown-item" href="">
-                  Sample 2
-                </a>
-                <a class="dropdown-item" href="">
-                  Sample 3
+                <a class="dropdown-item" href="/hashtags/new">
+                  Hashtag
                 </a>
               </div>
             </li>

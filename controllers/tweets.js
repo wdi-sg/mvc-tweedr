@@ -19,9 +19,7 @@ module.exports = (db) => {
     let timestamp = Date.now();
     let hashtagArr = request.body.hashtag;
     let tweetId;
-
     let cbDoNth = (err, result) => {};
-
     let cbDisplayNewTweet = (err, result) => {
       tweetId = result.rows[0].id;
       db.tweets.writeTweetAndHt(hashtagArr, tweetId, cbDoNth);

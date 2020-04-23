@@ -10,6 +10,10 @@ module.exports = (db) => {
     response.render("./auth/register");
   };
 
+  let displayHomePage = (request, response) => {
+    response.render("./home");
+  };
+
   let submitRegistration = (request, response) => {
     // console.log(request.body);
     //Callback if all registration fields are correctly filled
@@ -65,7 +69,7 @@ module.exports = (db) => {
         response.render("home");
       } else {
         let obj = {
-          comments: "User not found. Please try again."
+          comments: "User not found. Please try again.",
         };
         response.render("./auth/login", obj);
       }
@@ -88,6 +92,7 @@ module.exports = (db) => {
     displayRegistration: displayRegistration,
     submitRegistration: submitRegistration,
     submitLogin: submitLogin,
-    logout: logout
+    logout: logout,
+    displayHomePage: displayHomePage,
   };
 };

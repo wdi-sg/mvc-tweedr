@@ -15,11 +15,17 @@ module.exports = (app, allModels) => {
   // require the controller
   const tweedr = require('./controllers/tweedr')(allModels);
   const users = require('./controllers/users')(allModels);
+  const hashtags = require('./controllers/hashtags')(allModels);
 
   // tweeds
   app.get('/', tweedr.index);
   app.get('/tweeds/new', tweedr.new);
   app.post('/tweeds', tweedr.newTweed);
+
+  // hashtags
+  app.get('/hashtags/', hashtags.show);
+  app.get('/hashtags/new', hashtags.new);
+  app.post('/hashtags', hashtags.newHashtag);
 
   // users
   app.get('/users/new', users.new);

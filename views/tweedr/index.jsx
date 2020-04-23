@@ -5,9 +5,9 @@ class Home extends React.Component {
     const allTweeds = this.props.allTweeds;
     let list = <ul style={{'display': 'none'}}></ul>;
 
-    if (allTweeds) {
+    if (allTweeds && this.props.loggedIn === 'true') {
       const tweeds = allTweeds.map(tweed => {
-        return <li>'{tweed.content}' by: {tweed.username}</li>;
+        return <li>'{tweed.content}' {tweed.hashtags} by: {tweed.username}</li>;
       });
 
       list = <ul style={{'display': 'block', 'listStyle': 'none'}}>{tweeds}</ul>;

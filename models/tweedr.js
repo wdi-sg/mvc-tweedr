@@ -27,10 +27,11 @@ module.exports = (dbPoolInstance) => {
     const user_id = info.user_id;
     const username = info.username;
     const content = info.content;
+    const hashtags = info.hashtags.join(' ');
 
-    let query = 'INSERT INTO tweeds (user_id, username, content) VALUES ($1, $2, $3)';
+    let query = 'INSERT INTO tweeds (user_id, username, content, hashtags) VALUES ($1, $2, $3, $4)';
 
-    dbPoolInstance.query(query, [user_id, username, content], (error, queryResult) => {
+    dbPoolInstance.query(query, [user_id, username, content, hashtags], (error, queryResult) => {
       if (error) {
         callback(error, null);
       } else {

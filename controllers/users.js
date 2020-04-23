@@ -64,29 +64,34 @@ module.exports = (db) => {
         res.redirect(`/login`)
     }
 
-    let getUsersControllerCallback = (req,res)=> {
-                    console.log(`This is tomnook`, sha256("tomnook"));
+    let getUsersControllerCallback = (req, res) => {
 
-      const whenModelDone = (err, result)=> {
-        if (err) {
-          console.log(`Query Error!`, err)
+        let isLoggedIn = req.cookies.isLoggedIn
+
+        if (isLoggedIn === 'false' || !isLoggedIn) {
+            return res.redirect(`/login`);
         } else {
-          const data = {
-            users: result
-          }
-          res.render(`users/all-users`, data)
+            const whenModelDone = (err, result) => {
+                if (err) {
+                    console.log(`Query Error!`, err)
+                } else {
+                    const data = {
+                        users: result
+                    }
+                    res.render(`users/all-users`, data)
+                }
+            }
+
+            db.users.getAll(whenModelDone)
         }
-      }
-      
-      db.users.getAll(whenModelDone)
 
     }
 
-    let followUserControllerCallback = (req,res)=> {
+    let followUserControllerCallback = (req, res) => {
         let currentUserId = req.cookies.currentUserId
         let userIdToFollow = req.body.userToFollow
 
-        const whenModelDone = (err, result)=> {
+        const whenModelDone = (err, result) => {
             if (err) {
                 console.log(`Error!`, err)
             } else {
@@ -105,13 +110,13 @@ module.exports = (db) => {
      * ===========================================
      */
     return {
-      getLoginForm: getLoginFormControllerCallback,
-      getRegisterForm: getRegisterFormControllerCallback,
-      addUser: addUserControllerCallback,
-      loginUser: loginUserControllerCallback,
-      logout: logoutControllerCallback,
-      getAllUsers: getUsersControllerCallback,
-      followUser: followUserControllerCallback
+        getLoginForm: getLoginFormControllerCallback,
+        getRegisterForm: getRegisterFormControllerCallback,
+        addUser: addUserControllerCallback,
+        loginUser: loginUserControllerCallback,
+        logout: logoutControllerCallback,
+        getAllUsers: getUsersControllerCallback,
+        followUser: followUserControllerCallback
     };
 
 }

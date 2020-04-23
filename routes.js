@@ -21,6 +21,7 @@ module.exports = (app, allModels) => {
   app.get("/register", userControllerCallbacks.getRegisterForm);
   app.post("/register", userControllerCallbacks.addUser);
   app.get("/logout", userControllerCallbacks.logout)
+  app.get(`/users/:id`, userControllerCallbacks.getOneUser);
 
   app.get(`/users`, userControllerCallbacks.getAllUsers);
   app.post(`/users/following`, userControllerCallbacks.followUser);
@@ -29,7 +30,7 @@ module.exports = (app, allModels) => {
 
   const tweetsControllerCallbacks = require('./controllers/tweets')(allModels);
   app.get("/tweets", tweetsControllerCallbacks.getTweets);
-    app.post("/tweets", tweetsControllerCallbacks.createTweet);
+  app.post("/tweets", tweetsControllerCallbacks.createTweet);
 
 
   app.get("/", tweetsControllerCallbacks.index);

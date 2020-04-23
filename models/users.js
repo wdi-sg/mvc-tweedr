@@ -25,8 +25,8 @@ module.exports = (dbPoolInstance) => {
         }else{
           callback(null, null);
 
-        }
-      }
+        };
+      };
     });
   };
 
@@ -39,7 +39,7 @@ module.exports = (dbPoolInstance) => {
     dbPoolInstance.query(query, values, (err, result)=> {
       callback(err, result.rows[0]);
     })
-  }
+  };
 
   const getUserLogin = (handle, pw, callback) => {
 
@@ -47,9 +47,9 @@ module.exports = (dbPoolInstance) => {
     
     dbPoolInstance.query(query, (err, result)=> {
       callback(err, result.rows[0])
-    })
+    });
     
-  }
+  };
 
   const getCurrentUserDetails = (id, callback)=> {
 
@@ -57,9 +57,9 @@ module.exports = (dbPoolInstance) => {
 
     dbPoolInstance.query(query, (err, result)=> {
       callback(err, result.rows[0]);
-    })
+    });
 
-  }
+  };
 
   const followUser = (thisUser, toFollow, callback) => {
     let values = [toFollow, thisUser]
@@ -70,8 +70,17 @@ module.exports = (dbPoolInstance) => {
         console.log(`Error!!`, err)
       } else {
         callback(err, result.rows[0])
-      }
+      };
 
+    });
+  };
+
+  const getOneUser = (id, callback) => {
+
+    let query = `SELECT * FROM users WHERE user_id = ${id}`
+
+    dbPoolInstance.query(query, (err, result)=> {
+        callback(err, result.rows[0])
     })
   }
 
@@ -80,6 +89,7 @@ module.exports = (dbPoolInstance) => {
     addUser: addUser,
     getUserLogin: getUserLogin,
     getCurrentUserDetails: getCurrentUserDetails,
-    followUser: followUser
+    followUser: followUser,
+    getOneUser: getOneUser
   };
 };

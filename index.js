@@ -24,6 +24,9 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+const moment = require("moment");
+moment().format();
+
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
 

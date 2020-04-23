@@ -19,6 +19,10 @@ body {
 		background-color: #01345B;
 }
 
+input {
+		color: grey;
+}
+
 /*.overlay {
 		position: fixed;
 		width: 100%;
@@ -38,9 +42,12 @@ body {
 }
 
 .header__heading {
-		font-size: 2.6rem;
 		padding: 24px 0;
+}
+
+.header__heading>a {
 		font-family: 'Abril Fatface', cursive;
+		font-size: 2.6rem;
 }
 
 main {

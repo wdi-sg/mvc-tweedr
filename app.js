@@ -58,6 +58,8 @@ app.use('/auth', authRoutes);
 
 app.use('/', async (req, res, next) => {
 
+    req.session.invalidMsg = "";
+
     if (req.session.userId) {
 
         req.currentUser = await authController.getUserInfo(req.session.userId);

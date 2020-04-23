@@ -8,6 +8,21 @@ class CreateTweetForm extends React.Component {
 
     render() {
 
+        const displayInvalidMsg = () => {
+
+            if (this.props.invalidMsg) {
+                return (
+                    <div className="invalid-msg__wrapper">
+                        <p className="invalid-msg">{this.props.invalidMsg}</p>
+                    </div>
+                )
+
+            } else {
+                return;
+            }
+
+        }
+
         return (
             <html>
                 <div className="overlay"></div>
@@ -18,9 +33,9 @@ class CreateTweetForm extends React.Component {
                     <Nav />
                     <main>
                         <div className="form__wrapper">
-                            <form method="POST" action={`/artists`} className="add-form">
+                            <form method="POST" action={`/tweets`} className="add-form">
+                                {displayInvalidMsg()}
                                 <h2 className="add-form__header">TWEET</h2>
-                                <input type="text" name="name" placeholder="Name" maxLength="25" />
                                 <input type="text" name="content" placeholder="Tweet goes here" maxlength="100"/>
                                 <input type="text" name="img" placeholder="Upload Image Link" />
                                 <button className="add-form__submit-btn" type="submit">Add</button>

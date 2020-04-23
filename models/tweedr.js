@@ -9,8 +9,24 @@ module.exports = (dbPoolInstance) => {
 
 
     let getAllTweets = (callback) => {
-        let query = 'SELECT * FROM tweets';
+        let query = 'SELECT tweets.id,name,content FROM users INNER JOIN tweets on (user_id = users.id)';
         dbPoolInstance.query(query, (error, queryResult) => {
+            if(error){
+                callback(error, null);
+            }else{
+                if( queryResult.rows.length > 0 ){
+                    //console.log(queryResult.rows)
+                    callback(null, queryResult.rows);
+                }else{
+                    callback(null, null);
+                }
+            }
+        })
+    };
+    let postNewTweet = (request, callback) => {
+        let values = request;
+        let query = "INSERT INTO tweets (content, user_id) VALUES ($1, $2) returning *";
+        dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error){
                 callback(error, null);
             }else{
@@ -20,32 +36,28 @@ module.exports = (dbPoolInstance) => {
                     callback(null, null);
                 }
             }
-        });
-    };
-
-    let postRegister = (request, callback) => {
-
-        let registerQuery = "INSERT INTO users (name, password) VALUES ($1, $2) returning *";
-        // console.log("MODEL >>>"+username)
-        // console.log("MODEL >>>"+hashedpassword)
+        })
+    }
+    let deleteTweet = (request,callback) => {
         let values = request;
-        //console.log("request>>>"+request)
-
-        dbPoolInstance.query(registerQuery, values, (error, result)=>{
+        console.log(values);
+        let query = "DELETE from TWEETS where id = $1";
+        dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error){
                 callback(error, null);
             }else{
-                if( result.rows.length > 0 ){
-                    callback(null, result.rows);
+                if( queryResult.rows.length > 0 ){
+                    //console.log(queryResult.rows)
+                    callback(null, queryResult.rows);
                 }else{
                     callback(null, null);
                 }
             }
-
         })
     }
     return {
-        getAll:getAllTweets,
-        postRegister:postRegister
+        getAllTweets,
+        postNewTweet,
+        deleteTweet
     };
 };

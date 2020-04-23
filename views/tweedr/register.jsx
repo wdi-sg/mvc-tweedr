@@ -17,7 +17,6 @@ class UsersNew extends React.Component {
                         password <input name="password"/>
                     </p>
                     <p>
-
                         <input type="submit"/>
                     </p>
                 </form>

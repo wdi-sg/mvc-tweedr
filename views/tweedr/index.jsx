@@ -2,7 +2,7 @@ var React = require("react");
 
 class playlist extends React.Component {
   render() {
-    console.log(this.props)
+    //console.log("thisprops>>>>>>>>>>>>>>>>>>"+this.props.tweets)
 
     let userButtons = (
         <div class='my-3 d-flex justify-content-end'>
@@ -18,20 +18,39 @@ class playlist extends React.Component {
                 </div>
         </div>);
 
-    if( this.props.loggedIn === true){
+    let inputTweets = ("");
+
+    if(this.props.loggedIn === true){
         userButtons = (
-            <div class='d-flex my-3'><h2><u>Welcome, {this.props.username}</u></h2>
+            <div class='d-flex my-3'><b>Welcome, {this.props.username}</b>
                 <div class='ml-auto'>
                     <form method="post" action="/logout?_method=delete">
-                        <button class="btn btn-dark rounded-pill" style={{width:"100px"}}>Log out</button>
+                        <button class="btn btn-dark rounded-pill" style={{width:"100px", boxShadow: "2px 2px 4px #000000"}}>Log out</button>
                     </form>
                 </div>
-            </div>)}
+            </div>)
+        inputTweets = (
+            <div class='row d-flex p-3'>
+                <form class="input-group mb-3" method="POST" action="/tweet/new">
+                    <input type="text" name="content" class="form-control" placeholder="Tweedr's content here" aria-label="Recipient's username" aria-describedby="basic-addon2" style={{boxShadow: "2px 2px 4px #000000"}}/>
+                    <div class="input-group-append">
+                        <button class="btn btn-light btn-outline-secondary" type="submit" style={{boxShadow: "2px 2px 4px #000000"}}>Tweedrz</button>
+                    </div>
+                </form>
+            </div>
+            )
+
+    }
     let list = this.props.tweets.map ((element) => {
         return (
-            <div class="my-2">
-                <form method="get" action={"/playlist/"+element.id}>
-                    <input type="submit" class="btn btn-block btn-light border" style={{height:"70px"}} value={element.content}/>
+            <div class="mb-2">
+                <form method="POST" action={"/tweet/delete/"+element.id}>
+                    <div class="btn btn-block btn-light" style={{height:"70px", boxShadow: "2px 2px 4px #000000"}}>
+                        <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
+                        <button class="ml-auto" style={{backgroundColor:"rgba(255,255,255,0)", border:"none"}}><b>x</b></button>
+                        </div>
+                        <div class="d-flex justify-content-start">{element.content}</div>
+                    </div>
                 </form>
             </div>
         )
@@ -47,7 +66,7 @@ class playlist extends React.Component {
           crossorigin="anonymous"/>
         </head>
         <body style={{backgroundColor:"#A3C4C9"}}>
-            <div class='container border' >
+            <div class='container'>
                     {userButtons}
                 <div class="row d-flex justify-content-center">
                     <h1 style={{marginLeft:"-200px"}}>Tweedr</h1>
@@ -55,15 +74,9 @@ class playlist extends React.Component {
                 <div class="row d-flex justify-content-center">
                     <h3>What Ya Thinkin'?</h3>
                 </div>
-                <div class='row d-flex p-3'>
-                    <form class="input-group mb-3" method="get" action="/tweet/new">
-                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-light btn-outline-secondary" type="submit">Tweedrz</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="row nav flex-column rounded-lg p-3 m-1" style={{backgroundColor:"#999999"}}>
+                {inputTweets}
+
+                <div class="row nav flex-column rounded-lg p-3 m-1" style={{backgroundColor:"#999999", boxShadow: "2px 2px 4px #000000"}}>
                     {list}
                 </div>
             </div>

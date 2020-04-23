@@ -19,16 +19,15 @@ module.exports = (db) => {
 
   let addNewUser = (req, res) => {
     let newUserName = req.body.name;
-    db.tweed.checkUserQ(newUserName, (error, result) => {
-        if(result === null) {
+    db.tweed.checkUserQ(newUserName, (error, checkUserQResult) => {
+        if(checkUserQResult === null) {
             let reqHPassword = sha256(req.body.password);
             let values = [req.body.name, reqHPassword];
             db.tweed.addNewUserQ(values, (err, result) => {
                 res.redirect('/');
             });
         } else {
-            console.log("Name exist. Please register with another name.")
-            res.redirect('/register');
+            res.render('tweed/register', { register : "failed"});
         };
     });
   };
@@ -63,6 +62,20 @@ module.exports = (db) => {
       });
   };
 
+  let tweedMessage = (req, res) => {
+    let user_id = req.cookies['user_id'];
+    let hashLog = sha256(SALT + user_id);
+    if (req.cookies['logged in'] === hashLog){
+        let values = [req.body.message, user_id];
+        db.tweed.messageQ(values, (err, result) => {
+            res.redirect('/all');
+        });
+    } else {
+        res.status(403);
+        res.redirect('/');
+    };
+  };
+
   let tweedPage = (req, res) => {
     let user_id = req.cookies['user_id'];
     let hashLog = sha256(SALT + user_id);
@@ -75,28 +88,6 @@ module.exports = (db) => {
         res.redirect('/');
     };
   };
-
-
-  let tweedMessage = (req, res) => {
-    let user_id = req.cookies['user_id'];
-    let hashLog = sha256(SALT + user_id);
-    if (req.cookies['logged in'] === hashLog){
-        let username = req.cookies.user;
-        db.tweed.userIdQ(username, (error, userIdResult) => {
-            let userId = userIdResult[0].id;
-            let values = [req.body.message, userId];
-            db.tweed.messageQ(values, (err, result) => {
-                res.redirect('/all');
-            })
-        });
-    } else {
-        res.status(403);
-        res.redirect('/');
-    };
-  };
-
-
-
 
   let logout = (req, res) => {
     res.clearCookie('logged in');

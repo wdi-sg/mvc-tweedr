@@ -50,20 +50,20 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-  let userIdQ = (username, call) => {
-    let query = "SELECT * FROM users WHERE name =" +"'"+username+"'";
-    dbPoolInstance.query(query, (error, queryResult) => {
-        if ( error ) {
-          call(error, null);
-        } else {
-          if( queryResult.rows.length > 0 ){
-              call(null, queryResult.rows);
-          }else{
-              call(null, null);
-          };
-        };
-    });
-  }
+  // let userIdQ = (username, call) => {
+  //   let query = "SELECT * FROM users WHERE name =" +"'"+username+"'";
+  //   dbPoolInstance.query(query, (error, queryResult) => {
+  //       if ( error ) {
+  //         call(error, null);
+  //       } else {
+  //         if( queryResult.rows.length > 0 ){
+  //             call(null, queryResult.rows);
+  //         }else{
+  //             call(null, null);
+  //         };
+  //       };
+  //   });
+  // }
 
   let messageQ = (values, call) => {
     let query = "INSERT INTO tweeds (message, user_id) values ($1, $2);";
@@ -81,7 +81,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let allTweedsQ = (call) => {
-    let query = "SELECT * FROM tweeds order by id ASC;";
+    let query = "SELECT * FROM tweeds ORDER BY id ASC;";
     dbPoolInstance.query(query, (error, queryResult) => {
         if ( error ) {
           call(error, null);
@@ -101,6 +101,5 @@ module.exports = (dbPoolInstance) => {
         loginCheckQ,
         allTweedsQ,
         messageQ,
-        userIdQ
     };
 };

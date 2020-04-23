@@ -25,7 +25,7 @@ module.exports = (db) => {
     let cbDisplayNewTweet = (err, result) => {
       tweetId = result.rows[0].id;
       db.tweets.writeTweetAndHt(hashtagArr, tweetId, cbDoNth);
-      response.redirect();
+      // response.redirect();
     };
     db.tweets.writeNewTweet(content, userid, timestamp, cbDisplayNewTweet);
   };
@@ -33,10 +33,10 @@ module.exports = (db) => {
   let showOneTweet = (request, response) => {
     let id = parseInt(request.params.id);
     let cbDisplayOneTweet = (err, result) => {
+      console.log(result.rows);
       let obj = {
-        tweet: result.rows[0],
+        tweetArr: result.rows
       };
-      console.log("obj:", obj);
       response.render("./tweets/display-one-tweet", obj);
     };
     db.tweets.getOneTweet(id, cbDisplayOneTweet);

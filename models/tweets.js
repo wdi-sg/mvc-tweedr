@@ -14,7 +14,8 @@ module.exports = (pool) => {
   };
 
   let getOneTweet = (id, cb) => {
-    let queryText = `select * from tweets where id=${id}`;
+    let queryText = `select tweets.id, tweets.content, tweets.timestamp, hashtags.tag, tweet_hashtag.ht_id from tweets join tweet_hashtag on (tweets.id = tweet_hashtag.tweet_id) join hashtags on (tweet_hashtag.ht_id = hashtags.id) where tweets.id=${id}`;
+    console.log(queryText);
     pool.query(queryText, cb);
   };
 

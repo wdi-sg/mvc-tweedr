@@ -3,12 +3,20 @@ var Main = require("../main-template");
 
 class DisplayOneTweet extends React.Component {
   render() {
-    let tweet = this.props.tweet;
-    let link = "/tweets/" + tweet.id;
+    let tweetArr = this.props.tweetArr;
+    let link = "/tweets/" + tweetArr[0].id;
     let obj = { dateStyle: "full", timeStyle: "medium" };
-    let timestampInt = parseInt(tweet.timestamp);
+    let timestampInt = parseInt(tweetArr[0].timestamp);
     let timestamp = new Date(timestampInt).toLocaleString("en-US", obj);
-    // console.log(timestamp);
+
+    let htArrHtml = tweetArr.map((ele) => {
+      let link2 = "/hashtags" + ele.ht_id;
+      return (
+        <li>
+          <a href={link2}>{ele.tag}</a>
+        </li>
+      );
+    });
 
     const displayOneTweet = (
       <div className="container">
@@ -20,9 +28,10 @@ class DisplayOneTweet extends React.Component {
               </h3>
               <br></br>
               <ul>
-                <li>Id: {tweet.id}</li>
-                <li>{tweet.content}</li>
+                <li>Id: {tweetArr[0].id}</li>
+                <li>{tweetArr[0].content}</li>
                 <li>{timestamp}</li>
+                {htArrHtml}
               </ul>
               <br></br>
             </form>

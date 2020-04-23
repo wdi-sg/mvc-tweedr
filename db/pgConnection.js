@@ -2,7 +2,7 @@
     connect()
  */
 require('dotenv').config()
-const pg = require('pg');
+const {Pool} = require('pg');
 
 class PgConnection {
 
@@ -18,4 +18,4 @@ class PgConnection {
 
 }
 
-module.exports = PgConnection
+module.exports = new PgConnection()

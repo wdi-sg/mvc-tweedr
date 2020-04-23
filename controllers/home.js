@@ -8,10 +8,11 @@ module.exports = (db) => {
 
   let indexControllerCallback = (request, response) => {
     //response.send("hello");
-     db.home.getTweet((error, tweets) => {
+     db.home.getTweet((error, fullData) => {
         const data = {}
-        data.tweets=tweets;
-        //response.send(data);
+        data.tweets=fullData.tweets;
+        data.hash=fullData.hash;
+        //response.send(fullData);
         let username= request.cookies.username;
         if(username===undefined)
         {

@@ -18,19 +18,48 @@ class Home extends React.Component {
 
 
         });
+        const hash=this.props.hash.map(hash=>
+        {
+            console.log(hash);
+            const url="#";
+            return <div class={"col-4 mt-2 text-center"}>
+
+            <label for={hash.id}>{hash.hashtext}</label>
+            <input type={"checkbox"} id = {hash.id} name = "hashid" value={hash.id}></input>
+            </div>
+
+
+
+        });
     if(this.props.isLogin)
     {
         buttonSwitch=[
                      <div class = {"col-12"}>
                     <form method="POST" action="/tweet"  style={{textAlign: "Center"}}>
-                    <span>Enter Tweet: </span>
+                    <span>Enter New Tweet: </span>
                     <input  id= "tweet" type="text" name="tweet" placeholder="Enter Tweet" required
                             oninvalid="this.setCustomValidity('Enter Tweet Here')"
                             oninput="this.setCustomValidity('')" ></input>
                     <br></br><br></br>
+
+                    <span>Enter New Hash in the format # and a space in betwen (#hello #myworld #likes) </span>
+                    <input  id= "hash" type="text" name="newHash" placeholder="Enter Hash" required
+                            oninvalid="this.setCustomValidity('Enter Hash Here')"
+                            oninput="this.setCustomValidity('')" ></input>
+                    <br></br><br></br>
+
+                    <div class = {"row"}>
+                        <div class={"col-12 text-center"}>
+                            <h2>Choose any existing hash tag</h2>
+                        </div>
+                    </div>
+                    <div class={"row"}>
+                    {hash}
+                    </div>
                     <input  id= "tweet" type="text" name="username" placeholder="Enter Tweet" required
                             oninvalid="this.setCustomValidity('Enter Tweet Here')"
                             oninput="this.setCustomValidity('')" value={name} style={{display:"none"}}></input>
+
                     <input type="submit" value="Submit"></input>
                 </form>
                 </div>
@@ -53,14 +82,14 @@ class Home extends React.Component {
 
 
 
-          <div class={"container mt-3"}>
+          <div class={"container mt-3 mb-5"}>
                         <div class={"row align-bottom border"}>
             <div class={"col-12 mt-5 text-center"}>
             <h1  class={"mt-3"}>Welcome {name} to Tweeder</h1>
             </div>
             </div>
             {tweet}
-                       <div class={"row"}>
+                       <div class={"row mt-5"}>
                 {buttonSwitch}
             </div>
           </div>

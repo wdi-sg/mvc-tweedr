@@ -8,10 +8,9 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
   let tweet = (name, callback) => {
-    console.log("Beep Beep Beep");
-    console.log(name);
+
     //let query = 'INSERT into users (name, password) VALUES ($1, $2)';
-    let query = 'SELECT * from users WHERE name = ($1)';
+  /*  let query = 'SELECT * from users WHERE name = ($1)';
     let data = [name.username];
     let user_id="";
     let tweet_id="";
@@ -94,7 +93,42 @@ module.exports = (dbPoolInstance) => {
 
         }
       }
-    });
+    });*/
+///hashing
+
+   console.log("Beep Beep Beep");
+    console.log(name);
+    let newHashArray=[];
+    newHashArray=name.newHash.split(" ");
+    console.log(newHashArray)
+/*dbPoolInstance.query(queryJoinInner, innerJoinData, (error, queryInnerJoinResult) => {
+                                  if( error ){
+                                    console.log("Error")
+                                    console.log(error);
+                                            // invoke callback function with results after query has executed
+                                    callback(error, null);
+
+                                  }else{
+
+                                    // invoke callback function with results after query has executed
+
+                                    if( queryResult.rows.length > 0 ){
+                                                  console.log("BOom Boom Boon Boon");
+
+                                      console.log(queryInnerJoinResult.rows);
+                                      //console.log(tweet_id);
+                                      callback(null, queryInnerJoinResult.rows);
+
+                                    }else{
+                                        console.log("Wrong User Entry")
+                                      callback(null, null);
+
+                                    }
+                                  }
+                                });*/
+
+
+
   };
 
   return {

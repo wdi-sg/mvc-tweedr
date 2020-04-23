@@ -8,7 +8,7 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
   let getTweet = (callback) => {
-
+    let dataOutput={};
     let query = 'SELECT * FROM tweets';
 
     dbPoolInstance.query(query, (error, queryResult) => {
@@ -22,7 +22,29 @@ module.exports = (dbPoolInstance) => {
         // invoke callback function with results after query has executed
 
         if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
+            dataOutput.tweets= queryResult.rows;
+              let hashquery = 'SELECT * FROM hash';
+
+                dbPoolInstance.query(hashquery, (hasherror, queryhashResult) => {
+                  if( hasherror ){
+                    console.log("Error")
+                    // invoke callback function with results after query has executed
+                    callback(hasherror, null);
+
+                  }else{
+
+                    // invoke callback function with results after query has executed
+
+                    if( queryhashResult.rows.length > 0 ){
+                        dataOutput.hash= queryhashResult.rows;
+                      callback(null, dataOutput);
+
+                    }else{
+                      callback(null, null);
+
+                    }
+                  }
+                });
 
         }else{
           callback(null, null);

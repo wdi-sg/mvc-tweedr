@@ -13,11 +13,11 @@ module.exports = (db) => {
     response.render('./tweedr/login')
   }
 
-
-
-
-
+  let tweetControllerCallback = (request, response) => {
+    response.render('./tweedr/tweets')
   }
+
+
 
 
 
@@ -34,6 +34,7 @@ module.exports = (db) => {
   return {
     home: homeControllerCallback,
     register: registerControllerCallback,
-    login: loginControllerCallback
+    login: loginControllerCallback,
+    tweets: tweetControllerCallback
   }
 }

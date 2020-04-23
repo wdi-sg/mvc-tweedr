@@ -89,6 +89,10 @@ const followModelsObject = allfollowModelsFunction( pool );
 const alltweetModelsFunction = require('./models/tweet');
 
 const tweetModelsObject = alltweetModelsFunction( pool );
+
+const allhashModelsFunction = require('./models/hash');
+
+const hashModelsObject = allhashModelsFunction( pool );
 /*
  * ===================================================
  * ===================================================
@@ -123,5 +127,6 @@ module.exports = {
   user: userModelsObject,
   follow: followModelsObject,
   tweet: tweetModelsObject,
+  hash: hashModelsObject
 
 };

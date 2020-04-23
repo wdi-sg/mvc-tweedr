@@ -20,6 +20,7 @@ const registerControllerCallbacks = require('./controllers/register')(allModels)
 const userControllerCallbacks = require('./controllers/user')(allModels);
 const followControllerCallbacks = require('./controllers/follow')(allModels);
 const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
+const hashControllerCallbacks = require('./controllers/hash')(allModels);
 
     app.get('/', homeControllerCallbacks.index);
     app.get('/login/',loginControllerCallbacks.login);
@@ -30,5 +31,7 @@ const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
     app.post('/follow/', followControllerCallbacks.follow);
     app.post('/tweet/', tweetControllerCallbacks.tweetAdd);
     app.get('/user/:username',userControllerCallbacks.userProfile);
+    app.get('/hash/',hashControllerCallbacks.allHash);
+    app.get('/hash/:id',hashControllerCallbacks.singleHash);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

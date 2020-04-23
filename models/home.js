@@ -22,7 +22,9 @@ module.exports = (dbPoolInstance) => {
         // invoke callback function with results after query has executed
 
         if( queryResult.rows.length > 0 ){
+
             dataOutput.tweets= queryResult.rows;
+
               let hashquery = 'SELECT * FROM hash';
 
                 dbPoolInstance.query(hashquery, (hasherror, queryhashResult) => {
@@ -34,15 +36,14 @@ module.exports = (dbPoolInstance) => {
                   }else{
 
                     // invoke callback function with results after query has executed
+console.log("BEeeeeeeeeee");
 
-                    if( queryhashResult.rows.length > 0 ){
+
                         dataOutput.hash= queryhashResult.rows;
+                        console.log(dataOutput);
                       callback(null, dataOutput);
 
-                    }else{
-                      callback(null, null);
 
-                    }
                   }
                 });
 

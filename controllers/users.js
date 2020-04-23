@@ -1,4 +1,7 @@
+
 module.exports = (db) => {
+    const sha256 = require('js-sha256');
+const SALT = "my-cookie";
 
   //Controller logic
 
@@ -20,13 +23,16 @@ module.exports = (db) => {
      const name = request.body.name;
      const password = request.body.password;
      const callbackFunction = (err, result) => {
-        if (err) {
-            console.log('error!', err);
-            response.send("error");
-        } else {
-            response.send('successfully registered account.');
-            //response.render('message', { message: 'successfully registered account.' });
-        }
+        if(err==="exist"){
+            const data ={
+                message: "Already registered"
+            }
+            response.redirect('/login',message);
+        }else if(err){
+            response.send("error")
+        }else{
+            response.send("Successfully registered");
+         }
      }
 
     db.users.registerAccount(name, password, callbackFunction);

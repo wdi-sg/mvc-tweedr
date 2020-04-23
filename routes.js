@@ -6,6 +6,7 @@ module.exports = (app, allModels) => {
   //const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
    const userControl = require('./controllers/users')(allModels);
    const tweetControl = require('./controllers/tweets')(allModels);
+   const hashControl = require('./controllers/hashtags')(allModels);
 
   //app.get('/pokemons',pokemonControllerCallbacks.index);
   // users
@@ -20,6 +21,11 @@ module.exports = (app, allModels) => {
    app.post('/new', tweetControl.addTweets);
    app.get('/', tweetControl.allTweets);
   //app.get('/pokemons/:id', pokemons.getPokemon);
+
+  //hashtags
+  app.get('/create',hashControl.newHashtags);
+  app.post('/create',hashControl.addHashtags);
+  app.get('/show', hashControl.allHashtags);
 };
 
 /*

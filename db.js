@@ -43,6 +43,8 @@ const userModelsFunction = require('./models/users');
 const userModelsObject = userModelsFunction(pool);
 const tweetModelsFunction = require('./models/tweets');
 const tweetModelsObject = tweetModelsFunction(pool);
+const hashwordModelsFunction = require('./models/hashtags');
+const hashwordModelsObject = hashwordModelsFunction(pool);
 
 
 //======          MODULE EXPORTS            =========
@@ -61,6 +63,7 @@ module.exports = {
   // users: userModelsObject,
   //pokemon: pokemonModelsObject
   users: userModelsObject,
-  tweets: tweetModelsObject
+  tweets: tweetModelsObject,
+  hashword:hashwordModelsObject
 
 };

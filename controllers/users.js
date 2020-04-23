@@ -9,6 +9,9 @@ module.exports = (db) => {
         response.render('pokemon/index', { allPokemon });
       });
   };*/
+
+
+
   let registerUser = (request,response)=>{
     response.render('users/registeruser');
   };

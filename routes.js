@@ -43,4 +43,6 @@ module.exports = (app, allModels) => {
 
   app.post('/follow', profilePage.follow);
 
+  app.delete('/unfollow/:id1/:id2/:profile', profilePage.unfollow);
+
 };

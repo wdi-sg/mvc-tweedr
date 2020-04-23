@@ -27,9 +27,17 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString, values);
   }
 
+
+  const unfollowProfile = (followerID, followeeID) => {
+    let queryString = `delete from following where followee_id='${followeeID}' and follower_id=${followerID}`
+
+    return dbPoolInstance.query(queryString);
+  }
+
   return {
     getProfile,
     followProfile,
-    getFollower
+    getFollower,
+    unfollowProfile
   };
 };

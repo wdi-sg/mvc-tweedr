@@ -27,10 +27,10 @@ class Home extends React.Component {
     let followForm;
 
     if(this.props.followingRelationship){
+        const url = `/unfollow/${userProfileID}/${userID}/${userProfileName}/?_method=delete`;
+
         followForm = (
-                <form action='/unfollow/?_method=delete' method='post'>
-                    <input type="hidden" name="userProfileID" value={userProfileID}></input>
-                    <input type="hidden" name="userProfileName" value={userProfileName}></input>
+                <form action={url} method="post">
                     <input type="submit" value="unfollow"></input>
                 </form>
                 )

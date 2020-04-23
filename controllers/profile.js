@@ -5,6 +5,7 @@ module.exports = (db) => {
    * ===========================================
    */
 
+   // Show profile page
    let profilePageController = (request, response) => {
       // Get user profile id
       const userProfileID = request.params.id;
@@ -71,6 +72,8 @@ module.exports = (db) => {
 
    }
 
+
+   // When user follows profile
    let followProfileController = (request, response) => {
       const followeeID = request.body.userProfileID;
       const followerID = request.cookies.userID;
@@ -79,7 +82,20 @@ module.exports = (db) => {
 
       db.profile.followProfile(followerID, followeeID)
         .then(results => {
-          console.log(results.rows)
+          response.redirect(`/profile/${followeeID}/${userProfileName}`);
+        })
+   }
+
+
+   // When user unfollows profile
+   let unfollowProfileController = (request, response) => {
+
+      const followeeID = request.params.id1;
+      const followerID = request.params.id2;
+      const userProfileName = request.params.profile;
+
+      db.profile.unfollowProfile(followerID, followeeID)
+        .then(results => {
           response.redirect(`/profile/${followeeID}/${userProfileName}`);
         })
    }
@@ -92,6 +108,7 @@ module.exports = (db) => {
 
    return{
     profile: profilePageController,
-    follow: followProfileController
+    follow: followProfileController,
+    unfollow: unfollowProfileController
    }
 }

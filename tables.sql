@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS tweets (id SERIAL PRIMARY KEY, tweetbody TEXT, users_
 
 -- Show all tweets
 SELECT users.username, tweets.tweetbody
-FROM users
-ON users.id = tweets.users_id;
+FROM users, tweets
+WHERE users.id = tweets.users_id;
 
 -- Find tweets from ID number
 SELECT users.username, tweets.tweetbody

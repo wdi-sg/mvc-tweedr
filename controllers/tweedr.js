@@ -13,9 +13,7 @@ module.exports = (db) => {
   // };
 
   let loginCallback = (request, response) => {
-    db.tweedr.getAll((error, allTweed) => {
-        response.render('tweedr/login');
-      });
+        response.render('login');
   };
 
   /**
@@ -24,7 +22,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    login: loginCallback
+    loginCallback,
   };
 
 }

@@ -4,7 +4,7 @@ import Head from '../page-components/head-component';
 import Header from '../page-components/header-component';
 import Nav from '../page-components/nav-component';
 
-class CreateTweetForm extends React.Component {
+class AddHashtag extends React.Component {
 
     render() {
 
@@ -32,11 +32,10 @@ class CreateTweetForm extends React.Component {
                     <Nav />
                     <main>
                         <div className="form__wrapper">
-                            <form method="POST" action={`/tweets`} className="add-form">
+                            <form method="POST" action={`/hashtags`} className="add-form">
                                 {displayInvalidMsg()}
-                                <h2 className="add-form__header">TWEET</h2>
-                                <input type="text" name="content" placeholder="Tweet goes here" maxlength="100"/>
-                                <input type="text" name="img" placeholder="Upload Image Link" />
+                                <h2 className="add-form__header">ADD HASHTAG</h2>
+                                <input type="text" name="name" placeholder="Hashtag goes here" maxlength="100"/>
                                 <button className="add-form__submit-btn" type="submit">Add</button>
                             </form>
                         </div>
@@ -47,4 +46,4 @@ class CreateTweetForm extends React.Component {
     }
 }
 
-module.exports = CreateTweetForm;
+module.exports = AddHashtag;

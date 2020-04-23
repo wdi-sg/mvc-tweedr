@@ -4,7 +4,7 @@ import Head from '../page-components/head-component';
 import Header from '../page-components/header-component';
 import Nav from '../page-components/nav-component';
 
-class EditTweetForm extends React.Component {
+class EditHashtagForm extends React.Component {
 
     render() {
 
@@ -17,11 +17,9 @@ class EditTweetForm extends React.Component {
                     <Nav />
                     <main>
                         <div className="form__wrapper">
-                            <form method="POST" action={`/tweets/${this.props.singleTweet.id}?_method=put`} className="edit-form">
-                                <h2 className="edit-form__header">TWEET</h2>
-                                <input type="text" name="content" defaultValue={this.props.singleTweet.content} maxlength="100"/>
-                                <h3 className="edit-form__input-header">Image Link</h3>
-                                <input type="text" name="img" defaultValue={this.props.singleTweet.img}/>
+                            <form method="POST" action={`/hashtags/${this.props.singleHashtag.id}?_method=put`} className="edit-form">
+                                <h2 className="edit-form__header">HASHTAG</h2>
+                                <input type="text" name="name" defaultValue={this.props.singleHashtag.name} maxlength="100"/>
                                 <button className="edit-form__submit-btn" type="submit">Edit</button>
                             </form>
                         </div>
@@ -32,4 +30,4 @@ class EditTweetForm extends React.Component {
     }
 }
 
-module.exports = EditTweetForm;
+module.exports = EditHashtagForm;

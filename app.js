@@ -51,10 +51,13 @@ const db = require('./db');
 const authController = require('./controllers/auth-controller');
 const authRoutes = require('./routes/auth-routes');
 const tweetsRoutes = require('./routes/tweets-routes');
+const hashtagsRoutes = require('./routes/hashtags-routes');
 
 app.use('/tweets', tweetsRoutes);
 
 app.use('/auth', authRoutes);
+
+app.use('/hashtags', hashtagsRoutes);
 
 app.use('/', async (req, res, next) => {
 

@@ -11,6 +11,7 @@ module.exports = (app, allModels) => {
    *  =========================================
    *  =========================================
    */
+
   // Login page
   const loginPage = require('./controllers/login')(allModels);
 
@@ -28,10 +29,16 @@ module.exports = (app, allModels) => {
 
 
   // Registration page
-
   const registrationPage = require('./controllers/registration')(allModels);
 
   app.get('/register', registrationPage.registerPage);
 
   app.post('/register', registrationPage.register);
+
+
+  //profile page
+  const profilePage = require('./controllers/profile')(allModels);
+
+  app.get('/profile/:id/:user', profilePage.profile);
+
 };

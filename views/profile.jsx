@@ -2,36 +2,35 @@ var React = require("react");
 
 class Home extends React.Component {
   render() {
-    let header;
 
-    let tweet;
+    const userProfileName = this.props.userProfileName;
 
-    if (this.props.loggedIn === 'true') {
-        const username = this.props.username;
-        const userID = this.props.userID;
+    const userProfileID = this.props.userProfileTweets[0].users_id;
 
-        header = <p>{username}</p>
+    const username = this.props.username;
 
-        const url = `/tweet/${userID}`
-        tweet = (
-            <form action={url} method='post'>
-                <input type="text" name="tweet" placeholder="What's happening?"></input>
-                <input type="submit" value="tweet"></input>
-            </form>
-                )
-    }
+    const userID = this.props.userID;
 
-    const allTweets = this.props.tweets;
-    console.log(allTweets);
+    const header = <p>{username}</p>
 
+    const allTweets = this.props.userProfileTweets;
+
+    // Tweet body
     const showAllTweets = allTweets.map(el => {
+        console.log(el)
         return(
             <div className="tweet-body">
                 <p className='tweet-content'>{el.tweet}</p>
-                <p className='tweet-user'>-{el.username}</p>
             </div>
             )
     })
+
+    const followForm = (
+                    <form>
+                        <input type="hidden" name="userProfileName" value={userProfileID}></input>
+                        <input type="submit" value="follow"></input>
+                    </form>
+                    )
 
     return (
       <html>
@@ -44,8 +43,9 @@ class Home extends React.Component {
                 <h1>TWEEDR</h1>
                 {header}
             </div>
-            <div className="new-tweet">
-                {tweet}
+            <div>
+                <h2>{userProfileName}</h2>
+                {followForm}
             </div>
             <div className="all-tweet-body">
                 {showAllTweets}

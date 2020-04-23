@@ -8,6 +8,13 @@ h1{
 
 .tweet-body{
 	background-color: white;
+	width: 70%;
+	margin: auto;
+}
+
+.new-tweet{
+	width: 70%;
+	margin: auto;
 }
 
 .tweet-user{

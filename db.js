@@ -76,6 +76,11 @@ const allLoginModelsFunction = require('./models/login');
 
 const loginModelsObject = allLoginModelsFunction(pool);
 
+// profile page files
+const allProfileModelsFunction = require('./models/profile');
+
+const profileModelsObject = allProfileModelsFunction(pool);
+
 /*
  * ===================================================
  * ===================================================
@@ -105,5 +110,6 @@ module.exports = {
   // users: userModelsObject,
   registration: registrationModelsObject,
   login: loginModelsObject,
-  index: indexModelsObject
+  index: indexModelsObject,
+  profile: profileModelsObject
 };

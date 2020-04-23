@@ -18,7 +18,7 @@ module.exports = (app, allModels) => {
    // tweets
    app.get('/new', tweetControl.newTweets);
    app.post('/new', tweetControl.addTweets);
-   //app.get('/', tweetControl.allTweets);
+   app.get('/', tweetControl.allTweets);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };
 

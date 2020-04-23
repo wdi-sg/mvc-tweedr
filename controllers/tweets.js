@@ -26,6 +26,16 @@ module.exports = (db) => {
      db.tweets.addTweets(request.body.tweet,request.body.user_id,addTweetCallback)
    }
 
+    let allTweets = (request,response)=>{
+        const allTweetCallback = (err, result) => {
+            data = {
+                tweets: result
+            };
+        response.render('tweets/alltweets', data);
+        }
+        db.tweets.allTweets(allTweetCallback);
+    }
+
 
 
 
@@ -33,7 +43,8 @@ module.exports = (db) => {
   return {
     //index: indexControllerCallback,
     newTweets:newTweets,
-    addTweets:addTweets
+    addTweets:addTweets,
+    allTweets:allTweets
   };
 
 }

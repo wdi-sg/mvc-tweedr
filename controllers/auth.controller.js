@@ -18,7 +18,12 @@ const registerUser =(async (req, res)=> {
   user.save().then(data=>res.send(data))
 })
 
+const loginUser = (async (req, res)=> {
+  console.log('hello')
+})
+
 
 module.exports = {
-  registerUser
+  registerUser,
+  loginUser
 }

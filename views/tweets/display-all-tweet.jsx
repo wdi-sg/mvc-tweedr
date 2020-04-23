@@ -12,11 +12,17 @@ class DisplayAllTweets extends React.Component {
       let timestamp = new Date(timestampInt).toLocaleString("en-US", obj);
       let link2 = "/tweets/" + element.id;
       return (
-        <tr>
-          <td className="text-center" width="20%">{element.username}</td>
-          <td className="text-center" width="40%"><a href={link2}>{element.content}</a></td>
-          <td className="text-center" width="40%">{timestamp}</td>
-        </tr>
+        <div class="card bg-light mb-3">
+          <div class="card-header">{timestamp}</div>
+          <div class="card-body">
+            <h6 class="card-title"><strong>{element.username}</strong></h6>
+            <p class="card-text">
+              <em>
+                <a href={link2}>{element.content}</a>
+              </em>
+            </p>
+          </div>
+        </div>
       );
     });
 
@@ -30,11 +36,11 @@ class DisplayAllTweets extends React.Component {
               </h3>
               <br></br>
 
-              <table class="table table-striped">
-                <tbody>
-                  {tweetArrHtml}
-                </tbody>
-              </table>
+              {tweetArrHtml}
+
+              {/* <table class="table table-striped">
+                <tbody>{tweetArrHtml}</tbody>
+              </table> */}
 
               <br></br>
             </form>

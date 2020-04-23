@@ -46,9 +46,11 @@ pool.on("error", function (err) {
 
 const allUserModelsFunction = require("./models/users");
 const allTweetModelsFunction = require("./models/tweets");
+const allHtModelsFunction = require("./models/hashtags");
 
 const UserModelsObject = allUserModelsFunction(pool);
 const TweetModelsObject = allTweetModelsFunction(pool);
+const HtModelsObject = allHtModelsFunction(pool);
 
 /*
  * ===================================================
@@ -78,4 +80,5 @@ module.exports = {
   // users: userModelsObject,
   tweets: TweetModelsObject,
   users: UserModelsObject,
+  hashtags: HtModelsObject
 };

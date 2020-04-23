@@ -3,6 +3,7 @@ module.exports = (app, allModels) => {
   //Require the controller
   const usersController = require("./controllers/users")(allModels);
   const tweetsController = require("./controllers/tweets")(allModels);
+  const hashtagsController = require("./controllers/hashtags")(allModels);
 
   //ROUTES
 
@@ -24,6 +25,10 @@ module.exports = (app, allModels) => {
 
   app.get("/tweets/:id", tweetsController.showOneTweet);
 
+  app.get("/hashtags/new", hashtagsController.displayNewHashtagForm);
 
+  app.post("/hashtags/new", hashtagsController.submitNewHashtag);
+
+  app.get("/hashtags", hashtagsController.displayAllHashtags);
 
 };

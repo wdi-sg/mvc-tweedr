@@ -22,39 +22,45 @@ class Login extends React.Component {
                 <br></br>
                 <p className="text-danger">
                   <em>{this.props.comments}</em>
+                  <br></br>
                 </p>
-                <br></br>
-                <h5 className="mb-3">NEW USERS:</h5>
-                <a href="/register" className="btn btn-info">
-                  Register Here!
-                </a>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <form method="POST" action="/home">
-                  <h5 className="mb-3">EXISTING USERS:</h5>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    type="text"
-                    name="password"
-                    placeholder="Password"
-                    className="form-control"
-                  />
-                  <br></br>
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Login"
-                  />
-                  <br></br>
-                </form>
+                <div className="row">
+                  <div className="col-6">
+                    <h5 className="mb-3">NEW USERS:</h5>
+                    <a href="/register" className="btn btn-info">
+                      Register Here!
+                    </a>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                  </div>
+                  <div className="col-6">
+                    <form method="POST" action="/home">
+                      <h5 className="mb-3">EXISTING USERS:</h5>
+                      <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        className="form-control"
+                      />
+                      <br></br>
+                      <input
+                        type="text"
+                        name="password"
+                        placeholder="Password"
+                        className="form-control"
+                      />
+                      <br></br>
+                      <input
+                        className="btn btn-primary"
+                        type="submit"
+                        value="Login"
+                      />
+                      <br></br>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

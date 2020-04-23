@@ -17,3 +17,14 @@ create table if not exists followers (
  user_id integer,
  follower_id integer
 );
+
+create table if not exists hashtags (
+ id serial primary key,
+ tag text
+);
+
+create table if not exists tweet_hashtag (
+ id serial primary key,
+ tweet_id integer,
+ ht_id integer
+);

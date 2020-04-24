@@ -17,7 +17,6 @@ class Home extends React.Component {
         <body>
           <h1>home</h1>
           {userButtons}
-          <script src="script.js"></script>
         </body>
       </html>
     );

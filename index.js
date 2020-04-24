@@ -32,24 +32,9 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
-/**
- * ===================================
- * ===================================
- *                DB
- * ===================================
- * ===================================
- */
 
 // db contains *ALL* of our models
 const allModels = require('./db');
-
-/**
- * ===================================
- * ===================================
- * Routes
- * ===================================
- * ===================================
- */
 
 // get the thing that contains all the routes
 const setRoutesFunction = require('./routes');

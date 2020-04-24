@@ -48,8 +48,19 @@ module.exports = (pool) => {
           }
         });
       }
+      for (let z=0; z < tweetsArr.length; z++) {
+        queryText = `select * from likes where tweet_id = ${tweetsArr[z].id}`;
+        await pool.query(queryText).then((result) => {
+          let likesArr = result.rows;
+          if (likesArr.length > 0) {
+            tweetsArr[z].likesArr = likesArr;
+          } else {
+            tweetsArr[z].likesArr = [];
+          }
+        });
+      }
     });
-    // console.log("final:", tweetsArr);
+    // console.log("final: ", tweetsArr);
     cb(tweetsArr);
   };
 

@@ -28,3 +28,10 @@ create table if not exists tweet_hashtag (
  tweet_id integer,
  ht_id integer
 );
+
+create table if not exists likes (
+  id serial primary key,
+  user_id integer,
+  tweet_id integer,
+  islike boolean
+);

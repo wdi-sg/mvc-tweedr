@@ -4,7 +4,7 @@ module.exports = (app, allModels) => {
   const usersController = require("./controllers/users")(allModels);
   const tweetsController = require("./controllers/tweets")(allModels);
   const hashtagsController = require("./controllers/hashtags")(allModels);
-
+  const likesController = require("./controllers/likes")(allModels);
   //ROUTES
 
   app.get("/", usersController.displayLoginPage);
@@ -34,5 +34,7 @@ module.exports = (app, allModels) => {
   app.get("/hashtags", hashtagsController.displayAllHashtags);
 
   app.get("/hashtags/:id", tweetsController.getTweetsWithHashtag);
+
+  app.post("/likes", likesController.writeNewLikeOrUnlike);
 
 };

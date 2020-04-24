@@ -42,11 +42,14 @@ module.exports = (db) => {
   };
 
   let showAllTweets = (request, response) => {
+    let currentlyLoggedInUserId = parseInt(request.cookies.userid);
     let cbGetAllTweets = (arr) => {
       // console.log("final final:", arr);
       let obj = {
-        tweetsArr: arr
+        tweetsArr: arr,
+        userIdNow: currentlyLoggedInUserId
       };
+      console.log(obj);
       response.render("./tweets/display-all-tweet", obj);
     };
     db.tweets.getAllTweets(cbGetAllTweets);
@@ -63,7 +66,6 @@ module.exports = (db) => {
       };
       response.render("./tweets/tweets-by-hashtag",obj);
     }
-
     db.tweets.tweetsWithHashtagId(htId, cbTweetsWithHashtagId);
   };
 

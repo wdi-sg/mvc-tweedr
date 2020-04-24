@@ -1,6 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const sha256 = require('js-sha256');
 
 /**
  * ===================================
@@ -27,6 +28,7 @@ app.use(express.urlencoded({
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
 
+app.set('public', __dirname + '/public');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
@@ -54,7 +56,7 @@ const allModels = require('./db');
 const setRoutesFunction = require('./routes');
 
 // call it and pass in the "app" so that we can set routes on it (also models)
-setRoutesFunction(app, allModels);
+setRoutesFunction(app, allModels); 
 
 /**
  * ===================================

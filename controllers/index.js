@@ -21,12 +21,21 @@ module.exports = (db) => {
         if (loggedIn === 'true'){
             data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
 
-            // Get all tweets from database
-            db.index.showTweet(userID, whenQueryDone)
+            // Get all followees tweets from database
+            db.index.showTweet(userID)
+                .then(results => {
+                    const tweets = results.rows
+                    console.log(tweets)
+                    data['tweets'] = tweets;
+
+                    // response.render('home', data);
+                    response.render('home', data);
+                })
+                .catch(err => {
+                    console.error(err.stack)
+                })
         }
         else{
-            // Not sure why when i remove this data part the code doesn't work
-            // data = {'hello' : 'hello'}
 
             response.redirect('/login');
         }
@@ -38,12 +47,11 @@ module.exports = (db) => {
         const userID = request.params.id;
         const tweet = request.body.tweet;
 
-        const whenQueryDone = () => {
-            response.redirect('/');
-        }
-
         // Add tweet into database
-        db.index.addTweet(tweet, userID, whenQueryDone);
+        db.index.addTweet(tweet, userID)
+            .then(results => {
+                response.redirect('/')
+            })
     }
 
    /**

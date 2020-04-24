@@ -7,39 +7,28 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  const addTweet = (tweet, users_id, callback) => {
+  // Add a tweet
+  const addTweet = (tweet, users_id) => {
     let queryString = "insert into tweets (tweet, users_id) values ($1, $2) returning *";
 
     const values = [tweet, users_id];
 
-    dbPoolInstance.query(queryString, values, (err, results) => {
-      if(err){
-        console.log(err);
-      }
-      else{
-        callback();
-      }
-    })
-
+    return dbPoolInstance.query(queryString, values)
   };
 
-  const showTweet = (userID, callback) => {
+  // Get all followees tweets
+  const showTweet = (userID) => {
     let queryString = `
-                    select tweet, users_id, username
-                    from tweets
-                    inner join users
-                    on (tweets.users_id = users.id)
+                    select tweets.tweet, tweets.users_id, users.username
+                    from following
+                    inner join tweets on (following.followee_id = tweets.users_id)
+                    inner join users on (tweets.users_id = users.id)
+                    where following.follower_id = ${userID}
+                    or users.id = ${userID}
                     `;
 
-    dbPoolInstance.query(queryString, (err, results) => {
-      if(err){
-        console.log(err);
-      }
-      else{
-        callback(results.rows);
-      }
-    })
-  }
+    return dbPoolInstance.query(queryString)
+  };
 
   return {
     addTweet,

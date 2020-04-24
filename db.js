@@ -52,6 +52,11 @@ const userModelsObject = userFunction( pool );
 const tweetFunction = require('./models/tweet');
 const tweetModelsObject =  tweetFunction( pool );
 
+const newHashtag = document.createElement('form');
+newHashtag.innerHTML = `<input type='submit' value='Add Hashtag'/><br/><br/>`;
+newHashtag.setAttribute('method', 'GET');
+newHashtag.setAttribute('action', '/hashtags/new');
+
 
 //MODULE EXPORTS
 

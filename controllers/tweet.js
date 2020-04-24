@@ -22,6 +22,38 @@ module.exports = (db) => {
 
   };
 
+  let showAllTweet = (request, response) => {
+    //response.send("I am going to show you all tweet");
+    //let user=request.body;
+         db.tweet.alltweet((error, tweets) => {
+        const data = {}
+        data.tweets=tweets;
+
+        data.name = request.cookies.username;
+               console.log(data);
+        //response.send(data);
+
+        response.render("tweets/alltweets", data);
+      });
+
+  };
+
+  let showOneTweet = (request, response) => {
+    response.send("I am going to show you one tweet");
+    //let user=request.body;
+    /*     db.tweet.alltweet((error, tweets) => {
+        const data = {}
+        data.tweets=tweets;
+
+        data.name = request.cookies.username;
+               console.log(data);
+        //response.send(data);
+
+        response.render("tweets/alltweets", data);
+      });*/
+
+  };
+
 
   /**
    * ===========================================
@@ -30,6 +62,8 @@ module.exports = (db) => {
    */
   return {
     tweetAdd: tweetAddControllerCallback,
+    showAllTweet: showAllTweet,
+    showOneTweet: showOneTweet,
   };
 
 }

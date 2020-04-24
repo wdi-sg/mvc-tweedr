@@ -30,6 +30,8 @@ const hashControllerCallbacks = require('./controllers/hash')(allModels);
     app.get('/user/',userControllerCallbacks.userAll);
     app.post('/follow/', followControllerCallbacks.follow);
     app.post('/tweet/', tweetControllerCallbacks.tweetAdd);
+    app.get('/tweet/', tweetControllerCallbacks.showAllTweet);
+    app.get('/tweet/:id', tweetControllerCallbacks.showOneTweet);
     app.get('/user/:username',userControllerCallbacks.userProfile);
     app.get('/hash/',hashControllerCallbacks.allHash);
     app.get('/hash/:id',hashControllerCallbacks.singleHash);

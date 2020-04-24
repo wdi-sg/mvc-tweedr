@@ -60,6 +60,12 @@ let checkHashQuery= 'SELECT * FROM hash';
                 }
             }
           }
+          for(let existingcount=0; existingcount<exisitingHashIdArray.length;existingcount++)
+          {
+            exisitingHashIdArray[existingcount]= parseInt(exisitingHashIdArray[existingcount]);
+          }
+          const uniqueNumberSet = new Set(exisitingHashIdArray);
+          exisitingHashIdArray =[...uniqueNumberSet];
           console.log("BEEEEEEEEEE BEEEEEEEEEE");
           console.log(newHashArray);
               let hashquery = 'INSERT into hash (hashtext) VALUES'
@@ -228,8 +234,42 @@ dbPoolInstance.query(hashquery, newHashArray, (error, queryNewHashResult) => {
 
 
   };
+  let alltweet = (callback) => {
+    console.log("Beep Beep Beep");
+    //console.log(name);
+    //let query = 'INSERT into users (name, password) VALUES ($1, $2)';
+    let query = 'SELECT * from tweets';
+    //let data = [name.username];
 
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if( error ){
+        console.log("Error")
+        console.log(error);
+                // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+                      console.log("BOom Boom Boon Boon");
+          callback(null, queryResult.rows);
+
+
+        }else{
+            console.log("Wrong User Entry")
+          callback(null, null);
+
+        }
+      }
+    });
+
+
+
+  };
   return {
     tweet:tweet,
+    alltweet:alltweet,
   };
 };

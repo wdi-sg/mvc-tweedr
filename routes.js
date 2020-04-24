@@ -3,12 +3,11 @@ module.exports = (app, allModels) => {
 //  ALL ROUTES FOR POKEMON CONTROLLER
 
   // require the controller
-  //const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
    const userControl = require('./controllers/users')(allModels);
    const tweetControl = require('./controllers/tweets')(allModels);
    const hashControl = require('./controllers/hashtags')(allModels);
+   const favoriteControl = require('./controllers/favorites')(allModels);
 
-  //app.get('/pokemons',pokemonControllerCallbacks.index);
   // users
    app.get('/register', userControl.registerUser);
    app.post('/register', userControl.registerAccount);
@@ -20,17 +19,14 @@ module.exports = (app, allModels) => {
    app.get('/new', tweetControl.newTweets);
    app.post('/new', tweetControl.addTweets);
    app.get('/', tweetControl.allTweets);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  //
 
   //hashtags
   app.get('/create',hashControl.newHashtags);
   app.post('/create',hashControl.addHashtags);
   app.get('/show', hashControl.allHashtags);
+
+  //favorites
+  app.get('/favorite/new',favoriteControl.newFavorites);
+  app.post('/favorite',favoriteControl.addFavorites);
 };
-
-/*
-app.get('/',(request,response)=>{
-    pool.query(query,values(eroor,result)=>{
-
-    })
-});*/

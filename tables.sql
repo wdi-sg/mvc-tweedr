@@ -20,3 +20,9 @@ id SERIAL PRIMARY KEY,
 hashtag_id INTEGER,
 tweet_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS favorites(
+id SERIAL PRIMARY KEY,
+user_id INTEGER,
+tweet_id INTEGER
+);

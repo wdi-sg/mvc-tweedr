@@ -6,7 +6,8 @@ let newHashtags = (request,response)=>{
   };
 console.log("entering control");
 const addHashtags = (request,response)=>{
-    const addHashwordCallback = (err, result) => {
+    console.log("working addhashtag outer");
+        const addHashwordCallback = (err, result) => {
         console.log(request.body.hashword);
          if (err) {
             console.log('error!', err);
@@ -15,6 +16,8 @@ const addHashtags = (request,response)=>{
              response.send("added hashtag")
          }
     }
+    console.log("in controllr")
+    console.log(db.hashtags);
      db.hashtags.addHashtags(request.body.hashword,addHashwordCallback)
 
 };

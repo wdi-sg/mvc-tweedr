@@ -45,6 +45,8 @@ const tweetModelsFunction = require('./models/tweets');
 const tweetModelsObject = tweetModelsFunction(pool);
 const hashwordModelsFunction = require('./models/hashtags');
 const hashwordModelsObject = hashwordModelsFunction(pool);
+const favoritesModelsFunction = require('./models/favorites');
+const favoritesModelsObject = favoritesModelsFunction(pool);
 
 
 //======          MODULE EXPORTS            =========
@@ -64,6 +66,7 @@ module.exports = {
   //pokemon: pokemonModelsObject
   users: userModelsObject,
   tweets: tweetModelsObject,
-  hashword:hashwordModelsObject
+  hashtags:hashwordModelsObject,
+  favorites: favoritesModelsObject
 
 };

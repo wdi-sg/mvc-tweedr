@@ -25,10 +25,11 @@ class Home extends React.Component {
     console.log(allTweets);
 
     const showAllTweets = allTweets.map(el => {
+        const profileURL = `/profile/${el.users_id}/${el.username}`
         return(
             <div className="tweet-body">
                 <p className='tweet-content'>{el.tweet}</p>
-                <p className='tweet-user'>-{el.username}</p>
+                <a className='tweet-user' href={profileURL}>-{el.username}</a>
             </div>
             )
     })

@@ -61,6 +61,7 @@ module.exports = (dbPoolInstance) => {
       }else{
 
         // invoke callback function with results after query has executed
+
         outgoing.text= queryResult.rows[0].hashtext;
         if( queryResult.rows.length > 0 ){
                       console.log("BOom Boom Boon Boon");

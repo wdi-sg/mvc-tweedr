@@ -265,11 +265,87 @@ dbPoolInstance.query(hashquery, newHashArray, (error, queryNewHashResult) => {
       }
     });
 
+  };
 
+    let onetweet = (id, callback) => {
+    console.log("Beep Two");
+    //console.log(name);
+    //let query = 'INSERT into users (name, password) VALUES ($1, $2)';
+
+    let query = 'SELECT * from tweets WHERE id = ($1)';
+    console.log(id);
+    let data = [id];
+    let outgoingData={};
+    console.log(data);
+    dbPoolInstance.query(query, data, (error, queryResult) => {
+      if( error ){
+        console.log("Error")
+        console.log(error);
+                // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+
+        // invoke callback function with results after query has executed
+
+        if( queryResult.rows.length > 0 ){
+                      console.log("BOom Boom Boon Boon");
+                      outgoingData.tweets= queryResult.rows[0];
+                      let userQuery='SELECT * from users INNER JOIN users_tweets ON (users_tweets.user_id = users.id) WHERE users_tweets.tweets_id = ($1)';
+                dbPoolInstance.query(userQuery, data, (error, queryResult) => {
+                  if( error ){
+                    console.log("Error")
+                    console.log(error);
+                            // invoke callback function with results after query has executed
+                    callback(error, null);
+
+                  }else{
+
+                    // invoke callback function with results after query has executed
+
+
+                                  console.log("BOom Boom Boon Boon");
+                                  outgoingData.users= queryResult.rows;
+                                    let userQuery='SELECT * from hash INNER JOIN hash_tweets ON (hash_tweets.hash_id = hash.id) WHERE hash_tweets.tweets_id = ($1)';
+                                        dbPoolInstance.query(userQuery, data, (error, queryResult) => {
+                                          if( error ){
+                                            console.log("Error")
+                                            console.log(error);
+                                                    // invoke callback function with results after query has executed
+                                            callback(error, null);
+
+                                          }else{
+
+                                            // invoke callback function with results after query has executed
+
+
+                                                          console.log("BOom Boom Boon Boon Wreck Wreck");
+                                                          outgoingData.hash= queryResult.rows;
+                                              callback(null, outgoingData);
+
+
+
+                                          }
+                                        });
+
+
+
+                  }
+                });
+
+
+        }else{
+            console.log("Wrong User Entry")
+          callback(null, null);
+
+        }
+      }
+    });
 
   };
   return {
     tweet:tweet,
     alltweet:alltweet,
+    onetweet:onetweet,
   };
 };

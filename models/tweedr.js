@@ -67,34 +67,34 @@ module.exports = (dbPoolInstance) => {
     var username = dataIn.username;
     var password = dataIn.password;
     password = sha256(password);
-    
-      let query = 'SELECT * FROM userdb WHERE username = $1';
-      const values = [username];
-      dbPoolInstance.query(query, values, (error, queryResult) => {
-        if (error) {
 
-          // invoke callback function with results after query has executed
-          callback(error, null);
+    let query = 'SELECT * FROM userdb WHERE username = $1';
+    const values = [username];
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if (error) {
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      } else {
+
+        // invoke callback function with results after query has executed
+        if (queryResult.rows.length > 0) {
+          var result = queryResult.rows[0];
+          var checkPass = result.password;
+          if (checkPass == password) {
+            callback(null, result);
+          }
+          // console.log(queryResult.rows);
 
         } else {
+          callback(null, null);
 
-          // invoke callback function with results after query has executed
-          if (queryResult.rows.length > 0) {
-            var result = queryResult.rows[0];
-            var checkPass = result.password;
-            if (checkPass == password){
-              callback(null, result);
-            }
-            // console.log(queryResult.rows);
-
-          } else {
-            callback(null, null);
-
-          }
         }
-      });
+      }
+    });
 
-      
+
   };
 
   let makePost = (dataIn, callback) => {
@@ -129,9 +129,9 @@ module.exports = (dbPoolInstance) => {
   };
 
   let getTweets = (callback) => {
-        
-    let query 
-    = `SELECT * FROM tweetdb
+
+    let query
+      = `SELECT * FROM tweetdb
       INNER JOIN userdb ON (tweetdb.userid = userdb.userid)       
       ORDER BY tweetdb.tweetid DESC
       `;
@@ -145,9 +145,9 @@ module.exports = (dbPoolInstance) => {
 
         // invoke callback function with results after query has executed
         if (queryResult.rows.length > 0) {
-          console.log(queryResult.rows);
-            callback(null, queryResult.rows);
-          
+          // console.log(queryResult.rows);
+          callback(null, queryResult.rows);
+
           // console.log(queryResult.rows);
 
         } else {
@@ -157,11 +157,65 @@ module.exports = (dbPoolInstance) => {
       }
     });
   }
+
+  let addTag = (dataIn, callback) => {
+    var hashtag = "#" + dataIn.hashtag;
+
+    let query = 'INSERT INTO tagdb (tagtext) VALUES ($1)';
+    const values = [hashtag];
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      if (error) {
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      } else {
+        // invoke callback function with results after query has executed
+        if (queryResult.rows.length > 0) {
+          callback(null, queryResult.rows);
+
+          // console.log(queryResult.rows);
+
+        } else {
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+  let getTags = (callback) => {
+
+    let query
+      = `SELECT * FROM tagdb`;
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if (error) {
+
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      } else {
+
+        // invoke callback function with results after query has executed
+        if (queryResult.rows.length > 0) {
+          // console.log(queryResult.rows);
+          callback(null, queryResult.rows);
+
+          // console.log(queryResult.rows);
+
+        } else {
+          callback(null, null);
+
+        }
+      }
+    });
+  };
   return {
     getAll,
     signup,
     login,
     makePost,
-    getTweets
+    getTweets,
+    addTag,
+    getTags
   };
 };

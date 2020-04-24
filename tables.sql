@@ -12,7 +12,18 @@ userid INTEGER,
 postdate TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS followDb(
+CREATE TABLE IF NOT EXISTS tagdb(
+tagid SERIAL PRIMARY KEY,
+tagtext TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tagrel(
+tagrelid SERIAL PRIMARY KEY,
+tagid INTEGER,
+tweetid INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS followrel(
 followid SERIAL PRIMARY KEY,
 user_a INTEGER,
 user_b INTEGER

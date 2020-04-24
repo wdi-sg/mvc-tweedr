@@ -1,14 +1,13 @@
 var React = require("react");
-const cookieParser = require('cookie-parser');
 const sha256 = require('js-sha256');
 
-class Home extends React.Component {
+class Main extends React.Component {
   render() {
     var showLogin = 'd-inline';
     var showLogout = 'd-none';
     // console.log(this.props);
     var loginCheck = this.props.loggedIn;
-    
+
     // Function to format date time value
     function formatDateTime(date) {
       var formatDate = date.toLocaleDateString();
@@ -38,10 +37,24 @@ class Home extends React.Component {
           <div>
             <strong>@{element.username}</strong>
             <br />{element.tweetbody}
-            <br/>
+            <br />
             <br /><small>{date}</small>
           </div>
         </div>
+
+      });
+    }
+
+    var tags = this.props.tags;
+    if (tags == null) {
+      tags =  <label className="btn btn-outline-light mr-2 mb-2">No tags to display</label>
+    }
+    else {
+      tags = tags.map(element => {
+        return <label className="btn btn-outline-light mr-2 mb-2">
+        {element.tagtext}
+        <input type="checkbox" name = "hashtag" value={element.tagid}></input>
+      </label>
 
       });
     }
@@ -73,8 +86,14 @@ class Home extends React.Component {
           <div className="container-fluid bg-dark w-50 h-100 border border-secondary mt-3 mb-5 rounded-lg">
             <form method="POST" action="/post">
               <div className="form-group text-left">
-                <label htmlFor="tweet" className="text-light">Hey {this.props.username}, what's on your mind?:</label>
-                <textarea className="form-control" rows="4" name="message" placeholder="Start typing..."></textarea>
+                <label htmlFor="tweet" className="text-light pt-3">Hey {this.props.username}, what's on your mind? :</label>
+                <textarea className="form-control" rows="4" name="message" placeholder="Start typing...">
+                </textarea>
+                <div className="btn-group-toggle mt-2" data-toggle="buttons">
+                 {tags}
+                  <a className = "btn btn-outline-light mr-2 mb-2" href="/tag/new"><strong>+ New Tag</strong></a>
+                </div>
+                <br/> 
                 <input className="btn btn-primary mt-3" type="submit" value="Submit" />
               </div>
             </form>
@@ -92,4 +111,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Main;

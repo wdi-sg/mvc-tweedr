@@ -15,7 +15,7 @@ class Home extends React.Component {
         var formatTime = date.toLocaleTimeString();
         return `${formatDate} ${formatTime}`;
       }
-      
+
     if (loginCheck == sha256('true')){
       showLogin = 'd-none'
       showLogout = 'd-inline';
@@ -72,7 +72,7 @@ class Home extends React.Component {
           </nav>
           </div>
           <div className = "container bg-dark w-75 border border-secondary pt-3 pb-3 mt-3 mb-3 rounded-lg">
-            <h3 className = "text-light">Feed</h3>
+            <h3 className = "text-light font-weight-light font-italic">Tweedr Feed</h3>
             {tweets}
           </div>
           

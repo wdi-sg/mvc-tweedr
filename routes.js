@@ -23,6 +23,10 @@ module.exports = (app, allModels) => {
   app.get('/main', tweedrControllerCallbacks.loadMain);
   app.get('/logout', tweedrControllerCallbacks.logout);
   app.post('/post', tweedrControllerCallbacks.makePost);
+  app.get('/tag/new', tweedrControllerCallbacks.newTag);
+  app.post('/tag', tweedrControllerCallbacks.addTag);
+
+
 
 
 

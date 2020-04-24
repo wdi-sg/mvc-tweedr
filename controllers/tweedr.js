@@ -73,9 +73,14 @@ module.exports = (db) => {
       var output = { 'loggedIn': loggedIn, 'username': username, 'userid': userid }
       db.tweedr.getTweets((error, result) => {
         var allTweets = result;
-        console.log(allTweets);
+        // console.log(allTweets);
         output.tweets = allTweets;
-        response.render('tweedr/main', output);
+        db.tweedr.getTags((error, result) => {
+          var allTags = result;
+          // console.log(allTags);
+          output.tags = allTags;
+          response.render('tweedr/main', output);
+        });
       });
     }
   };
@@ -95,12 +100,13 @@ module.exports = (db) => {
   };
 
   let makePost = (request, response) => {
+    console.log(request.body)
     var userid = request.cookies['userid'];
     // console.log(userid);
 
     var dataIn = request.body;
     dataIn.userid = userid;
-    // console.log(dataIn);
+    console.log(dataIn);
 
     db.tweedr.makePost(dataIn, (error, result) => {
 
@@ -109,7 +115,21 @@ module.exports = (db) => {
 
 
   };
+  
+  let newTag = (request, response) => {
+    var loggedIn = request.cookies['loggedIn'];
 
+    var output = {'loggedIn': loggedIn}
+    response.render('tweedr/add-tag', output);
+  };
+
+  let addTag = (request, response) => {
+    var dataIn = request.body;
+    // console.log(dataIn)
+    db.tweedr.addTag(dataIn, (error, result) => {
+      response.redirect('/main');
+    });
+    };
 
   /**
    * ===========================================
@@ -124,7 +144,9 @@ module.exports = (db) => {
     loginPost: loginPost,
     loadMain: loadMain,
     logout: logout,
-    makePost: makePost
+    makePost: makePost,
+    newTag: newTag,
+    addTag: addTag
   };
 
 }

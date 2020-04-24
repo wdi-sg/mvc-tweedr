@@ -7,7 +7,11 @@ class Home extends React.Component {
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <nav>
+            <a href="/html/">Tweedr</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+          </nav>
         </body>
       </html>
     );

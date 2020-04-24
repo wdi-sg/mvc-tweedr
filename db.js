@@ -33,14 +33,14 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'kenneththesheep',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
 
-
+const sha256 = require('js-sha256');
 const pool = new pg.Pool(configs);
 
 pool.on('error', function (err) {
@@ -66,8 +66,37 @@ const allPokemonModelsFunction = require('./models/pokemon');
 
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 
+const allHomeModelsFunction = require('./models/home');
 
+const homeModelsObject = allHomeModelsFunction( pool );
 
+const allLoginModelsFunction = require('./models/login');
+
+const loginModelsObject = allLoginModelsFunction( pool );
+
+const allRegisterModelsFunction = require('./models/register');
+
+const registerModelsObject = allRegisterModelsFunction( pool );
+
+const allUserModelsFunction = require('./models/user');
+
+const userModelsObject = allUserModelsFunction( pool );
+
+const allfollowModelsFunction = require('./models/follow');
+
+const followModelsObject = allfollowModelsFunction( pool );
+
+const alltweetModelsFunction = require('./models/tweet');
+
+const tweetModelsObject = alltweetModelsFunction( pool );
+
+const allhashModelsFunction = require('./models/hash');
+
+const hashModelsObject = allhashModelsFunction( pool );
+
+const favoriteModelsFunction = require('./models/favorite');
+
+const favoriteModelsObject = favoriteModelsFunction( pool );
 /*
  * ===================================================
  * ===================================================
@@ -95,5 +124,14 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  pokemon: pokemonModelsObject,
+  home: homeModelsObject,
+  login: loginModelsObject,
+  register: registerModelsObject,
+  user: userModelsObject,
+  follow: followModelsObject,
+  tweet: tweetModelsObject,
+  hash: hashModelsObject,
+  favorite: favoriteModelsObject
+
 };

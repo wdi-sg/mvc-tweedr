@@ -15,11 +15,12 @@ class Home extends React.Component {
 
             <div class = {"row"}>
             <div class = {"col-6 mx-auto border"}>
-            <form method="POST" action="/favorite"  style={{textAlign: "Center"}}>
+            {/*<form method="POST" action="/favorite"  style={{textAlign: "Center"}}>
             <input  class= "favorite" type="text" name="favorite_id" value = {tweet.id} style={{display:"none"}} ></input>
             <input  class= "username" type="text" name="username" value = {name} style={{display:"none"}} ></input>
             <input type="submit" value="favorite"></input>
-            </form>
+            </form>*/}
+            <button class="favorite" value={tweet.id}>Add to Favorite</button>
             </div>
             <div class = {"col-6 mx-auto border"}>
             <form method="POST" action="/favorite?_method=delete"  style={{textAlign: "Center"}}>
@@ -114,6 +115,7 @@ class Home extends React.Component {
                 {buttonSwitch}
             </div>
           </div>
+          <script src="script/home.js"></script>
         </body>
       </html>
     );

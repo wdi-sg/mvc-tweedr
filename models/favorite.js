@@ -9,15 +9,15 @@ module.exports = (dbPoolInstance) => {
 
   let favorite = (favoriteInput, callback) => {
     console.log("Beep Beep Beep");
-    console.log(favoriteInput);
+    console.log(favoriteInput[2]);
     //let query = 'INSERT into users (name, password) VALUES ($1, $2)';
     let id ="";
-    let tweets_id = parseInt(favoriteInput[0].favorite_id);
+    let tweets_id = parseInt(favoriteInput[0].tweet_id);
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     console.log(tweets_id);
     let query = 'SELECT * from users WHERE name = ($1)';
     let controlData = [favoriteInput[0].username];
-
+    console.log(controlData);
     dbPoolInstance.query(query, controlData, (error, queryResult) => {
       if( error ){
         console.log("Error")
@@ -64,7 +64,7 @@ module.exports = (dbPoolInstance) => {
     console.log(notFavoriteInput);
     //let query = 'INSERT into users (name, password) VALUES ($1, $2)';
     let id ="";
-    let tweets_id = parseInt(notFavoriteInput[0].notfavorite_id);
+    let tweets_id = parseInt(notFavoriteInput[0].tweet_id);
     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     console.log(tweets_id);
     let query = 'SELECT * from users WHERE name = ($1)';

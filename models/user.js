@@ -36,7 +36,7 @@ module.exports = (dbPoolInstance) => {
 
     let userProfile = (username, callback) => {
     console.log("****************ENTERED USERS");
-    let query = 'SELECT * FROM users WHERE name= ($1)';
+    let query = 'SELECT * FROM users WHERE id= ($1)';
     let user_id="";
     let data = [username];
 

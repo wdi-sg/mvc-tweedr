@@ -33,7 +33,7 @@ module.exports = (db) => {
   let userProfileControllerCallback = (request, response) => {
     //response.send("hello from user profile");
     console.log(request.params.username);
-        let username=request.cookies.username;
+        let username=request.params.username;
         if(username===undefined)
          {
             console.log("There is no user name");
@@ -43,6 +43,7 @@ module.exports = (db) => {
          db.user.userProfile(username,(error, users) => {
         const data = {}
         data.users=users;
+        data.personalUserName= request.cookies.username;
         //response.send(data);
         response.render("user/profile", data);
       });

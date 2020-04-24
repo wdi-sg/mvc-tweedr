@@ -62,6 +62,23 @@ module.exports = (db) => {
         //response.render("pokemon/index", data);
       });
   };
+
+
+    let viewFavoriteControllerCallback = (request, response) => {
+    //response.send("Viewing");
+    //console.log("Viewing")
+
+    const data = {};
+
+    data.username=request.cookies.username;
+    console.log(data);
+     db.favorite.viewFavorite(data,(error, check) => {
+
+        //response.send(dataOutgoing);
+        //response.send(check);
+        response.render("favorite/favorite", check);
+      });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -71,6 +88,7 @@ module.exports = (db) => {
     favorite: favoriteControllerCallback,
     notFavorite: notFavoriteControllerCallback,
     checkFavorite: checkFavoriteControllerCallback,
+    viewFavorite: viewFavoriteControllerCallback,
   };
 
 }

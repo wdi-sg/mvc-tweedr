@@ -157,9 +157,59 @@ let checkFavorite = (somethingLikeThat, callback) => {
                             });
   };
 
+let viewFavorite = (somethingLikeThat, callback) => {
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    console.log(somethingLikeThat);
+    let returniningOutput ={};
+    let user_id="";
+    let query = 'SELECT * from users WHERE name = ($1)';
+    let restrictionArray=[somethingLikeThat.username]
+    dbPoolInstance.query(query, restrictionArray, (Error, Result) => {
+                              if( Error ){
+                                console.log("Error")
+                                console.log(Error);
+                                        // invoke callback function with results after query has executed
+                                callback(Error, null);
+
+                              }else{
+
+                                              console.log("BOom Boom Boon Boon Chardfhakhfladhfladshflkdashflashdflkahsdlfhlahsfladhsflghklsafh!!!");
+                                              //console.log(queryFavoriteResult.rows);
+                                    user_id= Result.rows[0].id;
+                                    console.log(Result.rows);
+                                    returniningOutput.user= Result.rows;
+
+                    let joinQuery = 'SELECT * from tweets INNER JOIN favorites ON (tweets.id=favorites.tweets_id) WHERE user_id = ($1)';
+
+                    let joinArray=[user_id]
+                    dbPoolInstance.query(joinQuery, joinArray, (joinError, joinResult) => {
+                              if( joinError ){
+                                console.log("Error")
+                                console.log(joinError);
+                                        // invoke callback function with results after query has executed
+                                callback(joinError, null);
+
+                              }else{
+
+                                              console.log("BOom Boom Boon Boon Chardfhakhfladhfladshflkdashflashdflkahsdlfhlahsfladhsflghklsafh!!!");
+                                              console.log(joinResult.rows);
+                                              //user_id= Result.rows[0].id;
+                                              returniningOutput.tweets=joinResult.rows
+                                              callback(null, returniningOutput);
+
+
+                              }
+                            });
+
+
+                              }
+                            });
+  };
+
   return {
     favorite:favorite,
     notFavorite:notFavorite,
     checkFavorite:checkFavorite,
+    viewFavorite:viewFavorite,
   };
 };

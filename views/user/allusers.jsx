@@ -7,10 +7,10 @@ class allUsers extends React.Component {
     const follow=this.props.users.map(user=>
         {
             //console.log(tweet);
-
+            let url='/user/'+user.id
             return <div class={"row align-bottom border"}>
             <div class={"col-12 mt-5 text-center"}>
-            <p>{user.name} </p>
+            <a href={url}>{user.name} </a>
             <br></br><br></br>
             <button type="submit" name="follower_id" value={user.id}>Follow</button>
             <br></br><br></br>

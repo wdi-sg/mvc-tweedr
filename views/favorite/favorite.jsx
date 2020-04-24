@@ -1,10 +1,10 @@
 var React = require("react");
 
-class Home extends React.Component {
+class favorite extends React.Component {
   render() {
     console.log(this.props);
-    const name = this.props.name;
-    let buttonSwitch="";
+    const name = this.props.user[0].name;
+
     const tweet=this.props.tweets.map(tweet=>
         {
             console.log(tweet);
@@ -37,60 +37,8 @@ class Home extends React.Component {
 
 
         });
-        const hash=this.props.hash.map(hash=>
-        {
-            console.log(hash);
-            const url="#";
-            return <div class={"col-4 mt-2 text-center"}>
-
-            <label for={hash.id}>{hash.hashtext}</label>
-            <input type={"checkbox"} id = {hash.id} name = "hashid" value={hash.id}></input>
-            </div>
 
 
-
-        });
-    if(this.props.isLogin)
-    {
-        buttonSwitch=[
-                     <div class = {"col-12"}>
-                    <form method="POST" action="/tweet"  style={{textAlign: "Center"}}>
-                    <span>Enter New Tweet:  </span>
-                    <input  id= "tweet" type="text" name="tweet" placeholder="Enter Tweet" required
-                            oninvalid="this.setCustomValidity('Enter Tweet Here')"
-                            oninput="this.setCustomValidity('')" ></input>
-                    <br></br><br></br>
-
-                    <span>Enter New Hash in the format # and a space in betwen (#hello #myworld #likes) </span>
-                    <input  id= "hash" type="text" name="newHash" placeholder="Enter Hash" required
-                            oninvalid="this.setCustomValidity('Enter Hash Here')"
-                            oninput="this.setCustomValidity('')" ></input>
-                    <br></br><br></br>
-
-                    <div class = {"row"}>
-                        <div class={"col-12 text-center"}>
-                            <h2>Choose any existing hash tag</h2>
-                        </div>
-                    </div>
-                    <div class={"row"}>
-                    {hash}
-                    </div>
-                    <input  id= "tweet" type="text" name="username" placeholder="Enter Tweet" required
-                            oninvalid="this.setCustomValidity('Enter Tweet Here')"
-                            oninput="this.setCustomValidity('')" value={name} style={{display:"none"}}></input>
-
-                    <input type="submit" value="Submit"></input>
-                </form>
-                </div>
-        ]
-    }
-    else
-    {
-        buttonSwitch=[<div class = {"col-12 text-center"}>
-                            <p><a href={"/login"}>Please Log in to tweet</a></p>
-                        </div>
-                    ]
-    }
     //console.log(this.props.types);
     return (
       <html>
@@ -127,15 +75,12 @@ class Home extends React.Component {
             {tweet}
 
 
-                       <div class={"row mt-5"}>
-                {buttonSwitch}
-            </div>
           </div>
-          <script src="script/home.js"></script>
+          <script src="/script/home.js"></script>
         </body>
       </html>
     );
   }
 }
 
-module.exports = Home;
+module.exports = favorite;

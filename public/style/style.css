@@ -1,3 +1,11 @@
 .test{
 	color:red;
 }
+body {
+	background-color: #70BDC7
+}
+.tweetBox{
+	background-color: #CCCCCC;
+	width: 50%;
+	margin-top:30px;
+}

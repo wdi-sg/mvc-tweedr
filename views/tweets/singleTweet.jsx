@@ -3,7 +3,7 @@ var React = require("react");
 class singlehash extends React.Component {
   render() {
     console.log(this.props);
-    const tweet = this.props.tweets.tweetstext;
+    const tweet = this.props.tweets.tweets.tweetstext;
 
 
         const user=this.props.tweets.users.map(user=>

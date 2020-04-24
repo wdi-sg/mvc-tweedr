@@ -36,8 +36,10 @@ const favoriteControllerCallbacks = require('./controllers/favorite')(allModels)
     app.get('/user/:username',userControllerCallbacks.userProfile);
     app.get('/hash/',hashControllerCallbacks.allHash);
     app.get('/hash/:id',hashControllerCallbacks.singleHash);
+    app.get('/favorite',favoriteControllerCallbacks.viewFavorite);
     app.post('/favorite/', favoriteControllerCallbacks.favorite);
     app.delete('/favorite',favoriteControllerCallbacks.notFavorite);
+
     app.post('/check',favoriteControllerCallbacks.checkFavorite);
   //read the file in and write out to it
 

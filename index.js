@@ -1,6 +1,8 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
+var sha256 = require("js-sha256");
+const SALT = "hello";
 
 /**
  * ===================================

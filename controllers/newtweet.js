@@ -1,4 +1,6 @@
 module.exports = (db) => {
+  var sha256 = require("js-sha256");
+  const SALT = "hello";
   /**
    * ===========================================
    * Controller logic
@@ -12,7 +14,9 @@ module.exports = (db) => {
       if (result[0].name === request.body.username) {
         let reqPassword = request.body.password;
         if (reqPassword === result[0].password) {
-          response.cookie("LoginCookie", true);
+          let user_id = result[0].id;
+          var hashedCookie = sha256(SALT + user_id);
+          response.cookie("LoginCookie", hashedCookie);
           response.send("HEEELLLOOOO");
         } else {
           response.send("Incorrect Password");

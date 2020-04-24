@@ -19,6 +19,22 @@ module.exports = (app, allModels) => {
   //app.get('/pokemons/:id', pokemons.getPokemon);
 
   //=========================================
+  //        Sign Up page
+  //=========================================
+
+  const signUpPage = require("./controllers/signUpPage.js")(allModels);
+  app.get("/signup", signUpPage.signUpPageForm);
+
+  //=========================================
+  //        After signing up
+  //=========================================
+
+  const signUpVerificationPage = require("./controllers/signUpVerification.js")(
+    allModels
+  );
+  app.post("./signUpVerification", signUpVerificationPage.signUpVerified);
+
+  //=========================================
   //        route for log in page
   //=========================================
 

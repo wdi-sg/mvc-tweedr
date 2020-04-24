@@ -8,13 +8,31 @@ class Home extends React.Component {
     const tweet=this.props.tweets.map(tweet=>
         {
             console.log(tweet);
-            const url="#";
+            const url="/tweet/" + tweet.id;
             return <div class={"row align-bottom border"}>
             <div class={"col-12 mt-5 text-center"}>
             <p  class={"mt-3"}>Tweet: <a href={url}>{tweet.tweetstext}</a></p>
 
+            <div class = {"row"}>
+            <div class = {"col-6 mx-auto border"}>
+            <form method="POST" action="/favorite"  style={{textAlign: "Center"}}>
+            <input  class= "favorite" type="text" name="favorite_id" value = {tweet.id} style={{display:"none"}} ></input>
+            <input  class= "username" type="text" name="username" value = {name} style={{display:"none"}} ></input>
+            <input type="submit" value="favorite"></input>
+            </form>
+            </div>
+            <div class = {"col-6 mx-auto border"}>
+            <form method="POST" action="/favorite?_method=delete"  style={{textAlign: "Center"}}>
+            <input  class= "notfavorite" type="text" name="notfavorite_id" value = {tweet.id} style={{display:"none"}} ></input>
+            <input  class= "username" type="text" name="username" value = {name} style={{display:"none"}} ></input>
+            <input type="submit" value="not favorite"></input>
+            </form>
             </div>
             </div>
+
+            </div>
+            </div>
+
 
 
         });
@@ -36,7 +54,7 @@ class Home extends React.Component {
         buttonSwitch=[
                      <div class = {"col-12"}>
                     <form method="POST" action="/tweet"  style={{textAlign: "Center"}}>
-                    <span>Enter New Tweet: </span>
+                    <span>Enter New Tweet:  </span>
                     <input  id= "tweet" type="text" name="tweet" placeholder="Enter Tweet" required
                             oninvalid="this.setCustomValidity('Enter Tweet Here')"
                             oninput="this.setCustomValidity('')" ></input>
@@ -88,7 +106,10 @@ class Home extends React.Component {
             <h1  class={"mt-3"}>Welcome {name} to Tweeder</h1>
             </div>
             </div>
+
             {tweet}
+
+
                        <div class={"row mt-5"}>
                 {buttonSwitch}
             </div>

@@ -93,6 +93,10 @@ const tweetModelsObject = alltweetModelsFunction( pool );
 const allhashModelsFunction = require('./models/hash');
 
 const hashModelsObject = allhashModelsFunction( pool );
+
+const favoriteModelsFunction = require('./models/favorite');
+
+const favoriteModelsObject = favoriteModelsFunction( pool );
 /*
  * ===================================================
  * ===================================================
@@ -127,6 +131,7 @@ module.exports = {
   user: userModelsObject,
   follow: followModelsObject,
   tweet: tweetModelsObject,
-  hash: hashModelsObject
+  hash: hashModelsObject,
+  favorite: favoriteModelsObject
 
 };

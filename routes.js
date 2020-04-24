@@ -21,6 +21,7 @@ const userControllerCallbacks = require('./controllers/user')(allModels);
 const followControllerCallbacks = require('./controllers/follow')(allModels);
 const tweetControllerCallbacks = require('./controllers/tweet')(allModels);
 const hashControllerCallbacks = require('./controllers/hash')(allModels);
+const favoriteControllerCallbacks = require('./controllers/favorite')(allModels);
 
     app.get('/', homeControllerCallbacks.index);
     app.get('/login/',loginControllerCallbacks.login);
@@ -35,5 +36,9 @@ const hashControllerCallbacks = require('./controllers/hash')(allModels);
     app.get('/user/:username',userControllerCallbacks.userProfile);
     app.get('/hash/',hashControllerCallbacks.allHash);
     app.get('/hash/:id',hashControllerCallbacks.singleHash);
+    app.post('/favorite/', favoriteControllerCallbacks.favorite);
+    app.delete('/favorite',favoriteControllerCallbacks.notFavorite);
+  //read the file in and write out to it
+
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

@@ -24,6 +24,13 @@ CREATE TABLE IF NOT EXISTS users_tweets(
 	tweets_id INTEGER
 );
 
+CREATE TABLE IF NOT EXISTS favorites(
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	tweets_id INTEGER
+);
+
+
 CREATE TABLE IF NOT EXISTS hash_tweets(
 	id SERIAL PRIMARY KEY,
 	hash_id INTEGER,

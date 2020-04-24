@@ -22,7 +22,8 @@ module.exports = (db) => {
         {
             data.name= username;
         }
-        data.isLogin=request.cookies.isLogin
+        data.isLogin=request.cookies.isLogin;
+        //response.send(data);
         response.render("pokemon/index", data);
       });
   };

@@ -110,8 +110,56 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
+
+let checkFavorite = (somethingLikeThat, callback) => {
+    console.log("fdlnfladsflkadhfladshjfladsjfkladjfljlj");
+    console.log(somethingLikeThat);
+    let user_id="";
+    let query = 'SELECT id from users WHERE name = ($1)';
+    let restrictionArray=[somethingLikeThat[0].username]
+    dbPoolInstance.query(query, restrictionArray, (Error, Result) => {
+                              if( Error ){
+                                console.log("Error")
+                                console.log(Error);
+                                        // invoke callback function with results after query has executed
+                                callback(Error, null);
+
+                              }else{
+
+                                              console.log("BOom Boom Boon Boon Chardfhakhfladhfladshflkdashflashdflkahsdlfhlahsfladhsflghklsafh!!!");
+                                              //console.log(queryFavoriteResult.rows);
+                                    user_id= Result.rows[0].id;
+
+                    let joinQuery = 'SELECT tweets_id from tweets INNER JOIN favorites ON (tweets.id=favorites.tweets_id) WHERE user_id = ($1)';
+
+                    let joinArray=[user_id]
+                    dbPoolInstance.query(joinQuery, joinArray, (joinError, joinResult) => {
+                              if( joinError ){
+                                console.log("Error")
+                                console.log(joinError);
+                                        // invoke callback function with results after query has executed
+                                callback(joinError, null);
+
+                              }else{
+
+                                              console.log("BOom Boom Boon Boon Chardfhakhfladhfladshflkdashflashdflkahsdlfhlahsfladhsflghklsafh!!!");
+                                              console.log(joinResult.rows);
+                                              //user_id= Result.rows[0].id;
+
+                                              callback(null, joinResult.rows);
+
+
+                              }
+                            });
+
+
+                              }
+                            });
+  };
+
   return {
     favorite:favorite,
     notFavorite:notFavorite,
+    checkFavorite:checkFavorite,
   };
 };

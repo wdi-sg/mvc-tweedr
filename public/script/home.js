@@ -83,3 +83,45 @@ for( var i=0; i<buttons.length; i++){
   var button = buttons[i]
   button.addEventListener('click', favBtnClick)
 }
+
+// make a new request
+window.onload = (event) => {
+  console.log('page is fully loaded');
+  // make a new request
+  var responseHandler = function() {
+  const favoriteTweetId = JSON.parse(this.responseText) ;
+  console.log (favoriteTweetId);
+  //console.log("status text", this.statusText);
+  //console.log("status code", this.status);
+  var buttons = document.querySelectorAll('.favorite');
+
+
+for( var i=0; i<buttons.length; i++){
+  var button = buttons[i]
+  //console.log(button.value);
+  //console.log(button.innerText);
+  for( var tweetCount=0; tweetCount < favoriteTweetId.length; tweetCount++)
+  {
+    //console.log("favorite tweet is" + favoriteTweetId[tweetCount].tweets_id);
+    //console.log("button value is "+button.value);
+    if( parseInt(button.value)===parseInt(favoriteTweetId[tweetCount].tweets_id))
+    {
+
+        button.innerText="Remove from Favorite";
+    }
+  }
+  //button.addEventListener('click', favBtnClick)
+}
+};
+var request = new XMLHttpRequest();
+request.addEventListener("load", responseHandler);
+request.open("POST", "/check");
+console.log(request);
+ var data = {
+    username : username
+
+  };
+request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+  request.send(JSON.stringify(data));
+};

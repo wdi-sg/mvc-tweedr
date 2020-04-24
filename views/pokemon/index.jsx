@@ -14,7 +14,7 @@ class Home extends React.Component {
             <p  class={"mt-3"}>Tweet: <a href={url}>{tweet.tweetstext}</a></p>
 
             <div class = {"row"}>
-            <div class = {"col-6 mx-auto border"}>
+            <div class = {"col-12 mx-auto border"}>
             {/*<form method="POST" action="/favorite"  style={{textAlign: "Center"}}>
             <input  class= "favorite" type="text" name="favorite_id" value = {tweet.id} style={{display:"none"}} ></input>
             <input  class= "username" type="text" name="username" value = {name} style={{display:"none"}} ></input>
@@ -22,13 +22,13 @@ class Home extends React.Component {
             </form>*/}
             <button class="favorite" value={tweet.id}>Add to Favorite</button>
             </div>
-            <div class = {"col-6 mx-auto border"}>
+            {/*<div class = {"col-6 mx-auto border"}>
             <form method="POST" action="/favorite?_method=delete"  style={{textAlign: "Center"}}>
             <input  class= "notfavorite" type="text" name="notfavorite_id" value = {tweet.id} style={{display:"none"}} ></input>
             <input  class= "username" type="text" name="username" value = {name} style={{display:"none"}} ></input>
             <input type="submit" value="not favorite"></input>
             </form>
-            </div>
+            </div>*/}
             </div>
 
             </div>

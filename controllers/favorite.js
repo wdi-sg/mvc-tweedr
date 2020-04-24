@@ -12,7 +12,7 @@ module.exports = (db) => {
     const data = [request.body];
     data.follower_id = request.body.follower_id;
     data.username=request.cookies.username;
-    console.log("dfjkahfkjahjkfhadsjkfhdaskjfhadskjfhdkjdfshkhjzs");
+    console.log("Calling upon my favorite wind");
     console.log(data);
      db.favorite.favorite(data,(error, follow) => {
         const dataOutgoing = {}
@@ -48,6 +48,20 @@ module.exports = (db) => {
       });
   };
 
+
+  let checkFavoriteControllerCallback = (request, response) => {
+    //response.send("Deleting");
+    console.log("Yoooooohoooooooooooo yo ho hohohohohohohohohohohohoho")
+
+    const data = [request.body];
+    console.log(data);
+     db.favorite.checkFavorite(data,(error, check) => {
+
+        //response.send(dataOutgoing);
+        response.send(check);
+        //response.render("pokemon/index", data);
+      });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -56,6 +70,7 @@ module.exports = (db) => {
   return {
     favorite: favoriteControllerCallback,
     notFavorite: notFavoriteControllerCallback,
+    checkFavorite: checkFavoriteControllerCallback,
   };
 
 }

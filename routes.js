@@ -38,6 +38,7 @@ const favoriteControllerCallbacks = require('./controllers/favorite')(allModels)
     app.get('/hash/:id',hashControllerCallbacks.singleHash);
     app.post('/favorite/', favoriteControllerCallbacks.favorite);
     app.delete('/favorite',favoriteControllerCallbacks.notFavorite);
+    app.post('/check',favoriteControllerCallbacks.checkFavorite);
   //read the file in and write out to it
 
   //app.get('/pokemons/:id', pokemons.getPokemon);

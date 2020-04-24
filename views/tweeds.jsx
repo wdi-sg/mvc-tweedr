@@ -2,10 +2,12 @@ var React = require("react");
 
 class Tweed extends React.Component {
   render() {
-    console.log(this.props.tweed);
-    console.log("ABOUT TO ADD A TWEEEED");
 
-    let tweed = this.props.tweed;
+
+let results = this.props.result || [];
+let tweedData = results.map(info => {
+    return  <li key={info.id}>{info.tweed}</li>
+})
 
     return (
       <html>
@@ -44,7 +46,9 @@ class Tweed extends React.Component {
             </div>
             </form>
             <div className="tweed-input-field">
-            {tweed}
+            <ol>
+            {tweedData}
+            </ol>
             </div>
             </div>
 
@@ -53,6 +57,7 @@ class Tweed extends React.Component {
 
 
         </div>
+        <script src="script.js"></script>
         </body>
       </html>
     );

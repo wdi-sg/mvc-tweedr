@@ -50,15 +50,17 @@ let userLogin = (req, res) => {
 
         if(loginResult[0].password === requestedPassword) {
 
-           let username = req.cookies['username'];
+           let username = loginResult[0].user_name;
 
             //creates a cookie that is a hashed value
             let user_id = loginResult[0].id;
             let hashedCookie = sha256(SALT + req.body.username);
             res.cookie('loggedIn', hashedCookie);
             res.cookie('user_id', user_id);
+            res.cookie('user_name', username);
+
             const data = {};
-            data['userName'] = loginResult[0].user_name;
+            data['userName'] = username;
             res.render('tweeds', data);
 
 

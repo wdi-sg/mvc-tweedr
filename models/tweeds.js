@@ -9,9 +9,9 @@ module.exports = (dbPoolInstance) => {
 
 let insertTweed = (tweed, id, callback) => {
 
-    const getQueryUser = "INSERT INTO tweeds(user_name, user_id, tweed) VALUES($1, $2, $3) RETURNING *";
+    const getQueryUser = "INSERT INTO tweeds(user_id, user_name, tweed) VALUES($1, $2, $3) RETURNING *";
 
-    const values = [tweed.username, id, tweed.tweed];
+    const values = [id, tweed.username, tweed.tweed];
 
     dbPoolInstance.query(getQueryUser, values, (error, queryResult) => {
     if(error) {
@@ -22,7 +22,7 @@ let insertTweed = (tweed, id, callback) => {
     } else {
 
          if(queryResult.rows.length > 0) {
-            console.log("Insert Tweed");
+            console.log("Tweed inserted!");
             console.log(queryResult.rows);
             callback(null, queryResult.rows);
         } else {
@@ -37,7 +37,37 @@ let insertTweed = (tweed, id, callback) => {
 }
 
 
+
+let displayTweed = (callback) => {
+
+    const queryString = "SELECT users.name, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id)";
+
+   dbPoolInstance.query(queryString, (error, queryResult) => {
+    if(error) {
+        console.log("ERRRRROROROROROROR");
+        console.log(error);
+        callback(error, null);
+        return;
+    } else {
+
+         if(queryResult.rows.length > 0) {
+            console.log("Gathering Tweeds");
+            return callback(null, queryResult.rows);
+        } else {
+            console.log("Insert Unsuccessful");
+           return callback(null, null);
+        }
+    }
+        // invoke callback function with results after query has executed
+
+
+    });
+   console.log(response);
+   console.log("------- RESPONSE ---------")
+}
+
   return {
-   insertTweed: insertTweed
+   insertTweed: insertTweed,
+   displayTweed: displayTweed
   };
 }

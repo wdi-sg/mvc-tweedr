@@ -57,8 +57,6 @@ const getName = (id, callback) => {
         // invoke callback function with results after query has executed
 
         if(queryResult.rows.length > 0) {
-            console.log("RETRIEVING NAME");
-            console.log(queryResult.rows);
             callback(null, queryResult.rows);
         }
     });

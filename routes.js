@@ -28,10 +28,12 @@ app.get('/', (req, res) => {
 app.get('/login', tweedLogin.displayLogin);
 app.get('/register', tweedRegister.register);
 app.get('/tweeds', tweedPage.tweedPage);
+app.get('/tweeds', tweedPage.displayTweed);
 
 app.post('/userLogin', tweedLogin.login);
 app.post('/registerUser', tweedRegister.registerUser);
 app.post('/makeTweed', tweedPage.makeTweed);
+
 app.delete('/logout', (req, res) => {
     res.clearCookie('loggedIn');
     res.clearCookie('user_id');

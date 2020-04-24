@@ -18,23 +18,44 @@ let makeTweed = (req, res) => {
     console.log(req.body.username);
 
     let id = req.cookies['user_id'];
+
     db.makeTweed.insertTweed(req.body, id, (error, result) => {
          if(error) {
         console.log("ERRRRROROROROROROR");
         console.log(error);
         } else {
-            console.log(result[0].tweed);
-            const data = {};
-           let tweed = result[0].tweed;
-            data['tweed'] = tweed;
+            let result =  displayTweed();
+            console.log("-----------------------");
+            console.log(result);
+            let userName = req.cookies['user_name'];
+            const data ={
+                result,
+                userName
+            }
             res.render('tweeds', data);
         }
     })
-
-    //name disappears after tweeding (redirect)
 }
 
+let displayTweed =  () => {
 
+    let response =  db.makeTweed.displayTweed((error, result) => {
+        if(error) {
+        console.log("ERRRRROROROROROROR");
+        console.log(error);
+        return;
+    } else {
+            // console.log("CHECKING");
+            //console.log(result);
+            // console.log("CHECKING AGAIN");
+
+
+            return result;
+
+    }
+});
+
+}
 
 
 
@@ -45,7 +66,8 @@ let makeTweed = (req, res) => {
    */
   return {
 tweedPage: tweedPage,
-makeTweed: makeTweed
+makeTweed: makeTweed,
+displayTweed: displayTweed
 
   };
 

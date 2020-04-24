@@ -1,5 +1,6 @@
 const User = require('../models/user.model')
 const util = require('util')
+const jtw = require('jsonwebtoken')
 const {genSalt, hash, compare} = require('bcryptjs')
 const genSaltPromise = util.promisify(genSalt)
 const hashPromise = util.promisify(hash)
@@ -16,7 +17,8 @@ const registerUser =(async (req, res)=> {
   const {username, password} = req.body
   const user = new User(-1,username, password,"" )
   user.password = await encrypt(user.password)
-  user.save().then(data=>res.send(data))
+  const newUserId = (await user.save()).rows[0].id
+  user.id = newUserId
 })
 
 const loginUser = (async (req, res)=> {

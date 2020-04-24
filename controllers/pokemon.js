@@ -1,5 +1,4 @@
 module.exports = (db) => {
-
   /**
    * ===========================================
    * Controller logic
@@ -7,11 +6,10 @@ module.exports = (db) => {
    */
 
   let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
-      });
+    db.pokemon.getAll((error, allPokemon) => {
+      response.render("pokemon/index", { allPokemon });
+    });
   };
-
 
   /**
    * ===========================================
@@ -21,5 +19,4 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
   };
-
-}
+};

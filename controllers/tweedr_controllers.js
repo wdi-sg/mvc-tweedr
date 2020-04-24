@@ -14,21 +14,20 @@ module.exports = (db) => {
 
   const indexGetController = (req, res) => {
     const name = req.cookies['username'];
-    console.log('running indexGetController')
 
     //show all tweets 
-    db.tweedrModels.getAllTweed(name, (err, queryResult) => {
+    db.tweedrModels.getAll(name, (err, tweedResult, hashtagResult) => {
       if (err) {
         console.error('query error:', err.stack);
         res.send('query error');
       } else {
-        console.log('testet', queryResult)
-        const data = {'tweeds': queryResult}
+        const data = {'tweeds': tweedResult, 'hashtags': hashtagResult}
         res.render('index', data);
       }
     })
   }
 
+  // register page
   const registerGetController = (req, res) => {
     if (req.cookies['login_status'] === sha256('yes_true')){
       return res.redirect('/');
@@ -36,6 +35,7 @@ module.exports = (db) => {
     res.render('register');
   }
 
+  // login page
   const loginGetController = (req, res) => {
     if (req.cookies['login_status'] === sha256('yes_true')){
       return res.redirect('/');
@@ -52,7 +52,7 @@ module.exports = (db) => {
     const name = req.body.name;
     const password = sha256(req.body.password);
 
-    db.tweedrModels.register(name, password, (err, queryResult) => {
+    db.tweedrModels.register(name, password, (err, tweedResult) => {
       if (err) {
         console.error('query error:', err.stack);
         res.send('query error');
@@ -90,18 +90,31 @@ module.exports = (db) => {
   const createPostController = (req, res) => {
     const name = req.cookies['username'];
     const tweed_content = req.body.content;
+    const hashtag_lst = req.body.hashtag;
 
     db.tweedrModels.createTweed(name, tweed_content, (err, queryResult) => {
       if (err) {
         console.error('query error:', err.stack);
         res.send('query error');
       } else {
-        console.log('redirecting to /')
         res.redirect('/')
       }
     })
   }
 
+  const hashtagPostController = (req, res) => {
+    const name = req.cookies['username'];
+    const hashtag = req.body.hashtag;
+
+    db.tweedrModels.createHashtag(hashtag, (err, queryResult) => {
+      if (err) {
+        console.error('query error:', err.stack);
+        res.send('query error');
+      } else {
+        res.redirect('/')
+      }
+    })
+  }
 
   /**
    * ===========================================
@@ -117,7 +130,8 @@ module.exports = (db) => {
     //POST request callbacks
     registerPost: registerPostController,
     loginPost: loginPostController,
-    createPost: createPostController
+    createPost: createPostController,
+    hashtagPost: hashtagPostController
 
   };
 

@@ -42,6 +42,31 @@ module.exports = (dbPoolInstance) => {
     })   
   }
 
+  const getAllModel = (name, callbackFunc) => {
+    const first_query = 'SELECT content FROM tweeds INNER JOIN users ON tweeds.user_id = users.id WHERE users.name = $1;'
+    const first_values = [name];
+
+    dbPoolInstance.query(first_query, first_values, (err, first_result) => {
+      if (err) {
+        callbackFunc(err, null, null);
+      } else {
+        if (first_result.rows.length > 0){
+          const second_query = 'SELECT * FROM hashtags;'
+
+          dbPoolInstance.query(second_query, (err, second_result) => {
+            if (err) {
+              callbackFunc(err, first_result, null);
+            } else if (second_result.rows.length > 0){
+              callbackFunc(null, first_result.rows, second_result.rows)
+            } else {
+              callbackFunc(null, null, null)
+            }
+          })
+        }
+      }
+    })   
+  }
+
   const createTweedModel = (name, content, callbackFunc) => {
     const query = 'INSERT INTO tweeds (content, user_id) SELECT $2, users.id FROM users WHERE users.name =$1 RETURNING content;'
     const values = [name, content];
@@ -59,9 +84,9 @@ module.exports = (dbPoolInstance) => {
     })   
   }
 
-  const getAllTweedModel = (name, callbackFunc) => {
-    const query = 'SELECT content FROM tweeds INNER JOIN users ON tweeds.user_id = users.id WHERE users.name = $1;'
-    const values = [name];
+  const createHashtagModel = (hashtag, callbackFunc) => {
+    const query = 'INSERT INTO hashtags (hashtag) VALUES ($1);'
+    const values = [hashtag];
 
     dbPoolInstance.query(query, values, (err, result) => {
       if (err) {
@@ -73,7 +98,7 @@ module.exports = (dbPoolInstance) => {
           callbackFunc(null, null);
         }
       }
-    })   
+    })
   }
 
 
@@ -81,7 +106,8 @@ module.exports = (dbPoolInstance) => {
     register: registerModel,
     login: loginModel,
     createTweed: createTweedModel,
-    getAllTweed: getAllTweedModel
+    getAll: getAllModel,
+    createHashtag: createHashtagModel
 
   };
 };

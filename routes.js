@@ -29,5 +29,5 @@ module.exports = (app, allModels) => {
 
   app.post('/create', tweedrAllControllers.createPost)
 
-
+  app.post('/hashtag', tweedrAllControllers.hashtagPost)
 };

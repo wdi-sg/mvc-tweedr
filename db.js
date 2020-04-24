@@ -66,8 +66,11 @@ const allUsersModelsFunction = require('./models/users');
 const usersModelsObject = allUsersModelsFunction( pool );
 
 
-const allTweetsModelsFunction = require('./models/tweets')
+const allTweetsModelsFunction = require('./models/tweets');
 const tweetsModelObject = allTweetsModelsFunction(pool);
+
+const allfavoritesModelsFunction = require('./models/favorites');
+const favoritesModelObject = allfavoritesModelsFunction(pool);
 
 /*
  * ===================================================
@@ -97,5 +100,6 @@ module.exports = {
 
   // users: userModelsObject,
   users: usersModelsObject,
-  tweets: tweetsModelObject
+  tweets: tweetsModelObject,
+  favorites: favoritesModelObject
 };

@@ -25,5 +25,10 @@ module.exports = (app, allModels) => {
   const tweetController = require('./controllers/tweets')(allModels);
   app.post('/addtweet', tweetController.addTweet);
   app.get('/', tweetController.displayTweetsAndHashtags);
-  app.post('/addhashtag', tweetController.addHashtag)
+  app.post('/addhashtag', tweetController.addHashtag);
+
+  //Favorites Controller and Routes
+  const favoritesController = require('./controllers/favorites')(allModels);
+  app.get('/favorite/new', favoritesController.addFavoriteForm);
+  app.post('/favorite', favoritesController.addFavorite)
 };

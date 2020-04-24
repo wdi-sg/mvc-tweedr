@@ -52,7 +52,7 @@ class Home extends React.Component {
                       </span>
                     </div>
                     <div className="timestamp text-secondary float-right">
-                      {moment(tweet.created_at).format("DD MMM YY LTS")}
+                      {moment(tweet.created_at).format("DD MMM YY | LTS")}
                     </div>
                   </div>
                   <div className="tweet-body-content">{tweet.body}</div>

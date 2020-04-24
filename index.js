@@ -42,6 +42,12 @@ app.engine('jsx', reactEngine);
 // db contains *ALL* of our models
 const allModels = require('./db');
 
+//hash password
+var sha256 = require('js-sha256');
+const SALT = "saltprotector";
+
+
+
 /**
  * ===================================
  * ===================================

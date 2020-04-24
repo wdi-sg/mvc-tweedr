@@ -3,7 +3,7 @@
 module.exports = (app, db) => {
 
   // require the controller which has a functon for each route
-  const tweets = require('./controllers/tweets')(db);
+  const tweets = require('./controllers/tweets');
 
   app.get('/', tweets.all);
   app.get('/tweets/:id', tweets.one);

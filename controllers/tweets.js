@@ -1,37 +1,36 @@
 // controller module
 // contains functions that a route will call
-// db gets passed in here
-module.exports = (db) => {
 
-  const all = (req, res) => {
-    const updateView = (results) => {
-      res.send(results.rows);
-    };
+const Tweet = require('../models/tweets.js');
 
-    db.tweets.getAll()
-      .then((res) => updateView(res))
-      .catch((err) => {
-        console.log(err);
-        res.send(err.message);
-      });
+const all = (req, res) => {
+  const updateView = (results) => {
+    res.send(results.rows);
   };
 
-  const one = (req, res) => {
-    const updateView = (results) => {
-      res.send(results.rows);
-    };
+  Tweet.getAll()
+    .then((res) => updateView(res))
+    .catch((err) => {
+      console.log(err);
+      res.send(err.message);
+    });
+};
 
-    let id = req.params.id;
-    db.tweets.getOne(id)
-      .then((res) => updateView(res))
-      .catch((err) => {
-        console.log(err);
-        res.send(err.message);
-      });
+const one = (req, res) => {
+  const updateView = (results) => {
+    res.send(results.rows);
   };
 
-  return {
-    all,
-    one
-  };
+  let id = req.params.id;
+  Tweet.getOne(id)
+    .then((res) => updateView(res))
+    .catch((err) => {
+      console.log(err);
+      res.send(err.message);
+    });
+};
+
+module.exports = {
+  all,
+  one
 };

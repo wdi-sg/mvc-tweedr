@@ -31,13 +31,6 @@ pool.on('error', function (err) {
   console.log('client pool error', err.message, err.stack);
 });
 
-// model files
-// grab each model function then pass it the pool object
-// so all models use the same connection pool
-// const modelFunc = require('./models/modelname');
-// const model = modelFunc(pool);
-const tweets = require('./models/tweets')(pool);
-
 // not exporting a query interface because we handle the promise
 // so we don't need to define a specific callback here
 
@@ -45,7 +38,4 @@ const tweets = require('./models/tweets')(pool);
 // cos they magically become `varname: varvalue`)
 // pool object so main app can close it
 // model objects with pool passed to them
-module.exports = {
-  pool,
-  tweets
-};
+module.exports = pool;

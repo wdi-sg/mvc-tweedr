@@ -1,16 +1,22 @@
 // model module
 // contains db queries and returns data to controller
-module.exports = (dbPoolInstance) => {
+const dbPool = require('../db.js');
 
-  const getAll = async () => {
+module.exports = class Tweet {
+  constructor(content, user_id) {
+    this.content = content;
+    this.user_id = user_id;
+  }
+
+  static async getAll () {
     let tweetQuery = 'SELECT tweets.id, content, username ' +
         'FROM tweets ' +
         'INNER JOIN users ' +
         'ON (tweets.user_id = users.id)';
-    return await dbPoolInstance.query(tweetQuery);
-  };
+    return await dbPool.query(tweetQuery);
+  }
 
-  const getOne = async (id) => {
+  static async getOne (id) {
     let tweetQuery =
         'SELECT tweets.id, content, username ' +
         'FROM tweets ' +
@@ -18,11 +24,6 @@ module.exports = (dbPoolInstance) => {
         'ON (tweets.user_id = users.id) ' +
         'WHERE tweets.id = $1';
     let values = [id];
-    return await dbPoolInstance.query(tweetQuery, values);
-  };
-
-  return {
-    getAll,
-    getOne
+    return await dbPool.query(tweetQuery, values);
   };
 };

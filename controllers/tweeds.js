@@ -41,8 +41,7 @@ let displayTweed =  (req, res) => {
             //console.log(result);
             // console.log("CHECKING AGAIN");
             let userName = req.cookies['user_name'];
-            console.log(result);
-            console.log("RESULT ----------------");
+
             const data = {
                 userName,
                 result

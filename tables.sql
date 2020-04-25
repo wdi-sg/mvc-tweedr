@@ -12,4 +12,10 @@ user_id INTEGER,
 user_name TEXT,
 tweed VARCHAR(30),
 created_at TIMESTAMPTZ DEFAULT Now()
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+id SERIAL PRIMARY KEY,
+user_id INTEGER,
+follower_user_id INTEGER
 )

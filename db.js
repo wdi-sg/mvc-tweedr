@@ -67,6 +67,7 @@ pool.on('error', function (err) {
 const registerTweedAccount = require('./models/register.js')(pool);
 const loginTweedAccount = require('./models/login.js')(pool);
 const insertTweed = require('./models/tweeds.js')(pool);
+const showUserProfile = require('./models/users.js')(pool);
 
 
 // ################# Pokemon Model ###################
@@ -105,5 +106,6 @@ module.exports = {
   pokemon: pokemonModelsObject,
   register: registerTweedAccount,
   login: loginTweedAccount,
-  makeTweed: insertTweed
+  makeTweed: insertTweed,
+  showUserProfile: showUserProfile
 };

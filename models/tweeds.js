@@ -23,7 +23,6 @@ let insertTweed = (tweed, id, callback) => {
 
          if(queryResult.rows.length > 0) {
             console.log("Tweed inserted!");
-            console.log(queryResult.rows);
             callback(null, queryResult.rows);
         } else {
             console.log("Insert Unsuccessful");
@@ -40,7 +39,7 @@ let insertTweed = (tweed, id, callback) => {
 
 let displayTweed = (callback) => {
 
-    const queryString = "SELECT users.name, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id) WHERE tweeds.id > 80 ORDER BY tweeds.id DESC";
+    const queryString = "SELECT users.name, tweeds.user_id, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id) WHERE tweeds.id > 80 ORDER BY tweeds.id DESC";
 
    dbPoolInstance.query(queryString, (error, queryResult) => {
     if(error) {
@@ -51,7 +50,6 @@ let displayTweed = (callback) => {
     } else {
 
          if(queryResult.rows.length > 0) {
-            console.log("Gathering Tweeds");
             return callback(null, queryResult.rows);
         } else {
             console.log("Insert Unsuccessful");

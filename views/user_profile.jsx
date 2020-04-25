@@ -1,20 +1,17 @@
 var React = require("react");
 
-class Tweed extends React.Component {
+class UserProfile extends React.Component {
   render() {
 
 
 let results = this.props.result || [];
 
-let link = "/user_profile/";
 
-let tweedData = results.map(info => {
-    let linkId = info.user_id;
-    let profileLink = "/user_profile/" + linkId;
 
-    return <div><li style={{fontSize: "23px", fontFamily: "Pathway Gothic One, sans-serif"}}>{info.tweed} <br /><br /><a href={profileLink}><span style={{fontSize: "20px", color:"grey"}}>by {info.name}</span></a>
-    <hr /></li></div>
-})
+// let tweedData = results.map(info => {
+//     return <div key={info.id}><li style={{fontSize: "23px", fontFamily: "Pathway Gothic One, sans-serif"}}>{info.tweed} <br /><br /><span style={{fontSize: "20px", color:"grey"}}>by <a href="#">{info.name}</a></span>
+//     <hr /></li></div>
+// })
 
     return (
       <html>
@@ -26,16 +23,13 @@ let tweedData = results.map(info => {
         <body>
         <div className="tweed-container">
         <div className="jumbotron">
-          <h1 className="display-4">TWEEDER</h1>
+          <h1 className="display-4"></h1>
           <p className="lead">Tweed Yo Mind</p>
 
           <hr className="my-4"/>
           <form method="POST" action="/logout/?_method=delete">
           <button type="submit" className="btn btn-secondary logout">Logout</button>
           </form>
-        </div>
-        <div className="tweed-username">
-        <h1>Welcome {this.props.userName}</h1>
         </div>
 
             <div className="tweed-header-input">
@@ -44,17 +38,9 @@ let tweedData = results.map(info => {
             <h3>Tweeds</h3>
             </div>
 
-            <form method="POST" action="/makeTweed">
-            <div className="input-group input-group-lg text-field">
-            <input type="hidden" name="username" value={this.props.userName}/>
-                 <button className="btn btn-outline-secondary tweed-button" type="submit">Tweed</button>
-                 <textarea className="tweed-insert" type="text" name="tweed" rows="3" cols="50" placeholder="Write Something">
-                 </textarea>
-            </div>
-            </form>
             <div className="tweed-input-field">
             <ul className="tweed-display-container">
-                {tweedData}
+
             </ul>
             </div>
             </div>
@@ -71,4 +57,4 @@ let tweedData = results.map(info => {
   }
 }
 
-module.exports = Tweed;
+module.exports = UserProfile;

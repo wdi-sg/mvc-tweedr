@@ -1,7 +1,7 @@
 const {validationResult} = require('express-validator')
 
 
-const validateAuth = validations => {
+const validateAuthInput = validations => {
   return async (req, res, next) => {
      await Promise.all(validations.map(validation => validation.run(req)));
 
@@ -19,5 +19,5 @@ const validateAuth = validations => {
 
 
 module.exports = {
-  validateAuth: validateAuth
+  validateAuthInput: validateAuthInput
 }

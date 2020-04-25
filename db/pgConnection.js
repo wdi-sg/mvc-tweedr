@@ -1,7 +1,6 @@
 /* Interface
     connect()
  */
-require('dotenv').config()
 const {Pool} = require('pg');
 
 class PgConnection {

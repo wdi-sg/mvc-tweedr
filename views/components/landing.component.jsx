@@ -29,11 +29,12 @@ const Landing = (props) => {
                 </div>
               </section>
           </div>
+
             {switchForm(props.displayForm)}
+
         </div>
+
       </section>
-
-
 
     </React.Fragment>
   )

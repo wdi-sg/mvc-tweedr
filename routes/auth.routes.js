@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const { registerUser, loginUser } = require('../controllers/auth.controller')
-const { validateAuth } = require('../controllers/validation.controller')
+const { validateAuthInput } = require('../middleware/validation.middleware')
+const  authorize  = require('../middleware/authorization.middleware')
 const { body } = require('express-validator')
 
-router.post('/register', validateAuth([
+//
+router.post('/register', validateAuthInput([
   body('username').not().isEmpty()
     .withMessage('Username is required.')
     .trim(),
@@ -12,7 +14,7 @@ router.post('/register', validateAuth([
     .trim()
 ]), registerUser)
 
-router.post('/login', validateAuth([
+router.post('/login', validateAuthInput([
   body('username').not().isEmpty()
     .withMessage('Username is required.')
     .trim(),
@@ -20,6 +22,7 @@ router.post('/login', validateAuth([
     .withMessage('Password is required.')
     .trim()
 ]), loginUser)
+
 
 module.exports = router
 

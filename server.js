@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const methodOverride = require('method-override')
 const register = require('@react-ssr/express/register')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const { handle404, handle500 } = require('./controllers/errors')
-const { authRoute } = require('./routes/index')
+const { authRoute, tweetRoutes } = require('./routes/index')
 
 const app = express()
 app.use(methodOverride('_method'))
@@ -38,6 +39,7 @@ const PORT = 3000;
   )
 
   app.use(APP_ROOT, authRoute)
+  app.use(APP_ROOT, tweetRoutes)
 
   // last route
   app.use(handle404)

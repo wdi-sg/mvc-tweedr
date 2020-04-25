@@ -1,0 +1,22 @@
+INSERT INTO users (username,password) VALUES ('January', 'one');
+INSERT INTO users (username,password) VALUES ('February', 'two');
+INSERT INTO users (username,password) VALUES ('March', 'three');
+INSERT INTO users (username,password) VALUES ('April', 'four');
+INSERT INTO users (username,password) VALUES ('May', 'five');
+INSERT INTO users (username,password) VALUES ('June', 'six');
+INSERT INTO users (username,password) VALUES ('July', 'seven');
+
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Enjoying vacation', 1);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Got received a sunburn', 1);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Having a good time', 2);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Caught a flu', 2);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Baked a cake', 3);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('The cake fell to the floor', 3);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Buying ingredients to make a new cake', 3);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Had lunch today', 4);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Found a cockroach in my soup ew', 4);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Made some money today', 5);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('I killed someone.', 6);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Where should i run', 6);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('Having a party tonight', 7);
+INSERT INTO tweets(tweetbody,users_id) VALUES ('no one came', 7);

@@ -6,12 +6,16 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
-      db.pokemon.getAll((error, allPokemon) => {
-        response.render('pokemon/index', { allPokemon });
-      });
-  };
-
+  // let indexControllerCallback = (request, response) => {
+  //     db.pokemon.getAll((error, allPokemon) => {
+  //       response.render('pokemon/index', { allPokemon });
+  //     });
+  // };
+    let tweetController = (request, response) => {
+        db.pokemon.getAllTweets = (error, result) => {
+            response.send(result);
+        };
+    };
 
   /**
    * ===========================================
@@ -19,7 +23,8 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    // index: indexControllerCallback,
+    tweetController: tweetController,
   };
 
 }

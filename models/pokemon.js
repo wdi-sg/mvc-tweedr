@@ -134,6 +134,16 @@ module.exports = (pool) => {
     });
   };
 
+  let submitNewFavorite = (request, response, callback) => {
+    let queryString = "INSERT INTO favorites (user_id, tweet_id) VALUES ($1, $2)";
+    let values = [request.cookies['userid'], request.body.tweetId];
+    pool.query(queryString, values, (error, result) => {
+      if(error){
+        callback(error, null);
+      }
+    });
+  };
+
   return {
     getAll: getAll,
     registerAccount: registerAccount,
@@ -141,6 +151,7 @@ module.exports = (pool) => {
     loginAccount: loginAccount,
     submitTweet: submitTweet,
     submitNewHashTag: submitNewHashTag,
-    viewHashTag: viewHashTag
+    viewHashTag: viewHashTag,
+    submitNewFavorite: submitNewFavorite
   };
 };

@@ -5,7 +5,7 @@ class Home extends React.Component {
     let allTweets;
     if(this.props.tweets !== undefined){
       allTweets = this.props.tweets.map(tweet => {
-          return <li>{tweet.message}<br /><button class="favorite" value={tweet.id}>Favorite</button></li>
+          return <li>{tweet.message}<br /><button className="favorite" value={tweet.id}>Favorite</button></li>
       });
     }else {
       allTweets = <li>No tweet yet!</li>;

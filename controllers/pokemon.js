@@ -117,7 +117,12 @@ module.exports = (db) => {
   };
 
   let submitNewFavoriteControllerCallback = (request, response) => {
-
+    db.pokemon.submitNewFavorite(request, response, (error) => {
+      if(error) {
+        console.log('Query error: ', error.message);
+        response.send("query error");
+      }
+    });
   };
 
   /**

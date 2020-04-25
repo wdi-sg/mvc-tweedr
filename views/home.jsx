@@ -14,17 +14,25 @@ class Home extends React.Component {
             <div className='container'>
                 <br/>
                 <h2 className='text-center'>Welcome {username}!</h2>
-            </div>
-            <br/>
-            <div className='row justify-content-center'>
-                <div className='col-2 d-flex justify-content-end'>
-                    <button className='btn btn-primary'><a href='/home/tweet/new'className='text-white text-decoration-none'>New Tweet</a></button>
+                <br/>
+                <div className='row justify-content-center'>
+                    <div className='col-2 d-flex justify-content-end'>
+                        <button className='btn btn-primary'><a href='/home/tweet/new'className='text-white text-decoration-none'>New Tweet</a></button>
+                    </div>
+                    <div className='col-2 d-flex'>
+                        <button className='btn btn-info'><a href='/home/tweets' className='text-white text-decoration-none'>See all Tweets</a></button>
+                    </div>
                 </div>
-                <div className='col-2 d-flex'>
-                    <button className='btn btn-info'><a href='/home/tweets' className='text-white text-decoration-none'>See all Tweets</a></button>
+                <br/>
+                <div className='row justify-content-center'>
+                    <div className='col-2 d-flex justify-content-end'>
+                        <button className='btn btn-primary'><a href='/home/hashtag/new' className='text-white text-decoration-none'>New Hashtag</a></button>
+                    </div>
+                    <div className='col-2 d-flex'>
+                        <button className='btn btn-info'><a href='/home/hashtags' className='text-white text-decoration-none'>See all Hashtags</a></button>
+                    </div>
                 </div>
             </div>
-            <br/>
         </body>
       </html>
     );

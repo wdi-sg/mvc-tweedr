@@ -6,6 +6,7 @@ class Show_Tweet extends React.Component {
     const tweet = this.props.tweet;
     const username = this.props.username;
     const userId = this.props.userId;
+    const hashtag = this.props.hashtag;
 
     return (
       <html>
@@ -26,6 +27,9 @@ class Show_Tweet extends React.Component {
                         </div>
                         <div className='row' style={{padding: "5px 0 5px 5px"}}>
                             <h5>{tweet}</h5>
+                        </div>
+                        <div className='row' style={{padding: "5px 0 5px 5px"}}>
+                            <h6>{tweet}</h6>
                         </div>
                     </div>
                 </div>

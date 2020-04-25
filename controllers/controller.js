@@ -58,11 +58,14 @@ const sha256 = require('js-sha256');
 
     // ==== Make a Tweet ====
     let newTweetController = (request, response) => {
-        const data = {
-            username: request.cookies['username'],
-            userId: request.cookies['userId']
-        }
-        response.render('new_tweet', data)
+        db.model.getAllHashtags((error, hashtags) => {
+            const data = {
+                username: request.cookies['username'],
+                userId: request.cookies['userId'],
+                hashtags: hashtags
+            }
+            response.render('new_tweet', data)
+        })
     };
 
     let showTweetController = (request, response) => {
@@ -77,7 +80,7 @@ const sha256 = require('js-sha256');
                 const data = {
                     tweet: tweet,
                     username: username,
-                    userId: userId
+                    userId: userId,
                 }
                 response.render('show_tweet', data)
             }
@@ -128,6 +131,7 @@ const sha256 = require('js-sha256');
     let addFollowedUserController = (request, response) => {
         const userId = request.cookies['userId'];
         const followedUserId = request.params.id;
+        const hashtag = request.body.hashtag
 
         const whenModelIsDone = ((err, result) => {
             if (err) {
@@ -137,8 +141,51 @@ const sha256 = require('js-sha256');
                 response.redirect(userProfile)
             }
         })
+        db.model.insertFollowedUser(userId, followedUserId, hashtag, whenModelIsDone);
+    }
 
-        db.model.insertFollowedUser(userId, followedUserId, whenModelIsDone);
+    // ==== Add hashtag ====
+    let addHashtagController = (request, response) => {
+        response.render('new_hashtag');
+    }
+
+    let showHashtagController = (request, response) => {
+        let hashtag = request.body.hashtag;
+        const whenModelIsDone = (err, hashtag) => {
+            if (err) {
+                console.log('Query error', err);
+            } else {
+                const data = {
+                    hashtag: hashtag,
+                }
+            response.render('show_hashtag', data);
+            }
+        }
+        db.model.insertHashtag(hashtag, whenModelIsDone);
+    }
+
+    let allHashtagsController = (request, response) => {
+        db.model.getAllHashtags((err, hashtags) => {
+            const data = {
+                hashtags: hashtags
+            }
+            response.render('all_hashtags', data)
+        })
+    }
+
+    let hashtagController = (request, response) => {
+        const hashtagId = request.params.id;
+        const whenModelIsDone = (err, tweets) => {
+            if (err) {
+                console.log('Query error', err);
+            } else {
+                const data = {
+                    tweets: tweets,
+                }
+            response.render('hashtag', data);
+            }
+        }
+        db.model.getTweetsWithEachHashtag(hashtagId, whenModelIsDone);
     }
 
     /**
@@ -156,7 +203,11 @@ const sha256 = require('js-sha256');
     allTweets: allTweetsController,
     allUsers: allUsersController,
     user: userController,
-    addFollowedUser: addFollowedUserController
+    addFollowedUser: addFollowedUserController,
+    addHashtag: addHashtagController,
+    showHashtag: showHashtagController,
+    allHashtags: allHashtagsController,
+    hashtag: hashtagController
     };
 
 }

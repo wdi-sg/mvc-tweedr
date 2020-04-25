@@ -1,11 +1,7 @@
 const React = require("react");
 
-class New_Tweet extends React.Component {
+class New_Hashtag extends React.Component {
   render() {
-
-    const allHashtags = this.props.hashtags.map(hashtag => {
-        return (<option name='hashtag'>{hashtag.hashtag}</option>)
-    })
 
     return (
       <html>
@@ -15,24 +11,17 @@ class New_Tweet extends React.Component {
         <body>
             <div className='container'>
                 <br/>
-                <h2 className='text-center'>New Tweet</h2>
+                <h2 className='text-center'>New Hashtag</h2>
             </div>
             <br/>
             <div className='row justify-content-center'>
-                <form method='POST' action='/home/tweet'>
-                    <h5 className='text-center'>Write a Tweet!</h5>
+                <form method='POST' action='/home/hashtag'>
+                    <h5 className='text-center'>Create a new hashtag!</h5>
                     <div className='row justify-content-center'>
-                        <input type='text' name='tweet' style={{width:"300px", height:"100px"}}/>
+                        <input type='text' name='hashtag' value='#'/>
                     </div>
                     <br/>
-                    <h5 className='text-center'>Add a hashtag</h5>
-                    <div className='row justify-content-center'>
-                        <select>
-                            <option></option>
-                            {allHashtags}
-                        </select>
-                    </div>
-                    <br/><br/>
+                    <br/>
                     <div className='row justify-content-center'>
                         <input type='submit' value='Submit' className='btn btn-primary'/>
                     </div>
@@ -48,4 +37,4 @@ class New_Tweet extends React.Component {
   }
 }
 
-module.exports = New_Tweet;
+module.exports = New_Hashtag;

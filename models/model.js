@@ -25,8 +25,7 @@ module.exports = (dbPoolInstance) => {
     // ==== Insert Tweet into Tweets Table ====
     let insertTweet = (tweet, userId, callback) => {
         let values = [tweet, userId]
-        let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2) RETURNING *';
-        console.log('values:', values);
+        let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)';
 
         dbPoolInstance.query(query, values, (err, result) => {
             if (err) {
@@ -39,7 +38,7 @@ module.exports = (dbPoolInstance) => {
 
     // ==== Get all Tweets =====
     let getAllTweets = (callback) => {
-        let query = 'SELECT tweets.user_id, tweets.id, tweets.tweet, users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id)';
+        let query = 'SELECT tweets.id, tweets.tweet, tweet_hashtag.hashtag_id, hashtags.hashtag, tweets.user_id, users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id) INNER JOIN tweet_hashtag ON (tweets.id = tweet_hashtag.tweet_id) INNER JOIN hashtags ON (tweet_hashtag.hashtag_id = hashtags.id)';
 
         dbPoolInstance.query(query, (error, result) => {
             if (error) {
@@ -98,12 +97,52 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    let getAllHashtags = (callback) => {
+        let query = 'SELECT * FROM hashtags';
+
+        dbPoolInstance.query(query, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result.rows)
+            }
+        })
+    }
+
+    let insertHashtag = (hashtag, callback) => {
+        let query = 'INSERT INTO hashtags (hashtag) VALUES ($1) RETURNING *';
+        values = [hashtag];
+
+        dbPoolInstance.query(query, values, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result.rows[0])
+            }
+        })
+    }
+
+    let getTweetsWithEachHashtag = (hashtagId, callback) => {
+        let query = 'SELECT hashtags.id, hashtags.hashtag, tweet_hashtag.tweet_id, tweets.tweet, tweets.user_id, users.username FROM hashtags INNER JOIN tweet_hashtag ON (hashtags.id = tweet_hashtag.hashtag_id) INNER JOIN tweets ON (tweet_hashtag.tweet_id = tweets.id) INNER JOIN users ON (tweets.user_id = users.id) WHERE hashtags.id=' + hashtagId;
+
+        dbPoolInstance.query(query, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                callback(err, result.rows)
+            }
+        })
+    }
+
     return {
         getAllUsers,
         insertTweet,
         getAllTweets,
         getUserTweets,
         insertFollowedUser,
-        getFollowedUsers
+        getFollowedUsers,
+        getAllHashtags,
+        insertHashtag,
+        getTweetsWithEachHashtag,
     };
 };

@@ -1,10 +1,10 @@
 const React = require("react");
 
-class All_Tweets extends React.Component {
+class Hashtag extends React.Component {
   render() {
 
-    const allTweets = this.props.allTweets;
-    const allTweetsList = allTweets.map(tweet => {
+    const hashtag = this.props.tweets[0].hashtag;
+    const allTweets = this.props.tweets.map(tweet => {
         let userProfile = '/home/users/' + tweet.user_id
         return (<div className='col-3' style={{border: "1px solid gainsboro", margin: "10px"}}>
                     <div className='row'>
@@ -34,14 +34,14 @@ class All_Tweets extends React.Component {
         <body>
             <div className='container'>
                 <br/>
-                <h2 className='text-center'>All Tweets</h2>
+                <h2 className='text-center'>All Tweets with {hashtag}</h2>
                 <br/>
                 <div className='row justify-content-center'>
                     <button className='btn btn-danger'><a href='/home' className='text-white text-decoration-none'>Back to Home</a></button>
                 </div>
                 <br/>
                 <div className='row justify-content-center'>
-                    {allTweetsList}
+                    {allTweets}
                 </div>
             </div>
         </body>
@@ -50,4 +50,4 @@ class All_Tweets extends React.Component {
   }
 }
 
-module.exports = All_Tweets;
+module.exports = Hashtag;

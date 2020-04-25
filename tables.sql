@@ -15,3 +15,14 @@ id SERIAL PRIMARY KEY,
 user_id INTEGER,
 follower_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS hashtags (
+id SERIAL PRIMARY KEY,
+hashtag VARCHAR(15)
+);
+
+CREATE TABLE IF NOT EXISTS tweet_hashtag(
+id SERIAL PRIMARY KEY,
+tweet_id INTEGER,
+hashtag_id INTEGER
+);

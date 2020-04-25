@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  hashedpassword TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweets (
+  id SERIAL PRIMARY KEY,
+  message TEXT,
+  user_id INTEGER,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  id SERIAL PRIMARY KEY,
+  token TEXT NOT NULL UNIQUE,
+  user_id INTEGER,
+  expiry TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+  id SERIAL PRIMARY KEY,
+  followed_user_id INTEGER NOT NULL,
+  follower_user_id INTEGER NOT NULL
+)

@@ -23,21 +23,13 @@ let makeTweed = (req, res) => {
          if(error) {
         console.log("ERRRRROROROROROROR");
         console.log(error);
-        } else {
-            let result =  displayTweed();
-            console.log("-----------------------");
-            console.log(result);
-            let userName = req.cookies['user_name'];
-            const data ={
-                result,
-                userName
-            }
-            res.render('tweeds', data);
+        return;
         }
+        res.redirect('tweeds');
     })
 }
 
-let displayTweed =  () => {
+let displayTweed =  (req, res) => {
 
     let response =  db.makeTweed.displayTweed((error, result) => {
         if(error) {
@@ -48,9 +40,14 @@ let displayTweed =  () => {
             // console.log("CHECKING");
             //console.log(result);
             // console.log("CHECKING AGAIN");
-
-
-            return result;
+            let userName = req.cookies['user_name'];
+            console.log(result);
+            console.log("RESULT ----------------");
+            const data = {
+                userName,
+                result
+            }
+            res.render('tweeds', data);
 
     }
 });

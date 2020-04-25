@@ -40,7 +40,7 @@ let insertTweed = (tweed, id, callback) => {
 
 let displayTweed = (callback) => {
 
-    const queryString = "SELECT users.name, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id)";
+    const queryString = "SELECT users.name, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id) WHERE tweeds.id > 80 ORDER BY tweeds.id DESC";
 
    dbPoolInstance.query(queryString, (error, queryResult) => {
     if(error) {
@@ -62,8 +62,7 @@ let displayTweed = (callback) => {
 
 
     });
-   console.log(response);
-   console.log("------- RESPONSE ---------")
+
 }
 
   return {

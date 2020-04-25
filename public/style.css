@@ -5,11 +5,12 @@
 }
 
 body {
-	font-family: "Lato", sans-serif;
+	font-family: "Patua One", cursive;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.7;
 	color: #777;
+	letter-spacing: 1.6px;
 }
 
 .jumbotron {
@@ -35,7 +36,7 @@ body {
 button.logout {
 	position: absolute;
 	font-size: 20px;
-	left: 30px
+	left: 800px
 }
 
 .tweed-container {
@@ -46,7 +47,7 @@ button.logout {
 .tweed-header-input {
 	background-color: #7ebdb4;
 	width: 700px;
-	height: 500px;
+	height: 800px;
 	margin: 0 auto;
 	border-radius: 8px;
 }
@@ -57,23 +58,37 @@ button.logout {
 }
 
 .tweed-username {
-	margin-left: 59px;
+	margin-left: 114px;
+	margin-bottom: 20px;
+	font-family: 'Pathway Gothic One', sans-serif;;
 }
 
 .text-field {
 	background-color: white;
 	padding: 5px;
 	height: 100px;
+	display: flex;
+	justify-content: space-between;
 
 }
 
 .tweed-insert {
-width: 610px;
+width: 580px;
 border-radius: 10px;
 padding: 5px;
 margin-left: 8px;
+
 }
 
 button.tweed-button {
 	border-radius: 10px;
+}
+
+
+.tweed-input-field ul.tweed-display-container {
+	height:600px;
+	overflow: hidden;
+	overflow-y: scroll;
+	padding: 40px;
+	list-style: none;
 }

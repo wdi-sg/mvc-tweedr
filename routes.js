@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 })
 app.get('/login', tweedLogin.displayLogin);
 app.get('/register', tweedRegister.register);
-app.get('/tweeds', tweedPage.tweedPage);
+//app.get('/tweeds', tweedPage.tweedPage);
 app.get('/tweeds', tweedPage.displayTweed);
 
 app.post('/userLogin', tweedLogin.login);

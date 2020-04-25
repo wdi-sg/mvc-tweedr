@@ -5,15 +5,19 @@ class Tweed extends React.Component {
 
 
 let results = this.props.result || [];
+
+
+
 let tweedData = results.map(info => {
-    return  <li key={info.id}>{info.tweed}</li>
+    return <div key={info.id}><li style={{fontSize: "23px", fontFamily: "Pathway Gothic One, sans-serif"}}>{info.tweed} <br /><br /><span style={{fontSize: "20px", color:"grey"}}>by {info.name}</span>
+    <hr /></li></div>
 })
 
     return (
       <html>
         <head>
         <link rel="stylesheet" href="style.css"/>
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Pathway+Gothic+One&family=Patua+One&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous"/>
         </head>
         <body>
@@ -46,9 +50,9 @@ let tweedData = results.map(info => {
             </div>
             </form>
             <div className="tweed-input-field">
-            <ol>
-            {tweedData}
-            </ol>
+            <ul className="tweed-display-container">
+                {tweedData}
+            </ul>
             </div>
             </div>
 

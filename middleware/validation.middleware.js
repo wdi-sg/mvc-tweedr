@@ -19,5 +19,5 @@ const validateAuthInput = validations => {
 
 
 module.exports = {
-  validateAuthInput: validateAuthInput
+  validateAuthInput
 }

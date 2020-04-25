@@ -8,6 +8,7 @@ const authorize = (req, res, next) => {
   }
   try {
     const decoded = verify(token, process.env.PRIVATE_KEY);
+    console.log(decoded)
     req.user = decoded;
     next()
   } catch (e) {

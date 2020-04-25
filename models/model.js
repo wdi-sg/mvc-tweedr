@@ -26,6 +26,14 @@ class Model {
     this._data = data
   }
 
+  get id () {
+    return this.data.id
+  }
+
+  set id (id) {
+    this.data.id = id
+  }
+
   static async select (fieldsToSelect, whereParams,
     tableName = this.name.toLowerCase()) {
     let data, values

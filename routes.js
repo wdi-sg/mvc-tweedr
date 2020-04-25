@@ -32,6 +32,8 @@ module.exports = (app, allModels) => {
 
   app.post('/favouritetweet', homePage.favourite);
 
+  app.delete('/unfavouritetweet/:id', homePage.unfavourite);
+
 
   // Registration page
   const registrationPage = require('./controllers/registration')(allModels);

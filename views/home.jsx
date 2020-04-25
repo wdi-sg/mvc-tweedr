@@ -44,7 +44,7 @@ class Home extends React.Component {
     const showAllTweets = allTweets.map((el, i) => {
         console.log(el)
         const profileURL = `/profile/${el.users_id}/${el.username}`
-        const favBtnClassname = `fav-btn input-${i}`
+        const favBtnClassname = `input-${i} fav-btn`
         const inputClassname = `input-${i}`
         return(
             <div className="tweet-body">

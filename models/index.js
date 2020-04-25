@@ -39,9 +39,18 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString, values);
   }
 
+  // Unfavourite a tweet
+  const unFavTweet = (userID, tweetID) => {
+    console.log('starting to unfav')
+    let queryString = `delete from favourites where users_id=${userID} and tweets_id=${tweetID}`;
+
+    return dbPoolInstance.query(queryString);
+  }
+
   return {
     addTweet,
     showTweet,
-    favTweet
+    favTweet,
+    unFavTweet
   };
 };

@@ -43,17 +43,45 @@ favButtons.forEach(e => {
 })
 
 function favBtnClick() {
-    const btn = event.target.className.split(' ')[1];
-    const input = document.querySelectorAll(`.${btn}`)[0];
+    const favBtnClass = event.target.className.split(' ')[0];
+    const input = document.querySelectorAll(`.${favBtnClass}`)[0];
     const inputValue = input.value;
 
     const data = {"tweetID" : inputValue}
 
-    var request = new XMLHttpRequest();   // new HttpRequest instance
+    if (event.target.className.split(' ')[1] === 'fav-btn') {
+        // AJAX
+        var request = new XMLHttpRequest();   // new HttpRequest instance
 
-    request.open("POST", '/favouritetweet');
+        request.open("POST", '/favouritetweet');
 
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    request.send(JSON.stringify(data));
+        request.send(JSON.stringify(data));
+
+        // Change heart shape to like
+        const favBtn = document.querySelectorAll(`.${favBtnClass}`)[1];
+        favBtn.setAttribute('src', './images/fav.svg');
+        favBtn.classList.remove("fav-btn");
+        favBtn.classList.add("unfav-btn");
+    }
+    else if(event.target.className.split(' ')[1] === 'unfav-btn'){
+         // AJAX
+        var request = new XMLHttpRequest();   // new HttpRequest instance
+
+        // request.open("POST", '/unfavouritetweet/?_method=delete');
+        request.open("POST", `/unfavouritetweet/${inputValue}/?_method=delete`);
+
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        // request.send(JSON.stringify(data));
+        request.send();
+
+        // Change heart shape to unlike
+        const favBtn = document.querySelectorAll(`.${favBtnClass}`)[1];
+        favBtn.setAttribute('src', './images/nofav.svg');
+        favBtn.classList.remove("unfav-btn");
+        favBtn.classList.add("fav-btn");
+        console.log(favBtn);
+    }
 }

@@ -76,6 +76,17 @@ h1{
 	height: 24px;
 }
 
+.unfav-btn{
+	width: 20px;
+	height: 20px;
+}
+
+.unfav-btn:hover{
+	width: 24px;
+	height: 24px;
+}
+
+
 @media screen and (max-height: 450px) {
   .tools {padding-top: 15px;}
   .tools a {font-size: 10px;}

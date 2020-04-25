@@ -55,6 +55,15 @@ module.exports = (db) => {
             .catch(err => {console.error(err.stack)})
     }
 
+    let unFavTweet = (request, response) => {
+        const userID = request.cookies.userID;
+        // const tweetID = parseInt(request.body.tweetID);
+        const tweetID = parseInt(request.params.id)
+
+        // delete favourite relationship from database
+        db.index.unFavTweet(userID, tweetID);
+    }
+
 
     let writeTweet = (request, response) => {
         const userID = request.params.id;
@@ -77,6 +86,7 @@ module.exports = (db) => {
     index: homePageControllerCallback,
     tweet: writeTweet,
     profilePic: addProfilePic,
-    favourite: favTweet
+    favourite: favTweet,
+    unfavourite: unFavTweet
    }
 }

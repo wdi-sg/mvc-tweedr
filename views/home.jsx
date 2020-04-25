@@ -53,7 +53,7 @@ class Home extends React.Component {
                 <div>
                     <form>
                         <input name="favourite" value={el.id} type="hidden" className={inputClassname}></input>
-                        <button type="button" className={favBtnClassname}>fav</button>
+                        <img src="./images/nofav.svg" className={favBtnClassname}></img>
                     </form>
                 </div>
             </div>

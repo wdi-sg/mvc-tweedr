@@ -51,6 +51,8 @@ module.exports = (db) => {
         const userID = request.cookies.userID;
         const tweetID = parseInt(request.body.tweetID);
 
+        db.index.favTweet(userID, tweetID)
+            .catch(err => {console.error(err.stack)})
     }
 
 

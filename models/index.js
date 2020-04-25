@@ -30,8 +30,18 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString)
   };
 
+  // Favourite a tweet
+  const favTweet = (userID, tweetID) => {
+    let queryString = 'insert into favourites (users_id, tweets_id) values ($1, $2) returning *'
+
+    values = [userID, tweetID];
+
+    return dbPoolInstance.query(queryString, values);
+  }
+
   return {
     addTweet,
-    showTweet
+    showTweet,
+    favTweet
   };
 };

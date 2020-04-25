@@ -66,6 +66,16 @@ h1{
 .tweet-user{
 }
 
+.fav-btn{
+	width: 20px;
+	height: 20px;
+}
+
+.fav-btn:hover{
+	width: 24px;
+	height: 24px;
+}
+
 @media screen and (max-height: 450px) {
   .tools {padding-top: 15px;}
   .tools a {font-size: 10px;}

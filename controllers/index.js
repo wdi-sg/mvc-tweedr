@@ -21,19 +21,35 @@ module.exports = (db) => {
         if (loggedIn === 'true'){
             data = {'loggedIn': loggedIn, 'username': username, 'userID': userID}
 
-            // Get all followees tweets from database
-            db.index.showTweet(userID)
-                .then(results => {
-                    const tweets = results.rows
-                    console.log(tweets)
-                    data['tweets'] = tweets;
+            // Get all favourite tweets
+            let promise1 = new Promise((resolve, reject) => {
+                db.index.getFavourites(userID)
+                    .then((results) => {
+                        const favourites = results.rows
+                        data['favourites'] = favourites;
+                        resolve();
+                    })
+                    .catch(err => {
+                        console.error(err.stack)
+                    })
+            })
 
-                    // response.render('home', data);
-                    response.render('home', data);
-                })
-                .catch(err => {
-                    console.error(err.stack)
-                })
+            // Get all followees tweets from database
+            let promise2 = new Promise((resolve, reject) => {
+                db.index.showTweet(userID)
+                    .then(results => {
+                        const tweets = results.rows
+                        data['tweets'] = tweets;
+                        resolve();
+                    })
+                    .catch(err => {
+                        console.error(err.stack)
+                    })
+            })
+
+            Promise.all([promise1, promise2]).then(() => {
+                response.render('home', data);
+            })
         }
         else{
 

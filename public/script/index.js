@@ -37,8 +37,13 @@ Favourites button
 *********************/
 
 const favButtons = document.querySelectorAll('.fav-btn');
+const unfavButtons = document.querySelectorAll('.unfav-btn');
 
 favButtons.forEach(e => {
+    e.addEventListener('click', favBtnClick);
+})
+
+unfavButtons.forEach(e => {
     e.addEventListener('click', favBtnClick);
 })
 

@@ -30,6 +30,19 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString)
   };
 
+  // Get favourites
+    const getFavourites = (userID) => {
+        let queryString = `
+                        select tweets.tweet, tweets.users_id, tweets.id, users.username
+                        from favourites
+                        inner join tweets on (favourites.tweets_id = tweets.id)
+                        inner join users on (tweets.users_id = users.id)
+                        where favourites.users_id = ${userID}
+                        `;
+
+        return dbPoolInstance.query(queryString)
+    };
+
   // Favourite a tweet
   const favTweet = (userID, tweetID) => {
     let queryString = 'insert into favourites (users_id, tweets_id) values ($1, $2) returning *'
@@ -51,6 +64,7 @@ module.exports = (dbPoolInstance) => {
     addTweet,
     showTweet,
     favTweet,
-    unFavTweet
+    unFavTweet,
+    getFavourites
   };
 };

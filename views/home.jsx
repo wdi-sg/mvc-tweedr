@@ -39,13 +39,23 @@ class Home extends React.Component {
                 </div>
                     )
 
+    const favourites = this.props.favourites;
     const allTweets = this.props.tweets;
 
     const showAllTweets = allTweets.map((el, i) => {
-        console.log(el)
         const profileURL = `/profile/${el.users_id}/${el.username}`
-        const favBtnClassname = `input-${i} fav-btn`
+        let favBtnClassname = `input-${i} fav-btn`
         const inputClassname = `input-${i}`
+
+        // Check whether tweet has been favourited
+        let favImg = `./images/nofav.svg`;
+        for(let n=0; n<favourites.length; n++){
+            if(favourites[n].id === el.id){
+                favImg = `./images/fav.svg`;
+                favBtnClassname = `input-${i} unfav-btn`
+            }
+        }
+
         return(
             <div className="tweet-body">
                 <p className='tweet-content'>{el.tweet}</p>
@@ -53,7 +63,7 @@ class Home extends React.Component {
                 <div>
                     <form>
                         <input name="favourite" value={el.id} type="hidden" className={inputClassname}></input>
-                        <img src="./images/nofav.svg" className={favBtnClassname}></img>
+                        <img src={favImg} className={favBtnClassname}></img>
                     </form>
                 </div>
             </div>

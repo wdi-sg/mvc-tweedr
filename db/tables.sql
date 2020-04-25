@@ -9,3 +9,26 @@ CREATE TABLE IF NOT EXISTS tweets (
 		content TEXT,
 		user_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS hash (
+		id SERIAL PRIMARY KEY,
+		content TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweetHash (
+		id SERIAL PRIMARY KEY,
+		tweet_id INTEGER,
+		hash_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS tweetHash (
+		id SERIAL PRIMARY KEY,
+		tweet_id INTEGER,
+		hash_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS likes (
+		id SERIAL PRIMARY KEY,
+		tweet_id INTEGER,
+		user_id INTEGER
+);

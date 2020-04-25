@@ -3,7 +3,7 @@ var React = require("react");
 class playlist extends React.Component {
   render() {
     //console.log("thisprops>>>>>>>>>>>>>>>>>>"+this.props.tweets)
-
+    console.log(this.props.tweets[this.props.tweets.length-1].id)
     let userButtons = (
         <div class='my-3 d-flex justify-content-end'>
                 <div>
@@ -28,34 +28,42 @@ class playlist extends React.Component {
                         <button class="btn btn-dark rounded-pill" style={{width:"100px", boxShadow: "2px 2px 4px #000000"}}>Log out</button>
                     </form>
                 </div>
-            </div>)
+            </div>
+        )
         inputTweets = (
             <div class='row d-flex p-3'>
                 <form class="input-group mb-3" method="POST" action="/tweet/new">
-                    <input type="text" name="content" class="form-control" placeholder="Tweedr's content here" aria-label="Recipient's username" aria-describedby="basic-addon2" style={{boxShadow: "2px 2px 4px #000000"}}/>
+                    <input type="text" id="mainCtn" name="content" class="form-control" placeholder="Tweedr's content here" aria-describedby="basic-addon2" style={{boxShadow: "2px 2px 4px #000000"}}/>
                     <div class="input-group-append">
-                        <button class="btn btn-light btn-outline-secondary" type="submit" style={{boxShadow: "2px 2px 4px #000000"}}>Tweedrz</button>
-                    </div>
-                </form>
-            </div>
-            )
-
-    }
-    let list = this.props.tweets.map ((element) => {
-        return (
-            <div class="mb-2">
-                <form method="POST" action={"/tweet/delete/"+element.id}>
-                    <div class="btn btn-block btn-light" style={{height:"70px", boxShadow: "2px 2px 4px #000000"}}>
-                        <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
-                        <button class="ml-auto" style={{backgroundColor:"rgba(255,255,255,0)", border:"none"}}><b>x</b></button>
-                        </div>
-                        <div class="d-flex justify-content-start">{element.content}</div>
+                        <button id="mainBtn" name={this.props.tweets[this.props.tweets.length-1].id+1} class="btn btn-light btn-outline-secondary" type="submit" style={{boxShadow: "2px 2px 4px #000000"}}>Tweedrz</button>
                     </div>
                 </form>
             </div>
         )
+    }
+    let list = this.props.tweets.map ((element) => {
+        return (
+            <div class="mb-2">
+                <div class="btn btn-block btn-light" style={{height:"90px", boxShadow: "2px 2px 4px #000000"}}>
+                    <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
+                        <form class="ml-auto" method="POST" action={"/tweet/delete/"+element.id}>
+                            <button style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
+                                <b>x</b>
+                            </button>
+                        </form>
+                    </div>
+                    <div id="content" class="d-flex justify-content-start m-1">
+                        {element.content}
+                    </div>
+                        <button name={element.id} class="likeButton d-flex justify-content-start mt-2" style={{backgroundColor:"rgba(255,255,255,0)", border:"none"}}>
+                            ♥
+                        </button>
+                </div>
+            </div>
+        )
     });
 
+    ///RETURNS
     return (
         <html>
         <head>
@@ -74,13 +82,13 @@ class playlist extends React.Component {
                 <div class="row d-flex justify-content-center">
                     <h3>What Ya Thinkin'?</h3>
                 </div>
-                {inputTweets}
-
+                    {inputTweets}
                 <div class="row nav flex-column rounded-lg p-3 m-1" style={{backgroundColor:"#999999", boxShadow: "2px 2px 4px #000000"}}>
                     {list}
                 </div>
             </div>
         </body>
+        <script src="./script.js"></script>
       </html>
     );
   }

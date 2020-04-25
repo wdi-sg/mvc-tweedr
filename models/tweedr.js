@@ -7,7 +7,6 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-
     let getAllTweets = (callback) => {
         let query = 'SELECT tweets.id,name,content FROM users INNER JOIN tweets on (user_id = users.id)';
         dbPoolInstance.query(query, (error, queryResult) => {
@@ -55,6 +54,7 @@ module.exports = (dbPoolInstance) => {
             }
         })
     }
+
     return {
         getAllTweets,
         postNewTweet,

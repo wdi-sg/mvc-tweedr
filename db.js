@@ -67,6 +67,12 @@ const tweedrModelsObject = allTweedrModelsFunction( pool );
 const allUsersModelsFunction = require('./models/user');
 const usersModelsObject = allUsersModelsFunction( pool );
 
+const likesFunction = require('./models/likes');
+const likesModelIsObject = likesFunction(pool);
+
+const hashFunction = require('./models/hash');
+const hashModelIsObject = hashFunction(pool);
+
 /*
  * ===================================================
  * ===================================================
@@ -80,11 +86,13 @@ const usersModelsObject = allUsersModelsFunction( pool );
  */
 
 module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
-  pool:pool,
-  tweedr: tweedrModelsObject,
-  users: usersModelsObject
+    //make queries directly from here
+    queryInterface: (text, params, callback) => {
+        return pool.query(text, params, callback);
+    },
+    pool:pool,
+    tweedr: tweedrModelsObject,
+    users: usersModelsObject,
+    likes: likesModelIsObject,
+    hash: hashModelIsObject
 };

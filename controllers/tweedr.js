@@ -25,18 +25,10 @@ module.exports = (db) => {
     };
     let postNewTweet = (request, response) => {
 
-        let content = request.body.content
-        if (your_string.indexOf('hello') > -1)
-        {
-          alert("hello found inside your_string");
-        }
-
-
         let userid = request.cookies['userid']
         values = [request.body.content, userid]
         //console.log(request.body)
         db.tweedr.postNewTweet(values, (error, results) => {
-            console.log("data>>>>>>>"+results.rows)
             response.redirect('/');
         });
     };
@@ -49,6 +41,34 @@ module.exports = (db) => {
              response.redirect('/');
         });
     };
+    let likeTweet = (request, response) => {
+        //let userid = request.params.id
+        let userid = request.cookies['userid']
+        values = [request.body.tweetid, userid]
+        db.likes.likesTweet(values, (error, results) => {
+            if( error ){
+              console.log("ERRRRRRRRRROR");
+              console.log( error )
+              response.send('error')
+            }else{
+              response.send('worked')
+            }
+        });
+    };
+
+    let hashTweet = (request,response) => {
+        values = [request.body.hash]
+        console.log(values)
+        db.hash.hashingTweet(values, (error, results) => {
+            if( error ){
+              console.log("ERRRRRRRRRROR");
+              console.log( error )
+              response.send('error')
+            }else{
+              response.send('worked')
+            }
+        });
+    }
   /**
    * ===========================================
    * Export controller functions as a module
@@ -57,7 +77,9 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback,
     postNewTweet,
-    deleteTweet
+    deleteTweet,
+    likeTweet,
+    hashTweet
   };
 
 }

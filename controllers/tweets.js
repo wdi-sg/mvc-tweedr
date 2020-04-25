@@ -30,6 +30,8 @@ module.exports = (db) => {
   };
 
   let showOneTweet = (request, response) => {
+    console.log(request.params);
+    
     let id = parseInt(request.params.id);
     let cbDisplayOneTweet = (err, result) => {
       // console.log(result.rows);

@@ -12,7 +12,7 @@ class Main extends React.Component {
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"
           />
-          <link rel="stylesheet" href="styles.css"></link>
+          <link rel="stylesheet" href="/styles.css"></link>
         </head>
         <body>
           <Navbar />

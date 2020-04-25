@@ -74,7 +74,7 @@ class DisplayAllTweets extends React.Component {
               <br></br>
               {tweetArrHtml}
             </form>
-            <script src="./script.js"></script>
+            <script src="/script.js"></script>
           </div>
         </div>
       </div>

@@ -106,6 +106,23 @@ const sha256 = require('js-sha256');
         })
     }
 
+    // ==== List of user's tweets ====
+    let userController = (request, response) => {
+        const userId = request.params.id;
+        const whenModelIsDone = (err, userTweets) => {
+            if (err) {
+                console.log('Query error', err);
+            } else {
+                const data = {
+                    userId: request.params.id,
+                    userTweets: userTweets
+                }
+                response.render('user', data)
+            }
+        }
+        db.model.getUserTweets(userId, whenModelIsDone)
+    }
+
     /**
     * ===========================================
     * Export controller functions as a module
@@ -119,7 +136,8 @@ const sha256 = require('js-sha256');
     newTweet: newTweetController,
     showTweet: showTweetController,
     allTweets: allTweetsController,
-    allUsers: allUsersController
+    allUsers: allUsersController,
+    user: userController
     };
 
 }

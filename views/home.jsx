@@ -1,4 +1,4 @@
-var React = require("react");
+const React = require("react");
 
 class Home extends React.Component {
   render() {
@@ -17,12 +17,15 @@ class Home extends React.Component {
             </div>
             <br/>
             <div className='row justify-content-center'>
-                <div className='col-2 d-flex justify-content-center'>
+                <div className='col-2 d-flex justify-content-end'>
                     <button className='btn btn-primary'><a href='/home/tweet/new'className='text-white text-decoration-none'>New Tweet</a></button>
                 </div>
-                <div className='col-2 d-flex justify-content-center'>
+                <div className='col-2 d-flex'>
                     <button className='btn btn-info'><a href='/home/tweets' className='text-white text-decoration-none'>See all Tweets</a></button>
                 </div>
+            </div>
+            <br/>
+            <div className='row justify-content-center'>
                 <div className='col-2 d-flex justify-content-center'>
                     <button className='btn btn-info'><a href='/home/users' className='text-white text-decoration-none'>See all Tweeders</a></button>
                 </div>

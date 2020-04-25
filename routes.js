@@ -26,4 +26,7 @@ module.exports = (app, allModels) => {
 
     // ==== List of all users ====
     app.get('/home/users', controllers.allUsers)
+
+    //User Profile
+    app.get('/home/users/:id', controllers.user)
 };

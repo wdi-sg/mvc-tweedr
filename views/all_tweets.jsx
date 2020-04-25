@@ -1,4 +1,4 @@
-var React = require("react");
+const React = require("react");
 
 class All_Tweets extends React.Component {
   render() {
@@ -30,7 +30,7 @@ class All_Tweets extends React.Component {
                 <h2 className='text-center'>All Tweets</h2>
                 <br/>
                 <div className='row justify-content-center'>
-                    <button className='btn btn-primary'><a href='/home' className='text-white text-decoration-none'>Back to Home</a></button>
+                    <button className='btn btn-danger'><a href='/home' className='text-white text-decoration-none'>Back to Home</a></button>
                 </div>
                 <br/>
                 <div className='row justify-content-center'>

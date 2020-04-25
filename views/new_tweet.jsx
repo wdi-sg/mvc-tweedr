@@ -1,4 +1,4 @@
-var React = require("react");
+const React = require("react");
 
 class New_Tweet extends React.Component {
   render() {
@@ -23,6 +23,10 @@ class New_Tweet extends React.Component {
                     <br/>
                     <div className='row justify-content-center'>
                         <input type='submit' value='Submit' className='btn btn-primary'/>
+                    </div>
+                    <br/>
+                    <div className='row justify-content-center'>
+                        <button className='btn btn-danger'><a href='/home/' className='text-white text-decoration-none'>Back to Home</a></button>
                     </div>
                 </form>
             </div>

@@ -9,3 +9,9 @@ id SERIAL PRIMARY KEY,
 tweet TEXT,
 user_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS user_followers (
+id SERIAL PRIMARY KEY,
+user_id INTEGER,
+follower_id INTEGER
+);

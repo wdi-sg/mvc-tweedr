@@ -54,9 +54,27 @@ module.exports = (dbPoolInstance) => {
         });
     }
 
+    // ==== Get all user's Tweets =====
+    let getUserTweets = (userId, callback) => {
+        let query = 'SELECT tweets.user_id, tweets.tweet, users.username FROM tweets INNER JOIN users ON (tweets.user_id = users.id) WHERE tweets.user_id=' + userId;
+
+        dbPoolInstance.query(query, (error, result) => {
+            if (error) {
+                callback(error, null);
+            } else {
+                if (result.rows.length > 0) {
+                    callback(null, result.rows);
+                } else {
+                    callback(null, null);
+                }
+            }
+        })
+    }
+
     return {
         getAllUsers,
         insertTweet,
-        getAllTweets
+        getAllTweets,
+        getUserTweets,
     };
 };

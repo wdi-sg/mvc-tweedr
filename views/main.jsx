@@ -1,4 +1,4 @@
-var React = require("react");
+const React = require("react");
 
 class Main extends React.Component {
   render() {

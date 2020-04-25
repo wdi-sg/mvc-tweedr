@@ -1,20 +1,40 @@
 module.exports = (app, allModels) => {
+  
+  //Require the controller
+  const usersController = require("./controllers/users")(allModels);
+  const tweetsController = require("./controllers/tweets")(allModels);
+  const hashtagsController = require("./controllers/hashtags")(allModels);
+  const likesController = require("./controllers/likes")(allModels);
+  //ROUTES
 
+  app.get("/", usersController.displayLoginPage);
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+  app.get("/register", usersController.displayRegistration);
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  app.post("/register", usersController.submitRegistration);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+  app.post("/home", usersController.submitLogin);
+
+  app.get("/home", usersController.displayHomePage);
+
+  app.get("/logout", usersController.logout);
+
+  app.get("/tweets", tweetsController.showAllTweets);
+
+  app.get("/tweets/new", tweetsController.displayNewTweetForm);
+
+  app.post("/tweets/new", tweetsController.submitNewTweet);
+
+  app.get("/tweets/:id", tweetsController.showOneTweet);
+
+  app.get("/hashtags/new", hashtagsController.displayNewHashtagForm);
+
+  app.post("/hashtags/new", hashtagsController.submitNewHashtag);
+
+  app.get("/hashtags", hashtagsController.displayAllHashtags);
+
+  app.get("/hashtags/:id", tweetsController.getTweetsWithHashtag);
+
+  app.post("/likes", likesController.writeNewLikeOrUnlike);
+
 };

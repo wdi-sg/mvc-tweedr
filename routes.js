@@ -36,4 +36,6 @@ module.exports = (app, allModels) => {
   app.get('/hashtag', pokemonControllerCallbacks.viewHashTag);
 
   app.post('/hashtag', pokemonControllerCallbacks.submitNewHashTag);
+
+  app.post('/favorite', pokemonControllerCallbacks.submitNewFavorite);
 };

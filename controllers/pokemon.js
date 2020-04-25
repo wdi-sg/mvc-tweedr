@@ -116,6 +116,10 @@ module.exports = (db) => {
     });
   };
 
+  let submitNewFavoriteControllerCallback = (request, response) => {
+
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -132,7 +136,8 @@ module.exports = (db) => {
     submitTweet: submitTweetControllerCallback,
     viewNewHashTag: viewNewHashTagControllerCallback,
     submitNewHashTag: submitNewHashTagControllerCallback,
-    viewHashTag: viewHashTagControllerCallback
+    viewHashTag: viewHashTagControllerCallback,
+    submitNewFavorite: submitNewFavoriteControllerCallback
   };
 
 }

@@ -5,7 +5,7 @@ class Home extends React.Component {
     let allTweets;
     if(this.props.tweets !== undefined){
       allTweets = this.props.tweets.map(tweet => {
-          return <li>{tweet.message}</li>
+          return <li>{tweet.message}<br /><button class="favorite" value={tweet.id}>Favorite</button></li>
       });
     }else {
       allTweets = <li>No tweet yet!</li>;
@@ -18,10 +18,12 @@ class Home extends React.Component {
           <ul>
             {allTweets}
           </ul>
+          <div>
+            <a href="/tweet">Tweet a message!</a>
+          </div>
+          <script src="script.js"></script>
         </body>
-        <div>
-          <a href="/tweet">Tweet a message!</a>
-        </div>
+
       </html>
     );
   }

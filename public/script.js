@@ -1,18 +1,12 @@
-let followButton = document.getElementById('followedUser');
+console.log('in the script')
 
-function clickedFollowButton () {
+const followButton = document.querySelector('.user');
+
+const clickedFollowButton = () => {
     followButton.innerText = 'Followed';
+    followButton.className = 'user btn btn-secondary';
     followButton.style.backgroundColor = 'grey';
-    followButton.style.border = '1px solid grey';
-
-    let request = new XMLHttpRequest();
-
-    const data = {
-        userId: request.cookies['userId'],
-        followedUserId: followButton.innerText;
-    }
-
-    request.send(data)
+    followButton.style.color = 'white';
 }
 
 followButton.addEventListener('click', clickedFollowButton);

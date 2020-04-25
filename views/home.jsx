@@ -25,11 +25,6 @@ class Home extends React.Component {
                 </div>
             </div>
             <br/>
-            <div className='row justify-content-center'>
-                <div className='col-2 d-flex justify-content-center'>
-                    <button className='btn btn-info'><a href='/home/users' className='text-white text-decoration-none'>See all Tweeders</a></button>
-                </div>
-            </div>
         </body>
       </html>
     );

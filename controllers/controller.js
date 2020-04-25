@@ -87,12 +87,12 @@ const sha256 = require('js-sha256');
 
     // ==== List of all Tweets ====
     let allTweetsController = (request, response) => {
-    db.model.getAllTweets((err, allTweets) => {
-        const data = {
-            allTweets: allTweets,
-        }
-    response.render('all_tweets', data)
-    })
+        db.model.getAllTweets((err, allTweets) => {
+            const data = {
+                allTweets: allTweets,
+            }
+        response.render('all_tweets', data)
+        })
     }
 
     // ==== List of all Users ====
@@ -115,12 +115,30 @@ const sha256 = require('js-sha256');
             } else {
                 const data = {
                     userId: request.params.id,
-                    userTweets: userTweets
+                    userTweets: userTweets,
+                    //followedUsers: followedUsers
                 }
-                response.render('user', data)
+            response.render('user', data);
             }
         }
         db.model.getUserTweets(userId, whenModelIsDone)
+    }
+
+    // ==== Add follower ====
+    let addFollowedUserController = (request, response) => {
+        const userId = request.cookies['userId'];
+        const followedUserId = request.params.id;
+
+        const whenModelIsDone = ((err, result) => {
+            if (err) {
+                console.log('Query error', err);
+            } else {
+                let userProfile = '/home/users/' + followedUserId;
+                response.redirect(userProfile)
+            }
+        })
+
+        db.model.insertFollowedUser(userId, followedUserId, whenModelIsDone);
     }
 
     /**
@@ -137,7 +155,8 @@ const sha256 = require('js-sha256');
     showTweet: showTweetController,
     allTweets: allTweetsController,
     allUsers: allUsersController,
-    user: userController
+    user: userController,
+    addFollowedUser: addFollowedUserController
     };
 
 }

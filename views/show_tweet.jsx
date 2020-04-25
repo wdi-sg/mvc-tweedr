@@ -31,7 +31,7 @@ class Show_Tweet extends React.Component {
                 </div>
                 <br/>
                 <div className='row justify-content-center'>
-                    <button className='btn btn-primary'><a href='/home' className='text-white text-decoration-none'>Back to Home</a></button>
+                    <button className='btn btn-danger'><a href='/home' className='text-white text-decoration-none'>Back to Home</a></button>
                 </div>
             </div>
         </body>

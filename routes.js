@@ -25,8 +25,10 @@ module.exports = (app, allModels) => {
     app.get('/home/tweets', controllers.allTweets);
 
     // ==== List of all users ====
-    app.get('/home/users', controllers.allUsers)
+    app.get('/home/users', controllers.allUsers);
 
     //User Profile
-    app.get('/home/users/:id', controllers.user)
+    app.get('/home/users/:id', controllers.user);
+    app.post('/home/users/:id', controllers.addFollowedUser);
+
 };

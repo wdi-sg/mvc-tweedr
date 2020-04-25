@@ -39,14 +39,19 @@ class CreateTweetForm extends React.Component {
                                 <h2 className="add-form__header">TWEET</h2>
                                 <input type="text" name="content" placeholder="Tweet goes here" maxlength="100"/>
                                 <input type="text" name="img" placeholder="Upload Image Link" />
-                                <select id="hashtags-select" name="hashtag">
-                                    {hashtagOptions}
-                                </select>
-                                <button className="add-form__submit-btn" type="submit">Add</button>
+                                <div className="add-form__add-hashtag-wrapper">
+                                    <button type="button" className="add-form__add-hashtag-btn">Add Hashtag</button>
+                                    <button type="button" className="add-form__delete-hashtag-btn">Delete Hashtag</button>
+                                    <select className="hashtags-select" name="hashtag">
+                                        {hashtagOptions}
+                                    </select>
+                                </div>
+                                <button className="add-form__submit-btn" type="submit">Tweet!</button>
                             </form>
                         </div>
                     </main>
                 </body>
+                <script defer src="./scripts/create-tweet.js"></script>
             </html>
         );
     }

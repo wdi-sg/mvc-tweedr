@@ -16,7 +16,6 @@ module.exports.getAllTweets = async (req, res) => {
     const query2 = `SELECT * from hashtags INNER JOIN hashtags_tweets ON hashtags.id = hashtags_tweets.hashtag_id`;
 
     const resultTwo = await db.query(query2);
-
     console.log(resultTwo.rows);
 
     res.render('./tweets/tweets-all', {
@@ -46,15 +45,15 @@ module.exports.getEditTweetForm = async (req, res) => {
 
     const resultTwo = await db.query(query2);
 
-    const listOfHashtags = resultTwo.rows.map(row => {
-        if (row['tweet_id'] == req.params.id) {
-            return row.name;
-        }
-    })
+    console.log(resultTwo.rows);
+
+    const listOfHashtags = resultTwo.rows.filter(row => {
+        return (row['tweet_id'] == req.params.id)
+    });
 
     console.log(listOfHashtags);
 
-    const query3 = `SELECT *FROM hashtags`;
+    const query3 = `SELECT * FROM hashtags`;
     const resultThree = await db.query(query3);
 
 
@@ -78,21 +77,36 @@ module.exports.postAddTweet = async (req, res) => {
 
     } else {
 
+        console.log(req.body);
+
         const query = `INSERT INTO tweets (content, img_link, user_id) VALUES('${req.body.content}', '${req.body.img}', '${req.session.userId}') RETURNING *`;
 
         const { rows } = await db.query(query);
 
-        const query2 = `SELECT id from hashtags WHERE name='${req.body.hashtag}'`;
+        const hashtagIds = await Promise.all(req.body.hashtag.map(async hash => {
+            const query2 = `SELECT id from hashtags WHERE name='${hash}'`;
+            console.log(hash);
 
-        const resultTwo = await db.query(query2);
+            const resultTwo = await db.query(query2);
+            return resultTwo.rows[0].id;
+        }));
+
+        console.log(hashtagIds);
 
         const query3 = `SELECT id from tweets WHERE content='${req.body.content}'`;
 
         const resultThree = await db.query(query3);
 
-        const query4 = `INSERT INTO hashtags_tweets (tweet_id, hashtag_id) VALUES (${resultThree.rows[0].id}, ${resultTwo.rows[0].id})`
+        for (const hashtagId of hashtagIds) {
+            const query2 = `SELECT id from hashtags WHERE id='${hashtagId}'`;
 
-        const resultFour = await db.query(query4);
+            const resultTwo = await db.query(query2);
+
+            const query4 = `INSERT INTO hashtags_tweets (tweet_id, hashtag_id) VALUES (${resultThree.rows[0].id}, ${resultTwo.rows[0].id}) RETURNING *`
+
+            const resultFour = await db.query(query4);
+            console.log(resultFour.rows)
+        }
 
         res.redirect(`/tweets/${rows[0].id}`);
     }

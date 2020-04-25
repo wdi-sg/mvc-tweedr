@@ -9,13 +9,18 @@ class EditTweetForm extends React.Component {
     render() {
 
 
-        const hashtagOptions = this.props.allHashtags.map(hashtag => <option value={hashtag.name} hashtag-id={hashtag.id}>{hashtag.name}</option>)
+        const hashtagOptions = this.props.allHashtags.map(hashtag => <option value={hashtag.name} hashtag-id={hashtag.id} className="hashtag-option">{hashtag.name}</option>)
 
-        const hashtagSelects = this.props.hashtags.map(hashtag =>
-            <select id="hashtags-select" name="hashtag" defaultValue={hashtag}>
-                    {hashtagOptions}
-                </select>
-        )
+
+        const hashtagListItems = this.props.hashtags
+            .map(hashtag =>
+                <div className="edit-form__hashtag-wrapper">
+                    <li data-hashtag-tweet-id={hashtag.id} className="edit-form__hashtags-list-item">
+                        {hashtag.name}
+                    </li>
+                    <button type="button" data-hashtag-tweet-id={hashtag.id} className="edit-form__hashtags-list-item-delete-btn">Delete</button>
+                </div>
+            )
 
         const displayInvalidMsg = () => {
 
@@ -36,6 +41,7 @@ class EditTweetForm extends React.Component {
             <html>
                 <div className="overlay"></div>
                 <Head />
+                <script defer src="./scripts/edit-tweet.js"></script>
                 <body>
                     <Header />
                     <Nav />
@@ -47,7 +53,14 @@ class EditTweetForm extends React.Component {
                                 <input type="text" name="content" defaultValue={this.props.singleTweet.content} maxlength="100"/>
                                 <h3 className="edit-form__input-header">Image Link</h3>
                                 <input type="text" name="img" defaultValue={this.props.singleTweet.img}/>
-                                {hashtagSelects}
+                                <div className="edit-form__hashtags-list">
+                                    <select className="edit-form__hashtags-list-select">
+                                        {hashtagOptions}
+                                    </select>
+                                    <button type="button" data-tweet-id={this.props.singleTweet.id} className="edit-form__hashtags-list-add-btn">
+                                    Add Hashtag</button>
+                                    {hashtagListItems}
+                                </div>
                                 <button className="edit-form__submit-btn" type="submit">Edit</button>
                             </form>
                         </div>

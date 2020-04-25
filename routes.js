@@ -27,6 +27,8 @@ module.exports = (app, allModels) => {
 
   app.post('/tweet/:id', homePage.tweet);
 
+  app.post('/profilepic', homePage.profilePic);
+
 
   // Registration page
   const registrationPage = require('./controllers/registration')(allModels);

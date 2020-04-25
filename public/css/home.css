@@ -32,6 +32,26 @@ h1{
   display: block;
 }
 
+.input-picture{
+	border: solid #f66d6d;
+	background-color: #e9afaf
+}
+
+.input-picture:hover{
+	background-color: #e78282;
+}
+
+#label{
+	color: white;
+}
+
+.profile-btn{
+	background-color: rgb(29, 202, 255);
+	border: solid white;
+	color: white;
+	font-size: 13px;
+}
+
 .tweet-body{
 	background-color: white;
 	width: 50%;

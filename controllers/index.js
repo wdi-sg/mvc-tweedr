@@ -42,6 +42,10 @@ module.exports = (db) => {
 
     };
 
+    let addProfilePic = (request,response) => {
+        response.send(request.body);
+    }
+
 
     let writeTweet = (request, response) => {
         const userID = request.params.id;
@@ -62,6 +66,7 @@ module.exports = (db) => {
 
    return{
     index: homePageControllerCallback,
-    tweet: writeTweet
+    tweet: writeTweet,
+    profilePic: addProfilePic
    }
 }

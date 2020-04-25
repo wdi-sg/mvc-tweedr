@@ -4,29 +4,34 @@ class Home extends React.Component {
   render() {
     const icon = <img src="./images/twitter.svg" className='icon'></img>
 
-    let user;
+    const username = this.props.username;
+    const userID = this.props.userID;
 
-    let tweet;
+    const url = `/tweet/${userID}`
+    let tweet = (
+        <div className="new-tweet">
+            <form action={url} method='post'>
+                <input type="text" name="tweet" placeholder="What's happening?"></input>
+                <input type="submit" value="tweet"></input>
+            </form>
+        </div>
+            )
 
-    if (this.props.loggedIn === 'true') {
-        const username = this.props.username;
-        const userID = this.props.userID;
+    let profilePic = (
+                    <form method='post' enctype="multipart/form-data">
+                        <div className='input-picture'>
+                            <label for="profile_picture" id="label">Change profile picture:</label>
+                            <input type="file" id="profile_picture" name="profile_picture" className="profile-pic" style={{"height":"1px"}, {"width":"1px"}}></input>
+                        </div>
+                        <button type="button" className="profile-btn">Upload</button>
+                    </form>
+                    )
 
-        user = <p>@{username}</p>
-
-        const url = `/tweet/${userID}`
-        tweet = (
-            <div className="new-tweet">
-                <form action={url} method='post'>
-                    <input type="text" name="tweet" placeholder="What's happening?"></input>
-                    <input type="submit" value="tweet"></input>
-                </form>
-            </div>
-                )
-    }
-
+    const userProfileURL = `/profile/${userID}/${username}`
     const tools = (
                 <div className="tools">
+                    {profilePic}
+                    <a href={userProfileURL}>@{username}</a>
                     <a href="#">Following</a>
                     <a href="#">Followers</a>
                     <a href="#">Likes</a>
@@ -57,13 +62,13 @@ class Home extends React.Component {
             <div className="header">
                 <h1>TWEEDR</h1>
                 {icon}
-                {user}
             </div>
             {tools}
             <div className="main-body">
                 {tweet}
                 {showAllTweets}
             </div>
+            <script src="./script/index.js"></script>
         </body>
       </html>
     );

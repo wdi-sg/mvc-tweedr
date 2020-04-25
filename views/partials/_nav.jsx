@@ -1,10 +1,8 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
+import Cookies from 'js-cookie';
 import '../../styles/index.scss'
 
-const _header = (props) => {
-
-
-  const [isMenuShown, showMenu] = useState(false)
+const _nav = (props) => {
 
   const handleRegisterBtnClicked = e => {
     props.loginSignUpClick(e)
@@ -14,6 +12,28 @@ const _header = (props) => {
     props.loginSignUpClick(e)
   }
 
+  const preLoginMenu = (
+    <div className="navbar-item">
+      <div className="buttons">
+        <a className="button is-primary has-text-weight-bold"
+           onClick={handleRegisterBtnClicked} id='navSignUpBtn'>
+          Sign up
+        </a>
+        <a className="button is-light" onClick={handleLoginBtnClicked} id='navLoginBtn'>
+          Log in
+        </a>
+      </div>
+    </div>
+  )
+
+  const loggedInMenu = (userData)=>(
+    <div className="navbar-item">
+      {userData.user_name}
+    </div>
+  )
+
+  const [isMenuShown, showMenu] = useState(false)
+
   const handleHamburgerClicked = e => {
     if (isMenuShown) {
       showMenu(false)
@@ -22,9 +42,19 @@ const _header = (props) => {
     }
   }
 
+  const setloginAreaMenu = ()=> {
+    const userData = Cookies.get('userData')
+    if (!userData) {
+      return preLoginMenu
+    }
+    const userDataObj = JSON.parse(userData.slice(2))
+    return loggedInMenu(userDataObj)
+  }
+
+
+
   return (
     <section className="section">
-
 
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
@@ -51,17 +81,7 @@ const _header = (props) => {
             </div>
 
             <div className="navbar-end">
-              <div className="navbar-item">
-                <div className="buttons">
-                  <a className="button is-primary has-text-weight-bold"
-                     onClick={handleRegisterBtnClicked} id='navSignUpBtn'>
-                    Sign up
-                  </a>
-                  <a className="button is-light" onClick={handleLoginBtnClicked} id='navLoginBtn'>
-                    Log in
-                  </a>
-                </div>
-              </div>
+              {setloginAreaMenu()}
             </div>
 
           </div>
@@ -75,4 +95,4 @@ const _header = (props) => {
 
 }
 
-export default _header
+export default _nav

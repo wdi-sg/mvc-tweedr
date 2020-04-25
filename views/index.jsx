@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import _header from './partials/_header'
+import _nav from './partials/_nav'
 import Landing from './components/landing.component'
 const SHOW_SIGNUP = 0
 const SHOW_LOGIN = 1
@@ -15,7 +15,7 @@ const Index = (props) => {
 
   return (
     <React.Fragment>
-      <_header loginSignUpClick = {signUpLoginBtnHandler} />
+      <_nav loginSignUpClick = {signUpLoginBtnHandler} />
       <Landing displayForm = {whichForm}/>
     </React.Fragment>
   );

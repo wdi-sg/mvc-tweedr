@@ -15,21 +15,11 @@ const encrypt = async passwd => {
 
 const signUser = user => {
 
-  console.log('user is ')
-  console.log(user)
-
   const userData = {
     id             : user.id,
     user_name      : user.user_name,
     profile_pic_url: user.profile_pic_url
   }
-
-
-  console.log('signing user')
-  console.log(user.id)
-  console.log(user.user_name)
-  console.log(process.env.PRIVATE_KEY)
-  console.log('signing user')
 
   const token = sign(
     { id: user.id },
@@ -93,7 +83,6 @@ const loginUser = (async (req, res) => {
   }
 
   req.session.errors = null
-
 
   // set token cookie
   const { userData, token } = signUser(user)

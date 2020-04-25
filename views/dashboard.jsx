@@ -1,12 +1,11 @@
 import React from 'react';
-import _header from './partials/_header'
+import _nav from './partials/_nav'
 
 const Dashboard = (props)=> {
  const dummyTweets =  [
   {id:1,title:"hello",content:'bla',user_id: 1, likes:'20'},
   {id:2,title:"blabla",content:'bldfdfa',user_id: 1, likes:'30'}
  ]
-
   const displayTweets = data => {
    return data.map(item=> (
      <div key={item.id}>
@@ -19,7 +18,7 @@ const Dashboard = (props)=> {
 
  return (
    <React.Fragment>
-    <_header/>
+    <_nav/>
     <div className="section">
       <div className="container">
         {displayTweets(dummyTweets)}

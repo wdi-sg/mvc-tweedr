@@ -1,5 +1,6 @@
 module.exports = (app, allModels) => {
-
+    var multer  = require('multer');
+    var upload = multer({ dest: './uploads' });
 
   /*
    *  =========================================
@@ -27,7 +28,7 @@ module.exports = (app, allModels) => {
 
   app.post('/tweet/:id', homePage.tweet);
 
-  app.post('/profilepic', homePage.profilePic);
+  app.post('/profilepic/:id', upload.single('profile_picture'), homePage.profilePic);
 
 
   // Registration page

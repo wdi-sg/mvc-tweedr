@@ -17,13 +17,14 @@ class Home extends React.Component {
         </div>
             )
 
+    let profilePicURL = `/profilepic/${userID}`
     let profilePic = (
-                    <form method='post' enctype="multipart/form-data">
+                    <form action={profilePicURL} method='POST' enctype="multipart/form-data">
                         <div className='input-picture'>
                             <label for="profile_picture" id="label">Change profile picture:</label>
-                            <input type="file" id="profile_picture" name="profile_picture" className="profile-pic" style={{"height":"1px"}, {"width":"1px"}}></input>
+                            <input type="file" id="profile_picture" name="profile_picture" className="profile-pic" style={{"height":"1px"}, {"width":"1px"}} accept="image/*"></input>
                         </div>
-                        <button type="button" className="profile-btn">Upload</button>
+                        <input type="submit" value="Upload"></input>
                     </form>
                     )
 

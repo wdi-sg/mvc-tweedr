@@ -43,7 +43,8 @@ module.exports = (db) => {
     };
 
     let addProfilePic = (request,response) => {
-        response.send(request.body);
+        response.send(request.file);
+        console.log(request.body)
     }
 
 

@@ -19,6 +19,6 @@ function updateImageDisplay(){
         image.src = URL.createObjectURL(curFiles[0]);
         image.style['max-height'] = '150px';
         image.style['max-width'] = '150px';
-        inputDiv.parentNode.insertBefore(image, inputDiv);
+        inputDiv.appendChild(image);
     }
 }

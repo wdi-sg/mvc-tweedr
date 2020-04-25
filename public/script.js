@@ -67,44 +67,4 @@ for (i=0; i<allContent.length ; i++) {
     contentSelect.innerHTML = content3;
 }
 
-//To add hashed words into database
-const mainBtnSelect = document.querySelector('#mainBtn')
-
-function onClick () {
-    function responseHandler () {
-        console.log(this.responseText)
-    }
-    let inputValue = document.querySelector('#mainCtn').value;
-
-    let n1 = inputValue.indexOf("#");
-    console.log("=======ADDING HASHESS======")
-    console.log("n1 = "+n1)
-    let n2 = inputValue.indexOf(" ", n1);
-    console.log("n2 = "+n2)
-    console.log("content = "+inputValue)
-    let hash;
-    if(n1 >= 0 && n2 > 0) {
-        hash = inputValue.substr(n1, n2-n1);
-        console.log(hash)
-    }
-    if(n1 >=0 && n2 < 0 ) {
-        hash = inputValue.substr(n1, inputValue.length-n1)
-        console.log(hash)
-    }
-        //let tweetid = this.name;
-    let data = {
-        hash
-    };
-
-    let request = new XMLHttpRequest()
-    request.addEventListener("load", responseHandler);
-    request.open('post', "/tweet/hash");
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(JSON.stringify(data))
-
-}
-
-mainBtnSelect.addEventListener('click', onClick)
-//mainBtnSelect.set.attribute("name","name")
-
 console.log("====")

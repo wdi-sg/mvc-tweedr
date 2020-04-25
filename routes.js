@@ -17,6 +17,7 @@ module.exports = (app, allModels) => {
     const user = require('./controllers/user')(allModels);
 
     app.get('/', tweedr.index);
+    app.get('/tweet/selectedhash/:value',tweedr.selectedHashTweet)
     app.post('/tweet/new',tweedr.postNewTweet)
     app.post('/tweet/delete/:id',tweedr.deleteTweet)
     app.post('/tweet/likes',tweedr.likeTweet)

@@ -7,7 +7,6 @@ module.exports = (db) => {
 
     let indexControllerCallback = (request, response) => {
         var username = request.cookies['username']
-
         let loggedIn = false
         if( request.cookies['logged in'] === 'true'){
             loggedIn = true;
@@ -25,12 +24,41 @@ module.exports = (db) => {
     };
     let postNewTweet = (request, response) => {
 
-        let userid = request.cookies['userid']
-        values = [request.body.content, userid]
-        //console.log(request.body)
-        db.tweedr.postNewTweet(values, (error, results) => {
-            response.redirect('/');
+        let userid = parseInt(request.cookies['userid'])
+        let content = (request.body.content);
+        let n1 = content.indexOf("#");
+        let n2 = content.indexOf(" ", n1);
+        let hash;
+        if(n1 >= 0 && n2 > 0) {
+            hash = content.substr(n1, n2-n1);
+            console.log("newHash ="+hash)
+        }
+        if(n1 >=0 && n2 < 0 ) {
+            hash = content.substr(n1, content.length-n1)
+            console.log("newHash = "+hash)
+        }
+        values = [hash]
+
+        let hashid=0;
+        db.hash.hashingTweet(values,(error, results) => {
+            hashid = results.id;
+
+            db.hash.postNewTweetHash(values, (error, results) => {
+                console.log("====results====")
+                values = [request.body.content, userid, hashid]
+                console.log("valuesssss=====")
+                console.log(values)
+
+                db.tweedr.postNewTweet(values, (error, results) => {
+                    response.redirect('/');
+                });
+            });
         });
+
+
+
+
+
     };
     let deleteTweet = (request, response) => {
         //let userid = request.params.id
@@ -58,7 +86,6 @@ module.exports = (db) => {
 
     let hashTweet = (request,response) => {
         values = [request.body.hash]
-        console.log(values)
         db.hash.hashingTweet(values, (error, results) => {
             if( error ){
               console.log("ERRRRRRRRRROR");
@@ -68,6 +95,9 @@ module.exports = (db) => {
               response.send('worked')
             }
         });
+    }
+    let selectedHashTweet = (request,response) => {
+       response.render('tweedr/hashtags')
     }
   /**
    * ===========================================
@@ -79,7 +109,8 @@ module.exports = (db) => {
     postNewTweet,
     deleteTweet,
     likeTweet,
-    hashTweet
+    hashTweet,
+    selectedHashTweet
   };
 
 }

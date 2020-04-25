@@ -14,7 +14,7 @@ module.exports = (dbPoolInstance) => {
                 callback(error, null);
             }else{
                 if( queryResult.rows.length > 0 ){
-                    //console.log(queryResult.rows)
+                    console.log("Success in getting all tweets")
                     callback(null, queryResult.rows);
                 }else{
                     callback(null, null);
@@ -24,7 +24,7 @@ module.exports = (dbPoolInstance) => {
     };
     let postNewTweet = (request, callback) => {
         let values = request;
-        let query = "INSERT INTO tweets (content, user_id) VALUES ($1, $2) returning *";
+        let query = "INSERT INTO tweets (content, user_id, hash_id) VALUES ($1, $2, $3) returning *";
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error){
                 callback(error, null);

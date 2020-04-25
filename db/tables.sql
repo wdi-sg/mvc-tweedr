@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tweets (
 		id SERIAL PRIMARY KEY,
 		content TEXT,
-		user_id INTEGER
+		user_id INTEGER,
+		hash_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS hash (

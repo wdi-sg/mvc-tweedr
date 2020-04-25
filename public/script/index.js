@@ -1,5 +1,10 @@
 console.log('script is working')
 
+/********************
+======================
+Upload image
+======================
+*********************/
 const input = document.querySelector('.profile-pic');
 const inputDiv = document.querySelector('.input-picture');
 
@@ -21,4 +26,34 @@ function updateImageDisplay(){
         image.style['max-width'] = '150px';
         inputDiv.appendChild(image);
     }
+}
+
+
+
+/********************
+======================
+Favourites button
+======================
+*********************/
+
+const favButtons = document.querySelectorAll('.fav-btn');
+
+favButtons.forEach(e => {
+    e.addEventListener('click', favBtnClick);
+})
+
+function favBtnClick() {
+    const btn = event.target.className.split(' ')[1];
+    const input = document.querySelectorAll(`.${btn}`)[0];
+    const inputValue = input.value;
+
+    const data = {"tweetID" : inputValue}
+
+    var request = new XMLHttpRequest();   // new HttpRequest instance
+
+    request.open("POST", '/favouritetweet');
+
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    request.send(JSON.stringify(data));
 }

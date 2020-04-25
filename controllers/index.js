@@ -47,6 +47,12 @@ module.exports = (db) => {
         console.log(request.body)
     }
 
+    let favTweet = (request, response) => {
+        const userID = request.cookies.userID;
+        const tweetID = parseInt(request.body.tweetID);
+
+    }
+
 
     let writeTweet = (request, response) => {
         const userID = request.params.id;
@@ -68,6 +74,7 @@ module.exports = (db) => {
    return{
     index: homePageControllerCallback,
     tweet: writeTweet,
-    profilePic: addProfilePic
+    profilePic: addProfilePic,
+    favourite: favTweet
    }
 }

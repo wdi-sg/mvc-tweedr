@@ -30,6 +30,8 @@ module.exports = (app, allModels) => {
 
   app.post('/profilepic/:id', upload.single('profile_picture'), homePage.profilePic);
 
+  app.post('/favouritetweet', homePage.favourite);
+
 
   // Registration page
   const registrationPage = require('./controllers/registration')(allModels);

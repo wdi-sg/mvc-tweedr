@@ -15,3 +15,9 @@ CREATE TABLE IF NOT EXISTS following (
 	follower_id INTEGER,
 	followee_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS favourites (
+	id SERIAL PRIMARY KEY,
+	users_id INTEGER,
+	tweets_id INTEGER
+);

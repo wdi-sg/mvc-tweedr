@@ -19,7 +19,7 @@ module.exports = (dbPoolInstance) => {
   // Get all followees tweets
   const showTweet = (userID) => {
     let queryString = `
-                    select tweets.tweet, tweets.users_id, users.username
+                    select tweets.tweet, tweets.users_id, tweets.id, users.username
                     from following
                     inner join tweets on (following.followee_id = tweets.users_id)
                     inner join users on (tweets.users_id = users.id)

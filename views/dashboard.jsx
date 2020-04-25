@@ -18,7 +18,7 @@ const Dashboard = (props)=> {
 
  return (
    <React.Fragment>
-    <_nav/>
+    <_nav userData = {props.userData}/>
     <div className="section">
       <div className="container">
         {displayTweets(dummyTweets)}

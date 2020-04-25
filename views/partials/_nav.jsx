@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Cookies from 'js-cookie';
 import '../../styles/index.scss'
 
 const _nav = (props) => {
@@ -43,12 +42,11 @@ const _nav = (props) => {
   }
 
   const setloginAreaMenu = ()=> {
-    const userData = Cookies.get('userData')
+    const userData = props.userData
     if (!userData) {
       return preLoginMenu
     }
-    const userDataObj = JSON.parse(userData.slice(2))
-    return loggedInMenu(userDataObj)
+    return loggedInMenu(userData)
   }
 
 

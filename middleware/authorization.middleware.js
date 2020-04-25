@@ -1,16 +1,17 @@
 const {verify} = require('jsonwebtoken')
 
 const authorize = (req, res, next) => {
-  if (!res.cookies && res.cookies.token ) {
-    // bad request
+
+  if (!req.cookies && !(req.cookies.token)) {
+    // token not found
     res.status(401).redirect('/')
   }
   const token = req.cookies.token;
+
   try {
-    req.userData = verify(token, process.env.PRIVATE_KEY);
+    res.userData = verify(token, process.env.PRIVATE_KEY);
     next()
   } catch (e) {
-    // forbidden
     res.status(400).redirect('/')
   }
 }

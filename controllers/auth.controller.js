@@ -21,12 +21,11 @@ const signUser = user => {
     profile_pic_url: user.profile_pic_url
   }
 
-  const token = sign(
-    { id: user.id },
+  return sign(
+    userData,
     process.env.PRIVATE_KEY,
     { expiresIn: 86400 }// expires in 24 hours
   )
-  return { userData, token }
 }
 
 const registerUser = async (req, res) => {
@@ -37,9 +36,8 @@ const registerUser = async (req, res) => {
     const saveResult = await user.save()
     if (!saveResult) return res.redirect('/')
     user.id = saveResult.rows[0].id
-    const { userData, token } = signUser(user)
-    res.cookie('token', token)
-    res.cookie('userData', userData)
+    const token = signUser(user)
+    res.cookie('token', token,{sameSite:true})
     res.redirect('/dashboard')
   } catch (e) {
     // todo: set user exist session error
@@ -85,10 +83,9 @@ const loginUser = (async (req, res) => {
   req.session.errors = null
 
   // set token cookie
-  const { userData, token } = signUser(user)
+  const  token = signUser(user)
 
   res.cookie('token', token)
-  res.cookie('userData', userData)
   res.redirect('/dashboard')
 
 })

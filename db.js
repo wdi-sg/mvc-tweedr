@@ -42,13 +42,14 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
-const allTweedrModelsFunction = require('./models/tweedr')
-
+const allTweedrModelsFunction = require('./models/tweedr');
 const tweedrModelsObject = allTweedrModelsFunction(pool);
 
-const allRegistrationModelsFunction = require('./models/registration')
-
+const allRegistrationModelsFunction = require('./models/registration');
 const registrationModelsObject = allRegistrationModelsFunction(pool);
+
+const allLoginModelsFunction = require('./models/login');
+const loginModelsObject = allLoginModelsFunction(pool);
 
 
 module.exports = {
@@ -63,5 +64,6 @@ module.exports = {
 
   // users: userModelsObject,
   tweedr: tweedrModelsObject,
-  registration: registrationModelsObject
+  registration: registrationModelsObject,
+  login: loginModelsObject
 };

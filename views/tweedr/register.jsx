@@ -7,7 +7,7 @@ class Register extends React.Component {
       <html>
         <body>
           <div>
-            <h1>register</h1>
+            <h1>Register</h1>
             <div>
                 <form action="/register" method="POST">
                     <p>

@@ -15,6 +15,28 @@ module.exports = (db) => {
     response.render('./tweedr/login')
   }
 
+  let loginPostControllerCallback = (request,response) => {
+
+    const userName = request.body.name;
+    const requestPassword = sha256(request.body.password);
+
+    const callback = (error, queryResponse) => {
+      if(error){
+        console.log(error);
+        response.status(403);
+        response.send("sorry!!!!!!!");
+      }else{
+        response.cookie('logged in', 'true');
+        //response.send("you are you!");
+        response.render('./tweedr/tweets')
+      }
+
+  }
+    db.login.userLogin(userName, requestPassword, callback);
+
+}
+
+
   let tweetControllerCallback = (request, response) => {
     response.render('./tweedr/tweets')
   }
@@ -50,7 +72,6 @@ module.exports = (db) => {
     }
     db.tweedr.addTweet(userMessage, callback);
 
-
   }
 
 
@@ -74,6 +95,7 @@ module.exports = (db) => {
     login: loginControllerCallback,
     tweets: tweetControllerCallback,
     registerPost: registerPostControllerCallback,
-    tweetPost: tweetPostControllerCallback
+    tweetPost: tweetPostControllerCallback,
+    loginPost: loginPostControllerCallback
   }
 }

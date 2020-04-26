@@ -1,6 +1,6 @@
 var React = require("react");
 
-class Home extends React.Component {
+class Login extends React.Component {
   render() {
     const loginForm = (
             <form action="/authenticating" method="get">
@@ -12,7 +12,9 @@ class Home extends React.Component {
 
     return (
       <html>
-        <head />
+        <head>
+            <link rel="stylesheet" type="text/css" href="./css/login.css" />
+        </head>
         <body>
             <div>
                 <h1>TWEEDR</h1>
@@ -27,4 +29,4 @@ class Home extends React.Component {
   }
 }
 
-module.exports = Home;
+module.exports = Login;

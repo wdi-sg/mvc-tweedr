@@ -36,6 +36,7 @@ class Home extends React.Component {
                     <a href="#">Following</a>
                     <a href="#">Followers</a>
                     <a href="#">Likes</a>
+                    <a href="/hashtag">Hashtag</a>
                 </div>
                     )
 

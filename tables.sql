@@ -21,3 +21,14 @@ CREATE TABLE IF NOT EXISTS favourites (
 	users_id INTEGER,
 	tweets_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS hashtags (
+	id SERIAL PRIMARY KEY,
+	tags TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hashtags_tweets (
+	id SERIAL PRIMARY KEY,
+	tags_id INTEGER,
+	tweets_id INTEGER
+);

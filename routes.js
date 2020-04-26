@@ -52,4 +52,12 @@ module.exports = (app, allModels) => {
 
   app.delete('/unfollow/:id1/:id2/:profile', profilePage.unfollow);
 
+
+  // Hashtag
+  const hashtagPage = require('./controllers/hashtag')(allModels);
+
+  app.get('/hashtag', hashtagPage.hashtagsPage);
+
+  app.post('/addhashtag', hashtagPage.addHashtag);
+
 };

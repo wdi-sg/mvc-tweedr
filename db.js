@@ -81,6 +81,11 @@ const allProfileModelsFunction = require('./models/profile');
 
 const profileModelsObject = allProfileModelsFunction(pool);
 
+// hashtag page files
+const allHashtagModelsFunction = require('./models/hashtag');
+
+const hashtagModelsObject = allHashtagModelsFunction(pool);
+
 /*
  * ===================================================
  * ===================================================
@@ -111,5 +116,6 @@ module.exports = {
   registration: registrationModelsObject,
   login: loginModelsObject,
   index: indexModelsObject,
-  profile: profileModelsObject
+  profile: profileModelsObject,
+  hashtag: hashtagModelsObject
 };

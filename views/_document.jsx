@@ -13,8 +13,10 @@ export default class extends Document {
     return (
       <html lang="en">
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+        <script src ="/public/scripts.js" />
         <title>Tweedr App</title>
       </Head>
       <body>

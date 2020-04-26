@@ -1,7 +1,5 @@
 const Tweet = require('../models/tweet.model');
 
-
-
 const getAllTweets = async (req, res) => {
   try {
     const execRes = await Tweet.getTweetsWithUsers()

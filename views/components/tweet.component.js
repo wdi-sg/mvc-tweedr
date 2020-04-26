@@ -6,6 +6,7 @@ const Tweet = (props) =>{
   // posted date
   // content
 
+
   return (
     <div className="box box-dark box-constrained">
       <article className="media">
@@ -18,9 +19,10 @@ const Tweet = (props) =>{
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>John Smith</strong> <small>@johnsmith</small>
+              <strong>John Smith</strong> <small>@{props.tweetData.user_name}</small>
               {/*<small>31m</small>*/}
               <br/>
+              {props.tweetData.content}
             {/*  content*/}
             </p>
           </div>

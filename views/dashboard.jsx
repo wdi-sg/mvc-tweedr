@@ -1,5 +1,6 @@
 import React from 'react'
 import _nav from './partials/_nav'
+import { Head } from '@react-ssr/express';
 import InputBoxComponent from './components/inputBox.component'
 import Tweet from './components/tweet.component'
 import axios from 'axios';
@@ -10,38 +11,35 @@ class Dashboard extends React.Component {
 
   constructor (props) {
     super(props)
-    // this is to avoid server side error caused by sweetsData null
+    // to workaround server side state is null
+    // this.state.is null on server side
+    // experimenting on running client only code without
+    // static script
     this.state = {tweetsData : []}
   }
 
   componentDidMount () {
-    this.setState({tweetsData: this.props.tweetsData})
-
-  }
-
-  createTweets = () => {
-    return this.state.tweetsData.map(tweet=>{
-      console.log(tweet)
+    axios.get('http://localhost:3000/tweets').then(response =>{
+      this.setState({tweetsData: response.data})
     })
   }
 
+  createTweets = () => {
+    console.log(this.state.tweetsData)
+    return this.state.tweetsData.map(tweetData=>(
+      <Tweet tweetData = {tweetData} key={tweetData.id}/>
+    ))
+  }
+
   render () {
-    const dummyTweets = [
-      { id: 1, title: 'hello', content: 'bla', user_id: 1, likes: '20' },
-      { id: 2, title: 'blabla', content: 'bldfdfa', user_id: 1, likes: '30' }
-    ]
-    const displayTweets = data => {
-      return data.map(item => (
-        <div key={item.id}>
-          <h1>{item.title}</h1>
-          <p>{item.content}</p>
-          <p>{item.likes}</p>
-        </div>
-      ))
-    }
 
     return (
       <React.Fragment>
+        <Head>
+          <title>
+            Dashboard
+          </title>
+        </Head>
         <_nav userData={this.props.userData}/>
         <div className="section">
           <div className="container">

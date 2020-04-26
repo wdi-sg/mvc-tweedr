@@ -8,26 +8,28 @@ const { handle404, handle500 } = require('./controllers/errors')
 const { authRoute, tweetRoutes } = require('./routes/index')
 
 const app = express()
-app.use(methodOverride('_method'))
-app.use(cookieParser())
-app.disable('x-powered-by')
-app.use(express.json())
-app.use(express.urlencoded({
-  extended: true
-}))
-app.use(cookieParser())
-app.use(session({
-  secret           : 'tweedr',
-  saveUninitialized: false,
-  resave           : false
-}))
 
 const APP_ROOT = '/'
 const PORT = 3000;
 
 (async () => {
-
+  
   await register(app)
+
+  app.use(methodOverride('_method'))
+  app.use(cookieParser())
+  app.disable('x-powered-by')
+  app.use(express.json())
+  app.use(express.urlencoded({
+    extended: true
+  }))
+  app.use(cookieParser())
+  app.use(session({
+    secret           : 'tweedr',
+    saveUninitialized: false,
+    resave           : false
+  }))
+
 
   app.get(APP_ROOT, (req, res) => {
       res.render('index', {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputBox = (props) => {
+const InputBoxComponent = (props) => {
 
  return (
    <div className="box box-dark box-constrained">
@@ -48,4 +48,4 @@ const InputBox = (props) => {
 
 }
 
-export default InputBox
+export default InputBoxComponent

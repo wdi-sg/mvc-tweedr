@@ -24,11 +24,14 @@ module.exports = (app, allModels) => {
   //app.get('register', users('controller').registerFormCallback);
 
   app.post('/registered', users.postRegister);
-  //app.get('home', users('controller').postRegisterCallback);
+  //app.get('registered', users('controller').postRegisterCallback);
 
   app.get('/login', users.loginForm);
-  //app.get('register', users('controller').registerFormCallback);
+  //app.get('login', users('controller').loginFormCallback);
 
   app.post('/loggedin', users.postLogin);
+  //app.get('loggedin', users('controller').postLoginFormCallback);
+
+  app.get('/', tweeds.home);
   //app.get('register', users('controller').registerFormCallback);
 };

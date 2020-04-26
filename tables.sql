@@ -8,7 +8,7 @@ IF NOT EXISTS users
 );
 
 CREATE TABLE
-IF NOT EXISTS tweets
+IF NOT EXISTS tweeds
 (
     id SERIAL PRIMARY KEY,
     content TEXT,

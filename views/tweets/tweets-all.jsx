@@ -32,6 +32,15 @@ class AllTweets extends React.Component {
                 }, [])
         }
 
+        const displayFavouriteBtn = (id) => {
+            const userFavourite = this.props.userFavourites.find(el => el['tweet_id'] == id);
+            if (userFavourite) {
+                return (<button data-tweet-id={id} data-favourite-id={userFavourite.id} data-is-favourite={true} className="single-tweet__favourite-btn">UNFAVOURITE THIS</button>)
+            } else {
+                return (<button data-tweet-id={id} data-is-favourite={false} className="single-tweet__favourite-btn">FAVOURITE THIS</button>)
+            }
+        }
+
         const tweetInfo = this.props.allTweets
             .map(tweet =>
 
@@ -40,12 +49,14 @@ class AllTweets extends React.Component {
                 <a href={`./${tweet.id}`} className="single-tweet__id">{`Tweet: ${tweet.id}`}</a>
                 <p className="single-tweet__content">{tweet.content}</p>
                 <ul className="single-tweet__hashtag-list">{makeListOfHashtags(tweet.id)}</ul>
+                {displayFavouriteBtn(tweet.id)}
             </div>
             )
 
         return (
             <html>
                 <Head />
+                <script defer src="./scripts/tweets-all.js"></script>
                 <body>
                     <Header />
                     <Nav />

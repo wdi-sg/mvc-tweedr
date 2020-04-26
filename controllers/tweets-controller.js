@@ -18,7 +18,13 @@ module.exports.getAllTweets = async (req, res) => {
     const resultTwo = await db.query(query2);
     console.log(resultTwo.rows);
 
+    const query3 = `SELECT id, tweet_id from favourites where user_id = ${req.session.userId}`;
+
+    const resultThree = await db.query(query3);
+    console.log(resultThree.rows);
+
     res.render('./tweets/tweets-all', {
+        userFavourites: resultThree.rows,
         allTweets: rows,
         allHashtags: resultTwo.rows
     });

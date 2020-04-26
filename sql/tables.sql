@@ -32,3 +32,11 @@ CREATE TABLE IF NOT EXISTS hashtags_tweets (
 	hashtag_id INTEGER REFERENCES hashtags(id) ON DELETE CASCADE,
 	tweet_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE
 );
+
+--
+
+CREATE TABLE IF NOT EXISTS favourites (
+	id serial PRIMARY KEY,
+	user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+	tweet_id INTEGER REFERENCES tweets(id) ON DELETE CASCADE
+);

@@ -19,6 +19,4 @@ router.delete('/:tweetId/:hashtagId/delete', hashtagsTweetsApiController.deleteH
 
 router.get('/', hashtagsTweetsApiController.getAllHashtags);
 
-
-
 module.exports = router;

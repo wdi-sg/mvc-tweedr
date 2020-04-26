@@ -22,6 +22,6 @@ module.exports = (app, allModels) => {
 
   app.get('/tweets', tweedrControllerCallbacks.tweets)
 
-
+  app.post('/tweets', tweedrControllerCallbacks.tweetPost);
 
 };

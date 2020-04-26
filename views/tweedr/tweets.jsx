@@ -11,7 +11,7 @@ class Tweets extends React.Component {
             <div>
                 <form action="/tweets" method="POST">
                     <p>
-                        Message <input name="Message"/>
+                        Message <input name="message"/>
                         <input type="submit"/>
                     </p>
                 </form>

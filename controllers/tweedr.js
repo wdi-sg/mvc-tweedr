@@ -33,11 +33,25 @@ module.exports = (db) => {
 
     }
 
-    db.tweedr.addUser(userName, userPassword, callback);
+    db.registration.addUser(userName, userPassword, callback);
 
   }
 
-  //db.tweedr.registerPostControllerCallback;
+  let tweetPostControllerCallback = (request, response) =>{
+    const userMessage = request.body.message;
+
+    const callback = (error, queryResponse) => {
+      if(error){
+        console.log(error);
+        console.log("erroorrrrr of message");
+      }else{
+        response.render('./tweedr/tweets')
+      }
+    }
+    db.tweedr.addTweet(userMessage, callback);
+
+
+  }
 
 
 
@@ -59,6 +73,7 @@ module.exports = (db) => {
     register: registerControllerCallback,
     login: loginControllerCallback,
     tweets: tweetControllerCallback,
-    registerPost: registerPostControllerCallback
+    registerPost: registerPostControllerCallback,
+    tweetPost: tweetPostControllerCallback
   }
 }

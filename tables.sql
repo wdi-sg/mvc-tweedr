@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS tweets (
     id SERIAL PRIMARY KEY,
-    user_id TEXT,
+    user_id INTEGER,
     message TEXT
 );
 

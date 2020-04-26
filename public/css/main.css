@@ -22,6 +22,18 @@ body {
 input,
 select {
 		color: grey;
+		width: 80%;
+		max-width: 600px;
+		margin: 16px 0;
+		height: 2rem;
+}
+
+select {
+		width: 80%;
+		max-width: 600px;
+		height: 2rem;
+		background-color: transparent;
+		outline: white;
 }
 
 /*.overlay {
@@ -127,7 +139,9 @@ main {
 		color: #FFB600;
 }
 
-.form__wrapper {
+.form__wrapper,
+.add-form__add-hashtag-wrapper,
+.edit-form__hashtags-list {
 		width: 80%;
 		min-height: 50vh;
 		height: auto;
@@ -137,7 +151,9 @@ main {
 		align-items: center;
 }
 
-.auth-form {
+.auth-form,
+.add-form,
+.edit-form {
 		overflow-y: scroll;
 		display: flex;
 		flex-direction: column;
@@ -148,16 +164,21 @@ main {
 		color: #49494b;
 }
 
-.auth-form__header {
+.auth-form__header,
+.add-form__header,
+.edit-form__header {
 		border-top: 1px dashed;
 		width: 80%;
 		margin: 12px 0;
 		padding: 12px 0;
 		font-size: 1.6rem;
+		text-align: center;
 }
 
 .auth-form button,
-.log-out-btn {
+.log-out-btn,
+.add-form button,
+.edit-form button {
 		border: none;
 		font-size: inherit;
 		color: white;
@@ -176,7 +197,9 @@ main {
 		transition: all 0.3s;
 }
 
-.auth-form button:hover {
+.auth-form button:hover,
+.add-form button:hover,
+.edit-form button:hover {
 		background-color: #F6F4F2;
 		color: #425664;
 		border-radius: 30px;
@@ -188,7 +211,9 @@ main {
 		-o-transition: all .4s ease-out;
 }
 
-.auth-form button:active {
+.auth-form button:active,
+.add-form button: active,
+.edit-form button: active {
 		background-color: #F6F4F2;
 		color: tomato;
 		opacity: 1;
@@ -249,4 +274,122 @@ main {
 		font-size: 0.8rem;
 		text-transform: uppercase;
 		border: 2px solid lightgrey;
+}
+
+/*tweets-all*/
+
+.single-tweet__container {
+		display: flex;
+		flex-direction: column;
+		width: 80%;
+		max-width: 800px;
+		justify-content: space-around;
+		align-items: center;
+		margin: 24px 0;
+		padding: 24px 0;
+		border-bottom: 1px solid white;
+}
+
+.single-tweet__container li {
+		list-style: none;
+		text-align: center;
+}
+
+.single-tweet__container button {
+		border: none;
+		font-size: 0.8rem;
+		color: white;
+		background: none;
+		cursor: pointer;
+		padding: 15px 60px;
+		margin: 15px 30px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 700;
+		opacity: 0.8;
+		outline: none;
+		position: relative;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+}
+
+.single-tweet__container button:hover {
+		background-color: #F6F4F2;
+		color: #425664;
+		border-radius: 30px;
+		opacity: 0.9;
+		transition: all .4s ease-out;
+		-webkit-transition: all .4s ease-out;
+		-moz-transition: all .4s ease-out;
+		-ms-transition: all .4s ease-out;
+		-o-transition: all .4s ease-out;
+}
+
+.single-tweet__container button:active {
+		background-color: #F6F4F2;
+		color: tomato;
+		opacity: 1;
+		transition: all .1s linear;
+		-webkit-transition: all .1s linear;
+		-moz-transition: all .1s linear;
+		-ms-transition: all .1s linear;
+		-o-transition: all .1s linear;
+}
+
+.single-tweet__container>a {
+		text-decoration: none;
+		text-transform: uppercase;
+		margin: 12px 12px;
+		font-family: 'Nunito', sans-serif;
+		font-size: 1.2rem;
+		letter-spacing: 0.1rem;
+		width: 25%;
+		text-align: center;
+		flex-grow: 1;
+}
+
+.single-tweet__container>a:hover,
+		{
+		color: #FFB600;
+}
+
+.single-tweet__hashtag-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+}
+
+.single-tweet__hashtag-list-header {
+		text-align: center;
+}
+
+.single-tweet__hashtag {
+		opacity: 0.9;
+		margin: 2px 0;
+}
+
+/*single-tweet*/
+
+.tweet__edit-delete-links {
+		margin: 12px 0;
+		padding: 12px 0;
+		display: flex;
+		width: 50%;
+		justify-content: space-around;
+}
+
+/**/
+
+.add-form__submit-btn,
+.edit-form__submit-btn {
+		font-size: 2.2rem !important;
+}
+
+.edit-form__hashtags-list li {
+		font-size: 0.8rem;
+		list-style: none;
+		text-align: center;
+		text-decoration: underline;
 }

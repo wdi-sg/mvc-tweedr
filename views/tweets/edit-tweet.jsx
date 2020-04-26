@@ -16,7 +16,7 @@ class EditTweetForm extends React.Component {
             .map(hashtag =>
                 <div className="edit-form__hashtag-wrapper">
                     <li data-hashtag-tweet-id={hashtag.id} className="edit-form__hashtags-list-item">
-                        {hashtag.name}
+                        #{hashtag.name}
                     </li>
                     <button type="button" data-hashtag-tweet-id={hashtag.id} data-tweet-id={this.props.singleTweet.id} data-hashtag-id={hashtag['hashtag_id']} className="edit-form__hashtags-list-item-delete-btn">Delete</button>
                 </div>

@@ -28,9 +28,9 @@ class SingleTweet extends React.Component {
                     <Header />
                     <Nav />
                     <main>
-                        <div className="single-song__container single-display">
+                        <div className="single-tweet__container single-display">
                             {displayTweetImg()}
-                            <p className="single-tweet__content">{this.props.singleTweet.content}</p>
+                            <p className="single-tweet__content">"{this.props.singleTweet.content}"</p>
                             <div className ="tweet__edit-delete-links">
                                 <a href="./edit" className="tweet__edit-link">Edit</a>
                                 <a href="./delete" className="tweet__delete-link">Delete Tweet</a>

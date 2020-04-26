@@ -75,9 +75,33 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+    let gatherFavoriteTweeds = (id, callback) => {
+        const queryString =
+            "SELECT tweeds.user_name, tweeds.tweed,tweeds.user_id FROM favorites INNER JOIN tweeds ON(favorites.tweed_id = tweeds.id)  WHERE favorites.user_id !=" +
+            id +
+            "ORDER BY favorites.id DESC";
+
+        dbPoolInstance.query(queryString, (error, queryResult) => {
+            if (error) {
+                console.log("ERRRRROROROROROROR");
+                console.log(error);
+                callback(error, null);
+                return;
+            } else {
+                if (queryResult.rows.length > 0) {
+                    return callback(null, queryResult.rows);
+                } else {
+                    console.log("Unsuccessful");
+                    return callback(null, null);
+                }
+            }
+        });
+    };
+
     return {
         insertTweed: insertTweed,
         displayTweed: displayTweed,
         favoritedTweed: favoritedTweed,
+        gatherFavoriteTweeds: gatherFavoriteTweeds,
     };
 };

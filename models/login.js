@@ -1,4 +1,4 @@
-const sha256 = require('js-sha256');
+const sha256 = require("js-sha256");
 
 /**
  * ===========================================
@@ -6,64 +6,82 @@ const sha256 = require('js-sha256');
  * ===========================================
  */
 module.exports = (dbPoolInstance) => {
+    // `dbPoolInstance` is accessible within this function scope
 
-  // `dbPoolInstance` is accessible within this function scope
+    const userLogin = (login, callback) => {
+        let queryString =
+            "SELECT * FROM users WHERE user_name = ($1) AND password = ($2)";
 
-const userLogin = (login, callback) => {
-    console.log("SELECTING QUERY");
-    console.log(login);
+        let requestedHashedPassword = sha256(login.password);
 
-    let queryString = "SELECT * FROM users WHERE user_name = ($1) AND password = ($2)";
+        let values = [login.username, requestedHashedPassword];
 
-    let requestedHashedPassword = sha256(login.password);
-
-    let values = [login.username, requestedHashedPassword];
-
-dbPoolInstance.query(queryString, values, (error, queryResult) => {
-    if(error) {
-        console.log("ERRRRROROROROROROR AT LOGIN QUERY");
-        console.log(error);
-        callback(error, null);
-        return;
-    }
-        // invoke callback function with results after query has executed
-
-        if(queryResult.rows.length > 0) {
-            if(queryResult.rows[0].password === requestedHashedPassword) {
-                console.log("IT'S A MATCH");
-                 console.log("RESULTSSSS");
-            console.log(queryResult.rows);
-            callback(null, queryResult.rows);
+        dbPoolInstance.query(queryString, values, (error, queryResult) => {
+            if (error) {
+                console.log("ERRRRROROROROROROR AT LOGIN QUERY");
+                console.log(error);
+                callback(error, null);
+                return;
             }
+            // invoke callback function with results after query has executed
 
-        } else {
-            console.log("Invalid username or password");
-            callback(null, null);
-        }
-});
-}
+            if (queryResult.rows.length > 0) {
+                if (queryResult.rows[0].password === requestedHashedPassword) {
+                    callback(null, queryResult.rows);
+                }
+            } else {
+                console.log("Invalid username or password");
+                callback(null, null);
+            }
+        });
+    };
 
-const getName = (id, callback) => {
+    const getName = (id, callback) => {
+        const getQueryUser = "SELECT name FROM users WHERE id=" + id;
 
-    const getQueryUser = "SELECT name FROM users WHERE id="+ id;
+        dbPoolInstance.query(getQueryUser, (error, queryResult) => {
+            if (error) {
+                console.log("ERRRRROROROROROROR AT LOGIN QUERY");
+                console.log(error);
+                callback(error, null);
+                return;
+            }
+            // invoke callback function with results after query has executed
 
-    dbPoolInstance.query(getQueryUser, (error, queryResult) => {
-    if(error) {
-        console.log("ERRRRROROROROROROR AT LOGIN QUERY");
-        console.log(error);
-        callback(error, null);
-        return;
-    }
-        // invoke callback function with results after query has executed
+            if (queryResult.rows.length > 0) {
+                callback(null, queryResult.rows);
+            }
+        });
+    };
 
-        if(queryResult.rows.length > 0) {
-            callback(null, queryResult.rows);
-        }
-    });
- }
+    const getAllTweedsForLogin = (callback) => {
+        // const queryString =
+        //     "SELECT users.name, tweeds.id, tweeds.user_id, tweeds.tweed, tweeds.created_at FROM users INNER JOIN tweeds ON(users.id = tweeds.user_id) WHERE tweeds.id > 80 ORDER BY tweeds.id DESC";
 
-  return {
-    userLogin: userLogin,
-    getName: getName
-  };
+        const queryString =
+            "SELECT * FROM tweeds WHERE tweeds.id > 80 ORDER BY tweeds.id DESC";
+
+        dbPoolInstance.query(queryString, (error, queryResult) => {
+            if (error) {
+                console.log("ERRRRROROROROROROR");
+                console.log(error);
+                callback(error, null);
+                return;
+            } else {
+                if (queryResult.rows.length > 0) {
+                    return callback(null, queryResult.rows);
+                } else {
+                    console.log("Insert Unsuccessful");
+                    return callback(null, null);
+                }
+            }
+            // invoke callback function with results after query has executed
+        });
+    };
+
+    return {
+        userLogin: userLogin,
+        getName: getName,
+        getAllTweedsForLogin: getAllTweedsForLogin,
+    };
 };

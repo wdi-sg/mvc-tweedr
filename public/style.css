@@ -57,8 +57,11 @@ button.logout {
 }
 
 .tweed-head {
+	display: flex;
+	justify-content: space-between;
 	padding: 20px;
 	font-size: 40px;
+	font-family: "Pathway Gothic One", sans-serif;
 }
 
 .tweed-username {
@@ -105,4 +108,8 @@ button.tweed-button {
 
 .favorite-button:hover {
 	box-shadow: 0 10px 20px;
+}
+
+.favorite-tag {
+	font-size: 30px;
 }

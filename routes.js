@@ -18,7 +18,6 @@ module.exports = (app, allModels) => {
     const tweedPage = require("./controllers/tweeds.js")(allModels);
     const displayUserProfile = require("./controllers/users.js")(allModels);
 
-    //app.get('/', tweed.tweed);
     app.get("/", (req, res) => {
         res.render("home");
     });
@@ -27,6 +26,9 @@ module.exports = (app, allModels) => {
 
     app.get("/tweeds", tweedPage.displayTweed);
     app.get("/user_profile/:id", displayUserProfile.displayUser);
+
+    app.get("/tweeds", tweedLogin.displayTweedsUponLogin);
+    app.get("/getFavoriteTweeds", tweedPage.displayFavoriteTweeds);
 
     app.post("/userLogin", tweedLogin.login);
     app.post("/registerUser", tweedRegister.registerUser);

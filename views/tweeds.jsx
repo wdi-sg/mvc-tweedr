@@ -90,6 +90,12 @@ class Tweed extends React.Component {
                         <div className="tweed-header-input">
                             <div className="tweed-head">
                                 <h3>Tweeds</h3>
+                                <a
+                                    className="favorite-tag"
+                                    href="/getFavoriteTweeds"
+                                >
+                                    See your favorite Tweeds
+                                </a>
                             </div>
 
                             <form method="POST" action="/makeTweed">

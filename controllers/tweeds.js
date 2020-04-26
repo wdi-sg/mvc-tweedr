@@ -29,9 +29,6 @@ module.exports = (db) => {
                 console.log(error);
                 return;
             } else {
-                // console.log("CHECKING");
-                //console.log(result);
-                // console.log("CHECKING AGAIN");
                 let userName = req.cookies["user_name"];
 
                 const data = {
@@ -52,9 +49,26 @@ module.exports = (db) => {
                 console.log("ERRRRROROROROROROR");
                 console.log(error);
                 return;
+            }
+        });
+    };
+
+    const displayFavoriteTweeds = (req, res) => {
+        let userIdToRemove = req.cookies["user_id"];
+
+        db.makeTweed.gatherFavoriteTweeds(userIdToRemove, (error, result) => {
+            if (error) {
+                console.log("ERRRRROROROROROROR");
+                console.log(error);
+                return;
             } else {
                 console.log(result);
                 console.log("FAVORITED TWEEEEDS");
+
+                const data = {
+                    result,
+                };
+                res.render("favorites", data);
             }
         });
     };
@@ -69,5 +83,6 @@ module.exports = (db) => {
         makeTweed: makeTweed,
         displayTweed: displayTweed,
         favoritedTweed: favoritedTweed,
+        displayFavoriteTweeds: displayFavoriteTweeds,
     };
 };

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const authorize = require('../middleware/authorization.middleware')
 const {
-  getAllTweets
+  getTweets: getAllTweets
 } = require('../controllers/tweets.controller')
 
 
@@ -11,7 +11,7 @@ router.get('/dashboard', authorize, (req, res)=> {
 })
 
 
-router.get('/tweets',  getAllTweets)
+router.get('/tweets', authorize, getAllTweets)
 
 module.exports = router
 

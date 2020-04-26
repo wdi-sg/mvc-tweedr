@@ -2,22 +2,28 @@ import React from 'react'
 import _nav from './partials/_nav'
 import InputBoxComponent from './components/inputBox.component'
 import Tweet from './components/tweet.component'
-import axios from 'axios'
+import axios from 'axios';
 
 import '../styles/dashboard.scss'
 
 class Dashboard extends React.Component {
 
   constructor (props) {
-    super(props);
+    super(props)
+    // this is to avoid server side error caused by sweetsData null
+    this.state = {tweetsData : []}
   }
 
-  componentDidMount = ()=> {
-    axios.get('http://localhost:3000/tweets')
-      .then(res=> {this.setState({tweets:res.data})})
+  componentDidMount () {
+    this.setState({tweetsData: this.props.tweetsData})
+
   }
 
-
+  createTweets = () => {
+    return this.state.tweetsData.map(tweet=>{
+      console.log(tweet)
+    })
+  }
 
   render () {
     const dummyTweets = [
@@ -45,7 +51,7 @@ class Dashboard extends React.Component {
                 <InputBoxComponent/>
 
                 <div className="container">
-                  <Tweet/>
+                  {this.createTweets()}
                 </div>
 
               </div>

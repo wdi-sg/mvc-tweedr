@@ -47,9 +47,9 @@ const loginUser = (request, response) => {
      let password = request.body.password;
 
      const callbackFunction = (err, result) => {
-       console.log('did the callback');
+        console.log('did the callback');
 
-            response.send("successfully logged into account");
+        response.send("successfully logged into account");
 
 
      }

@@ -7,21 +7,22 @@ var React = require('react');
             <body>
 
                 <h3>Add New Favorite</h3>
-                <form action="/favorite" method="POST">
+
                 <div>
                     <p>
-                        User Id <input id ="input" name="user_id" type="text"/>
+                        User Id <input type="text"  id="user_id" name="user_id"></input>
+
                     </p>
                     <p>
-                        Tweet Id <input id ="input_tweet" name="tweet_id" type="text"/>
+                        Tweet Id <input type="text" id="tweet_id" name="tweet_id"></input>
                     </p>
 
                     <p>
 
-                        <input type='submit' value='Submit'/>
+                        <button id="button">Add Favorite</button>
                     </p>
                 </div>
-                </form>
+                <script src="../script.js"></script>
 
             </body>
         </html>

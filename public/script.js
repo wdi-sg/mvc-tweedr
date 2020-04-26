@@ -1,3 +1,33 @@
+
+//console.log("enetring script");
+ let btnClick = () => {
+     let userIdValue = document.getElementById('user_id').value;
+     //console.log(userIdValue);
+     let tweetIdValue = document.getElementById('tweet_id').value;
+     const data = {
+         user_id: userIdValue,
+         tweet_id: tweetIdValue
+     }
+     var request = new XMLHttpRequest();   // new HttpRequest instance
+
+     request.addEventListener("load", function(){
+
+       console.log("DONE");
+       console.log( this.responseText );
+       Button.parentNode.removeChild(Button);
+     });
+
+     request.open("POST", '/favorite');
+     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+     request.send(JSON.stringify(data));
+ }
+ let Button = document.getElementById('button');
+
+ Button.addEventListener('click', btnClick);
+
+
+
 /*var btnClick = function(event){
       console.log("BUTTON CLIKED: DOG ID")
       var text = document.getElementById('input');
@@ -9,6 +39,7 @@
       var request = new XMLHttpRequest();
       var responseHandler = function() {
             console.log("response text", this.responseText);
+            button.parentNode.removeChild(button);
 
       };
       request.addEventListener("load", responseHandler);
@@ -30,41 +61,9 @@ button.addEventListener('click', btnClick);
 
 
 //--------JSX FILE -------
-var React = require('react');
- class newFavorites extends React.Component {
-     render() {
-        console.log("script")
-         return (
-            <html>
-            <body>
-
-                <h3>Add New Favorite</h3>
-                <div>
-                    <p>
-                        User Id <input id ="input" name="user_id" type="text"/>
-                    </p>
-                    <p>
-                        Tweet Id <input id ="input_tweet" name="tweet_id" type="text"/>
-                    </p>
-
-                    <p>
-
-                        <button class="btn">submit</button>
-                    </p>
-                </div>
-                <script src="./script.js"></script>
-
-            </body>
-        </html>
-        );
-    }
-}
-
- module.exports = newFavorites;
-
-*/
 
 
+/*
 console.log("HELLLO");
 
 
@@ -93,7 +92,8 @@ var btnClick = function(event){
   // send the request
   // request.send();
   var data = {
-    tweet_ids : event.target.innerText
+    user_ids : event.target.innerText,
+
   };
 
   request.open("POST", '/favorite');
@@ -108,3 +108,42 @@ for( var i=0; i<buttons.length; i++){
   var button = buttons[i]
   button.addEventListener('click', btnClick)
 }
+
+
+//
+
+var React = require('react');
+
+class FavoriteNew extends React.Component {
+  render() {
+
+    const idList = this.props.tweets.map((tweet)=>{
+        return (<li>
+                <p>
+                    {tweet_id.tweet}
+                    <form action="/favorite" method="POST">
+                        <input name="tweet" value={tweet_id.tweet}/>
+                        <input type="submit"/>
+                    </form>
+                        <button class="btn">{user_id.id}</button>
+
+                </p>
+            </li>);
+    })
+
+    return (
+      <html>
+        <body>
+          <h1>songs</h1>
+          <ul>
+            {idList}
+          </ul>
+          <script src="script.js"></script>
+        </body>
+      </html>
+    );
+  }
+}
+
+module.exports = FavoriteNew;
+*/

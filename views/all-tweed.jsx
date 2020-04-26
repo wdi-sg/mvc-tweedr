@@ -1,7 +1,12 @@
-var React = require('react');
+var React = require("react");
 
-class Login extends React.Component {
+class AllTweeds extends React.Component {
   render() {
+    //tweeds = result = if you type "SELECT * FROM tweeds;"" into the database
+    let tweeds = this.props.result;
+    let AllTweeds = tweeds.map((tweed) => {
+        return <li key={tweed.id}>{tweed.user_id}: {tweed.content}</li>
+    })
 
     return (
       <html>
@@ -21,23 +26,8 @@ class Login extends React.Component {
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
               </nav>
-          <div>
-            <h1>Login</h1>
-            <div>
-                <form action="/login" method="POST">
-                    <p>
-                        name <input name="name"/>
-                    </p>
-                    <p>
-                        password <input name="password"/>
-                    </p>
-                    <p>
-
-                        <input type="submit"/>
-                    </p>
-                </form>
-            </div>
-          </div>
+          <h1>All Tweeds</h1>
+          <ul>{AllTweeds}</ul>
           </div>
           </div>
         </body>
@@ -46,4 +36,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = AllTweeds;

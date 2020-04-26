@@ -7,32 +7,45 @@ module.exports = (dbPoolInstance) => {
 
   // `dbPoolInstance` is accessible within this function scope
 
-  // let getAll = (callback) => {
+  //log in
+  let userCheck = (requestUser, call) => {
+    let query = "SELECT * from users where name="+"'"+requestUser+"'" ;
+    dbPoolInstance.query(query, (error, queryResult) => {
+      if ( error ) {
+        call(error, null);
+      } else {
+        if( queryResult.rows.length > 0 ){
+            call(null, queryResult.rows);
+        }else{
+            call(null, null);
+        };
+      };
+    });
+  };
 
-  //   let query = 'SELECT * FROM pokemons';
+//show all tweeds
+  let alltweedsCallback = (callback) => {
+    let query = "SELECT * from tweeds;";
+    dbPoolInstance.query(query, (error, queryResult) => {
+      callback(error, queryResult.rows);
+      });
+    };
 
-  //   dbPoolInstance.query(query, (error, queryResult) => {
-  //     if( error ){
+//create new tweed
+  let createtweedsCallback = (userId, contentInput, callback) => {
 
-  //       // invoke callback function with results after query has executed
-  //       callback(error, null);
+    let query = "INSERT INTO tweeds (content, user_id) VALUES ($1, $2) RETURNING *";
+     const values = [contentInput, userId];
 
-  //     }else{
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+      callback(error, queryResult.rows[0]);
+      });
+    };
 
-  //       // invoke callback function with results after query has executed
-
-  //       if( queryResult.rows.length > 0 ){
-  //         callback(null, queryResult.rows);
-
-  //       }else{
-  //         callback(null, null);
-
-  //       }
-  //     }
-  //   });
-  // };
 
   return {
-    // getAll,
+    userCheck,
+    alltweedsCallback,
+    createtweedsCallback,
   };
 };

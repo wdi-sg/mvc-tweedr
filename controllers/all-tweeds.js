@@ -6,15 +6,18 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  // let indexControllerCallback = (request, response) => {
-  //     db.pokemon.getAll((error, allPokemon) => {
-  //       response.render('pokemon/index', { allPokemon });
-  //     });
-  // };
 
-  let loginCallback = (request, response) => {
-        response.render('login');
-  };
+   let allTweedscontroller = (request, response) => {
+
+        db.tweedr.alltweedsCallback((error, result) => {
+        if(result === null) {
+            response.send("failed");
+        } else {
+                response.render('all-tweed', {result});
+        };
+      });
+    };
+
 
   /**
    * ===========================================
@@ -22,7 +25,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    loginCallback,
+    allTweedscontroller,
   };
 
-}
+};

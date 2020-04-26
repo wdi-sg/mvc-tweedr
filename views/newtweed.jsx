@@ -1,8 +1,7 @@
-var React = require('react');
+var React = require("react");
 
-class Login extends React.Component {
+class NewTweed extends React.Component {
   render() {
-
     return (
       <html>
       <head>
@@ -21,23 +20,13 @@ class Login extends React.Component {
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
               </form>
               </nav>
-          <div>
-            <h1>Login</h1>
-            <div>
-                <form action="/login" method="POST">
-                    <p>
-                        name <input name="name"/>
-                    </p>
-                    <p>
-                        password <input name="password"/>
-                    </p>
-                    <p>
-
-                        <input type="submit"/>
-                    </p>
-                </form>
-            </div>
-          </div>
+          <h3>Create New Tweed</h3>
+          <form method='POST' action='/newtweed'>
+            <input value={this.props.cookieUserId} type='hidden' name='User ID' placeholder="User ID"/>
+            <p>Content</p>
+            <input type='text' name='content' placeholder="Content"/>
+            <input type='submit' value='Submit'/>
+          </form>
           </div>
           </div>
         </body>
@@ -46,4 +35,4 @@ class Login extends React.Component {
   }
 }
 
-module.exports = Login;
+module.exports = NewTweed;

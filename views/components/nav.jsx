@@ -38,6 +38,15 @@ class Nav extends React.Component {
                         All Users
                       </a>
                     </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/hashtags" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Hashtags
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/hashtags">All Hashtags</a>
+                      <a class="dropdown-item" href="/hashtags/new">New Hashtag</a>
+                    </div>
+                    </li>
                     <li className="nav-item">
                       <a className="nav-link" href="/logout">
                         Logout

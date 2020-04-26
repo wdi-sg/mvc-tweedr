@@ -29,4 +29,18 @@ CREATE TABLE IF NOT EXISTS users_followers
       FOREIGN KEY (follower_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE IF NOT EXISTS hashtags 
+(
+      hashtag_id SERIAL PRIMARY KEY,
+      hashtag_name TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hashtags_tweets 
+( 
+      id SERIAL PRIMARY KEY,
+      hashtag_id INTEGER,
+      tweet_id INTEGER,
+      FOREIGN KEY (hashtag_id) REFERENCES hashtags(hashtag_id),
+      FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+);
 

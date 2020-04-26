@@ -65,9 +65,9 @@ class Home extends React.Component {
     return (
       <html>
         <Head />
-        <body>
+        <body className="">
           <Nav />
-          <div className="outer-container container-fluid">
+          <div className="container-fluid">
             <div className="row">
               <div className="sidebar col-md-2 col-sm-12">
 
@@ -108,6 +108,13 @@ class Home extends React.Component {
                   <form action="/tweets" method="post">
                     <textarea name="tweetbody" rows="3" cols="190"></textarea>
                     <div className="new-tweet-bottom">
+                    <div className="float-left">
+                                            <label htmlFor="sort-type">ADD A HASHTAG</label>
+                      <select className="select-sort" name="sort-type">
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                      </select>
+                    </div>
                       {/* <button
                         id="new-tweet-photo"
                         className="btn btn-outline-light btn-lg float-left"

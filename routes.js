@@ -38,11 +38,12 @@ module.exports = (app, allModels) => {
     app.post("/tweets", tweetsControllerCallbacks.createTweet);
     app.get("/tweets/:id/edit", tweetsControllerCallbacks.getEditTweetForm);
     app.delete("/tweets/:id", tweetsControllerCallbacks.deleteTweet);
-
     app.put("/tweets/:id", tweetsControllerCallbacks.updateTweet);
-
-
-
     app.get("/", tweetsControllerCallbacks.index);
 
+    const hashtagControllerCallbacks = require("./controllers/hashtags")(allModels);
+    app.get("/hashtags/new", hashtagControllerCallbacks.getHashtagForm);
+    // app.get("/hashtags/:id", hashtagControllerCallbacks.getOneHashtag);
+    app.get("/hashtags", hashtagControllerCallbacks.displayAllHashtags);
+    // app.post("/hashtags", hashtagControllerCallbacks.displayAllHashtags);
 };

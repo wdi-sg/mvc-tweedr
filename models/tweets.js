@@ -164,7 +164,7 @@ module.exports = (dbPoolInstance) => {
 
   let favPage = (userTableId, callback) => {
 
-    let query1 = 'SELECT * FROM fav_tweets INNER JOIN tweets ON (tweets.id = fav_tweets.tweeds_id) WHERE fav_tweets.user_id =$1';
+    let query1 = 'SELECT * FROM tweets WHERE tweets.users_id = $1';
     let values = [userTableId];
     dbPoolInstance.query(query1, values, (error, queryResult) => {
         console.log('*******');

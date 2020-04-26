@@ -117,9 +117,9 @@ module.exports = (db) => {
 
     let favControllerCallback = (request, response) => {
       var userTableId = request.cookies['userId'];
-      let tweetToAddToFav = parseInt(request.body.favTweet);
+      let tweetToAddToFav = parseInt(request.body.tweet_id);
       db.tweets.fav(tweetToAddToFav, userTableId, (error, toFav) => {
-            response.send('You have successfully added: ' + toFav[0].id) + 'to favourites';
+            response.send('You have successfully added: ' + toFav[0].id + 'to favourites');
       })
 
     }

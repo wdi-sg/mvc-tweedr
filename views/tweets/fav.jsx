@@ -3,7 +3,17 @@ var React = require("react");
 class fav extends React.Component {
   render() {
     var fave = this.props.tweeteds.map (fav =>{
-        return <li>{fav.tweet}</li>
+        return (<li>
+                <p>
+                    Tweet: {fav.tweet}
+                    <button className ="addFav" >{fav.id}</button>
+                </p>
+            </li>)
+
+//                <div>
+//                <li>{fav.tweet}</li>
+//                <button className = 'addFav'> {fav.id}</button>
+//                </div>
     })
     return (
       <html>
@@ -12,11 +22,6 @@ class fav extends React.Component {
             <div>
                 <h1>Enter the new fav tweet's id!!</h1>
                 <div>
-                    <form action='/fav' method="POST">
-                        <p>
-                            Tweet id!: <input name="favTweet"/>
-                        </p>
-                        <br></br>
                         <p>
                             All your favourited tweets!
                         </p>
@@ -24,11 +29,9 @@ class fav extends React.Component {
                                 {fave}
                             </ol>
                         <br></br>
-                        <br></br>
-                        <input type="submit" value="Add to fav!!"></input>
-                    </form>
                 </div>
             </div>
+            <script src="/script.js"></script>
         </body>
       </html>
     );

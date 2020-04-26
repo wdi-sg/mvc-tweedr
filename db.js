@@ -1,16 +1,4 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
+//======             CONFIGURATION          =========
 
 const pg = require('pg');
 const url = require('url');
@@ -33,13 +21,12 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'nausheen',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
-
 
 const pool = new pg.Pool(configs);
 
@@ -47,39 +34,22 @@ pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
+//======        REQUIRE MODEL FILES         =========
+
+/*const allPokemonModelsFunction = require('./models/pokemon');
+
+const pokemonModelsObject = allPokemonModelsFunction( pool );*/
+const userModelsFunction = require('./models/users');
+const userModelsObject = userModelsFunction(pool);
+const tweetModelsFunction = require('./models/tweets');
+const tweetModelsObject = tweetModelsFunction(pool);
+const hashwordModelsFunction = require('./models/hashtags');
+const hashwordModelsObject = hashwordModelsFunction(pool);
+const favoritesModelsFunction = require('./models/favorites');
+const favoritesModelsObject = favoritesModelsFunction(pool);
 
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
+//======          MODULE EXPORTS            =========
 
 module.exports = {
   //make queries directly from here
@@ -90,10 +60,13 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool:pool,
 
-  /*
-   * ADD APP MODELS HERE
-   */
+  //ADD APP MODELS HERE
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  //pokemon: pokemonModelsObject
+  users: userModelsObject,
+  tweets: tweetModelsObject,
+  hashtags:hashwordModelsObject,
+  favorites: favoritesModelsObject
+
 };

@@ -1,0 +1,1 @@
+INSERT INTO hashtags (hashword) VALUES ('#sleepy');

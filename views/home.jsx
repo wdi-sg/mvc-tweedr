@@ -7,12 +7,20 @@ class Home extends React.Component {
     const username = this.props.username;
     const userID = this.props.userID;
 
+    const hashtagOptions = this.props.hashtags.sort().map(el => {
+      return <option value={el.id}>#{el.tags}</option>;
+    })
+
+
     const url = `/tweet/${userID}`
     let tweet = (
         <div className="new-tweet">
             <form action={url} method='post'>
                 <input type="text" name="tweet" placeholder="What's happening?"></input>
                 <input type="submit" value="tweet"></input>
+                <select className="selectpicker my-4" multiple data-live-search="true" name="hashtag">
+                    {hashtagOptions}
+                </select>
             </form>
         </div>
             )
@@ -75,6 +83,7 @@ class Home extends React.Component {
       <html>
         <head>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
             <link rel="stylesheet" type="text/css" href="./css/home.css" />
             <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
         </head>
@@ -89,6 +98,9 @@ class Home extends React.Component {
                 {showAllTweets}
             </div>
             <script src="./script/index.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
         </body>
       </html>
     );

@@ -10,7 +10,7 @@ module.exports = (db) => {
    }
 
    let addHashtag = (request, response) => {
-    const tag = request.body;
+    const tag = request.body.tag;
 
     db.hashtag.addHashtag(tag)
       .then(() => response.redirect('/'))

@@ -47,7 +47,20 @@ module.exports = (db) => {
                     })
             })
 
-            Promise.all([promise1, promise2]).then(() => {
+            // Get all hashtags from database
+            let promise3 = new Promise((resolve, reject) => {
+                db.hashtag.getHashtags()
+                    .then(results => {
+                        const hashtags = results.rows;
+                        data['hashtags'] = hashtags;
+                        resolve();
+                    })
+                    .catch(err => {
+                        console.error(err.stack)
+                    })
+            })
+
+            Promise.all([promise1, promise2, promise3]).then(() => {
                 response.render('home', data);
             })
         }

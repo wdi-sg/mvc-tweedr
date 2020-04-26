@@ -13,7 +13,14 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString, values);
   }
 
+  let getHashtags = () => {
+    let queryString = `select * from hashtags`
+
+    return dbPoolInstance.query(queryString);
+  }
+
   return {
-    addHashtag
+    addHashtag,
+    getHashtags
   };
 };

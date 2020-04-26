@@ -22,10 +22,20 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let addHashtagToTweet = (hashtagId, tweetId, callback)=> {
+
+      let query = `INSERT INTO hashtags_tweets(hashtag_id, tweet_id) VALUES (${hashtagId}, ${tweetId}) RETURNING *`;
+      dbPoolInstance.query(query, (err, result)=> {
+            callback(err, result.rows[0])
+      })
+
+  }
+
 
   return {
         getAllHashtags: getAllHashtags,
-        createHashtag: createHashtag
+        createHashtag: createHashtag,
+        addHashtagToTweet: addHashtagToTweet
   };
     
 };

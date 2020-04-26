@@ -32,30 +32,35 @@ module.exports = (db) => {
             //Between 6pm to 3:59am
             if (hour >= 18 || hour < 4) {
                 greeting = `Good evening`
-            //Between 4:00am to 11:59am
+                //Between 4:00am to 11:59am
             } else if (hour > 4 || hour < 12) {
                 greeting = `Good morning`;
-            //Between 12pm to 5:59pm
+                //Between 12pm to 5:59pm
             } else if (hour => 12 || hour < 18) {
                 greeting = `Good afternoon`
             }
 
             let currentUserId = req.cookies.currentUserId;
-            db.users.getCurrentUserDetails(currentUserId, (err, result) => {
+            db.users.getCurrentUserDetails(currentUserId, (err, userResults) => {
                 const data = {
-                    currentUser: result,
-                    tweetGreeting: greeting
-                }
-                const whenModelIsDone = (err, result2) => {
+                    currentUser: userResults,
+                    tweetGreeting: greeting,
+                };
+
+                db.tweets.getTweetsFromFollowing(currentUserId, (err, tweetResults) => {
                     if (err) {
                         console.log(`Query error!`, err);
                     } else {
-                        data.tweets = result2
-                        res.render(`tweets/alltweets`, data);
-                    }
-                };
+                        data.tweets = tweetResults;
 
-                db.tweets.getTweetsFromFollowing(currentUserId, whenModelIsDone);
+                        db.hashtags.getAllHashtags((err, hashtagResults) => {
+                            err && console.log(`Error in getting all hashtags,`, err);
+                            data.hashtags = hashtagResults;
+                            res.render(`tweets/alltweets`, data);
+                        });
+                    }
+                });
+
 
             });
         }
@@ -65,18 +70,28 @@ module.exports = (db) => {
 
         let tweetContent = req.body.tweetbody;
         let currentUser = req.cookies.currentUserId;
+        let hashtagInput = req.body.hashtagInput;
 
-        const whenModelIsDone = (err, result) => {
+        if (hashtagInput === "noHashtag") {
+          const whenModelIsDone = (err, result) => {
+            err && console.log(`Err at creating tweet`, err);
+            res.redirect(`/tweets`);
+          };
+          return db.tweets.createTweet(
+            tweetContent,
+            currentUser,
+            whenModelIsDone
+          );
+        };
 
-            if (err) {
-                console.log(`Query error!`, err)
-            } else {
-                res.redirect(`/tweets`)
-            }
-
-        }
-        db.tweets.createTweet(tweetContent, currentUser, whenModelIsDone)
-
+        db.tweets.createTweet(tweetContent, currentUser, (err, results) => {
+            err && console.log(`Err at creating tweet`, err);
+            db.hashtags.addHashtagToTweet(hashtagInput, results.tweet_id,
+                (err, results) => {
+                    return res.redirect(`/tweets`);
+                }
+            );
+        });
     }
 
     let deleteTweetControllerCallback = (req, res) => {

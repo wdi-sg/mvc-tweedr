@@ -26,8 +26,8 @@ class Home extends React.Component {
       );
     }
 
-          const moment = require("moment");
-          moment().format();
+      const moment = require("moment");
+      moment().format();
 
       const tweets = this.props.tweets;
       const tweetsList = tweets.map (tweet => {
@@ -60,7 +60,12 @@ class Home extends React.Component {
                 </div>
               </div>
             );
-      })
+      });
+
+    const hashtags = this.props.hashtags;
+    const hashtagOptions = hashtags.map(hashtag => {
+      return <option key = {hashtag.hashtag_id} value={hashtag.hashtag_id}>{hashtag.hashtag_name}</option>
+    })
 
     return (
       <html>
@@ -110,9 +115,9 @@ class Home extends React.Component {
                     <div className="new-tweet-bottom">
                     <div className="float-left">
                                             <label htmlFor="sort-type">ADD A HASHTAG</label>
-                      <select className="select-sort" name="sort-type">
-                        <option value="name">Name</option>
-                        <option value="date">Date</option>
+                      <select className="select-sort" name="hashtagInput">
+                      <option value="noHashtag">None</option>
+                      {hashtagOptions}
                       </select>
                     </div>
                       {/* <button

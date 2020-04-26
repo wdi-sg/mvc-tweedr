@@ -1,40 +1,47 @@
 module.exports = (db) => {
-  /**
-   * ===========================================
-   * Controller logic
-   * ===========================================
-   */
+    /**
+     * ===========================================
+     * Controller logic
+     * ===========================================
+     */
 
-  let getHashtagFormControllerCallback = (req, res) => {
+    let getHashtagFormControllerCallback = (req, res) => {
         res.render(`hashtags/new-hashtag`);
-  };
+    };
 
-  let displayAllHashtagsControllerCallback = (req,res)=> {
+    let displayAllHashtagsControllerCallback = (req, res) => {
 
-        db.hashtags.getAllHashtags( (err, results)=> {
+        db.hashtags.getAllHashtags((err, results) => {
             err && console.log(`Query Error`, err);
 
-            res.render(`hashtags/all-hashtags`, {hashtags: results})
+            res.render(`hashtags/all-hashtags`, {
+                hashtags: results
+            })
         })
-  }
+    }
 
-  let createHashtagControllerCallback = (req,res)=> {
+    let createHashtagControllerCallback = (req, res) => {
         let nameInput = req.body.hashtagName;
-      db.hashtags.createHashtag(nameInput, (err, result)=> {
+        if (nameInput === "noHashtag") {
+            return res.render(`error`, {
+                errorMsg: `Sorry, you cannot name your hashtag '${nameInput}'. Please try again.`
+            });
+        }
+        db.hashtags.createHashtag(nameInput, (err, result) => {
             err && console.log(`Query error`, err)
             res.redirect(`/hashtags`);
-      })
+        })
 
-  }
+    }
 
-  /**
-   * ===========================================
-   * Export controller functions as a module
-   * ===========================================
-   */
-  return {
-    getHashtagForm: getHashtagFormControllerCallback,
-    displayAllHashtags: displayAllHashtagsControllerCallback,
-    createHashtag: createHashtagControllerCallback
-  };
+    /**
+     * ===========================================
+     * Export controller functions as a module
+     * ===========================================
+     */
+    return {
+        getHashtagForm: getHashtagFormControllerCallback,
+        displayAllHashtags: displayAllHashtagsControllerCallback,
+        createHashtag: createHashtagControllerCallback
+    };
 };

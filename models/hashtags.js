@@ -15,7 +15,7 @@ module.exports = (dbPoolInstance) => {
 
 
   let createHashtag = (name, callback) => {
-    let query = `INSERT INTO hashtags(name) VALUES('${name}') RETURNING *`;
+    let query = `INSERT INTO hashtags(hashtag_name) VALUES('${name}') RETURNING *`;
 
     dbPoolInstance.query(query, (err, result) => {
       callback(err, result.rows[0]);

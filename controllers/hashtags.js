@@ -10,11 +10,21 @@ module.exports = (db) => {
   };
 
   let displayAllHashtagsControllerCallback = (req,res)=> {
+
         db.hashtags.getAllHashtags( (err, results)=> {
             err && console.log(`Query Error`, err);
 
             res.render(`hashtags/all-hashtags`, {hashtags: results})
         })
+  }
+
+  let createHashtagControllerCallback = (req,res)=> {
+        let nameInput = req.body.hashtagName;
+      db.hashtags.createHashtag(nameInput, (err, result)=> {
+            err && console.log(`Query error`, err)
+            res.redirect(`/hashtags`);
+      })
+
   }
 
   /**
@@ -25,5 +35,6 @@ module.exports = (db) => {
   return {
     getHashtagForm: getHashtagFormControllerCallback,
     displayAllHashtags: displayAllHashtagsControllerCallback,
+    createHashtag: createHashtagControllerCallback
   };
 };

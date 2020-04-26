@@ -45,5 +45,5 @@ module.exports = (app, allModels) => {
     app.get("/hashtags/new", hashtagControllerCallbacks.getHashtagForm);
     // app.get("/hashtags/:id", hashtagControllerCallbacks.getOneHashtag);
     app.get("/hashtags", hashtagControllerCallbacks.displayAllHashtags);
-    // app.post("/hashtags", hashtagControllerCallbacks.displayAllHashtags);
+    app.post("/hashtags", hashtagControllerCallbacks.createHashtag);
 };

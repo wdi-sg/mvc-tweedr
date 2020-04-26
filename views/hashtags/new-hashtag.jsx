@@ -21,7 +21,7 @@ class NewHashtag extends React.Component {
                 <input
                   type="text"
                   className="form-control"
-                  name="hashtag-name"
+                  name="hashtagName"
                   placeholder="Hashtag name"
                 />
               </div>

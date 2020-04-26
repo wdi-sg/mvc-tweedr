@@ -1,0 +1,93 @@
+body{
+	background: rgb(29, 202, 255);
+}
+
+h1{
+	color: white;
+	display: inline;
+}
+
+.icon{
+	height: 30px;
+	width: 30px;
+	position: relative;
+	top: -10px;
+	left: 10px;
+}
+
+.tools{
+	background-color: rgb(29, 202, 255);
+	width: 15%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	border-right: solid #818181;
+}
+
+.tools a{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.input-picture{
+	border: solid #f66d6d;
+	background-color: #e9afaf
+}
+
+.input-picture:hover{
+	background-color: #e78282;
+}
+
+#label{
+	color: white;
+}
+
+.profile-btn{
+	background-color: rgb(29, 202, 255);
+	border: solid white;
+	color: white;
+	font-size: 13px;
+}
+
+.tweet-body{
+	background-color: white;
+	width: 50%;
+	margin: 10px auto;
+}
+
+.new-tweet{
+	width: 50%;
+	margin: auto;
+}
+
+.tweet-user{
+}
+
+.fav-btn{
+	width: 20px;
+	height: 20px;
+}
+
+.fav-btn:hover{
+	width: 24px;
+	height: 24px;
+}
+
+.unfav-btn{
+	width: 20px;
+	height: 20px;
+}
+
+.unfav-btn:hover{
+	width: 24px;
+	height: 24px;
+}
+
+
+@media screen and (max-height: 450px) {
+  .tools {padding-top: 15px;}
+  .tools a {font-size: 10px;}
+}

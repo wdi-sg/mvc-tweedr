@@ -1,6 +1,9 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const sha256 = require('js-sha256');
+// const bodyParser = require('body-parser');
+const cors = require('cors')
 
 /**
  * ===================================
@@ -23,6 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+
+// enable files upload
+
+
+app.use(cors());
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
 
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();

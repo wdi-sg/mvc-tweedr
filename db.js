@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'postgres',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -61,12 +61,30 @@ pool.on('error', function (err) {
  * ===================================================
  */
 
+// Home Page files
+const allIndexModelsFunction = require('./models/index');
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const indexModelsObject = allIndexModelsFunction(pool);
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+// Registration files
+const allRegistrationModelsFunction = require('./models/registration');
 
+const registrationModelsObject = allRegistrationModelsFunction(pool);
 
+// Login files
+const allLoginModelsFunction = require('./models/login');
+
+const loginModelsObject = allLoginModelsFunction(pool);
+
+// profile page files
+const allProfileModelsFunction = require('./models/profile');
+
+const profileModelsObject = allProfileModelsFunction(pool);
+
+// hashtag page files
+const allHashtagModelsFunction = require('./models/hashtag');
+
+const hashtagModelsObject = allHashtagModelsFunction(pool);
 
 /*
  * ===================================================
@@ -95,5 +113,9 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  registration: registrationModelsObject,
+  login: loginModelsObject,
+  index: indexModelsObject,
+  profile: profileModelsObject,
+  hashtag: hashtagModelsObject
 };

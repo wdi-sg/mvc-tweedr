@@ -70,7 +70,8 @@ const usersModelObject = allUsersModel(pool);
 // const usersModelObject = allUsersModel(pool);
 const allHashtagsModel = require("./models/hashtags");
 const hashtagsModelObject = allHashtagsModel(pool);
-
+const allFavesModel = require("./models/favourites");
+const favesModelObject = allFavesModel(pool);
 
 /*
  * ===================================================
@@ -101,5 +102,6 @@ module.exports = {
   // users: userModelsObject,
   tweets: tweetsModelObject,
   users: usersModelObject,
-  hashtags: hashtagsModelObject
+  hashtags: hashtagsModelObject,
+  faves: favesModelObject
 };

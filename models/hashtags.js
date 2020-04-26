@@ -28,7 +28,10 @@ module.exports = (dbPoolInstance) => {
       dbPoolInstance.query(query, (err, result)=> {
             callback(err, result.rows[0])
       })
+  }
 
+  const getTweetsOfAHashtag = (hashtagId, callback) => {
+        let query = `SELECT tweets.tweet_id, tweets.body, hashtags_tweets.hashtag_id, hashtags.hashtag_name FROM tweets INNER JOIN hashtags_tweets ON hashtags_tweets.tweet_id = tweets.tweet_id INNER JOIN hashtags ON hashtags_tweets.hashtag_id = hashtags.hashtag_id WHERE hashtags_tweets.hashtag_id = ${hashtagId}`;
   }
 
 

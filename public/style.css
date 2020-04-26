@@ -31,6 +31,10 @@ body {
 
 }
 
+.inline {
+	display: inline!important;
+}
+
 .sidebar-tweedr-header a:hover {
 	color: white;
 	text-decoration: none;

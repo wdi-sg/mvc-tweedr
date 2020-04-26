@@ -14,6 +14,7 @@ module.exports = (app, allModels) => {
 
     // require the controller
 
+    //ALL USERS 
     const userControllerCallbacks = require('./controllers/users')(allModels);
     app.get("/login", userControllerCallbacks.getLoginForm);
     app.post("/login", userControllerCallbacks.loginUser);
@@ -46,4 +47,7 @@ module.exports = (app, allModels) => {
     // app.get("/hashtags/:id", hashtagControllerCallbacks.getOneHashtag);
     app.get("/hashtags", hashtagControllerCallbacks.displayAllHashtags);
     app.post("/hashtags", hashtagControllerCallbacks.createHashtag);
+
+    const favouritesControllerCallbacks = require('./controllers/favourites')(allModels);
+    app.post('/favourites', favouritesControllerCallbacks.addFave);
 };

@@ -44,3 +44,11 @@ CREATE TABLE IF NOT EXISTS hashtags_tweets
       FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
 );
 
+CREATE TABLE IF NOT EXISTS favourites
+(
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER,
+      tweet_id INTEGER,
+      FOREIGN KEY (user_id) REFERENCES users(user_id),
+      FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+);

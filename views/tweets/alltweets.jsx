@@ -11,8 +11,7 @@ class Home extends React.Component {
 
     const tweetOptions = (tweetId) => {
       return (
-        <div className="tweet-body-bottom">
-          <div className="tweet-options float-right">
+          <div className="inline">
             <a href={`/tweets/${tweetId}/edit`}>
               <button className="btn btn-outline-warning btn-sm">✎</button>
             </a>
@@ -22,7 +21,6 @@ class Home extends React.Component {
               <button className="btn btn-outline-danger btn-sm">╳</button>
             </form>
           </div>
-        </div>
       );
     }
 
@@ -56,7 +54,20 @@ class Home extends React.Component {
                     </div>
                   </div>
                   <div className="tweet-body-content">{tweet.body}</div>
-                  {tweet.user_id===user.user_id && tweetOptions(tweet.tweet_id)}
+                  <div className="tweet-body-bottom">
+                    <div className="tweet-options float-right">
+                    <input type="hidden" id="userId" value={user.user_id}></input>
+                      <button
+                        value={tweet.tweet_id}
+                        className="faveTweetBtn btn btn-sm btn-outline-secondary"
+                        type="submit"
+                      >
+                        ❤
+                      </button>
+                      {tweet.user_id === user.user_id &&
+                        tweetOptions(tweet.tweet_id)}
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -159,6 +170,7 @@ class Home extends React.Component {
           </div>
 
           <BootstrapJs />
+          <script src="home-script.js"></script>
         </body>
       </html>
     );

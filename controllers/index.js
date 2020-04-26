@@ -39,8 +39,21 @@ module.exports = (db) => {
                 db.index.showTweet(userID)
                     .then(results => {
                         const tweets = results.rows
+
                         data['tweets'] = tweets;
-                        resolve();
+
+                        // get hashtags for each tweet
+                        data['hashtags'] = [];
+
+                        tweets.forEach((el, i) => {
+                            db.hashtag.getTweetHashtag(el.id)
+                                .then((results) => {
+                                    data['hashtags'].push(results.rows);
+                                    if(i === tweets.length-1){
+                                        resolve();
+                                    }
+                                })
+                        })
                     })
                     .catch(err => {
                         console.error(err.stack)
@@ -123,17 +136,6 @@ module.exports = (db) => {
                     response.redirect('/');
 
                 })
-
-            // //Create a loop to add relationship for tweet to all the hashtags
-            // let i = 0;
-            // while(i < hashtagID.length){
-            //     db.hashtag.linkHashtag(hashtagID[i], tweetID)
-            //         .then((results) => {
-            //             console.log(results.rows);
-            //             i++;
-            //         })
-            // }
-
         }else{
             // Add tweet into database
             db.index.addTweet(tweet, userID)
@@ -143,12 +145,9 @@ module.exports = (db) => {
                     return db.hashtag.linkHashtag(hashtagID, tweetID)
                 })
                 .then(results => {
-                    console.log(results.rows);
+                    response.redirect('/');
                 })
         }
-
-
-
 
     }
 

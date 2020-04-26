@@ -65,9 +65,21 @@ class Home extends React.Component {
             }
         }
 
+        // Check hashtags
+        let allHashtags = this.props.hashtags;
+        let hashtags;
+        for(let i=0; i<allHashtags.length; i++){
+            if(allHashtags[i][0].id === el.id){
+                hashtags = allHashtags[i].map(element => {
+                    return <p>#{element.tags}</p>
+                })
+            }
+        }
+
         return(
             <div className="tweet-body">
                 <p className='tweet-content'>{el.tweet}</p>
+                {hashtags}
                 <a className='tweet-user' href={profileURL}>@{el.username}</a>
                 <div>
                     <form>

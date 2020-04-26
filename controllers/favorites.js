@@ -11,20 +11,20 @@ module.exports = (db) => {
     db.favorites.addFavoriteToDatabase(req.body.user_id, req.body.tweet_id, addFavCallback)
   }
 
-  let displayFavoriteTweets = (req, res) => {
-    const displayFavTweetsCallback = (err, result) =>{
+  let displayFavoriteTweets = async (req, res) => {
+    try {
+        let tweetArray = await db.favorites.displayFavFromDatabase(req.cookies.user_id)
+        console.log(tweetArray)
+        let newTweetArray = tweetArray.map(tweet => tweet.tweet)
         if (req.cookies.loggedin){
-            let tweetArray = []
-            for (let item of result){
-                tweetArray.push(item.tweet)
-            }
-            const data = {tweetArray};
+            const data = {newTweetArray};
             res.render('favorites/showfavorites', data)
         } else {
             res.redirect('/login')
         }
+    } catch (err) {
+        console.log(err)
     }
-    db.favorites.displayFavFromDatabase(req.cookies.user_id, displayFavTweetsCallback)
   }
   /**
    * ===========================================

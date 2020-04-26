@@ -19,16 +19,16 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
-  let displayFavFromDatabase = (userid, callback) => {
-    values = [userid];
-    let queryString = "SELECT DISTINCT tweet FROM tweets INNER JOIN favorites ON favorites.tweet_id = tweets.id WHERE tweets.user_id = $1;";
-    dbPoolInstance.query(queryString, values, (err, queryResult) => {
-        if (err){
-            console.log("query error")
-        } else{
-            callback(err, queryResult.rows)
-        }
-    })
+  let displayFavFromDatabase = async (userid) => {
+    let answer;
+    try {
+        values = [userid];
+        let queryString = "SELECT DISTINCT tweet FROM tweets INNER JOIN favorites ON favorites.tweet_id = tweets.id WHERE tweets.user_id = $1;";
+        answer = await dbPoolInstance.query(queryString, values)
+    } catch (err) {
+        console.log(err)
+    }
+    return answer.rows
   }
 
   return {

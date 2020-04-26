@@ -2,7 +2,7 @@ var React = require("react");
 
 class ShowFavorites extends React.Component {
   render() {
-    const tweetsListElements = this.props.tweetArray.map(tweet => {
+    const tweetsListElements = this.props.newTweetArray.map(tweet => {
         return <li>{tweet}</li>
     })
     return (

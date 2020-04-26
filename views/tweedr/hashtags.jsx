@@ -8,11 +8,9 @@ class playlist extends React.Component {
             <div class="mb-2">
                 <div class="btn btn-block btn-light" style={{height:"90px", boxShadow: "2px 2px 4px #000000"}}>
                     <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
-                        <form class="ml-auto" method="POST" action={"/tweet/delete/"+element.id}>
-                            <button style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
-                                <b>x</b>
-                            </button>
-                        </form>
+                        <button class='ml-auto xBtn' value={element.id} style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
+                            <b>x</b>
+                        </button>
                     </div>
                     <div id="content" class="d-flex justify-content-start m-1">
                         {element.content}
@@ -39,8 +37,13 @@ class playlist extends React.Component {
                     <h1 style={{marginLeft:"-200px"}}>Tweedr</h1>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <h3>What Ya Thinkin'?</h3>
+                    <h3>What Ya Hashin'?</h3>
                 </div>
+                <form class='row m-1'method="GET" action='/'>
+                    <button class='btn btn-block my-4' style={{backgroundColor:"#D7D6D6", boxShadow: "2px 2px 4px #000000"}}>
+                        <b>Back to tweet list</b>
+                    </button>
+                </form>
                 <div class="row nav flex-column rounded-lg p-3 m-1" style={{backgroundColor:"#999999", boxShadow: "2px 2px 4px #000000"}}>
                     {list}
                 </div>

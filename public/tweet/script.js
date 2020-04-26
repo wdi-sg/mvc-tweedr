@@ -53,16 +53,16 @@ for (i=0; i<allContent.length ; i++) {
     if (n2 < 0 && n1 > 0) {
     //if no empty space, n1 return "-1", insert at the end.
         let nNew = content.length + 1;
-        content2 = insert(content, nNew, "</u></button></form>")
+        content2 = insert(content, nNew, "</u></button>")
     }
     if (n2 > 0 && n1 > 0) {
-        content2 = insert(content, n2, "</u></button></form>")
+        content2 = insert(content, n2, "</u></button>")
     }
 
     //console.log(content2)
     let content3 = content2;
     if (n1 >= 0) {
-        content3 = insert(content2, n1, "<form method='post' onclick='testFunction()' action='/tweet/hash'><button name='text' class='btn btn-link p-0' style='margin:-1px 4px 0 4px'><u>")
+        content3 = insert(content2, n1, "<button name='text' class='btn btn-link p-0' style='margin:-1px 4px 0 4px'><u>")
     }
     //console.log(content3)
     contentSelect.innerHTML = content3;
@@ -75,5 +75,34 @@ function testFunction () {
     let path = event.path[1];
     path.setAttribute("value",event.target.innerText);
 }
+
+//Making deleted tweet disappear
+const xbtnSelect = document.querySelectorAll('.xBtn')
+
+function onClick2 () {
+    function responseHandler () {
+      //console.log(this.responseText)
+    }
+    console.log('clicked!')
+    id = this.value
+    console.log(id)
+    let request = new XMLHttpRequest()
+    request.addEventListener("load", responseHandler);
+    request.open('post', "/tweet/delete/"+id);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send()
+    event.path[4].style="display:none";
+}
+
+xbtnSelect.forEach(element => {
+    element.addEventListener('click', onClick2);
+})
+
+
+
+
+
+
+//console.log ~~~~~~~~~~~~~~~~~~~~~~~~
 
 console.log("====")

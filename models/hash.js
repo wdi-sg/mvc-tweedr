@@ -93,7 +93,7 @@ module.exports = (dbPoolInstance) => {
     }
 
     let hashUser = (request,callback) => {
-        let query = "SELECT * FROM tweets INNER JOIN users ON (user_id = users.id) where hash_id = $1";
+        let query = "SELECT tweets.id, content, name FROM tweets INNER JOIN users ON (user_id = users.id) where hash_id = $1 ORDER BY id DESC" ;
         let values = request;
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error){

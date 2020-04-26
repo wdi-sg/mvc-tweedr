@@ -17,9 +17,7 @@ class playlist extends React.Component {
                     </form>
                 </div>
         </div>);
-
     let inputTweets = ("");
-
     if(this.props.loggedIn === true){
         userButtons = (
             <div class='d-flex my-3'><b>Welcome, {this.props.username}</b>
@@ -35,7 +33,7 @@ class playlist extends React.Component {
                 <form class="input-group mb-3" method="POST" action="/tweet/new">
                     <input type="text" id="mainCtn" name="content" class="form-control" placeholder="Tweedr's content here" aria-describedby="basic-addon2" style={{boxShadow: "2px 2px 4px #000000"}}/>
                     <div class="input-group-append">
-                        <button id="mainBtn" name={this.props.tweets[this.props.tweets.length-1].id+1} class="btn btn-light btn-outline-secondary" type="submit" style={{boxShadow: "2px 2px 4px #000000"}}>Tweedrz</button>
+                        <button id="mainBtn" name={this.props.tweets[this.props.tweets.length-1].id+1} class="btn btn-outline-secondary" type="submit" style={{backgroundColor:'#D7D6D6', color:'black', boxShadow: "2px 2px 4px #000000"}}>Tweedrz</button>
                     </div>
                 </form>
             </div>
@@ -46,11 +44,9 @@ class playlist extends React.Component {
             <div class="mb-2">
                 <div class="btn btn-block btn-light" style={{height:"90px", boxShadow: "2px 2px 4px #000000"}}>
                     <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
-                        <form class="ml-auto" method="POST" action={"/tweet/delete/"+element.id}>
-                            <button style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
-                                <b>x</b>
-                            </button>
-                        </form>
+                        <button class='ml-auto xBtn' value={element.id} style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
+                            <b>x</b>
+                        </button>
                     </div>
                     <div id="content" class="d-flex justify-content-start m-1">
                         {element.content}

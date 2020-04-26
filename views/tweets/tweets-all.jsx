@@ -11,7 +11,7 @@ class AllTweets extends React.Component {
         const displayTweetImg = (img) => {
             if (img) {
                 return (<div className="single-tweet__img-container">
-                            <img src={tweet.img} className="single-tweet__img"/>
+                            <img src={img} className="single-tweet__img"/>
                         </div>);
             } else {
                 return;
@@ -48,7 +48,7 @@ class AllTweets extends React.Component {
             .map(tweet =>
 
                 <div className="single-tweet__container" key={tweet.id}>
-                    {displayTweetImg(tweet.img)}
+                    {displayTweetImg(tweet['img_link'])}
                     <a href={`./${tweet.id}`} className="single-tweet__id">{`Tweet No. ${tweet.id}`}</a>
                     <p className="single-tweet__content">"{tweet.content}"</p>
                     {displayFavouriteBtn(tweet.id)}

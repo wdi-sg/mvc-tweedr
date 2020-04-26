@@ -9,11 +9,11 @@ class SingleTweet extends React.Component {
     render() {
 
         const displayTweetImg = () => {
-            if (this.props.singleTweet.img) {
+            if (this.props.singleTweet['img_link']) {
                 return (
-                    <div className="single-song__img-container single-display">
-                    <img src={`http://a3.mzstatic.com/us/r30/Features/d6/ba/99/dj.homcvzwl.60x60-50.jpg`} alt={this.props.singleTweet.img} className="single-song__img"/>
-                </div>
+                    <div className="single-tweet__img-container single-display">
+                    <img src={`${this.props.singleTweet['img_link']}`}  className="single-tweet__img"/>
+                    </div>
                 )
             } else {
                 return;

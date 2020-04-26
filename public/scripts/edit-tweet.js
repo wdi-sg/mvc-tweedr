@@ -43,7 +43,7 @@ addHashtagBtn.addEventListener('click', async () => {
     hashtagsList.insertAdjacentHTML('beforeend',
         `         <div class="edit-form__hashtag-wrapper">
                     <li data-hashtag-tweet-id=${response.rows[0].id} class="edit-form__hashtags-list-item">
-                        ${document.querySelectorAll('.hashtag-option')[hashtagOptionIndex].value}
+                        #${document.querySelectorAll('.hashtag-option')[hashtagOptionIndex].value}
                     </li>
                     <button type="button" data-hashtag-tweet-id=${response.rows[0].id} class="edit-form__hashtags-list-item-delete-btn">Delete</button>
                 </div>`);

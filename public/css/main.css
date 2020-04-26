@@ -380,6 +380,18 @@ main {
 		justify-content: space-around;
 }
 
+.single-tweet__img-container {
+		height: 50%;
+		width: 50%;
+}
+
+.single-tweet__img {
+		margin: 28px 0;
+		width: 80%;
+		max-width: 800px;
+		height: auto;
+}
+
 /**/
 
 .add-form__submit-btn,

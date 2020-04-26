@@ -52,7 +52,7 @@ class EditTweetForm extends React.Component {
                                 <h2 className="edit-form__header">TWEET</h2>
                                 <input type="text" name="content" defaultValue={this.props.singleTweet.content} maxlength="100"/>
                                 <h3 className="edit-form__input-header">Image Link</h3>
-                                <input type="text" name="img" defaultValue={this.props.singleTweet.img}/>
+                                <input type="text" name="img" defaultValue={this.props.singleTweet.img_link}/>
                                 <div className="edit-form__hashtags-list">
                                     <select className="edit-form__hashtags-list-select">
                                         {hashtagOptions}

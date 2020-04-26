@@ -45,10 +45,8 @@ module.exports.getEditTweetForm = async (req, res) => {
 
     const resultTwo = await db.query(query2);
 
-    console.log(resultTwo.rows);
-
     const listOfHashtags = resultTwo.rows.filter(row => {
-        return (row['tweet_id'] == req.params.id)
+        return (row['tweet_id'] == req.params.id);
     });
 
     console.log(listOfHashtags);

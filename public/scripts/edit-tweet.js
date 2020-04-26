@@ -27,26 +27,42 @@ const addHashtagBtn = document.querySelector('.edit-form__hashtags-list-add-btn'
 
 const hashtagItems = document.querySelectorAll('.edit-form__hashtags-list-item');
 
-hashtagItems.forEach(item => console.log(item.dataset.hashtagTweetId));
-
 addHashtagBtn.addEventListener('click', async () => {
 
     //ID of hashtag-option that is currently selected
-    const addHashtagId = (document.querySelectorAll('.hashtag-option')[document.querySelector('.edit-form__hashtags-list-select').selectedIndex].getAttribute("hashtag-id"));
+    const hashtagOptionIndex = document.querySelector('.edit-form__hashtags-list-select').selectedIndex;
+    const addHashtagId = (document.querySelectorAll('.hashtag-option')[hashtagOptionIndex].getAttribute("hashtag-id"));
 
-    // const response = await sendHttpRequest('GET', `/hashtags-tweets/${addHashtagBtn.dataset.tweetId}`);
 
     const response = await sendHttpRequest('POST', `/hashtags-tweets/${addHashtagBtn.dataset.tweetId}/${addHashtagId}`, {
         hashtagId: addHashtagId
     }, { 'Content-Type': 'application/json' });
 
-    console.log(response);
+    console.log(response.rows);
 
+    hashtagsList.insertAdjacentHTML('beforeend',
+        `         <div class="edit-form__hashtag-wrapper">
+                    <li data-hashtag-tweet-id=${response.rows[0].id} class="edit-form__hashtags-list-item">
+                        ${document.querySelectorAll('.hashtag-option')[hashtagOptionIndex].value}
+                    </li>
+                    <button type="button" data-hashtag-tweet-id=${response.rows[0].id} class="edit-form__hashtags-list-item-delete-btn">Delete</button>
+                </div>`);
+
+    const addedHashtagDeleteBtn = document.querySelector('.edit-form__hashtag-wrapper:last-of-type>.edit-form__hashtags-list-item-delete-btn');
+
+    addedHashtagDeleteBtn.addEventListener('click', deleteBtnHandler.bind(addedHashtagDeleteBtn, addedHashtagDeleteBtn.dataset.tweetId, addedHashtagDeleteBtn.dataset.hashtagId, addedHashtagDeleteBtn.dataset.hashtagTweetId));
 
 })
 
 const deleteHashtagBtns = document.querySelectorAll('.edit-form__hashtags-list-item-delete-btn');
 
-deleteBtnHandler = () => {
-    console.log('Delete');
+const deleteBtnHandler = async function(tweetId, hashtagId, hashtagTweetId) {
+    const response = await sendHttpRequest('DELETE', `/hashtags-tweets/${tweetId}/${hashtagId}/delete`, { id: hashtagTweetId }, { 'Content-Type': 'application/json' });
+
+    this.parentNode.innerHTML = null;
+
 }
+
+deleteHashtagBtns.forEach(btn => {
+    btn.addEventListener('click', deleteBtnHandler.bind(btn, btn.dataset.tweetId, btn.dataset.hashtagId, btn.dataset.hashtagTweetId))
+})

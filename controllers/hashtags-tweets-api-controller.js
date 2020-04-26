@@ -26,6 +26,8 @@ module.exports.getAllHashtagsOfTweet = async (req, res) => {
 }
 
 module.exports.postAddHashtagToTweet = async (req, res) => {
+    console.log(req.body);
+
     const query1 = `SELECT id from hashtags WHERE id='${req.params.hashtagId}'`;
 
     const resultOne = await db.query(query1);
@@ -44,19 +46,20 @@ module.exports.postAddHashtagToTweet = async (req, res) => {
 
 module.exports.deleteHashtagOfTweet = async (req, res) => {
 
-    const query1 = `SELECT id from hashtags WHERE name='${req.params.hashtagId}'`;
+    // const query1 = `SELECT id from hashtags WHERE id='${req.params.hashtagId}'`;
 
-    const resultOne = await db.query(query1);
+    // const resultOne = await db.query(query1);
 
-    const query2 = `SELECT id from tweets WHERE content='${req.params.tweetId}'`;
+    // const query2 = `SELECT id from tweets WHERE id='${req.params.tweetId}'`;
 
-    const resultTwo = await db.query(query2);
+    // const resultTwo = await db.query(query2);
 
-    const query3 = `DELETE FROM hashtags_tweets WHERE tweet_id = ${resultTwo.rows[0]} AND hashtag_id = ${resultOne.rows[0]} RETURNING *`;
+    // const query = `DELETE FROM hashtags_tweets WHERE tweet_id = ${req.params.tweetId} AND hashtag_id = ${resultOne.rows[0]} RETURNING *`;
 
-    const resultThree = await db.query(query3);
+    const query = `DELETE FROM hashtags_tweets WHERE id=${req.body.id} RETURNING *`;
 
-    console.log(resultThree.rows);
-    console.log('Delete Hashtag Of Tweet');
+    const result = await db.query(query);
+
+    res.json(result.rows);
 
 }

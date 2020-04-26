@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXIST users (
+id SERIAL PRIMARY KEY,
+user_id TEXT,
+password TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tweets (
+id SERIAL PRIMARY KEY,
+users_id INTEGER,
+tweet TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hashtags (
+id SERIAL PRIMARY KEY,
+hashtag TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hashtags_tweets (
+id SERIAL PRIMARY KEY,
+tweets_id INTEGER,
+hashtag_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS fav_tweets (
+id SERIAL PRIMARY KEY,
+user_id INTEGER,
+tweeds_id INTEGER
+);

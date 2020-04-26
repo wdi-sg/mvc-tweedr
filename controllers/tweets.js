@@ -103,12 +103,26 @@ module.exports = (db) => {
       let newhashControllerCallback = (request, response) => {
         let enteredHashtag = "#" + request.body.hashtag;
         db.tweets.addNewHashtag(enteredHashtag, (error, hashed) => {
-
               response.send('You have successfully added in a new hashtag!~:' + hashed[0].hashtag);
-
         })
 
       }
+
+    let favPageControllerCallback = (request, response) => {
+        var userTableId = request.cookies['userId'];
+        db.tweets.favPage(userTableId, (error, allFavTweets) => {
+            response.render('tweets/fav', { tweeteds: allFavTweets });
+        });
+    };
+
+    let favControllerCallback = (request, response) => {
+      var userTableId = request.cookies['userId'];
+      let tweetToAddToFav = parseInt(request.body.favTweet);
+      db.tweets.fav(tweetToAddToFav, userTableId, (error, toFav) => {
+            response.send('You have successfully added: ' + toFav[0].id) + 'to favourites';
+      })
+
+    }
 
 
   /**
@@ -126,6 +140,12 @@ module.exports = (db) => {
     newtweet: newtweetControllerCallback,
     newhashPage: newhashPageControllerCallback,
     newhash: newhashControllerCallback,
+    favPage: favPageControllerCallback,
+    fav:favControllerCallback,
   };
 
 }
+
+    // app.get('/fav', tweetsControllerCallbacks.favPage);
+
+    // app.post('/fav', tweetsControllerCallbacks.fav);

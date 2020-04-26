@@ -162,6 +162,51 @@ module.exports = (dbPoolInstance) => {
         });
   };
 
+  let favPage = (userTableId, callback) => {
+
+    let query1 = 'SELECT * FROM fav_tweets INNER JOIN tweets ON (tweets.id = fav_tweets.tweeds_id) WHERE fav_tweets.user_id =$1';
+    let values = [userTableId];
+    dbPoolInstance.query(query1, values, (error, queryResult) => {
+        console.log('*******');
+        console.log(query1);
+        console.log(queryResult.rows.length);
+      if( error ){
+        // invoke callback function with results after query has executed
+        callback(error, null);
+
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+          console.log('**********console logging request.rows*********');
+          console.log(queryResult.rows);
+
+        }else{
+          callback(null, null);
+
+        }
+      }
+    });
+  };
+
+    let fav = (tweetToAddToFav, userTableId, callback) => {
+        let query = 'INSERT INTO fav_tweets (tweeds_id, user_id) VALUES ($1, $2) RETURNING *';
+        const values = [tweetToAddToFav, userTableId];
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+              if( error ){
+
+                // invoke callback function with results after query has executed
+                callback(error, null);
+
+              }else{
+                // response.redirect('/')
+                callback(null, queryResult.rows);
+                console.log('resulted adding fav');
+                console.log(queryResult.rows);
+              }
+        });
+  };
+
   return {
     getAll: getAll,
     register: register,
@@ -170,5 +215,7 @@ module.exports = (dbPoolInstance) => {
     getHashtags: getHashtags,
     addHashtag: addHashtag,
     addNewHashtag:addNewHashtag,
+    favPage:favPage,
+    fav:fav,
   };
 };

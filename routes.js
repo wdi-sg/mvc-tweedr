@@ -34,4 +34,8 @@ module.exports = (app, allModels) => {
 
     app.post('/newhash', tweetsControllerCallbacks.newhash);
 
+    app.get('/fav', tweetsControllerCallbacks.favPage);
+
+    app.post('/fav', tweetsControllerCallbacks.fav);
+
 };

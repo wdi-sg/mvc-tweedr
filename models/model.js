@@ -70,6 +70,8 @@ class Model {
     const columns = Object.keys(data)
     const values = Object.values(data)
     let statement = prepareInsertStmt(tableName, columns, values)
+    console.log(statement)
+    console.log(values)
     return db.execute(statement, values)
   }
 

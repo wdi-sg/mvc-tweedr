@@ -5,7 +5,6 @@ create table "user"
 			primary key,
 	user_name text not null,
 	password text not null,
-	salt text not null,
 	profile_pic_url text
 );
 

@@ -9,6 +9,7 @@ class User extends Model {
     this.data.profile_pic_url = profile_pic_url
   }
 
+
   get password () {
     return this.data.password
   }

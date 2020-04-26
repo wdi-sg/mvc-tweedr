@@ -12,8 +12,8 @@ const Tweet = (props) =>{
       <article className="media">
         <div className="media-left">
           <figure className="image is-64x64">
-            <img src="https://i.pravatar.cc/128"
-                 alt="Image"/>
+            <img src={props.tweetData.profile_pic_url}
+                 alt="No Avatar" className="is-rounded"/>
           </figure>
         </div>
         <div className="media-content">
@@ -23,7 +23,9 @@ const Tweet = (props) =>{
               {/*<small>31m</small>*/}
               <br/>
               {props.tweetData.content}
-            {/*  content*/}
+              <figure className="image is-5by3">
+                <img src={props.tweetData.media_url} alt="no media"/>
+              </figure>
             </p>
           </div>
           <nav className="level is-mobile">

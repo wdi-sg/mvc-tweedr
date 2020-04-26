@@ -97,12 +97,59 @@ module.exports = (db) => {
     let writeTweet = (request, response) => {
         const userID = request.params.id;
         const tweet = request.body.tweet;
+        const hashtagID = request.body.hashtag;
+        console.log(request.body);
 
-        // Add tweet into database
-        db.index.addTweet(tweet, userID)
-            .then(results => {
-                response.redirect('/')
-            })
+        if(hashtagID.length > 1){
+
+            // Add tweet into database
+            db.index.addTweet(tweet, userID)
+                .then(results => {
+                    const tweetID = results.rows[0].id;
+
+                    console.log('start linking')
+
+                    //Create a loop to add relationship for tweet to all the hashtags
+                    let i = 0;
+                    while(i < hashtagID.length){
+                        db.hashtag.linkHashtag(hashtagID[i], tweetID)
+                            .then((results) => {
+                                console.log(results.rows);
+                                console.log(i)
+                            })
+                        i++;
+                    }
+
+                    response.redirect('/');
+
+                })
+
+            // //Create a loop to add relationship for tweet to all the hashtags
+            // let i = 0;
+            // while(i < hashtagID.length){
+            //     db.hashtag.linkHashtag(hashtagID[i], tweetID)
+            //         .then((results) => {
+            //             console.log(results.rows);
+            //             i++;
+            //         })
+            // }
+
+        }else{
+            // Add tweet into database
+            db.index.addTweet(tweet, userID)
+                .then(results => {
+                    // response.redirect('/')
+                    const tweetID = results.rows[0].id;
+                    return db.hashtag.linkHashtag(hashtagID, tweetID)
+                })
+                .then(results => {
+                    console.log(results.rows);
+                })
+        }
+
+
+
+
     }
 
    /**
@@ -113,7 +160,7 @@ module.exports = (db) => {
 
    return{
     index: homePageControllerCallback,
-    tweet: writeTweet,
+    writetweet: writeTweet,
     profilePic: addProfilePic,
     favourite: favTweet,
     unfavourite: unFavTweet

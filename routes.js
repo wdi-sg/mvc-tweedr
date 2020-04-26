@@ -26,7 +26,7 @@ module.exports = (app, allModels) => {
 
   app.get('/', homePage.index);
 
-  app.post('/tweet/:id', homePage.tweet);
+  app.post('/tweet/:id', homePage.writetweet);
 
   app.post('/profilepic/:id', upload.single('profile_picture'), homePage.profilePic);
 

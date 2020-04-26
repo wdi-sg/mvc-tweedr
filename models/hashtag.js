@@ -19,8 +19,17 @@ module.exports = (dbPoolInstance) => {
     return dbPoolInstance.query(queryString);
   }
 
+  let linkHashtag = (hashtagID, tweetID) => {
+    let queryString = 'insert into hashtags_tweets (hashtags_id, tweets_id) values ($1, $2) returning *'
+
+    const values = [hashtagID, tweetID];
+
+    return dbPoolInstance.query(queryString, values);
+  }
+
   return {
     addHashtag,
-    getHashtags
+    getHashtags,
+    linkHashtag
   };
 };

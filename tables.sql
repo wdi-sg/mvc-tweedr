@@ -29,6 +29,6 @@ CREATE TABLE IF NOT EXISTS hashtags (
 
 CREATE TABLE IF NOT EXISTS hashtags_tweets (
 	id SERIAL PRIMARY KEY,
-	tags_id INTEGER,
+	hashtags_id INTEGER,
 	tweets_id INTEGER
 );

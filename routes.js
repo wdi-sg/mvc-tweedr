@@ -30,5 +30,6 @@ module.exports = (app, allModels) => {
   //Favorites Controller and Routes
   const favoritesController = require('./controllers/favorites')(allModels);
   app.get('/favorite/new', favoritesController.addFavoriteForm);
-  app.post('/favorite', favoritesController.addFavorite)
+  app.post('/favorite', favoritesController.addFavorite);
+  app.get('/favorites', favoritesController.displayFavoriteTweets);
 };

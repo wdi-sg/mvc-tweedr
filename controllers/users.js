@@ -7,15 +7,33 @@ module.exports = (db) => {
      */
 
     let registerFormCallback = (request, response) => {
-        response.render('register');
+        response.render('users/register');
     };
 
     let postRegisterCallback = (request, response) => {
         console.log('Registering User');
+        response.cookie('registered', true);
+        response.cookie('loggedin', true);
+
         db.users.registering(request.body, (error, queryResult) => {
             const data = request.body;
             console.log(queryResult);
-            response.render('registered', data);
+            response.render('users/registered', data);
+        });
+    };
+
+    let loginFormCallback = (request, response) => {
+        response.render('users/login');
+    };
+
+    let postLoginCallback = (request, response) => {
+        console.log('Logging In User');
+        response.cookie('loggedin', true);
+
+        db.users.loggedin(request.body, (error, queryResult) => {
+            const data = queryResult.rows[0];
+            console.log(queryResult.rows[0]);
+            response.render('users/loggedin', data);
         });
     };
 
@@ -27,7 +45,9 @@ module.exports = (db) => {
      */
     return {
         registerForm: registerFormCallback,
-        postRegister: postRegisterCallback
+        postRegister: postRegisterCallback,
+        loginForm: loginFormCallback,
+        postLogin: postLoginCallback
     };
 
 }

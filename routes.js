@@ -24,5 +24,11 @@ module.exports = (app, allModels) => {
   //app.get('register', users('controller').registerFormCallback);
 
   app.post('/registered', users.postRegister);
-  //app.get('home', users('controller').);
+  //app.get('home', users('controller').postRegisterCallback);
+
+  app.get('/login', users.loginForm);
+  //app.get('register', users('controller').registerFormCallback);
+
+  app.post('/loggedin', users.postLogin);
+  //app.get('register', users('controller').registerFormCallback);
 };

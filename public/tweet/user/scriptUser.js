@@ -76,6 +76,28 @@ function testFunction () {
     path.setAttribute("value",event.target.innerText);
 }
 
+
+//Making tweets disappear after 'x'
+const xbtnSelect = document.querySelectorAll('.xBtn')
+
+function onClick () {
+    function responseHandler () {
+      //console.log(this.responseText)
+    }
+    console.log('clicked!')
+    id = this.value
+    let request = new XMLHttpRequest()
+    request.addEventListener("load", responseHandler);
+    request.open('post', "/tweet/delete/"+id);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send()
+    event.path[4].style="display:none";
+}
+
+xbtnSelect.forEach(element => {
+    element.addEventListener('click', onClick);
+})
+
 //lets make user profile clickable
 let username = document.querySelector("#welcome>b").innerText
 username = insert(username, username.length, "</b></button></form>")
@@ -83,7 +105,7 @@ username = insert(username, 9, "<form method='get' action='/tweet/user'><button 
 console.log(username)
 document.querySelector("#welcome>b").innerHTML = username;
 
-//make every users in
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 console.log("====")

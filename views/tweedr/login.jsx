@@ -1,8 +1,9 @@
-var React = require('react');
+var React = require("react");
 
-class Login extends React.Component {
+class playlist extends React.Component {
   render() {
-    let msg;
+    let msg = "";
+    let userButtons;
     if( this.props.status === "userwrong"){
         msg = (<h1>Username Invalid, try again!</h1>);
     }
@@ -10,29 +11,53 @@ class Login extends React.Component {
         msg = (<h1>Password Invalid, try again!</h1>);
     }
     return (
-      <html>
-        <body>
-          <div>
-            <h1>Login</h1>
-            {msg}
-            <div>
-                <form action="/login" method="POST">
-                    <p>
-                        name <input name="name"/>
-                    </p>
-                    <p>
-                        password <input name="password"/>
-                    </p>
-                    <p>
-                        <input type="submit"/>
-                    </p>
-                </form>
+        <html>
+
+        <head>
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"/>
+        </head>
+        <body style={{backgroundColor:"#A3C4C9"}}>
+            <div class='container mt-5'>
+                <div class="row d-flex justify-content-center">
+                    <h1 style={{marginLeft:"-200px"}}>Tweedr</h1>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h3>Login page</h3>
+                    <h3>{msg}</h3>
+                </div>
+                <div class='row d-flex justify-content-center'>
+                    <div class=" w-50 d-block flex-column rounded-lg p-3 m-1" style={{minWidth:"350px", backgroundColor:"#999999", boxShadow: "2px 2px 4px #000000"}}>
+                        <div class="mb-2">
+                            <div class="btn btn-block btn-light d-flex justify-content-center" style={{boxShadow: "2px 2px 4px #000000"}}>
+                               <form action="/login" method="POST">
+                                    <div class='row d-flex'>
+                                        <div class='col'>
+                                            <p>name</p>
+                                            <p>password</p>
+                                        </div>
+                                        <div class='col'>
+                                            <p><input name="name"/></p>
+                                            <p><input name="password"/></p>
+                                        </div>
+                                    </div>
+                                    <div class='row d-flex justify-content-center'>
+                                        <input type="submit"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </body>
+        <script src="./script.js"></script>
       </html>
     );
   }
 }
 
-module.exports = Login;
+module.exports = playlist;

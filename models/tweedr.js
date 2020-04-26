@@ -8,7 +8,7 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
     let getAllTweets = (callback) => {
-        let query = 'SELECT tweets.id,name,content FROM users INNER JOIN tweets on (user_id = users.id) ORDER BY id DESC';
+        let query = 'SELECT tweets.id,name,content,user_id FROM users INNER JOIN tweets on (user_id = users.id) ORDER BY id DESC';
         dbPoolInstance.query(query, (error, queryResult) => {
             if(error){
                 callback(error, null);
@@ -55,9 +55,28 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    let userTweets = (request,callback) => {
+        let values = request;
+        console.log(values);
+        let query = 'select tweets.id, content, name, hash_id from tweets INNER JOIN users on (user_id = users.id) where user_id = $1 ORDER BY tweets.id DESC';
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if(error){
+                callback(error, null);
+            }else{
+                if( queryResult.rows.length > 0 ){
+                    //console.log(queryResult.rows)
+                    callback(null, queryResult.rows);
+                }else{
+                    callback(null, null);
+                }
+            }
+        })
+    }
+
     return {
         getAllTweets,
         postNewTweet,
-        deleteTweet
+        deleteTweet,
+        userTweets
     };
 };

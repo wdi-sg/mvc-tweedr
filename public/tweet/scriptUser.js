@@ -83,7 +83,7 @@ username = insert(username, 9, "<form method='get' action='/tweet/user'><button 
 console.log(username)
 document.querySelector("#welcome>b").innerHTML = username;
 
-//make every users in
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 console.log("====")

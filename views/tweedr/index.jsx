@@ -2,7 +2,8 @@ var React = require("react");
 
 class playlist extends React.Component {
   render() {
-    //console.log("thisprops>>>>>>>>>>>>>>>>>>"+this.props.tweets)
+    console.log("thisprops")
+    console.log(this.props)
     console.log(this.props.tweets[this.props.tweets.length-1].id)
     let userButtons = (
         <div class='my-3 d-flex justify-content-end'>
@@ -20,7 +21,7 @@ class playlist extends React.Component {
     let inputTweets = ("");
     if(this.props.loggedIn === true){
         userButtons = (
-            <div class='d-flex my-3'><b>Welcome, {this.props.username}</b>
+            <div id="welcome" class='d-flex my-3' ><b class='d-flex'>Welcome, {this.props.username}</b>
                 <div class='ml-auto'>
                     <form method="post" action="/logout?_method=delete">
                         <button class="btn btn-dark rounded-pill" style={{width:"100px", boxShadow: "2px 2px 4px #000000"}}>Log out</button>
@@ -42,12 +43,11 @@ class playlist extends React.Component {
     let list = this.props.tweets.map ((element) => {
         return (
             <div class="mb-2">
-                <div class="btn btn-block btn-light" style={{height:"90px", boxShadow: "2px 2px 4px #000000"}}>
-                    <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
-                        <button class='ml-auto xBtn' value={element.id} style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
-                            <b>x</b>
-                        </button>
-                    </div>
+                <div class="btn btn-block btn-light" style={{boxShadow: "2px 2px 4px #000000"}}>
+                    <form method="get" action={"tweet/user/"+element.user_id}>
+                    <button class="btn btnuser2 d-flex justify-content-start" style={{fontSize:"11px"}}><b>@{element.name}</b>
+                    </button>
+                    </form>
                     <div id="content" class="d-flex justify-content-start m-1">
                         {element.content}
                     </div>
@@ -68,6 +68,7 @@ class playlist extends React.Component {
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous"/>
+          <link rel="stylesheet" href="style.css"/>
         </head>
         <body style={{backgroundColor:"#A3C4C9"}}>
             <div class='container'>

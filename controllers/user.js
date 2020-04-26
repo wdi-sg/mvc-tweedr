@@ -25,7 +25,7 @@ module.exports = (db) => {
             console.log(results);
 
             // if there is a result in the array
-            if( results.length > 0 ){
+            if( results != null ){
               // we have a match with the name
               // response.send("heeeyyyy");heeeyyyy
 
@@ -46,7 +46,6 @@ module.exports = (db) => {
                     response.render('tweedr/login',data)
                 }
             }else{
-
                 data={
                         status: "userwrong"
                 }
@@ -69,10 +68,67 @@ module.exports = (db) => {
             response.redirect('/');
         })
     }
+
     let logout = (request, response) => {
         response.clearCookie('logged in');
         response.redirect('/')
     };
+
+    let userPage = (request,response) => {
+        let userid = request.cookies['userid']
+        values = [userid]
+        var username = request.cookies['username']
+        let loggedIn = false
+        if( request.cookies['logged in'] === 'true'){
+            loggedIn = true;
+        }
+        db.tweedr.userTweets(values, (error, results) => {
+            if(error){
+                console.log("ERRRRRRRRRROR");
+                console.log( error )
+                response.send('error')
+            }else{
+                console.log(results)
+                //response.send(results)
+                data = {
+                    results,
+                    loggedIn,
+                    username
+                }
+                //response.send (data)
+                response.render('tweedr/users',data)
+            }
+        });
+    }
+
+    let otherUserPage = (request,response) => {
+        let userid = request.params.id
+        values = [userid]
+        console.log(values)
+        var username = request.cookies['username']
+        let loggedIn = false
+        if( request.cookies['logged in'] === 'true'){
+            loggedIn = true;
+        }
+
+        db.tweedr.userTweets(values, (error, results) => {
+            if(error){
+                console.log("ERRRRRRRRRROR");
+                console.log( error )
+                response.send('error')
+            }else{
+                console.log(results)
+                //response.send(results)
+                data = {
+                    results,
+                    loggedIn,
+                    username
+                }
+                //response.send (data)
+                response.render('tweedr/otherUser',data)
+            }
+        });
+    }
 
   /**
    * ===========================================
@@ -84,7 +140,8 @@ module.exports = (db) => {
     postLogin: postLogin,
     getRegister: getRegister,
     postRegister: postRegister,
-    logout: logout
+    logout: logout,
+    userPage,
+    otherUserPage
   };
-
 }

@@ -6,7 +6,7 @@ class playlist extends React.Component {
     let list = this.props.results2.map ((element) => {
         return (
             <div class="mb-2">
-                <div class="btn btn-block btn-light" style={{height:"90px", boxShadow: "2px 2px 4px #000000"}}>
+                <div class="btn btn-block btn-light" style={{boxShadow: "2px 2px 4px #000000"}}>
                     <div class="d-flex justify-content-start" style={{fontSize:"12px"}}>@{element.name}:
                         <button class='ml-auto xBtn' value={element.id} style={{backgroundColor:"rgba(255,255,255,0)", border:"none", margin:"-10px -10px 0 0"}}>
                             <b>x</b>

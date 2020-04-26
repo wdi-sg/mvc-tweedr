@@ -119,10 +119,11 @@ module.exports = (db) => {
                     }
                 });
                 //response.send(data.results[0])
-
             }
         });
     }
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -134,7 +135,6 @@ module.exports = (db) => {
     deleteTweet,
     likeTweet,
     hashTweet,
-    selectedHashTweet
+    selectedHashTweet,
   };
-
 }

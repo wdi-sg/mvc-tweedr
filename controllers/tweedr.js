@@ -22,6 +22,7 @@ module.exports = (db) => {
             response.render('tweedr/index', data);
         });
     };
+
     let postNewTweet = (request, response) => {
 
         let userid = parseInt(request.cookies['userid'])
@@ -54,12 +55,8 @@ module.exports = (db) => {
                 });
             });
         });
-
-
-
-
-
     };
+
     let deleteTweet = (request, response) => {
         //let userid = request.params.id
         values = [request.params.id]
@@ -69,6 +66,7 @@ module.exports = (db) => {
              response.redirect('/');
         });
     };
+
     let likeTweet = (request, response) => {
         //let userid = request.params.id
         let userid = request.cookies['userid']
@@ -96,8 +94,34 @@ module.exports = (db) => {
             }
         });
     }
+
     let selectedHashTweet = (request,response) => {
-       response.render('tweedr/hashtags')
+        console.log(request.body.text)
+        let values = [request.body.text]
+        db.hash.hashID(values, (error, results) => {
+            if( error ){
+                console.log("ERRRRRRRRRROR");
+                console.log( error )
+                response.send('error')
+            }else{
+                //response.send('worked')
+                let values = [results[0].id]
+                db.hash.hashUser(values, (error, results2) => {
+                    if( error ){
+                        console.log("ERRRRRRRRRROR");
+                        console.log( error )
+                        response.send('error')
+                    }else{
+                        data = {
+                            results2
+                        }
+                        response.render('tweedr/hashtags',data)
+                    }
+                });
+                //response.send(data.results[0])
+
+            }
+        });
     }
   /**
    * ===========================================

@@ -76,8 +76,24 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
-    let insertNewHash = (request,callback) => {
-        let query = "INSERT INTO hash (content) VALUES($1) returning *";
+    let hashID = (request,callback) => {
+        let query = "SELECT id from hash where content = $1";
+        let values = request;
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if(error){
+                callback(error, null);
+            }else{
+                if( queryResult.rows.length > 0 ){
+                    callback(null, queryResult.rows);
+                }else{
+                    callback(null, null);
+                }
+            }
+        })
+    }
+
+    let hashUser = (request,callback) => {
+        let query = "SELECT * FROM tweets INNER JOIN users ON (user_id = users.id) where hash_id = $1";
         let values = request;
         dbPoolInstance.query(query, values, (error, queryResult) => {
             if(error){
@@ -95,6 +111,7 @@ module.exports = (dbPoolInstance) => {
     return {
         hashingTweet,
         postNewTweetHash,
-        insertNewHash
+        hashID,
+        hashUser
     };
 };

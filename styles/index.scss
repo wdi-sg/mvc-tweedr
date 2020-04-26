@@ -1,13 +1,4 @@
-@charset "utf-8";
-$dark-accent: #222831;
-$main-brand: #00adb5;
-$light-shade : #eeeeee;
-$dark-shade : #222831;
-$dark-accent: #393e46;
-$primary: $main-brand;
-$grey-dark: $dark-accent;
-$background: $light-shade;
-@import "~bulma/bulma";
+@import './global';
 
 .is-fixed-height-box {
   height: 60vh;
@@ -22,8 +13,4 @@ $background: $light-shade;
   font-style: italic;
   color:darkgray;
   margin:20px 0;
-}
-
-.has-bg-primary {
-  background: $main-brand
 }

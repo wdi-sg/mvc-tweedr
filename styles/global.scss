@@ -1,0 +1,18 @@
+@charset "utf-8";
+@import "./variables";
+@import "~bulma/bulma";
+
+.has-bg-primary {
+  background: $main-brand
+}
+
+.navbar {
+  width: 100%;
+  padding: 30px 27px;
+}
+
+@each $theme-color, $v in $theme-colors {
+  .has-#{$theme-color}-background {
+    background: $v;
+  }
+}

@@ -29,13 +29,16 @@ const signUser = user => {
 }
 
 const registerUser = async (req, res) => {
-  const { username, password } = req.body
-  const user = new User(-1, username, password, '')
+  const { username:user_name, password } = req.body
+  const user = new User(-1, user_name, password, '')
+
+  let errors = []
+
   user.password = await encrypt(user.password)
   try {
-    const saveResult = await user.save()
-    if (!saveResult) return res.redirect('/')
-    user.id = saveResult.rows[0].id
+    const dbExecResult = await user.save()
+    if (!dbExecResult) return res.redirect('/')
+    user.id = dbExecResult.rows[0].id
     const token = signUser(user)
     res.cookie('token', token,{sameSite:true})
     res.redirect('/dashboard')
@@ -48,13 +51,11 @@ const registerUser = async (req, res) => {
 
 const loginUser = (async (req, res) => {
   const { username: user_name, password } = req.body
-  const [user] = await User.select('*', { user_name })
-
+  const [userRow] = await User.select('*', { user_name })
   let errors = []
-  if (!user) {
-
-    //set error session and redirect to /
-    // errors: [
+  /*
+    Error format:
+       errors: [
     //   {
     //     value: '',
     //     msg: 'Username is required.',
@@ -62,15 +63,17 @@ const loginUser = (async (req, res) => {
     //     location: 'body'
     //   }
     // ]
+   */
+  if (!userRow) {
     errors.push({
       msg  : 'Credentials does not match',
       param: 'username'
     })
-    res.redirect('/')
-  }
 
+    return res.redirect('/')
+  }
   // todo: get user profile
-  const userPasswd = user.password
+  const userPasswd = userRow.password
   const isMatch = await comparePromise(password, userPasswd)
 
   if (!isMatch && !errors.length) {
@@ -80,14 +83,9 @@ const loginUser = (async (req, res) => {
     })
   }
 
-  req.session.errors = null
-
-  // set token cookie
-  const  token = signUser(user)
-
+  const  token = signUser(userRow)
   res.cookie('token', token)
   res.redirect('/dashboard')
-
 })
 
 

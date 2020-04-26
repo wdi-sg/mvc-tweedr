@@ -4,7 +4,7 @@ const RegistrationForm = (props) => {
 
   return (
 
-    <div className="column has-background-grey-dark is-fixed-height-box">
+    <div className="column has-dark-shade-background is-fixed-height-box">
       <form action="/register" method="post" className='has-text-centered'>
         <section className="hero is-medium is-bold">
           <div className="hero-body">

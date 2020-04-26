@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import '../../styles/index.scss'
 
 const _nav = (props) => {
 
@@ -52,11 +51,10 @@ const _nav = (props) => {
 
 
   return (
-    <section className="section">
 
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
-            <em className="navbar-item has-text-primary ">Tweedr</em>
+            <em className="navbar-item has-text-primary has-text-weight-semibold is-size-4 ">Tweedr</em>
             <a role="button" className={`navbar-burger${isMenuShown?" is-active":""}`} aria-label="menu"
                aria-expanded="false"  onClick = {handleHamburgerClicked}>
               <span aria-hidden="true"></span>
@@ -87,7 +85,6 @@ const _nav = (props) => {
 
         </nav>
 
-    </section>
 
   )
 

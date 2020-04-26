@@ -1,8 +1,12 @@
 import React,{useState} from 'react';
 import _nav from './partials/_nav'
 import Landing from './components/landing.component'
+import '../styles/index.scss'
 const SHOW_SIGNUP = 0
 const SHOW_LOGIN = 1
+
+
+
 const Index = (props) => {
 
   const [whichForm, setForm] = useState(SHOW_SIGNUP)

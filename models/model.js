@@ -1,6 +1,6 @@
 //todo: add a flag to remove columns that are null, empty or undefined
-
 const db = require('../db/database')
+
 const {
         prepareInsertStmt,
         prepareSelectStmt,
@@ -34,6 +34,16 @@ class Model {
     this.data.id = id
   }
 
+  static async selectAll (fieldsToSelect="*", tableName) {
+    return this.select(fieldsToSelect)
+  }
+
+
+  static async execute(statement, values) {
+    return await db.execute(statement, values)
+  }
+
+
   static async select (fieldsToSelect, whereParams,
     tableName = this.name.toLowerCase()) {
     let data, values
@@ -62,6 +72,7 @@ class Model {
     let statement = prepareInsertStmt(tableName, columns, values)
     return db.execute(statement, values)
   }
+
 
 }
 

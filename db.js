@@ -15,6 +15,7 @@
 const pg = require('pg');
 const url = require('url');
 
+
 var configs;
 
 if( process.env.DATABASE_URL ){
@@ -33,9 +34,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'Mac',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
@@ -62,9 +63,9 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const allTweedrModelsFunction = require('./models/tweedr_models');
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const tweedrModelsObject = allTweedrModelsFunction( pool );
 
 
 
@@ -95,5 +96,5 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  tweedrModels: tweedrModelsObject
 };

@@ -110,6 +110,31 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let addFavQ = (values, call) => {
+    let query = "INSERT INTO favourites (user_id, tweed_id) values ($1, $2) returning *;";
+    dbPoolInstance.query(query, values, (error, queryResult) => {
+        console.log("addFavQ queryResult")
+        console.log(queryResult)
+        if ( error ) {
+          call(error, null);
+        } else {
+          if( queryResult.rows.length > 0 ){
+              call(null, queryResult.rows);
+          }else{
+              call(null, null);
+          };
+        };
+    });
+  };
+
+
+
+
+
+
+
+
+
     return {
         checkUserQ,
         addNewUserQ,
@@ -118,5 +143,6 @@ module.exports = (dbPoolInstance) => {
         messageQ,
         hashtagsQ,
         addHashtagQ,
+        addFavQ
     };
 };

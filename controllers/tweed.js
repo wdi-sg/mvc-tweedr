@@ -14,7 +14,7 @@ module.exports = (db) => {
   };
 
   let registerForm = (req, res) => {
-    res.render('tweed/register');
+    res.render('tweed/register', { register : "register" });
   };
 
   let addNewUser = (req, res) => {
@@ -24,13 +24,22 @@ module.exports = (db) => {
             let reqHPassword = sha256(req.body.password);
             let values = [req.body.name, reqHPassword];
             db.tweed.addNewUserQ(values, (err, result) => {
-                res.redirect('/');
+                res.redirect('/login');
             });
         } else {
-            res.render('tweed/register', { register : "failed"});
+            res.render('tweed/register', { register : "failed" });
         };
     });
   };
+
+  let registerStat = (req, res) => {
+    data = {
+      fail : "Name taken. Please try another name.",
+      register : ""
+    }
+    res.send(data);
+  }
+
 
   let loginForm = (req, res) => {
     res.render('tweed/login');
@@ -106,6 +115,34 @@ module.exports = (db) => {
     });
   };
 
+  let FavForm = (req, res) => {
+    let user_id = req.cookies['user_id'];
+    let hashLog = sha256(SALT + user_id);
+    if (req.cookies['logged in'] === hashLog) {
+        db.tweed.allTweedsQ((error, result) => {
+            res.render('tweed/favourites', { user_id : req.cookies['user_id'], result : result });
+        });
+    };
+  };
+
+  let addFav = (req, res) => {
+    let user_id = req.cookies['user_id'];
+    let hashLog = sha256(SALT + user_id);
+    if (req.cookies['logged in'] === hashLog){
+        let values = [req.body.user_id, req.body.tweed_id];
+        console.log("values of req.body")
+        console.log( values );
+        db.tweed.addFavQ(values, (err, result) => {
+            console.log("addFav result")
+            console.log(result)
+            res.redirect('/favourite/new');
+            // res.send(result);
+        });
+    } else {
+        res.status(403);
+        res.redirect('/');
+    };
+  };
 
 
   /**
@@ -116,6 +153,7 @@ module.exports = (db) => {
   return {
     tweedModHome,
     registerForm,
+    registerStat,
     addNewUser,
     loginForm,
     loginCheck,
@@ -124,5 +162,7 @@ module.exports = (db) => {
     logout,
     hashtagForm,
     addHashtag,
+    FavForm,
+    addFav,
   };
 };

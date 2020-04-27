@@ -16,3 +16,9 @@ CREATE TABLE IF NOT EXISTS hashtags (
     id SERIAL PRIMARY KEY,
     hashtag TEXT
 );
+
+CREATE TABLE IF NOT EXISTS favourites (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    tweed_id INTEGER
+);

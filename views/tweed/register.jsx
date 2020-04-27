@@ -3,10 +3,7 @@ var React = require("react");
 class Register extends React.Component {
   render() {
         // console.log('register.jsx')
-        let message = "";
-        if(this.props.register === "failed") {
-            message = "Name exist. Please register with another name.";
-        };
+      let registerStatus;
     return (
       <html>
         <head>
@@ -22,12 +19,12 @@ class Register extends React.Component {
                 <p>Password: <input name="password" required/></p>
                 <p><input type="submit" value="Register" /></p>
             </form>
-            <div>
-                <p>{message}</p>
-            </div>
+            <p className="message-box"></p>
+            <script>registerStatus = `{this.props.register}`;</script>
+            <script src="/register.js"></script>
         </body>
       </html>
     );
-  }
-}
+  };
+};
 module.exports = Register;

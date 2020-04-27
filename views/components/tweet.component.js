@@ -1,4 +1,5 @@
 import React from 'react'
+const moment = require('moment')
 
 const Tweet = (props) =>{
 
@@ -19,8 +20,8 @@ const Tweet = (props) =>{
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>John Smith</strong> <small>@{props.tweetData.user_name}</small>
-              {/*<small>31m</small>*/}
+              <strong>John Smith</strong><small>@{props.tweetData.user_name}</small>
+              <small> - {moment(props.tweetData.created_at).fromNow()}</small>
               <br/>
               {props.tweetData.content}
               <figure className="image is-5by3">

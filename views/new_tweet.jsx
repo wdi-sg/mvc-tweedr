@@ -4,7 +4,7 @@ class New_Tweet extends React.Component {
   render() {
 
     const allHashtags = this.props.hashtags.map(hashtag => {
-        return (<option name='hashtag'>{hashtag.hashtag}</option>)
+        return (<option>{hashtag.hashtag}</option>)
     })
 
     return (
@@ -27,7 +27,7 @@ class New_Tweet extends React.Component {
                     <br/>
                     <h5 className='text-center'>Add a hashtag</h5>
                     <div className='row justify-content-center'>
-                        <select>
+                        <select name='hashtag'>
                             <option></option>
                             {allHashtags}
                         </select>

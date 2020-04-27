@@ -23,9 +23,15 @@ module.exports = (dbPoolInstance) => {
     }
 
     // ==== Insert Tweet into Tweets Table ====
-    let insertTweet = (tweet, userId, callback) => {
+    let insertTweet = (tweet, userId, hashtag, callback) => {
         let values = [tweet, userId]
+        let valueS = [hashtag]
+        console.log('model values', values)
+        console.log('model valueS', valueS)
         let query = 'INSERT INTO tweets (tweet, user_id) VALUES ($1, $2)';
+        console.log(query)
+        let query2 = 'INSERT INTO tweets (hashtag) VALUES ($1)'
+        console.log(query2)
 
         dbPoolInstance.query(query, values, (err, result) => {
             if (err) {

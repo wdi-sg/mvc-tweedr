@@ -69,7 +69,9 @@ const sha256 = require('js-sha256');
     };
 
     let showTweetController = (request, response) => {
+        console.log('requestbody:', request.body)
         let tweet = request.body.tweet;
+        let hashtag = request.body.hashtag;
         let userId = request.cookies['userId'];
         let username = request.cookies['username'];
 
@@ -81,11 +83,12 @@ const sha256 = require('js-sha256');
                     tweet: tweet,
                     username: username,
                     userId: userId,
+                    //hashtag: hashtag
                 }
                 response.render('show_tweet', data)
             }
         }
-        db.model.insertTweet(tweet, userId, whenModelIsDone);
+        db.model.insertTweet(tweet, userId, hashtag, whenModelIsDone);
     }
 
     // ==== List of all Tweets ====
@@ -133,14 +136,14 @@ const sha256 = require('js-sha256');
         const followedUserId = request.params.id;
         const hashtag = request.body.hashtag
 
-        const whenModelIsDone = ((err, result) => {
+        const whenModelIsDone = (err, result) => {
             if (err) {
                 console.log('Query error', err);
             } else {
                 let userProfile = '/home/users/' + followedUserId;
                 response.redirect(userProfile)
             }
-        })
+        }
         db.model.insertFollowedUser(userId, followedUserId, hashtag, whenModelIsDone);
     }
 

@@ -29,6 +29,8 @@ module.exports = (app, allModels) => {
 
     // ==== User Profile ====
     app.get('/home/users/:id', controllers.user);
+
+    // ==== Add follower ====
     app.post('/home/users/:id', controllers.addFollowedUser);
 
     // ==== Add hashtag ====

@@ -3,8 +3,6 @@ const React = require("react");
 class Show_Hashtag extends React.Component {
   render() {
 
-    console.log(this.props)
-
     return (
       <html>
         <head>

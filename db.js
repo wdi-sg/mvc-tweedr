@@ -1,14 +1,4 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
+//configure
 
 
 
@@ -33,9 +23,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'apple',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr_db',
     port: 5432
   };
 }
@@ -49,36 +39,27 @@ pool.on('error', function (err) {
 
 
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
+
+
+//REQUIRE MODEL FILES
+
 
 
 const allPokemonModelsFunction = require('./models/pokemon');
-
 const pokemonModelsObject = allPokemonModelsFunction( pool );
+const userFunction = require('./models/user');
+const userModelsObject = userFunction( pool );
+const tweetFunction = require('./models/tweet');
+const tweetModelsObject =  tweetFunction( pool );
+
+const newHashtag = document.createElement('form');
+newHashtag.innerHTML = `<input type='submit' value='Add Hashtag'/><br/><br/>`;
+newHashtag.setAttribute('method', 'GET');
+newHashtag.setAttribute('action', '/hashtags/new');
 
 
+//MODULE EXPORTS
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
 
 
 module.exports = {
@@ -93,7 +74,8 @@ module.exports = {
   /*
    * ADD APP MODELS HERE
    */
-
-  // users: userModelsObject,
+  tweets: tweetModelsObject,
+  users: userModelsObject,
   pokemon: pokemonModelsObject
 };
+© 2020 GitHub, Inc.

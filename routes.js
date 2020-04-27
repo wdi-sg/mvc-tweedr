@@ -35,4 +35,6 @@ module.exports = (app, allModels) => {
   app.post('/users/login', users.login);
   
   app.post('/users/logout', users.logout);
+
+  app.post('/favourite', favourites.submitFavourite);
 };

@@ -16,3 +16,9 @@ CREATE TABLE followers (
 	user_id INTEGER,
 	follower_id INTEGER
 );
+
+CREATE TABLE favorites (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	tweeds_id INTEGER
+);

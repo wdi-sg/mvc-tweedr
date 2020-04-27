@@ -7,10 +7,15 @@ class Home extends React.Component {
 
     if (allTweeds) {
       const tweeds = allTweeds.map(tweed => {
-        return <li>'{tweed.content}' by: {tweed.username}</li>;
+        // return <li>'{tweed.content}' by: {tweed.username}</li>;
+        return <li>'{tweed.content}' by: {tweed.username}<br /><button className="favorite" value={tweed.id}>Favorite</button></li>
       });
 
-      list = <ul style={{'display': 'block', 'listStyle': 'none'}}>{tweeds}</ul>;
+      list = <ul>{tweeds}</ul>;
+    } else {
+
+      allTweets = <li>No tweeds!</li>;
+
     }
 
     return (
@@ -27,6 +32,7 @@ class Home extends React.Component {
           </form>
           <script>var loggedIn = `{this.props.loggedIn}`;</script>
           <script src='home.js'></script>
+          <script src='script.js'></script>
         </body>
       </html>
       );

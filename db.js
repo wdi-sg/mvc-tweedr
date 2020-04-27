@@ -99,5 +99,6 @@ module.exports = {
 
   // users: userModelsObject,
   tweedr: tweedrModelsObject,
-  users: usersModelsObject
+  users: usersModelsObject,
+  favourites: favouritesModelsObject
 };

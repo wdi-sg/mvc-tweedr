@@ -61,6 +61,15 @@ const pokemonModelsObject = allPokemonModelsFunction(pool);
 const newTweetFunc = require("./models/newtweet.js");
 const newTweetModel = newTweetFunc(pool);
 
+const newSignUpFunc = require("./models/signUpVerified.js");
+const newSignUpModel = newSignUpFunc(pool);
+
+const addedTweetFunc = require("./models/addedtweet.js");
+const addedTweetModel = addedTweetFunc(pool);
+
+const allTweetsFunc = require("./models/alltweets.js");
+const allTweetsModel = allTweetsFunc(pool);
+
 /*
  * ===================================================
  * ===================================================
@@ -82,6 +91,9 @@ module.exports = {
   // get a reference to end the connection pool at server end
   pool: pool,
   newTweetModel: newTweetModel,
+  newSignUpModel: newSignUpModel,
+  addedTweetModel: addedTweetModel,
+  allTweetsModel: allTweetsModel,
 
   /*
    * ADD APP MODELS HERE

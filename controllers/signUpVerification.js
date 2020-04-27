@@ -9,12 +9,12 @@ module.exports = (db) => {
 
   let signUpVerified = (request, response) => {
     const whenDoneInModel = (error, result) => {
-      if ((result.length = 0)) {
+      if (result === null) {
         const whenDoneInModel1 = (err, result) => {
           response.send("Thank you for signing up");
         };
         const values = [request.body.username, sha256(request.body.password)];
-        db.newTweetModel.createUser(values, whenDoneInModel1);
+        db.newSignUpModel.createUser(values, whenDoneInModel1);
       } else {
         response.send("Username exists. Please sign up with another username.");
       }
@@ -22,7 +22,7 @@ module.exports = (db) => {
     const newUsername = request.body.username;
     // const newPassword = sha256(request.body.password);
     // const values = [newUsername, newPassword];
-    db.newTweetModel.checkUser(newUsername, whenDoneInModel);
+    db.newSignUpModel.checkUser(newUsername, whenDoneInModel);
   };
   /**
    * ===========================================

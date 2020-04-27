@@ -12,12 +12,17 @@ module.exports = (db) => {
       console.log("FFFRROOOMMM CONTROLLER");
       console.log(result);
       if (result[0].name === request.body.username) {
-        let reqPassword = request.body.password;
+        let reqPassword = sha256(request.body.password);
         if (reqPassword === result[0].password) {
           let user_id = result[0].id;
           var hashedCookie = sha256(SALT + user_id);
           response.cookie("LoginCookie", hashedCookie);
-          response.send("HEEELLLOOOO");
+          response.cookie("LoginCookie2", user_id);
+          const data = {
+            signedInUser: result[0],
+          };
+          // console.log(data.signedInUser.id);
+          response.render("createNewTweet", data);
         } else {
           response.send("Incorrect Password");
         }

@@ -6,11 +6,11 @@
 module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
-  let checkUser = (username, callback) => {
-    const checkUserValues = [username];
-    let query = "SELECT * FROM users WHERE name = $1";
+  let showAddedTweet = (user_id, callback) => {
+    const userIdValues = [user_id];
+    let query = "SELECT * FROM tweedr WHERE user_id = $1";
 
-    dbPoolInstance.query(query, checkUserValues, (error, queryResult) => {
+    dbPoolInstance.query(query, userIdValues, (error, queryResult) => {
       if (error) {
         // invoke callback function with results after query has executed
         callback(error, null);
@@ -25,9 +25,9 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
-  let createUser = (values, callback) => {
+  let addTweet = (values, callback) => {
     // const values = [username, password];
-    let insertQuery = "INSERT INTO users (name,password) VALUES ($1,$2)";
+    let insertQuery = "INSERT INTO tweedr (user_id,tweedr_msg) VALUES ($1,$2)";
     dbPoolInstance.query(insertQuery, values, (err, result) => {
       if (err) {
         callback(err, null);
@@ -43,7 +43,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   return {
-    checkUser,
-    createUser,
+    showAddedTweet,
+    addTweet,
   };
 };

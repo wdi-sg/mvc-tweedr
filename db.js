@@ -14,7 +14,7 @@
 
 const pg = require('pg');
 const url = require('url');
-
+const SALT = 'apple pie';
 var configs;
 
 if( process.env.DATABASE_URL ){
@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'ianfoo',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedDB',
     port: 5432
   };
 }
@@ -62,8 +62,16 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
 
+// ################# Tweedr Model ###################
+const registerTweedAccount = require('./models/register.js')(pool);
+const loginTweedAccount = require('./models/login.js')(pool);
+const insertTweed = require('./models/tweeds.js')(pool);
+const showUserProfile = require('./models/users.js')(pool);
+
+
+// ################# Pokemon Model ###################
+const allPokemonModelsFunction = require('./models/pokemon');
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 
 
@@ -95,5 +103,9 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  pokemon: pokemonModelsObject,
+  register: registerTweedAccount,
+  login: loginTweedAccount,
+  makeTweed: insertTweed,
+  showUserProfile: showUserProfile
 };

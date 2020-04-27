@@ -1,0 +1,115 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Patua One", cursive;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.7;
+	color: #777;
+	letter-spacing: 1.6px;
+}
+
+.jumbotron {
+	text-align: center;
+	position: relative;
+}
+
+.home-nav {
+	height: 50px;
+	width: 120px;
+	font-size: 30px;
+	margin: 10px;
+}
+
+.register-container {
+	text-align: center;
+}
+
+.register-nav,
+.login-nav {
+	margin: 30px;
+}
+
+button.logout {
+	position: absolute;
+	font-size: 20px;
+	top: 85%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tweed-container {
+	position: relative;
+	max-width: 1200px;
+	margin: 30px;
+}
+
+.tweed-header-input {
+	background-color: #7ebdb4;
+	width: 700px;
+	height: 800px;
+	margin: 0 auto;
+	border-radius: 8px;
+}
+
+.tweed-head {
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
+	font-size: 40px;
+	font-family: "Pathway Gothic One", sans-serif;
+}
+
+.tweed-username {
+	text-align: center;
+	margin-bottom: 20px;
+	font-family: "Pathway Gothic One", sans-serif;
+}
+
+.text-field {
+	background-color: white;
+	padding: 5px;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.tweed-insert {
+	width: 580px;
+	border-radius: 10px;
+	padding: 5px;
+	margin-left: 8px;
+}
+
+button.tweed-button {
+	border-radius: 10px;
+	display: flex;
+	flex-grow: 2;
+}
+
+.tweed-input-field ul.tweed-display-container {
+	height: 600px;
+	overflow: hidden;
+	overflow-y: scroll;
+	padding: 40px;
+	list-style: none;
+}
+
+.favorite-button {
+	margin-left: 10px;
+	border-radius: 10px;
+	font-size: 18px;
+	padding: 3px;
+}
+
+.favorite-button:hover {
+	box-shadow: 0 10px 20px;
+}
+
+.favorite-tag {
+	font-size: 30px;
+}

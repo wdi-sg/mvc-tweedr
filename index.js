@@ -1,6 +1,8 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const sha256 = require('js-sha256');
+
 
 /**
  * ===================================
@@ -13,7 +15,7 @@ const app = express();
 
 // Set up middleware
 app.use(methodOverride('_method'));
-
+app.use(express.static(__dirname+'/public/'));
 app.use(cookieParser());
 
 app.use(express.static('public'));
@@ -58,7 +60,7 @@ setRoutesFunction(app, allModels);
 
 /**
  * ===================================
- * Listen to requests on port 3000
+ * Listen to requests on port 4000
  * ===================================
  */
 const PORT = process.env.PORT || 3000;

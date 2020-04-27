@@ -1,17 +1,3 @@
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======             CONFIGURATION          =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
-
-
 const pg = require('pg');
 const url = require('url');
 
@@ -33,13 +19,12 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'kwansing',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr',
     port: 5432
   };
 }
-
 
 const pool = new pg.Pool(configs);
 
@@ -47,53 +32,26 @@ pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
 
+const allTweedrModelsFunction = require('./models/tweedr');
+const tweedrModelsObject = allTweedrModelsFunction( pool );
 
+const allUsersModelsFunction = require('./models/user');
+const usersModelsObject = allUsersModelsFunction( pool );
 
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======        REQUIRE MODEL FILES         =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
+const likesFunction = require('./models/likes');
+const likesModelIsObject = likesFunction(pool);
 
-
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
-/*
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- * ======          MODULE EXPORTS            =========
- * ===================================================
- * ===================================================
- * ===================================================
- * ===================================================
- */
-
+const hashFunction = require('./models/hash');
+const hashModelIsObject = hashFunction(pool);
 
 module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
-
-  // get a reference to end the connection pool at server end
-  pool:pool,
-
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+    //make queries directly from here
+    queryInterface: (text, params, callback) => {
+        return pool.query(text, params, callback);
+    },
+    pool:pool,
+    tweedr: tweedrModelsObject,
+    users: usersModelsObject,
+    likes: likesModelIsObject,
+    hash: hashModelIsObject
 };

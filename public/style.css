@@ -1,0 +1,76 @@
+body {
+    background-color: #a2c4c9;
+    font-family: sans-serif;
+}
+
+h3 {
+    text-transform: uppercase;
+}
+
+.registration-box {
+    background-color: lightgrey;
+    height: 100px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container {
+    text-align: center;
+    margin: 10px auto;
+}
+
+.tweed-input {
+    width: 530px;
+    height: 18px;
+    font-size: 14px;
+}
+
+.tweed-btn {
+    width: 60px;
+    font-size: 18px;
+}
+
+.chat-box, .hashtag-box {
+    background-color: lightgrey;
+    height: 600px;
+    width: 600px;
+    margin: 10px auto;
+    overflow: auto;
+}
+
+.chat, .hashtag {
+    test-align: left;
+    padding: 5px;
+}
+
+.chat li {
+    list-style: none;
+    border: 1px solid grey;
+    margin: 5px;
+    padding: 3px;
+    text-align: left;
+    overflow: wrap;
+}
+
+.hashtag-box {
+    background-color: lightgrey;
+    height: 600px;
+    width: 600px;
+    margin: 10px auto;
+    overflow: auto;
+}
+
+.hashtag {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hashtag li {
+    list-style: none;
+    padding: 3px 10px;
+    text-align: left;
+}

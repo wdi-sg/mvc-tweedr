@@ -25,6 +25,9 @@ module.exports = (app, allModels) => {
   app.post('/post', tweedrControllerCallbacks.makePost);
   app.get('/tag/new', tweedrControllerCallbacks.newTag);
   app.post('/tag', tweedrControllerCallbacks.addTag);
+  app.get('/favourite/new', tweedrControllerCallbacks.newFav);
+  app.post('/favourite', tweedrControllerCallbacks.addFav);
+
 
 
 

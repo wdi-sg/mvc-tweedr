@@ -135,6 +135,22 @@ module.exports = (db) => {
     });
     };
 
+    let newFav = (request, response) => {
+      var loggedIn = request.cookies['loggedIn'];
+  
+      var output = {'loggedIn': loggedIn}
+      response.render('tweedr/add-fav', output);
+    };
+
+    let addFav = (request, response) => {
+      var dataIn = request.body;
+      var userid = request.cookies['userid'];
+      dataIn.userid = userid;
+      console.log(dataIn)
+      db.tweedr.addFav(dataIn, (error, result) => {
+        response.redirect('/main');
+      });
+      };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -150,7 +166,9 @@ module.exports = (db) => {
     logout: logout,
     makePost: makePost,
     newTag: newTag,
-    addTag: addTag
+    addTag: addTag,
+    newFav: newFav,
+    addFav: addFav
   };
 
 }

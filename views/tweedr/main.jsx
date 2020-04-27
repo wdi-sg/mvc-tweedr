@@ -31,37 +31,44 @@ class Main extends React.Component {
       tweets = tweets.map(element => {
         var date = formatDateTime(element.postdate);
         var tags = element.tags;
-        if(tags != undefined){
+        if (tags != undefined) {
           tags = tags.map(element => {
-            console.log(element);
+            // console.log(element);
             return <span className="text-primary">{`${element} `}</span>;
           })
         }
         return <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">
-          <div className="col-1">
+          <div className="col-2">
             <img src="https://sociology.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" className="w-100 bg-dark rounded-circle" alt="" />
           </div>
-          <div>
+          <div className = "col-8">
             <strong>@{element.username}</strong>
             <br />{element.tweetbody}
             <br />
             <br />{tags}
             <br /><small>{date}</small>
+            <br />
           </div>
+          <div className="col-2 btn-group-toggle" data-toggle="buttons">
+              <label className="btn btn-outline-warning">
+                ★
+        <input type="checkbox" name="hashtag" value=""></input>
+              </label>
+            </div>
         </div>
       });
     }
 
     var tags = this.props.tags;
     if (tags == null) {
-      tags =  <label className="btn btn-outline-light mr-2 mb-2">No tags to display</label>
+      tags = <label className="btn btn-outline-light mr-2 mb-2">No tags to display</label>
     }
     else {
       tags = tags.map(element => {
         return <label className="btn btn-outline-light mr-2 mb-2">
-        {element.tagtext}
-        <input type="checkbox" name = "hashtag" value={element.tagtext}></input>
-      </label>
+          {element.tagtext}
+          <input type="checkbox" name="hashtag" value={element.tagtext}></input>
+        </label>
 
       });
     }
@@ -97,10 +104,10 @@ class Main extends React.Component {
                 <textarea className="form-control" rows="4" name="message" placeholder="Start typing...">
                 </textarea>
                 <div className="btn-group-toggle mt-2" data-toggle="buttons">
-                 {tags}
-                  <a className = "btn btn-outline-light mr-2 mb-2" href="/tag/new"><strong>+ New Tag</strong></a>
+                  {tags}
+                  <a className="btn btn-outline-light mr-2 mb-2" href="/tag/new"><strong>+ New Tag</strong></a>
                 </div>
-                <br/> 
+                <br />
                 <input className="btn btn-primary mt-3" type="submit" value="Submit" />
               </div>
             </form>

@@ -29,3 +29,9 @@ followid SERIAL PRIMARY KEY,
 user_a INTEGER,
 user_b INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS favtweet(
+favid SERIAL PRIMARY KEY,
+user_id INTEGER,
+tweed_id INTEGER
+);

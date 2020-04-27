@@ -34,7 +34,7 @@ class Home extends React.Component {
         var tags = element.tags;
         if(tags != undefined){
           tags = tags.map(element => {
-            console.log(element);
+            // console.log(element);
             return <span className="text-primary">{`${element} `}</span>;
           })
         }

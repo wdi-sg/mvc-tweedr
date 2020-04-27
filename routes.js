@@ -13,7 +13,8 @@ module.exports = (app, allModels) => {
    */
 
   // require the controller
-  const tweedrAllControllers = require('./controllers/tweedr_controllers')(allModels);
+  const tweedrAllControllers = 
+      require('./controllers/tweedr_controllers')(allModels);
 
   // GET requests
   app.get('/', tweedrAllControllers.indexGet);
@@ -25,9 +26,14 @@ module.exports = (app, allModels) => {
   //POST requests
   app.post('/register', tweedrAllControllers.registerPost);
 
-  app.post('/login', tweedrAllControllers.loginPost)
+  app.post('/login', tweedrAllControllers.loginPost);
 
-  app.post('/create', tweedrAllControllers.createPost)
+  app.post('/create', tweedrAllControllers.createPost);
 
-  app.post('/hashtag', tweedrAllControllers.hashtagPost)
+  app.post('/hashtag', tweedrAllControllers.hashtagPost);
+
+  app.post('/favorite', tweedrAllControllers.favoritePost);
+
+
+
 };

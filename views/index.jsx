@@ -7,7 +7,7 @@ class Index extends React.Component {
     const hashtag_lst = this.props.hashtags;
 
       const pastTweedsLst = tweeds_lst.map(obj => {
-          return <li>{obj.content}</li>
+          return <li>{obj.content} <button id="fav" value={obj.content}>fav</button></li>
       })
 
       const latestTweeds = function(tweeds_lst){
@@ -69,6 +69,7 @@ class Index extends React.Component {
                 </ul>
               </p>
             </div>
+            <script src="/script.js"></script>
         </body>
       </html>
     );

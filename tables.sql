@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tweeds (
 	id SERIAL PRIMARY KEY,
 	content TEXT,
-	user_id INTEGER,
-	hashtag_id INTEGER
+	user_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS followers (
@@ -26,4 +25,11 @@ CREATE TABLE IF NOT EXISTS tweed_hashtag (
 	id SERIAL PRIMARY KEY,
 	tweed_id INTEGER,
 	hashtag_id INTEGER
-)
+);
+
+CREATE TABLE IF NOT EXISTS favorites (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	tweed_id INTEGER
+);
+

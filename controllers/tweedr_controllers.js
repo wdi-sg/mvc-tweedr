@@ -8,6 +8,7 @@ module.exports = (db) => {
    * ===========================================
    */
 
+
   //////////////////////////
   //GET request callbacks///
   //////////////////////////
@@ -92,7 +93,7 @@ module.exports = (db) => {
     const tweed_content = req.body.content;
     const hashtag_lst = req.body.hashtag;
 
-    db.tweedrModels.createTweed(name, tweed_content, (err, queryResult) => {
+    db.tweedrModels.createTweed(name, tweed_content, hashtag_lst, (err, queryResult) => {
       if (err) {
         console.error('query error:', err.stack);
         res.send('query error');
@@ -116,6 +117,21 @@ module.exports = (db) => {
     })
   }
 
+  const favoritePostController = (req, res) => {
+    const tweedContent = req.body.tweed;
+
+    db.tweedrModels.insertFav(tweedContent, (err, queryResult) => {
+      if (err) {
+        console.error('query error:', err.stack);
+        res.send('query error');
+      } else if (queryResult){
+        console.log(queryResult)
+        res.send('TWEED IS ADDED TO FAVORITES!!!')
+      }
+    })
+
+  }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -131,7 +147,8 @@ module.exports = (db) => {
     registerPost: registerPostController,
     loginPost: loginPostController,
     createPost: createPostController,
-    hashtagPost: hashtagPostController
+    hashtagPost: hashtagPostController,
+    favoritePost: favoritePostController
 
   };
 

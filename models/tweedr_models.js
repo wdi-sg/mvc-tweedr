@@ -8,7 +8,9 @@ module.exports = (dbPoolInstance) => {
 
 // model functions to do SQL queries
   const registerModel = (name, password, callbackFunc) => {
-    const query = 'INSERT INTO users (name, password) SELECT $1, $2 WHERE NOT EXISTS (SELECT 1 FROM users WHERE name=$1) RETURNING *;';
+    const query = 'INSERT INTO users (name, password)' +
+      'SELECT $1, $2 WHERE NOT EXISTS (SELECT 1 FROM users WHERE name=$1) ' +
+      'RETURNING *;';
     const values = [name, password];
 
     dbPoolInstance.query(query, values, (err, result) => {
@@ -43,7 +45,8 @@ module.exports = (dbPoolInstance) => {
   }
 
   const getAllModel = (name, callbackFunc) => {
-    const first_query = 'SELECT content FROM tweeds INNER JOIN users ON tweeds.user_id = users.id WHERE users.name = $1;'
+    const first_query = 'SELECT content FROM tweeds INNER JOIN users ' +
+      'ON tweeds.user_id = users.id WHERE users.name = $1;'
     const first_values = [name];
 
     dbPoolInstance.query(first_query, first_values, (err, first_result) => {
@@ -67,21 +70,26 @@ module.exports = (dbPoolInstance) => {
     })   
   }
 
-  const createTweedModel = (name, content, callbackFunc) => {
-    const query = 'INSERT INTO tweeds (content, user_id) SELECT $2, users.id FROM users WHERE users.name =$1 RETURNING content;'
-    const values = [name, content];
+  const createTweedModel = (name, content, hashtag_lst, callbackFunc) => {
+    const query = 'INSERT INTO tweeds (content, user_id, hashtag_id) ' +
+      'SELECT $2, users.id FROM users WHERE users.name =$1 RETURNING content;'
+    let hashtags_added = 0;
 
-    dbPoolInstance.query(query, values, (err, result) => {
-      if (err) {
-        callbackFunc(err, null);
-      } else {
-        if (result.rows.length > 0){
-          callbackFunc(null, result.rows);
-        } else {
-          callbackFunc(null, null);
+    hashtag_lst.forEach(hashtag => {
+      const values = [name, content, hashtag];
+      dbPoolInstance.query(query, values, (err, result) => {
+        hashtags_added += 1;
+        if (err) {
+          callbackFunc(err, null);
+          } else {
+            if (hashtags_added === hashtag_lst.length && result.rows.length > 0 ){
+              callbackFunc(null, result.rows);
+            } else {
+              callbackFunc(null, null);
+            }
         }
-      }
-    })   
+      }) 
+    })
   }
 
   const createHashtagModel = (hashtag, callbackFunc) => {
@@ -101,13 +109,31 @@ module.exports = (dbPoolInstance) => {
     })
   }
 
+  const insertFavModel = (tweedContent, callbackFunc) => {
+    const query = 'INSERT INTO favorites (user_id, tweed_id) SELECT user_id, tweeds.id FROM users '+
+      'INNER JOIN tweeds ON (users.id = tweeds.user_id) WHERE tweeds.content = $1 RETURNING *;'
+    const values = [tweedContent];
+
+      dbPoolInstance.query(query, values, (err, result) => {
+    if (err) {
+      callbackFunc(err, null);
+    } else {
+      if (result.rows.length > 0){
+        callbackFunc(null, result.rows);
+      } else {
+        callbackFunc(null, null);
+      }
+    }
+  })
+}
 
   return {
     register: registerModel,
     login: loginModel,
     createTweed: createTweedModel,
     getAll: getAllModel,
-    createHashtag: createHashtagModel
+    createHashtag: createHashtagModel,
+    insertFav: insertFavModel
 
   };
 };

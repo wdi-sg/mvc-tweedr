@@ -31,6 +31,13 @@ class Home extends React.Component {
     else {
       tweets = tweets.map(element => {
         var date = formatDateTime(element.postdate);
+        var tags = element.tags;
+        if(tags != undefined){
+          tags = tags.map(element => {
+            console.log(element);
+            return <span className="text-primary">{`${element} `}</span>;
+          })
+        }
         return <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">
           <div className="col-1">
             <img src="https://sociology.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" className="w-100 bg-dark rounded-circle" alt="" />
@@ -38,11 +45,11 @@ class Home extends React.Component {
           <div>
             <strong>@{element.username}</strong>
             <br />{element.tweetbody}
-            <br/>
+            <br />
+            <br />{tags}
             <br /><small>{date}</small>
           </div>
         </div>
-
       });
     }
     

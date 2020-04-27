@@ -25,11 +25,18 @@ class Main extends React.Component {
     }
     var tweets = this.props.tweets;
     if (tweets == null) {
-      tweets = <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">No tweets to display</div>
+      tweets = <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4 pl-3">No tweets to display</div>
     }
     else {
       tweets = tweets.map(element => {
         var date = formatDateTime(element.postdate);
+        var tags = element.tags;
+        if(tags != undefined){
+          tags = tags.map(element => {
+            console.log(element);
+            return <span className="text-primary">{`${element} `}</span>;
+          })
+        }
         return <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">
           <div className="col-1">
             <img src="https://sociology.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" className="w-100 bg-dark rounded-circle" alt="" />
@@ -38,10 +45,10 @@ class Main extends React.Component {
             <strong>@{element.username}</strong>
             <br />{element.tweetbody}
             <br />
+            <br />{tags}
             <br /><small>{date}</small>
           </div>
         </div>
-
       });
     }
 
@@ -53,7 +60,7 @@ class Main extends React.Component {
       tags = tags.map(element => {
         return <label className="btn btn-outline-light mr-2 mb-2">
         {element.tagtext}
-        <input type="checkbox" name = "hashtag" value={element.tagid}></input>
+        <input type="checkbox" name = "hashtag" value={element.tagtext}></input>
       </label>
 
       });
@@ -98,7 +105,7 @@ class Main extends React.Component {
               </div>
             </form>
           </div>
-          <div className="container-fluid bg-dark w-50 h-100 border border-top border-bottom border-secondary mt-3 rounded-lg">
+          <div className="container bg-dark w-50 h-100 border border-top border-bottom border-secondary mt-3 rounded-lg">
             {tweets}
           </div>
 

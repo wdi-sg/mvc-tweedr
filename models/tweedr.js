@@ -100,9 +100,9 @@ module.exports = (dbPoolInstance) => {
   let makePost = (dataIn, callback) => {
     var userid = dataIn.userid;
     var tweetbody = dataIn.message;
-    
-      let query = 'INSERT INTO tweetDb (userid, tweetbody, postdate) VALUES ($1,$2, current_timestamp)';
-      const values = [userid,tweetbody];
+    var tags = dataIn.hashtag;
+      let query = 'INSERT INTO tweetDb (userid, tweetbody, tags, postdate) VALUES ($1,$2, $3, current_timestamp) RETURNING tweetid';
+      const values = [userid,tweetbody,tags];
       dbPoolInstance.query(query, values, (error, queryResult) => {
         if (error) {
 

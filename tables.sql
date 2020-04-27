@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS tweetDb(
 tweetid SERIAL PRIMARY KEY,
 tweetbody TEXT,
 userid INTEGER,
+tags TEXT [],
 postdate TIMESTAMP
 );
 
@@ -17,11 +18,11 @@ tagid SERIAL PRIMARY KEY,
 tagtext TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tagrel(
-tagrelid SERIAL PRIMARY KEY,
-tagid INTEGER,
-tweetid INTEGER
-);
+-- CREATE TABLE IF NOT EXISTS tagrel(
+-- tagrelid SERIAL PRIMARY KEY,
+-- tagid INTEGER [],
+-- tweetid INTEGER
+-- );
 
 CREATE TABLE IF NOT EXISTS followrel(
 followid SERIAL PRIMARY KEY,

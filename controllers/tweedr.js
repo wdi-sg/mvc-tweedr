@@ -15,12 +15,16 @@ module.exports = (db) => {
     var loggedIn = request.cookies['loggedIn'];
     if (loggedIn == sha256('true')) {
       response.redirect('/main');
-    } else if (loggedIn == "") {
+    } else if (loggedIn == "" || loggedIn == undefined) {
+
       db.tweedr.getTweets((error, result) => {
         var allTweets = result;
-        console.log(allTweets);
+        // console.log(allTweets);
         var output = {};
         output.tweets = allTweets;
+        response.cookie('username', "");
+       response.cookie('userid', "");
+       response.cookie('loggedIn', "");
         response.render('tweedr/index', output);
       });
     }

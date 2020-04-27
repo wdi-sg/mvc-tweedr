@@ -44,13 +44,21 @@ module.exports = (db) => {
         let tweed_id = req.body.favorite[0];
         let user_id = req.body.favorite[1];
 
-        db.makeTweed.favoritedTweed(user_id, tweed_id, (error, result) => {
-            if (error) {
-                console.log("ERRRRROROROROROROR");
-                console.log(error);
-                return;
+        let currentUser_id = req.cookies["user_id"];
+
+        db.makeTweed.favoritedTweed(
+            user_id,
+            tweed_id,
+            currentUser_id,
+            (error, result) => {
+                if (error) {
+                    console.log("ERRRRROROROROROROR");
+                    console.log(error);
+                    return;
+                }
+                res.redirect(302, "tweeds");
             }
-        });
+        );
     };
 
     const displayFavoriteTweeds = (req, res) => {
@@ -62,8 +70,9 @@ module.exports = (db) => {
                 console.log(error);
                 return;
             } else {
-                console.log(result);
-                console.log("FAVORITED TWEEEEDS");
+                if (result === null) {
+                    res.send("YOU HAVENT FAVORITED ANYTHING YET!");
+                }
 
                 const data = {
                     result,

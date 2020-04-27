@@ -53,11 +53,11 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
-    let favoritedTweed = (user_id, tweed_id, callback) => {
+    let favoritedTweed = (user_id, tweed_id, currentUserId, callback) => {
         const queryString =
-            "INSERT INTO favorites(user_id, tweed_id) VALUES($1, $2) RETURNING *";
+            "INSERT INTO favorites(user_id, tweed_id, current_user_id) VALUES($1, $2, $3) RETURNING *";
 
-        const values = [user_id, tweed_id];
+        const values = [user_id, tweed_id, currentUserId];
         dbPoolInstance.query(queryString, values, (error, queryResult) => {
             if (error) {
                 console.log("ERRRRROROROROROROR");
@@ -77,7 +77,7 @@ module.exports = (dbPoolInstance) => {
 
     let gatherFavoriteTweeds = (id, callback) => {
         const queryString =
-            "SELECT tweeds.user_name, tweeds.tweed,tweeds.user_id FROM favorites INNER JOIN tweeds ON(favorites.tweed_id = tweeds.id)  WHERE favorites.user_id !=" +
+            "SELECT tweeds.user_name, tweeds.tweed,tweeds.user_id FROM favorites INNER JOIN tweeds ON(favorites.tweed_id = tweeds.id)  WHERE favorites.current_user_id =" +
             id +
             "ORDER BY favorites.id DESC";
 

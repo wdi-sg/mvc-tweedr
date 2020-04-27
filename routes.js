@@ -21,12 +21,12 @@ module.exports = (app, allModels) => {
     app.get("/", (req, res) => {
         res.render("home");
     });
+
     app.get("/login", tweedLogin.displayLogin);
     app.get("/register", tweedRegister.register);
 
     app.get("/tweeds", tweedPage.displayTweed);
     app.get("/user_profile/:id", displayUserProfile.displayUser);
-
     app.get("/tweeds", tweedLogin.displayTweedsUponLogin);
     app.get("/getFavoriteTweeds", tweedPage.displayFavoriteTweeds);
 

@@ -38,9 +38,9 @@ class AllTweets extends React.Component {
         const displayFavouriteBtn = (id) => {
             const userFavourite = this.props.userFavourites.find(el => el['tweet_id'] == id);
             if (userFavourite) {
-                return (<button data-tweet-id={id} data-favourite-id={userFavourite.id} data-is-favourite={true} className="single-tweet__favourite-btn">UNFAVOURITE THIS</button>)
+                return (<button data-tweet-id={id} data-favourite-id={userFavourite.id} data-is-favourite={true} className="single-tweet__favourite-btn">UNFAVOURITE THIS 💔</button>)
             } else {
-                return (<button data-tweet-id={id} data-is-favourite={false} className="single-tweet__favourite-btn">FAVOURITE THIS</button>)
+                return (<button data-tweet-id={id} data-is-favourite={false} className="single-tweet__favourite-btn">FAVOURITE THIS ❤️</button>)
             }
         }
 

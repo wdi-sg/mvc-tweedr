@@ -11,7 +11,7 @@ class AllHashtags extends React.Component {
         const hashtagInfo = this.props.allHashtags.map(hashtag =>
 
             <div className="single-hashtag__container" key={hashtag.id}>
-                <a href={`./${hashtag.id}`} className="single-hashtag__id">{`Hashtag: ${hashtag.id}`}</a>
+                <a href={`./${hashtag.id}`} className="single-hashtag__id">{`#`}</a>
                 <p className="single-hashtag__name">{hashtag.name}</p>
             </div>
         )
@@ -24,6 +24,7 @@ class AllHashtags extends React.Component {
                     <Nav />
                     <main>
                         {hashtagInfo}
+                        <a href="./new">Add New Hashtag</a>
                     </main>
                 </body>
             </html>

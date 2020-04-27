@@ -27,13 +27,13 @@ const favouriteBtnHandler = async function() {
     console.log('Favourite Btn!');
 
     if (this.dataset.isFavourite == "false") {
-        this.innerText = 'UNFAVOURITE THIS';
+        this.innerText = 'UNFAVOURITE THIS 💔';
         this.dataset.isFavourite = "true";
 
         await sendHttpRequest('POST', `/favourites/${this.dataset.tweetId}`, { tweetId: this.dataset.tweetId }, { 'Content-Type': 'application/json' });
 
     } else {
-        this.innerText = 'FAVOURITE THIS';
+        this.innerText = 'FAVOURITE THIS ❤️';
         this.dataset.isFavourite = "false";
 
         await sendHttpRequest('DELETE', `/favourites/${this.dataset.tweetId}`, { id: this.dataset.tweetId }, { 'Content-Type': 'application/json' });

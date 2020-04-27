@@ -16,7 +16,7 @@ class SingleHashtag extends React.Component {
                     <Header />
                     <Nav />
                     <main>
-                        <div className="single-song__container single-display">
+                        <div className="single-hashtag__container single-display">
                             <p className="single-hashtag__name">{this.props.singleHashtag.name}</p>
                             <div className ="hashtag__edit-delete-links">
                                 <a href="./edit" className="hashtag__edit-link">Edit</a>

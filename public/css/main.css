@@ -278,7 +278,8 @@ main {
 
 /*tweets-all*/
 
-.single-tweet__container {
+.single-tweet__container,
+.single-hashtag__container {
 		display: flex;
 		flex-direction: column;
 		width: 80%;
@@ -337,7 +338,8 @@ main {
 		-o-transition: all .1s linear;
 }
 
-.single-tweet__container>a {
+.single-tweet__container>a,
+.single-hashtag__container>a {
 		text-decoration: none;
 		text-transform: uppercase;
 		margin: 12px 12px;
@@ -350,7 +352,7 @@ main {
 }
 
 .single-tweet__container>a:hover,
-		{
+.single-hashtag__contaoneinr>a:hover {
 		color: #FFB600;
 }
 
@@ -372,7 +374,8 @@ main {
 
 /*single-tweet*/
 
-.tweet__edit-delete-links {
+.tweet__edit-delete-links,
+.hashtag__edit-delete-links {
 		margin: 12px 0;
 		padding: 12px 0;
 		display: flex;
@@ -387,9 +390,9 @@ main {
 
 .single-tweet__img {
 		margin: 28px 0;
-		width: 80%;
-		max-width: 800px;
+		width: 100%;
 		height: auto;
+		object-fit: cover;
 }
 
 /**/

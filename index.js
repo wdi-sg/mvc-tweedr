@@ -16,7 +16,7 @@ app.use(methodOverride('_method'));
 
 app.use(cookieParser());
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(express.json());
 
@@ -24,12 +24,15 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+
+
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+
 
 /**
  * ===================================

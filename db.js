@@ -51,6 +51,9 @@ const registrationModelsObject = allRegistrationModelsFunction(pool);
 const allLoginModelsFunction = require('./models/login');
 const loginModelsObject = allLoginModelsFunction(pool);
 
+const allHashtagModelsFunction = require('./models/hashtags')
+const hashtagModelsObject = allHashtagModelsFunction(pool);
+
 
 module.exports = {
   //make queries directly from here
@@ -65,5 +68,7 @@ module.exports = {
   // users: userModelsObject,
   tweedr: tweedrModelsObject,
   registration: registrationModelsObject,
-  login: loginModelsObject
+  login: loginModelsObject,
+  hashtags: hashtagModelsObject
+
 };

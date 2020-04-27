@@ -26,4 +26,10 @@ module.exports = (app, allModels) => {
 
   app.post('/tweets', tweedrControllerCallbacks.tweetPost);
 
+  app.get('/hashtags', tweedrControllerCallbacks.hashtags)
+
+  app.post('/hashtags', tweedrControllerCallbacks.hashtagPost)
+
+
+
 };

@@ -10,3 +10,8 @@ CREATE TABLE IF NOT EXISTS tweets (
     message TEXT
 );
 
+CREATE TABLE IF NOT EXISTS hashtags (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    hashtag TEXT
+);

@@ -12,39 +12,39 @@
 
 
 
-const pg = require('pg');
+const { Pool } = require('pg');
 const url = require('url');
 
 var configs;
 
-if( process.env.DATABASE_URL ){
+if (process.env.DATABASE_URL) {
 
-  const params = url.parse(process.env.DATABASE_URL);
-  const auth = params.auth.split(':');
+    const params = url.parse(process.env.DATABASE_URL);
+    const auth = params.auth.split(':');
 
-  configs = {
-    user: auth[0],
-    password: auth[1],
-    host: params.hostname,
-    port: params.port,
-    database: params.pathname.split('/')[1],
-    ssl: true
-  };
+    configs = {
+        user: auth[0],
+        password: auth[1],
+        host: params.hostname,
+        port: params.port,
+        database: params.pathname.split('/')[1],
+        ssl: true
+    };
 
-}else{
-  configs = {
-    user: 'akira',
-    host: '127.0.0.1',
-    database: 'testdb',
-    port: 5432
-  };
+} else {
+    configs = {
+        user: 'zachariah',
+        host: '127.0.0.1',
+        database: 'tweedr_db',
+        port: 5432
+    };
 }
 
 
-const pool = new pg.Pool(configs);
+const pool = new Pool(configs);
 
-pool.on('error', function (err) {
-  console.log('idle client error', err.message, err.stack);
+pool.on('error', function(err) {
+    console.log('idle client error', err.message, err.stack);
 });
 
 
@@ -60,14 +60,6 @@ pool.on('error', function (err) {
  * ===================================================
  * ===================================================
  */
-
-
-const allPokemonModelsFunction = require('./models/pokemon');
-
-const pokemonModelsObject = allPokemonModelsFunction( pool );
-
-
-
 /*
  * ===================================================
  * ===================================================
@@ -82,18 +74,32 @@ const pokemonModelsObject = allPokemonModelsFunction( pool );
 
 
 module.exports = {
-  //make queries directly from here
-  queryInterface: (text, params, callback) => {
-    return pool.query(text, params, callback);
-  },
+    //make queries directly from here
+    poolEnd: async () => {
+        await pool.end();
+        console.log('\nShut down db connection pool');
+    },
 
-  // get a reference to end the connection pool at server end
-  pool:pool,
+    query: async (queryText, queryValues) => {
 
-  /*
-   * ADD APP MODELS HERE
-   */
+        try {
 
-  // users: userModelsObject,
-  pokemon: pokemonModelsObject
+            const client = await pool.connect();
+            console.log('connected!');
+
+            const res = await client.query(queryText, queryValues);
+
+            client.release();
+            console.log('client released!');
+
+            return res;
+
+        } catch (e) {
+            console.log(`Error\n` + e.message, e.stack);
+        }
+    },
+
+    // get a reference to end the connection pool at server end
+    pool: pool,
+
 };

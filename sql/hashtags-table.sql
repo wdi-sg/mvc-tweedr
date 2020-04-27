@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS hashtags (
+	id serial PRIMARY KEY,
+	name VARCHAR (255) NOT NULL
+);

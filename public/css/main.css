@@ -1,0 +1,410 @@
+* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		z-index: 1;
+		/*color: #EBA63F*/
+		font-family: 'Nunito', sans-serif;
+		color: white;
+		text-decoration: none;
+}
+
+body {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #01345B;
+}
+
+input,
+select {
+		color: grey;
+		width: 80%;
+		max-width: 600px;
+		margin: 16px 0;
+		height: 2rem;
+}
+
+select {
+		width: 80%;
+		max-width: 600px;
+		height: 2rem;
+		background-color: transparent;
+		outline: white;
+}
+
+/*.overlay {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background: transparent;
+		z-index: -1;
+}*/
+
+.header {
+		width: 100%;
+		height: 20%;
+		min-height: 80px;
+		display: flex;
+		justify-content: center;
+}
+
+.header__heading {
+		padding: 24px 0;
+}
+
+.header__heading>a {
+		font-family: 'Abril Fatface', cursive;
+		font-size: 2.6rem;
+}
+
+main {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		justify-content: space-around;
+		align-items: center;
+}
+
+.nav {
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		background-color: rgba(1, 1, 1, 0.2);
+}
+
+.nav__link {
+		width: auto;
+		min-width: 25%;
+		height: 80px;
+		text-decoration: none;
+		text-align: center;
+		margin: 0 5px;
+		font-weight: 500;
+		font-size: 1rem;
+		letter-spacing: 0.9rem;
+		color: white;
+		line-height: 200%;
+		text-transform: uppercase;
+		box-sizing: border-box;
+		opacity: 0.8;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+}
+
+.nav__link>p {
+		width: 100%;
+}
+
+
+.nav__link:hover {
+		color: white;
+		transition: all .2s linear;
+}
+
+.login-register__wrapper {
+		display: flex;
+		width: 50%;
+		justify-content: center;
+		align-items: center;
+}
+
+.home-link,
+.login-link,
+.register-link {
+		text-decoration: none;
+		text-transform: uppercase;
+		margin: 12px 12px;
+		font-family: 'Nunito', sans-serif;
+		font-size: 1.2rem;
+		letter-spacing: 0.1rem;
+		width: 25%;
+		text-align: center;
+		flex-grow: 1;
+}
+
+.login-link>p:hover,
+.register-link>p:hover {
+		color: #FFB600;
+}
+
+.form__wrapper,
+.add-form__add-hashtag-wrapper,
+.edit-form__hashtags-list {
+		width: 80%;
+		min-height: 50vh;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+}
+
+.auth-form,
+.add-form,
+.edit-form {
+		overflow-y: scroll;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		height: 100%;
+		width: 90%;
+		color: #49494b;
+}
+
+.auth-form__header,
+.add-form__header,
+.edit-form__header {
+		border-top: 1px dashed;
+		width: 80%;
+		margin: 12px 0;
+		padding: 12px 0;
+		font-size: 1.6rem;
+		text-align: center;
+}
+
+.auth-form button,
+.log-out-btn,
+.add-form button,
+.edit-form button {
+		border: none;
+		font-size: inherit;
+		color: white;
+		background: none;
+		cursor: pointer;
+		padding: 15px 60px;
+		margin: 15px 30px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 700;
+		opacity: 0.8;
+		outline: none;
+		position: relative;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+}
+
+.auth-form button:hover,
+.add-form button:hover,
+.edit-form button:hover {
+		background-color: #F6F4F2;
+		color: #425664;
+		border-radius: 30px;
+		opacity: 0.9;
+		transition: all .4s ease-out;
+		-webkit-transition: all .4s ease-out;
+		-moz-transition: all .4s ease-out;
+		-ms-transition: all .4s ease-out;
+		-o-transition: all .4s ease-out;
+}
+
+.auth-form button:active,
+.add-form button: active,
+.edit-form button: active {
+		background-color: #F6F4F2;
+		color: tomato;
+		opacity: 1;
+		transition: all .1s linear;
+		-webkit-transition: all .1s linear;
+		-moz-transition: all .1s linear;
+		-ms-transition: all .1s linear;
+		-o-transition: all .1s linear;
+}
+
+.auth-form input {
+		margin: 12px 0;
+		padding: 4px 0;
+		max-width: 900px;
+		width: 80%;
+		height: 40px;
+		color: #49494b;
+		font-size: 1rem;
+		border: 1px dotted #49494b;
+		text-align: center;
+		outline: none;
+		background-color: white;
+}
+
+.login-register__wrapper.home {
+		flex-direction: column;
+}
+
+.login-register__wrapper>.user__wrapper {
+		width: 100%;
+		height: auto;
+		padding: 12px 0;
+		display: flex;
+		justify-content: center;
+}
+
+.user__wrapper>p {
+		width: 100%;
+		font-size: 0.8rem;
+		text-align: center;
+		color: white;
+}
+
+.login-register__wrapper>a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		height: 100%;
+		padding: 2%;
+		width: 30%;
+		text-decoration: none;
+		color: rgba(1, 1, 1, 0.6);
+		letter-spacing: 0.1rem;
+		font-weight: 500;
+		/*background-color: rgba(1, 1, 1, 0.1);*/
+		text-align: center;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		border: 2px solid lightgrey;
+}
+
+/*tweets-all*/
+
+.single-tweet__container,
+.single-hashtag__container {
+		display: flex;
+		flex-direction: column;
+		width: 80%;
+		max-width: 800px;
+		justify-content: space-around;
+		align-items: center;
+		margin: 24px 0;
+		padding: 24px 0;
+		border-bottom: 1px solid white;
+}
+
+.single-tweet__container li {
+		list-style: none;
+		text-align: center;
+}
+
+.single-tweet__container button {
+		border: none;
+		font-size: 0.8rem;
+		color: white;
+		background: none;
+		cursor: pointer;
+		padding: 15px 60px;
+		margin: 15px 30px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-weight: 700;
+		opacity: 0.8;
+		outline: none;
+		position: relative;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+}
+
+.single-tweet__container button:hover {
+		background-color: #F6F4F2;
+		color: #425664;
+		border-radius: 30px;
+		opacity: 0.9;
+		transition: all .4s ease-out;
+		-webkit-transition: all .4s ease-out;
+		-moz-transition: all .4s ease-out;
+		-ms-transition: all .4s ease-out;
+		-o-transition: all .4s ease-out;
+}
+
+.single-tweet__container button:active {
+		background-color: #F6F4F2;
+		color: tomato;
+		opacity: 1;
+		transition: all .1s linear;
+		-webkit-transition: all .1s linear;
+		-moz-transition: all .1s linear;
+		-ms-transition: all .1s linear;
+		-o-transition: all .1s linear;
+}
+
+.single-tweet__container>a,
+.single-hashtag__container>a {
+		text-decoration: none;
+		text-transform: uppercase;
+		margin: 12px 12px;
+		font-family: 'Nunito', sans-serif;
+		font-size: 1.2rem;
+		letter-spacing: 0.1rem;
+		width: 25%;
+		text-align: center;
+		flex-grow: 1;
+}
+
+.single-tweet__container>a:hover,
+.single-hashtag__contaoneinr>a:hover {
+		color: #FFB600;
+}
+
+.single-tweet__hashtag-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+}
+
+.single-tweet__hashtag-list-header {
+		text-align: center;
+}
+
+.single-tweet__hashtag {
+		opacity: 0.9;
+		margin: 2px 0;
+}
+
+/*single-tweet*/
+
+.tweet__edit-delete-links,
+.hashtag__edit-delete-links {
+		margin: 12px 0;
+		padding: 12px 0;
+		display: flex;
+		width: 50%;
+		justify-content: space-around;
+}
+
+.single-tweet__img-container {
+		height: 50%;
+		width: 50%;
+}
+
+.single-tweet__img {
+		margin: 28px 0;
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+}
+
+/**/
+
+.add-form__submit-btn,
+.edit-form__submit-btn {
+		font-size: 2.2rem !important;
+}
+
+.edit-form__hashtags-list li {
+		font-size: 0.8rem;
+		list-style: none;
+		text-align: center;
+		text-decoration: underline;
+}

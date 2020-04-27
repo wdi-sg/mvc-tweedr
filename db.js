@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'elter',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'mvctweedr',
     port: 5432
   };
 }

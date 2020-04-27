@@ -19,7 +19,8 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount () {
-    axios.get('http://localhost:3000/tweets').then(response =>{
+    axios.get('http://localhost:3000/tweets')
+      .then(response =>{
       this.setState({tweetsData: response.data})
     })
   }

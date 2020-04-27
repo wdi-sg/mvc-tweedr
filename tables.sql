@@ -10,3 +10,9 @@ CREATE TABLE IF NOT EXISTS tweeds (
       content TEXT,
       user_id INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS favourites (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER,
+      tweed_id INTEGER
+);

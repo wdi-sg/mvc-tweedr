@@ -32,16 +32,17 @@ class Main extends React.Component {
         var date = formatDateTime(element.postdate);
         var tags = element.tags;
         if (tags != undefined) {
-          tags = tags.map(element => {
-            // console.log(element);
-            return <span className="text-primary">{`${element} `}</span>;
-          })
+            tags = tags.map(element => {
+              // console.log(element);
+              return <span className="text-primary">{`${element} `}</span>;
+            })
         }
+
         return <div className="row bg-light  border-top border-bottom border-secondary pt-4 pb-4">
           <div className="col-2">
             <img src="https://sociology.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" className="w-100 bg-dark rounded-circle" alt="" />
           </div>
-          <div className = "col-8">
+          <div className="col-8">
             <strong>@{element.username}</strong>
             <br />{element.tweetbody}
             <br />
@@ -50,11 +51,11 @@ class Main extends React.Component {
             <br />
           </div>
           <div className="col-2 btn-group-toggle" data-toggle="buttons">
-              <label className="btn btn-outline-warning">
-                ★
-        <input type="checkbox" name="hashtag" value=""></input>
-              </label>
-            </div>
+            <label className="btn btn-outline-warning">
+              ★
+        <input type="checkbox" name="hashtag" value={element.tweetid}></input>
+            </label>
+          </div>
         </div>
       });
     }

@@ -146,7 +146,7 @@ module.exports = (db) => {
       var dataIn = request.body;
       var userid = request.cookies['userid'];
       dataIn.userid = userid;
-      console.log(dataIn)
+      // console.log(dataIn)
       db.tweedr.addFav(dataIn, (error, result) => {
         response.redirect('/main');
       });

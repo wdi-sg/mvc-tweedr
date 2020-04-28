@@ -101,6 +101,13 @@ module.exports = (dbPoolInstance) => {
     var userid = dataIn.userid;
     var tweetbody = dataIn.message;
     var tags = dataIn.hashtag;
+    // console.log(Array.isArray(tags));
+    
+    if(!Array.isArray(tags)){
+      tags = [tags];
+    }
+    console.log(tags);
+    
       let query = 'INSERT INTO tweetDb (userid, tweetbody, tags, postdate) VALUES ($1,$2, $3, current_timestamp) RETURNING tweetid';
       const values = [userid,tweetbody,tags];
       dbPoolInstance.query(query, values, (error, queryResult) => {

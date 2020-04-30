@@ -49,5 +49,3 @@ Add a listener to the tweed form so that when the user types the `#` hashtag sym
 
 Add the same ability for @ mentions in a tweed using AJAX.
 
-
-

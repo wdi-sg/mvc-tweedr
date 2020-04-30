@@ -1,0 +1,70 @@
+import React from 'react'
+
+const LoginForm = (props) => {
+  return (
+    <div className="column has-bg-primary is-fixed-height-box">
+      <form action="/login" method="post" className='has-text-centered'>
+        <section className="hero is-medium is-bold">
+          <div className="hero-body">
+
+            <div className="container">
+
+              <h1 className="title has-text-white">
+                The world is one click away
+              </h1>
+
+              <h2 className="subtitle has-text-white">
+                See the world right now
+              </h2>
+
+              {/*user name field*/}
+              <div className="field">
+                <label className="label has-text-white has-text-left">Username</label>
+                <div className="control has-icons-left has-icons-right">
+                  <input className="input" type="text" placeholder="username" name="username"/>
+                  <span className="icon is-small is-left"><i className="fas fa-user"></i></span>
+                  <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
+                </div>
+                {/*<p className="help is-success">This username is available</p>*/}
+                {/*<p className="help is-danger">This email is invalid</p>*/}
+              </div>
+
+              {/* passood field*/}
+              <div className="field">
+                <label
+                  className="label has-text-white has-text-left">Password</label>
+                <div className="control has-icons-left has-icons-right">
+                  <input className="input" type="text" name="password" placeholder="password"/>
+                  <span className="icon is-small is-left">
+                  <i className="fas fa-password"></i>
+                 </span>
+
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-check"></i>
+                </span>
+
+                </div>
+                {/*<p className="help is-success">This username is available</p>*/}
+                {/*<p className="help is-danger">This email is invalid</p>*/}
+              </div>
+
+              {/*login button*/}
+              <div className="field">
+                <p className="control">
+                  <button className="button is-light is-inverted">
+                    Login
+                  </button>
+                </p>
+              </div>
+
+            </div>
+          {/*  end container*/}
+          </div>
+        {/* end hero body */}
+        </section>
+      </form>
+    </div>
+  )
+}
+
+export default LoginForm

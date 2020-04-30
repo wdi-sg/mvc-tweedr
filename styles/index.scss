@@ -1,0 +1,16 @@
+@import './global';
+
+.is-fixed-height-box {
+  height: 60vh;
+  min-height: 550px;
+}
+
+.hero .title {
+  margin-bottom:20px;
+}
+
+.hero .subtitle {
+  font-style: italic;
+  color:darkgray;
+  margin:20px 0;
+}

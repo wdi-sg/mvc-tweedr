@@ -1,0 +1,24 @@
+// Theme
+$main-brand: #1AA3F0;
+$light-shade: #E2ECD1;
+$dark-shade: #1C173B;
+$dark-accent: #F3883A;
+$light-accent: #6E768C;
+$primary: $main-brand;
+$background: $light-shade;
+$dark: #0B0916;
+$white: #FFFFFF;
+
+
+$theme-colors: (
+        main-brand: $main-brand,
+        light-shade: $light-shade,
+        dark-shade: $dark-shade,
+        dark-accent: $dark-accent,
+        light-accent: $light-accent
+);
+
+// Modules
+$box-radius: 2px;
+
+

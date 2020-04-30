@@ -1,0 +1,40 @@
+@import './global';
+
+body,html {
+  background: $dark-shade;
+  color: $white;
+}
+
+.navbar {
+  background-color: $dark;
+  padding: 1% 7%;
+  width: 100%;
+}
+
+// Modules
+.box {
+  &.box-dark {
+    background: $dark;
+    color: $white;
+  }
+  &.box-constrained {
+    max-width: 700px;
+  }
+  .input {
+    background: lighten($dark,2%);
+    border: 1px solid lighten($dark, 5%);
+    font-size: 1.16rem;
+    color: #aaa;
+    padding:10px;
+  }
+  .input[type=text] {
+    min-height: 65px;
+  }
+}
+
+
+
+.box .input::placeholder {
+  color:#999;
+}
+

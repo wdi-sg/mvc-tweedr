@@ -1,12 +1,18 @@
+
+
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const pg = require('pg');
 
 /**
  * ===================================
  * Configurations and set up
  * ===================================
  */
+
+ // Hash Implementation
+
 
 // Init express app
 const app = express();
@@ -49,6 +55,8 @@ const allModels = require('./db');
  * ===================================
  * ===================================
  */
+
+
 
 // get the thing that contains all the routes
 const setRoutesFunction = require('./routes');

@@ -2,6 +2,7 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
+
 /**
  * ===================================
  * Configurations and set up
@@ -40,7 +41,7 @@ app.engine('jsx', reactEngine);
  */
 
 // db contains *ALL* of our models
-const allModels = require('./db');
+const db = require('./db');
 
 /**
  * ===================================
@@ -54,7 +55,7 @@ const allModels = require('./db');
 const setRoutesFunction = require('./routes');
 
 // call it and pass in the "app" so that we can set routes on it (also models)
-setRoutesFunction(app, allModels);
+setRoutesFunction(app, db);
 
 /**
  * ===================================
@@ -69,7 +70,7 @@ let onClose = function(){
 
   server.close(() => {
     console.log('Process terminated')
-    allModels.pool.end( () => console.log('Shut down db connection pool'));
+    db.pool.end( () => console.log('Shut down db connection pool'));
   })
 };
 

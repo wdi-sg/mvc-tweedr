@@ -1,17 +1,23 @@
 var React = require("react");
 
-class Home extends React.Component {
+class Index extends React.Component {
   render() {
-    console.log(this.props.types);
+const tweetArr = this.props.data;
+
+const tweetList = tweetArr.map((tweet)=>{
+    return <li>{tweet.post}</li>
+})
     return (
       <html>
         <head />
         <body>
-          <h3>Hello</h3>
+          <h3>ALL TWEETS</h3>
+          <ul>{tweetList}</ul>
+
         </body>
       </html>
     );
   }
 }
 
-module.exports = Home;
+module.exports = Index;

@@ -6,9 +6,21 @@ module.exports = (db) => {
    * ===========================================
    */
 
-  let indexControllerCallback = (request, response) => {
-      response.render('tweedr/index')
-  };
+  let allTweets = (request,response)=>{
+      db.tweedr.getAllTweets((err,result)=>{
+        if(err){
+            response.send('Error at getAllTweets')
+        } else{
+            let data =result.rows;
+            let obj = {data:data};
+            console.log(obj)
+
+            response.render('tweedr/index',obj)
+
+
+        }
+        })
+  }
 
 
   /**
@@ -17,7 +29,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
-    index: indexControllerCallback,
+    allTweets
   };
 
 }

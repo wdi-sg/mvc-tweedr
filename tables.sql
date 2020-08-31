@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
     id serial PRIMARY KEY,
-    users name,
-)
+    username text,
+    pw text
+);
 
 CREATE TABLE IF NOT EXISTS tweets (
     id serial PRIMARY KEY,

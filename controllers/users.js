@@ -8,7 +8,8 @@ module.exports = (db) =>{
             } else {
                 if (result) {
                     res.cookie('loggedIn', true)
-                    res.send("Logged in successfully")
+                    res.cookie('userID', result.rows[0]["id"])
+                    res.redirect("/")
                 } else {
                     res.send("Invalid username or password")
                 }

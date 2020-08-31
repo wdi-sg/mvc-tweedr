@@ -1,13 +1,27 @@
 module.exports = (db) =>{
-    console.log("tweeds controllers accessed")
+
     let seeAllTweeds = (req, res) => {
         if (req.cookies['loggedIn']) {
-            res.send("you are logged in")
+            db.tweeds.getAll((err, result) => {
+                res.send(result.rows)
+            })
         } else {
             res.render('login')
         }
     }
+
+    let newTweed = (req, res) => res.render('new')
+
+    let postTweed = (req, res) => {
+        let values = [req.body.tweed, req.cookies["userID"]]
+        db.tweeds.addTweed(values, (err, result) => {
+            res.redirect("/")
+        })
+    }
+
     return {
-        seeAllTweeds
+        seeAllTweeds,
+        newTweed,
+        postTweed
     }
 }

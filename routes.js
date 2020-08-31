@@ -1,20 +1,14 @@
 module.exports = (app, allModels) => {
 
+  const callBackController = require('./controllers/control')(allModels);
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+  app.get('/', callBackController.displayLoginPage)
+  app.get('/feed', callBackController.displayAllFeed)
+  // app.post('/',callBackController.displayLoginPage)
+  app.post('/profile', callBackController.loggedIn)
+  app.post('/register', callBackController.register)
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  app.put('/tweets', callBackController.insertTweets)
+  app.get('/profile/:user', callBackController.profilePage);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
 };

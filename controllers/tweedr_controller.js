@@ -40,7 +40,7 @@ module.exports = (db) => {
 
   let registerInfo = (req, res) => {
 
-    let username = req.body.name;
+    let username = req.body.username;
     let password = req.body.password;
 
     db.tweedr.getRegisterInfo(username, password, (err, result) => {

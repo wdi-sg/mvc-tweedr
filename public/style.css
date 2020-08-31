@@ -1,0 +1,212 @@
+/*  Available Fonts:
+	font-family: 'Kaushan Script', cursive;
+	font-family: 'Amaranth', sans-serif;
+*/
+
+#loginImage {
+	background-image: url('/img/login2.jpg');
+	background-size: cover;
+}
+
+#loginPagebar {
+	min-height: 100vh;
+	text-align: center;
+	padding-top: 8%;
+	font-weight:bold;
+	background-color: #FEFEFA;
+}
+
+#registerPagebar {
+	min-height: 100vh;
+	text-align: center;
+	padding-top: 5%;
+	font-weight:bold;
+	background-color: #FEFEFA;
+}
+
+#loginPagebar img,
+#registerPagebar img{
+	width:50%;
+	height: auto;
+}
+
+#loginPagebar p,
+#registerPagebar p {
+	font-size:1.4rem;
+	font-family: 'Amaranth', sans-serif;
+}
+
+#loginPagebar button, 
+#registerPagebar button {
+	width: 25%;
+	margin-bottom: 4%;
+}
+
+#loginForm {
+	margin-top: 10%;
+}
+
+#registerForm{
+	margin-top: 5%;
+}
+
+#loginForm label,
+#registerForm label {
+	font-size:1.3rem;
+	font-family: 'Amaranth', sans-serif;
+}
+
+#loginForm input,
+#registerForm input{
+	width: 50%;
+	margin: 0 auto;
+	background-color: #FEFEFA;
+	text-align: center;
+}
+
+nav {
+	background-color:#202A25;
+	max-height: 7vh;
+}
+
+nav>img {
+	width: 10%;
+	height: auto;
+}
+
+#navbarToggler01 {
+	margin-left: 1%;
+}
+
+.nav-link {
+	font-size: 1.4rem;
+	font-family: 'Amaranth', sans-serif;
+}
+
+#mainBody {
+	background-color: #6E7271;
+}
+
+#mainBar{
+	min-height: 93vh;
+	color:#FEFEFA;
+	text-align:center;
+}
+
+#profileBox {
+	text-align: center;
+	padding-top: 1vw;
+}
+
+#profilePic {
+	display: block;
+	border-radius: 50%;
+	width:5vw;
+	height:5vw;
+	margin: 3% auto 0;
+}
+
+
+#profileBox p {
+	margin: 3% 0;
+	font-weight: bold;
+}
+
+#mainAddTweed {
+	padding-top: 2.5vw;
+}
+
+#mainAddTweed input {
+	width: 36vw;
+	height: 2.5vw;
+}
+
+#allMyTweeds {
+	max-height: 90vh;
+	margin-top: 1%;
+	text-align: center;
+	color: #FEFEFA;
+}
+
+#allMyTweeds>div{
+	width: 90%;
+	margin: 0 auto;
+}
+
+#allMyTweeds>h1{
+	margin-bottom: 2vh;			
+}
+
+.profileTweed {
+	width: 70%;
+	border: 2px solid black;
+	border-radius: 20px;
+	margin: 0 auto 3%;
+}
+
+
+.profileTweed p {
+	font-family: 'Amaranth', sans-serif;
+	font-size:1.5rem;
+	text-align: left;
+	padding-left: 1vw;
+}
+
+.profileTweed #profileUser {
+	display: inline-block;
+	width: 49%;
+	text-align: left;
+	padding-left: 1vw;
+}  
+
+.profileTweed #profileDate {
+	display: inline-block;
+	width: 49%;
+	text-align: right;
+	padding-right: 1vw;
+}  
+
+#mainFollowers {
+	text-align: center;
+}
+
+#mainFollowers li{
+	text-align: left;
+	width: 20%;
+	margin: 0 auto;
+}
+
+.allTweed {
+	width: 70%;
+	border: 2px solid black;
+	border-radius: 20px;
+	margin: 0 auto 3%;
+}
+
+.allTweed p {
+	font-family: 'Amaranth', sans-serif;
+	font-size:1.5rem;
+	text-align: left;
+	padding-left: 1vw;
+}
+
+.allTweed #allUser {
+	display: inline-block;
+	width: 33%;
+	text-align: left;
+	padding-left: 1vw;
+} 
+
+.allTweed a {
+	display: inline-block;
+	width: 33%;
+	text-align: center;
+	color: white;
+}  
+
+.allTweed #allDate {
+	display: inline-block;
+	width: 33%;
+	text-align: right;
+	padding-left: 1vw;
+}  

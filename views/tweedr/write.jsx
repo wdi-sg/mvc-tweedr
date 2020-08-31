@@ -8,9 +8,9 @@ class Write extends React.Component {
     return (
               <html>
                 <body>
-                  <h1>LOGIN</h1>
-                  <form action="/" method ="POST">
-                  <input type="text" name ="tweet"/>
+                  <h1>WRITE A TWEED, {this.props.username}</h1>
+                  <form action="/posted" method ="POST">
+                  <input type="text" name ="tweed"/>
                   <br/>
                   <br/>
 

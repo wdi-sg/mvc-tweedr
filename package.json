@@ -12,10 +12,20 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
-    "express-react-views": "^0.10.5",
-    "method-override": "^2.3.10",
-    "pg": "^7.4.3",
+    "express-react-views": "^0.11.0",
+    "method-override": "^3.0.0",
+    "pg": "^8.3.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
-  }
+  },
+  "description": "Let's make a cool new app called TWEEDR!! Not Twitter, geez...",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarryll/mvc-tweedr.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/jarryll/mvc-tweedr/issues"
+  },
+  "homepage": "https://github.com/jarryll/mvc-tweedr#readme"
 }

@@ -1,20 +1,16 @@
 module.exports = (app, allModels) => {
 
 
-  /*
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   *    ALL ROUTES FOR POKEMON CONTROLLER
-   *  =========================================
-   *  =========================================
-   *  =========================================
-   */
+  // require controllers
+  const usersController = require('./controllers/users')(allModels);
+  const tweedsController = require('./controllers/tweeds')(allModels);
 
-  // require the controller
-  const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+//routes for tweeds
+  app.get('/', tweedsController.seeAllTweeds);
+  app.get('/new', tweedsController.newTweed);
+  app.post('/tweeds', tweedsController.postTweed);
 
-  app.get('/pokemons', pokemonControllerCallbacks.index);
-  //app.get('/pokemons/:id', pokemons.getPokemon);
+//routes for users
+  app.post('/checkUser', usersController.userCheck)
+
 };

@@ -10,7 +10,13 @@ module.exports = (db) =>{
         }
     }
 
-    let newTweed = (req, res) => res.render('new')
+    let newTweed = (req, res) => {
+        if (!req.cookies['loggedIn']) {
+            res.render('login')
+        } else {
+            res.render('new')
+        }
+    }
 
     let postTweed = (req, res) => {
         let values = [req.body.tweed, req.cookies["userID"]]

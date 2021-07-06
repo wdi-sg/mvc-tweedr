@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'hongjin',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'tweedr_db',
     port: 5432
   };
 }
@@ -63,9 +63,16 @@ pool.on('error', function (err) {
 
 
 const allPokemonModelsFunction = require('./models/pokemon');
-
 const pokemonModelsObject = allPokemonModelsFunction( pool );
 
+const registerUser = require('./models/register');
+const userRegistration = registerUser( pool );
+
+const loginUser = require('./models/login');
+const userLogin = loginUser( pool );
+
+const allTweetsModelsFunction = require('./models/tweets');
+const allTweetsModelsObject = allTweetsModelsFunction( pool );
 
 
 /*
@@ -95,5 +102,8 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  pokemon: pokemonModelsObject,
+  userRegistration: userRegistration,
+  userLogin: userLogin,
+  tweets: allTweetsModelsObject,
 };

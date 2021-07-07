@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'mohammadasshikin',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'twitter',
     port: 5432
   };
 }
@@ -62,9 +62,12 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+// const allPokemonModelsFunction = require('./models/twitter');
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+// const pokemonModelsObject = allPokemonModelsFunction( pool );
+
+const allTwitterModelsFunction = require('./models/twitter');
+const twitterModelsObject = allTwitterModelsFunction( pool );
 
 
 
@@ -95,5 +98,5 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  twitter: twitterModelsObject
 };

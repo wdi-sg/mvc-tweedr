@@ -1,6 +1,8 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const sha256 = require('js-sha256');
+
 
 /**
  * ===================================
@@ -31,6 +33,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
+app.use(express.static(__dirname+'/public/'));
+
 /**
  * ===================================
  * ===================================
@@ -55,6 +59,9 @@ const setRoutesFunction = require('./routes');
 
 // call it and pass in the "app" so that we can set routes on it (also models)
 setRoutesFunction(app, allModels);
+
+
+
 
 /**
  * ===================================

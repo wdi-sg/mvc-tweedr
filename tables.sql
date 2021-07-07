@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS users (
+	id SERIAL PRIMARY KEY,
+	username TEXT,
+	password TEXT
+);
+
+CREATE TABlE IF NOT EXISTS followers(
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER,
+	follower_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS tweets (
+	id SERIAL PRIMARY KEY,
+	tweet VARCHAR,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	user_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS likes (
+	id SERIAL PRIMARY KEY,
+	tweet_id INTEGER,
+	user_id INTEGER
+);

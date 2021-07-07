@@ -14,7 +14,23 @@ module.exports = (app, allModels) => {
 
   // require the controller
   const pokemonControllerCallbacks = require('./controllers/pokemon')(allModels);
+  const userRegistrationControllerCallbacks = require('./controllers/register')(allModels);
+  const userLoginControllerCallbacks = require('./controllers/login')(allModels);
+  const tweetsControllerCallbacks = require('./controllers/tweets')(allModels);
+  const paymentControllerCallbacks = require('./controllers/sendPayment')(allModels);
+  const paymentHistoryControllerCallbacks = require('./controllers/history')(allModels);
 
   app.get('/pokemons', pokemonControllerCallbacks.index);
+  app.get('/register', userRegistrationControllerCallbacks.renderRegistrationForm);
+  app.post('/register', userRegistrationControllerCallbacks.registerUser);
+  app.get('/login', userLoginControllerCallbacks.renderLoginForm);
+  app.post('/login', userLoginControllerCallbacks.loginUser);
+  app.get('/', tweetsControllerCallbacks.showAllTweets);  
+  app.get('/tweets/new', tweetsControllerCallbacks.renderNewTweetForm);  
+  app.post('/tweets', tweetsControllerCallbacks.addNewTweet);  
+  app.get('/payments/new', paymentControllerCallbacks.renderSendPaymentForm);
+  app.post('/payments', paymentControllerCallbacks.sendPayment);
+  app.get('/payments/history/sent', paymentHistoryControllerCallbacks.historyPaymentSent);
+  app.get('/payments/history/received', paymentHistoryControllerCallbacks.historyPaymentReceived);
   //app.get('/pokemons/:id', pokemons.getPokemon);
 };

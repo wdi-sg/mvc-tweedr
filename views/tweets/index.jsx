@@ -8,6 +8,8 @@ class Home extends React.Component {
         <head />
         <body>
           <h3>Hello</h3>
+          <div className="username">{ this.props.tweets[0].content }</div>
+
         </body>
       </html>
     );

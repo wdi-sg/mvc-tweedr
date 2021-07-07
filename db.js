@@ -33,9 +33,9 @@ if( process.env.DATABASE_URL ){
 
 }else{
   configs = {
-    user: 'akira',
+    user: 'sowyuen',
     host: '127.0.0.1',
-    database: 'testdb',
+    database: 'mvctweedr',
     port: 5432
   };
 }
@@ -46,8 +46,6 @@ const pool = new pg.Pool(configs);
 pool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack);
 });
-
-
 
 /*
  * ===================================================
@@ -62,12 +60,14 @@ pool.on('error', function (err) {
  */
 
 
-const allPokemonModelsFunction = require('./models/pokemon');
+const registerModelsFunction = require('./models/register');
+const registerModelsObject = registerModelsFunction( pool );
 
-const pokemonModelsObject = allPokemonModelsFunction( pool );
+const loginModelsFunction = require('./models/login');
+const loginModelsObject = loginModelsFunction( pool );
 
-
-
+const tweedHomeModelsFunction = require('./models/tweedHome');
+const tweedHomeModelsObject = loginModelsFunction( pool );
 /*
  * ===================================================
  * ===================================================
@@ -95,5 +95,7 @@ module.exports = {
    */
 
   // users: userModelsObject,
-  pokemon: pokemonModelsObject
+  tweedHomeModelsObject: tweedHomeModelsObject,
+  registerModelsObject: registerModelsObject,
+  loginModelsObject: loginModelsObject
 };
